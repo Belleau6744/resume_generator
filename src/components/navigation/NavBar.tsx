@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
-import { Features } from "../../redux/features";
-import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../firebase_setup/firebase";
+import { Features } from "../../redux/features";
 
 const NavBar = () => {
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
@@ -26,11 +26,11 @@ const NavBar = () => {
             <NavItems>
                 <LogoHolder>
                     {/* TODO HOME ICON */}
-                    <Link to="/resume-generator/">TODO HOME ICON</Link>
+                    <Link style={{color:'white'}} to="/resume-generator/">Home Icon</Link>
                 </LogoHolder>
                 <Item>
                     {/* TODO CREATE SECTION */}
-                    <Link to="/resume-generator/create">Create</Link>
+                    <Link style={{color: 'white'}} to="/resume-generator/create">Edit</Link>
                 </Item>
             </NavItems>
             <div>

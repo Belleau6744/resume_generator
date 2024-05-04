@@ -1,13 +1,13 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { MouseEvent, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import UserIcon from '../../assets/Icons/UserIcon';
-import { useEffect, useState, MouseEvent } from 'react';
-import { Features } from '../../redux/features';
-import { useSelector } from 'react-redux';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { initUserDBSpace } from '../../firebase_setup/db_actions';
 import LockIcon from '../../assets/Icons/LockIcon';
+import UserIcon from '../../assets/Icons/UserIcon';
+import { initUserDBSpace } from '../../firebase_setup/db_actions';
 import { auth } from '../../firebase_setup/firebase';
+import { Features } from '../../redux/features';
 
 const Login = () => {
     const nav = useNavigate();
@@ -15,7 +15,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userList, setUserList] = useState<any>();
+    const [userList] = useState<any>();
 
     useEffect(() => {
         if(isSignedIn) {
@@ -31,7 +31,7 @@ const Login = () => {
             if(userList[user.uid] === undefined) {
                 initUserDBSpace(user.uid);
             }
-            nav("resume-generator/");
+            nav("/resume-generator/");
         })
         .catch((error) => {
             // TODO Handle error
@@ -44,7 +44,6 @@ const Login = () => {
 
     return (
         <Container>
-            <Title><Link to="/resume-generator/login">Resume Generator</Link></Title>
             <LoginContainer>
                 <h2>Login</h2>
                 <form>
@@ -76,7 +75,7 @@ const Login = () => {
                 </form>
                 <p className='text-sm text-white text-center'>
                     No account yet? {' '}
-                    <Link to="/resume-generator/signup">
+                    <Link style={{color: 'blue'}} to="/resume-generator/signup">
                         Sign up
                     </Link>
                 </p>
@@ -88,13 +87,12 @@ const Login = () => {
 const Container = styled.div`
     background: white;
     padding: 24px;
-    height: 80vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 24px;
-    align-self: center;
 `;
 
 const LoginContainer = styled.div`
@@ -106,19 +104,15 @@ const LoginContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
-const Title = styled.div`
-    font-weight: 700;
-    position: absolute;
-    top: 0;
-    margin: 36px;
-    left: 0;
-`;
-
 const InputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
     border: 1px solid black;
+    &:focus-within {
+        outline: 1px solid #d3d3d3;
+        outline-offset: -1px;
+    }
 `;
 
 const StyledInput = styled.input`

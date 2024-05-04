@@ -1,4 +1,4 @@
 export type UserState = {
-    isSignedIn: Boolean;
+    isSignedIn: boolean;
     userID: number | string | undefined;
 }

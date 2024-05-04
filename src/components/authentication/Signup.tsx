@@ -1,10 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase_setup/firebase";
 import styled from "styled-components";
-import UserIcon from "../../assets/Icons/UserIcon";
 import LockIcon from "../../assets/Icons/LockIcon";
+import UserIcon from "../../assets/Icons/UserIcon";
+import { auth } from "../../firebase_setup/firebase";
 
 
 const Signup = () => {
@@ -30,7 +30,6 @@ const Signup = () => {
 
     return (
         <Container>
-            <Title><Link to="/resume-generator/login">Resume Generator</Link></Title>
             <SignupContainer>
                 <h2>Create Account</h2>
                 <form>
@@ -62,7 +61,7 @@ const Signup = () => {
                 </form>
                 <ExistingAccountWrapper>
                     <p>Already have an account?</p>
-                    <Link to="/resume-generator/login"><p style={{color: 'black', fontWeight: 'bold'}}>Login</p></Link>
+                    <Link to="/resume-generator/login"><p style={{color: 'blue', fontWeight: 'bold'}}>Login</p></Link>
                 </ExistingAccountWrapper>
             </SignupContainer>
         </Container>
@@ -110,6 +109,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     margin: 24px;
+    align-self: center;
 `;
 
 const IconHolder = styled.div`
@@ -133,20 +133,20 @@ const StyledInput = styled.input`
     background: none;
     flex: 1;
     padding-left: 8px;
-    color: black;
+    color: white;
     height: 40px;
     border: none;
     &::placeholder {
-        color: gray;
+        color: white;
     }
     &:focus {
         border: none;
-        outline: none;
+        outline: 1px solid #3a9fbf;
     }
 `;
 
 const InputContainer = styled.div`
-    display: flex
+    display: flex;
     align-items: center;
     justify-content: flex-start;
     border: 1px solid black;
@@ -154,14 +154,6 @@ const InputContainer = styled.div`
         outline: 1px solid #d3d3d3;
         outline-offset: -1px;
     }
-`;
-
-const Title = styled.div`
-    font-weight: 700;
-    position: absolute;
-    top: 0;
-    margin: 36px;
-    left: 0;
 `;
 
 const SignupContainer = styled.div`

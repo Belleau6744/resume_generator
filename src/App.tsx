@@ -1,17 +1,36 @@
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './components/authentication/Login';
+import Signup from './components/authentication/Signup';
+import Home from './components/generator/Home';
 import NavBar from './components/navigation/NavBar';
-import styled from 'styled-components';
+import { auth } from './firebase_setup/firebase';
+import { Features } from './redux/features';
 
 const App = () => {
+  const dispatch = useDispatch();
+  const userID = useSelector(Features.UserFeature.selector.getUserID);
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          dispatch(Features.UserFeature.action.setUserAuthStatus(true));
+          dispatch(Features.UserFeature.action.setUserID(user.uid))
+          // User is signed in
+        } else {
+          dispatch(Features.UserFeature.action.setUserAuthStatus(false));
+          // User is signed out
+        }
+      });
+}, [dispatch])
 
   const Layout = () => {
     return (
       <>
         <NavBar />
-        <Container>
           <Outlet />
-        </Container>
       </>
     )
   }
@@ -19,15 +38,19 @@ const App = () => {
   const router = createBrowserRouter([
     {
       element: <Layout/>,
-      path: '/resume-generator',
+      path: '/resume-generator/',
       children: [
-        // {
-        //   path: "/resume-generator/signup"
-        //   element: <Signup />
-        // },
+        {
+          path: "/resume-generator/signup",
+          element: <Signup />
+        },
         {
           path: '/resume-generator/login',
           element: <Login />
+        },
+        {
+          path: '/resume-generator/',
+          element: <Home />
         }
       ]
     }
@@ -38,11 +61,5 @@ const App = () => {
     <RouterProvider router={router}/>
   )
 }
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 100%;
-`;
 
 export default App
