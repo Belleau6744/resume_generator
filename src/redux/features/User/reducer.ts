@@ -11,7 +11,7 @@ const handleSetUserAuthStatus = (state: UserState, action: PayloadAction<boolean
     state.isSignedIn = action.payload;
 }
 
-const handleSetUserID = (state: UserState, action: PayloadAction<string | number>) => {
+const handleSetUserID = (state: UserState, action: PayloadAction<string>) => {
     state.userID = action.payload;
 }
 

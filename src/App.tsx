@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
-import Home from './components/generator/Home';
+import Home from './components/Home';
 import NavBar from './components/navigation/NavBar';
 import { auth } from './firebase_setup/firebase';
 import { Features } from './redux/features';
@@ -30,7 +30,7 @@ const App = () => {
     return (
       <>
         <NavBar />
-          <Outlet />
+        <Outlet />
       </>
     )
   }
@@ -50,7 +50,7 @@ const App = () => {
         },
         {
           path: '/resume-generator/',
-          element: <Home />
+          element: <Home userID={userID} />
         }
       ]
     }

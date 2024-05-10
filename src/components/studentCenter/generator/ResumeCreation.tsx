@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { Features } from "../../redux/features";
+import { Features } from "../../../redux/features";
 import Education from "./Education";
 import Experience from "./Experience";
 import GeneralInfo from "./GeneralInfo";
 import Skills from "./Skills";
 
-const Home = () => {
+const ResumeCreation = () => {
     const nav = useNavigate();
     const [ sectionEdit, setSectionEdit ] = useState('generalInfo');
 
@@ -19,8 +19,8 @@ const Home = () => {
             nav("/resume-generator/login");
         }
     }, [isSignedIn, nav]);
-    
-    
+
+
     const Sections = {
         'generalInfo': <GeneralInfo />,
         'education': <Education />,
@@ -34,12 +34,6 @@ const Home = () => {
         }
     }, [])
 
-    /**
-     * Fetch user resume info
-     */
-    // const [ userDate, setUserDate ] = useState();
-    // const [ isSaved ] = useState<boolean>(true);
-    // const [ isModalOpened, setIsModalOpened ] = useState<boolean>(false);
 
     return (
         <Container>
@@ -56,24 +50,34 @@ const Home = () => {
     )
 };
 
+
 const EditContent = styled.div`
     padding: 24px;
-    background: gray;
-    margin-top: 10px;
+    flex: 1;
+    background: #D2D2D2;
+    width: 100%;
+    margin: 0 10px 10px 25px;
     border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 const ItemSelect = styled.div<{ $selected: boolean }>`
     padding: 0 20px;
-
+    font-size: 1.2em;
+    font-weight: 800;
     ${props => props.$selected && css`
-        font-weight: 900;
-        border-bottom: 2px solid red;
+        background: rgba(0, 96, 133, 0.8);
+        border-radius: 5px;
+        color: white;
     `}
 `;
 
 const SectionSelector = styled.div`
     display: flex;
+    flex-direction: column;
+    background: #D2D2D2;
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     gap: 8px;
 `;
 
@@ -82,8 +86,11 @@ const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 24px;
     margin: 24px;
+    display: flex;
+    justify-content: space-between;
     padding-top: 24px;
     color: black;
 `;
 
-export default Home;
+
+export default ResumeCreation;

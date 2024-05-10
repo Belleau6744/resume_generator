@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../firebase_setup/firebase";
 import { Features } from "../../redux/features";
@@ -23,16 +23,7 @@ const NavBar = () => {
 
     return (
         <Container>
-            <NavItems>
-                <LogoHolder>
-                    {/* TODO HOME ICON */}
-                    <Link style={{color:'white'}} to="/resume-generator/">Home Icon</Link>
-                </LogoHolder>
-                <Item>
-                    {/* TODO CREATE SECTION */}
-                    <Link style={{color: 'white'}} to="/resume-generator/create">Edit</Link>
-                </Item>
-            </NavItems>
+            <div></div>
             <div>
                 <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
             </div>
@@ -54,19 +45,6 @@ const Container = styled.div`
 const LogoutButton = styled.button`
     background: white;
     color: black;
-`;
-const Item = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-const NavItems = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-const LogoHolder = styled.div`
-    padding-right: 50px;
 `;
 
 export default NavBar;
