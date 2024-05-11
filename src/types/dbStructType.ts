@@ -13,8 +13,12 @@ export type ResumesType = {
     [index: string]: ResumeType;
 }
 
+export type  ResumeStatusType = 'Reviewed' | 'New' | 'ToBeReviewed' | 'Edited' | 'Approved';
+
 export type ResumeType = {
-    status: 'Reviewed' | 'New' | 'ToBeReviewed' | 'Edited' | 'Approved'
+    id: string;
+    status: ResumeStatusType;
+    creationDate: string;
     content: ResumeFormType;
 }
 

@@ -4,6 +4,8 @@ export const MockCVContent: StudentsType = {
     'CFIHxTvvnEOdIvKLt4EX9WW1dmh1': {
         resumes: {
             '0': {
+                id: 'abc',
+                creationDate: '24-05-2024',
                 status: 'New',
                 content: {
                     generalInfo: {
@@ -121,6 +123,8 @@ export const MockCVContent: StudentsType = {
                 }
             },
             '1': {
+                id: 'def',
+                creationDate: '24-05-2024',
                 status: 'Reviewed',
                 content: {
                     generalInfo: {
