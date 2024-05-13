@@ -6,6 +6,7 @@ type GeneralInfoType = {
     'Citizenship' : string;
     'Languages' : Language;
     'Phone Number'?: string;
+    'title'?: string;
     'Email Address'?: string;
     'Address'?: string;
 }
@@ -19,7 +20,7 @@ type GeneralInfoType = {
  */
 // type Lang = 'Français' | 'English' | 'Espanol';
 
-type Language = {
+export type Language = {
     [lang: string] : {
         oralLevel: string;
         writtenLevel: string;
@@ -80,11 +81,13 @@ type WorkingExperience = {
     }
 };
 type VolunteerExperience = {
-    organizationName: string;
-    jobTitle: string;
-    description: string[];
-    startDate: string;
-    stillWorking: true;
+    [index:string]: {
+        organizationName: string;
+        jobTitle: string;
+        description: string[];
+        startDate: string;
+        stillWorking: true;
+    }
 }
 type ProjectExperience = {
     [index: string]: {
