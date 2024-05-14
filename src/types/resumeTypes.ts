@@ -1,4 +1,7 @@
 /************************* */
+
+import { LangLevel } from "../utils/Languages";
+
 /** GENERAL INFORMATION */
 type GeneralInfoType = {
     'First Name': string;
@@ -14,18 +17,10 @@ type GeneralInfoType = {
 /************************* */
 /** LANGUAGE */
 
-// TODO Specify Type
-/**
- * [K in Lang]?
- */
 // type Lang = 'Français' | 'English' | 'Espanol';
 
 export type Language = {
-    [lang: string] : {
-        oralLevel: string;
-        writtenLevel: string;
-        comprehensionLevel: string;
-    }
+    [lang: string] : keyof typeof LangLevel;
 }
 
 /************************* */

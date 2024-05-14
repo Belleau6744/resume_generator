@@ -14,16 +14,8 @@ export const MockCVContent: StudentsType = {
                         "Phone Number": "819-123-4567",
                         Citizenship: "Canadian",
                         Languages: {
-                            'fr': {
-                                oralLevel: 'fluent',
-                                writtenLevel: 'fluent',
-                                comprehensionLevel: 'fluent',
-                            },
-                            'eng': {
-                                oralLevel: 'fluent',
-                                writtenLevel: 'fluent',
-                                comprehensionLevel: 'fluent',
-                            }
+                            'fr': '3',
+                            'eng': '2',
                         },
                     },
                     education: {
@@ -133,16 +125,8 @@ export const MockCVContent: StudentsType = {
                         "Phone Number": "819-123-4567",
                         Citizenship: "Canadian",
                         Languages: {
-                            'fr': {
-                                oralLevel: 'fluent',
-                                writtenLevel: 'fluent',
-                                comprehensionLevel: 'fluent',
-                            },
-                            'eng': {
-                                oralLevel: 'fluent',
-                                writtenLevel: 'fluent',
-                                comprehensionLevel: 'fluent',
-                            }
+                            'fr': '2',
+                            'eng': '3',
                         },
                     },
                     education: {

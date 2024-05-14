@@ -1,14 +1,12 @@
-import { getDatabase, onValue, ref } from "firebase/database";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { useEffect, useState } from "react";
 import { Cell } from "react-aria-components";
 import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import DownloadIcon from "../../../../assets/Icons/DownloadIcon";
 import { Features } from "../../../../redux/features";
-import { ResumesType } from "../../../../types/dbStructType";
+import PdfTemplate from "../../generator/PdfTemplate";
 
 const Content = styled.div`
   display: flex;
@@ -43,27 +41,17 @@ const DownloadButton = styled.button`
 
 const GetResumeCell = ({id}: {id: string}) => {
   const userId = useSelector(Features.UserFeature.selector.getUserID);
-  const [ resumesList , setResumesList ] = useState<ResumesType>({});
-  
-  const db = getDatabase();
-  const dbRef = ref(db, `students/${userId}/resumes/`);
-  useEffect(() => {
-    onValue(dbRef, (snapshot) => {
-      setResumesList(snapshot.val());
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  const TEST = () => {
-    return (
-      <div>REACT NODE
-         <div>
-        <h1>This content will be included in the PDF</h1>
-        <p>More content...</p>
-      </div>
-      </div>
-    );
-  };
+  // const [ resumesList , setResumesList ] = useState<ResumesType>({});
+  
+  // const db = getDatabase();
+  // const dbRef = ref(db, `students/${userId}/resumes/`);
+  // useEffect(() => {
+  //   onValue(dbRef, (snapshot) => {
+  //     setResumesList(snapshot.val());
+  //   });
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const captureAndPrint = () => {
     // Render the content of the div off-screen
@@ -73,14 +61,16 @@ const GetResumeCell = ({id}: {id: string}) => {
     divToPrint.style.left = '-9999px';
     divToPrint.style.top = '-9999px';
     document.body.appendChild(divToPrint);
-    ReactDOM.render(<TEST/>, divToPrint);
+    ReactDOM.render(<PdfTemplate userId={userId} resumeId={id} />, divToPrint);
     if (divToPrint) {
       html2canvas(document.getElementById('divToPrint') as HTMLElement, { scrollY: -window.scrollY })
         .then((canvas) => {
           const imgData = canvas.toDataURL('image/png');
           const pdf = new jsPDF();
-          const pdfWidth = pdf.internal.pageSize.getWidth();
-          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const pdfWidth = 210;
+          const pdfHeight = 297;
+          // const pdfWidth = pdf.internal.pageSize.getWidth();
+          // const pdfHeight = pdf.internal.pageSize.getHeight();
           const imgHeight = (canvas.height * pdfWidth) / canvas.width;
           let position = 0;
 
@@ -96,12 +86,9 @@ const GetResumeCell = ({id}: {id: string}) => {
           pdf.save("download.pdf");
         });
     }
+    // TODO Verify need
+    document.body.removeChild(divToPrint);
   };
-
-  // const handleGetResume = () => {
-  //   const rs = Object.values(resumesList).find(resume => resume.id===id);
-  //   printDocument();
-  // };
 
   return (
     <ReactAriaCell>

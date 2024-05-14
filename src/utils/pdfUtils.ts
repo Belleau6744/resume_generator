@@ -4,7 +4,6 @@ import jsPDF from "jspdf";
 export const generatePDF = (formRef: HTMLFormElement | null) => {
     if (!formRef) return;
 
-    console.log(formRef);
     const formData = new FormData(formRef);
     const pdf = new jsPDF('portrait', 'mm', 'a4');
     let yPos = 10;
