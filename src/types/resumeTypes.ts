@@ -10,6 +10,7 @@ type GeneralInfoType = {
     'Languages' : Language;
     'Phone Number'?: string;
     'title'?: string;
+    'linkedIn'?: string;
     'Email Address'?: string;
     'Address'?: string;
 }
@@ -29,7 +30,7 @@ export type Language = {
 // TODO Specify Type
 // type DegreeType = 'Associate' | 'Bachelor' | 'Master' | 'Doctorate' | 'College';
 
-type Education = {
+export type Education = {
     [index: string]: {
         // Bachelor | Master | Doctorate
         degree: string;

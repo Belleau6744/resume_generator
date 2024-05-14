@@ -1,11 +1,11 @@
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import LocationIcon from "../../../assets/Icons/LocationIcon";
-import PhoneIcon from "../../../assets/Icons/PhoneIcon";
 import { ResumesType } from "../../../types/dbStructType";
 import { ResumeFormType } from "../../../types/resumeTypes";
-import LanguageLevelScale from "./LanguageLevelScale";
+import ContactInfoSection from "./sections/ContactInfoSection";
+import EducationSection from "./sections/EducationSection";
+import LanguageSection from "./sections/LanguageSection/LanguageSection";
 
 type PdfTemplateProps = {
     resumeId: string;
@@ -39,45 +39,30 @@ const PdfTemplate = (props: PdfTemplateProps) => {
     // TODO Handle "no user ID"
     return (
         <Container>
-            <NameWrapper>
+            <Header>
+                <NameWrapper>
                     <div>{resumeContent?.generalInfo["First Name"]}</div>
                     <div>{resumeContent?.generalInfo["Last Name"]}</div>
-                    {resumeContent?.generalInfo?.title && <div> | {resumeContent?.generalInfo?.title}</div>}
-            </NameWrapper>
+                </NameWrapper>
+                {resumeContent?.generalInfo?.title && <div style={{ color: '#667085' }}>{resumeContent?.generalInfo?.title}</div>}
+            </Header>
             {/********************************** */}
-            <ColumnWrapper>
+            <BodyWrapper>
                 <LeftColumn>
-                    <ContactInfoContainer>    
-                        <LeftColTitles>Contact</LeftColTitles>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><PhoneIcon />{resumeContent?.generalInfo["Phone Number"]}</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><LocationIcon />{resumeContent?.generalInfo.Address}</div>
-                        
-                        <div>{resumeContent?.generalInfo.Citizenship}</div>
-                        <div>{resumeContent?.generalInfo["Email Address"]}</div>
-                    </ContactInfoContainer>
-                    <LanguageContainer>
-                        <LeftColTitles>Languages</LeftColTitles>
-                        {resumeContent?.generalInfo.Languages && Object.entries(resumeContent?.generalInfo.Languages).map((lang, index) => {
-                            return (
-                                <div>{<LanguageLevelScale key={index} language={lang[0]} level={+lang[1]} />}</div>
-                            )
-                        })}
-                    </LanguageContainer>
-                    <EducationContainer>
-                        <h3>Education</h3>
-                        {resumeContent?.education && Object.values(resumeContent?.education).map((item, index) => {
-                            return (
-                                <>
-                                    <div key={index}>{item.degree}</div>
-                                    <div>{item.endDate}</div>
-                                    <div>{item.fieldOfStudy}</div>
-                                    <div>{item.schoolAddresss}</div>
-                                    <div>{item.schoolName}</div>
-                                    <div>{item.startDate}</div>
-                                </>
-                            );
-                        })}
-                    </EducationContainer>
+                    {/* Contact Information Section */}
+                    <ContactInfoSection 
+                        phoneNumber={resumeContent?.generalInfo["Phone Number"]}
+                        address={resumeContent?.generalInfo.Address}
+                        emailAddress={resumeContent?.generalInfo["Email Address"]}
+                        linkedIn={resumeContent?.generalInfo["linkedIn"]}
+                        citizenship={resumeContent?.generalInfo.Citizenship}
+                    />
+
+                    {/* Language Section */}
+                    <LanguageSection languages={resumeContent?.generalInfo.Languages}/>
+
+                    {/* Education Section */}
+                    <EducationSection education={resumeContent?.education}/>                    
                     <SkillsContainer>
                         {resumeContent?.skills && Object.values(resumeContent?.skills).map((item, index) => {
                             return (
@@ -126,26 +111,33 @@ const PdfTemplate = (props: PdfTemplateProps) => {
                         </WorkingExperienceWrapper>
                     </ExperienceContainer>
                 </RightColumn>
-            </ColumnWrapper>
+            </BodyWrapper>
         </Container>
     );
 };
 
-// For every the section
 const SectionContainer = styled.div`
     width: 100%;
 `;
 
-const ColumnWrapper = styled.div`
+const BodyWrapper = styled.div`
     display: flex;
+    margin-top: 20px;
+    padding: 30px 30px;
+    border-top: 1px solid black;
+`;
+
+const Header = styled.div`
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 `;
 
 /**************** LEFT COLUMN *************************/
 const LeftColumn = styled.div`
-`;
-const LeftColTitles = styled.div`
-    font-weight: 800;
-    font-size: 1.8rem;
 `;
 
 /**************** RIGHT INFO *************************/
@@ -157,6 +149,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     color: black;
+    font-family: sans-serif, Arial, Helvetica;
     background: white;
     padding: 10px 50px;
 `;
@@ -169,16 +162,9 @@ const NameWrapper = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    line-height: 110px;
+    font-size: 90px;
 `;
-const ContactInfoContainer = styled(SectionContainer)`
-    width: 100%;
-    gap: 3px;
-    margin-bottom: 20px;
-`;
-
-/**************** LANGUAGE *************************/
-const LanguageContainer = styled(SectionContainer)``;
 
 /**************** EXPERIENCE *************************/
 const ExperienceContainer = styled(SectionContainer)``;
@@ -188,8 +174,5 @@ const WorkingExperienceWrapper = styled(SectionContainer)``;
 
 /**************** SKILLS *************************/
 const SkillsContainer = styled(SectionContainer)``;
-
-/**************** EDUCATION *************************/
-const EducationContainer = styled(SectionContainer)``;
 
 export default PdfTemplate;

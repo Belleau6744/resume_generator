@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import EmptyCircleIcon from "../../../assets/Icons/EmptyCircleIcon";
-import FullCircleIcon from "../../../assets/Icons/FullCircleIcon";
-import { LangLevel, LangList } from "../../../utils/Languages";
+import EmptyCircleIcon from "../../../../../assets/Icons/EmptyCircleIcon";
+import FullCircleIcon from "../../../../../assets/Icons/FullCircleIcon";
+import { LangLevel, LangList } from "../../../../../utils/Languages";
 
 type LanguageLevelScaleProps = {
     level: number;

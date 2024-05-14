@@ -6,6 +6,7 @@ import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
 import Home from './components/Home';
 import NavBar from './components/navigation/NavBar';
+import PdfTemplate from './components/studentCenter/generator/PdfTemplate';
 import { auth } from './firebase_setup/firebase';
 import { Features } from './redux/features';
 
@@ -51,6 +52,10 @@ const App = () => {
         {
           path: '/resume-generator/',
           element: <Home userID={userID} />
+        },
+        {
+          path: '/resume-generator/test',
+          element: <PdfTemplate resumeId={''} userId={undefined} />
         }
       ]
     }
