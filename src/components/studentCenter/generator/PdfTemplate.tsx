@@ -12,9 +12,9 @@ type PdfTemplateProps = {
     userId: string | undefined;
 }
 
-// TOOD REMOVE THIS
+// TODO REMOVE THIS
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PdfTemplate = (props: PdfTemplateProps) => {
+const PdfTemplate = (_props: PdfTemplateProps) => {
     // const { resumeId, userId } = props;
     // TODO REMOVE
     const resumeId = 'abc';

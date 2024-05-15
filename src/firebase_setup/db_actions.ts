@@ -1,15 +1,16 @@
 import { getDatabase, ref, update } from "firebase/database";
 
 // TODO
-// export const initUserDBSpace = (str: string) => {
-//     // const db = getDatabase();
-//     // const updates: {[path: string]: object} = {};
-//     // updates[`/users/${str}`] = {
-//     //     "wtv": ''
-//     // };
+export const initUserDBSpace = (str: string) => {
+    console.log(str);
+    // const db = getDatabase();
+    // const updates: {[path: string]: object} = {};
+    // updates[`/users/${str}`] = {
+    //     "wtv": ''
+    // };
 
-//     // return update(ref(db), updates);
-// };
+    // return update(ref(db), updates);
+};
 
 /**
  * 
