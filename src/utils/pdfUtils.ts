@@ -8,7 +8,7 @@ export const generatePDF = (formRef: HTMLFormElement | null) => {
     const pdf = new jsPDF('portrait', 'mm', 'a4');
     let yPos = 10;
 
-    formData.forEach((value, key) => {
+    formData.forEach((value) => {
         console.log(value);
         pdf.text("HELLO", 20, yPos);
         yPos += 10;

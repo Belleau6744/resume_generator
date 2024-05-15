@@ -13,18 +13,15 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const onSubmit = async (e: any) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         await createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
+            .then(() => {
                 nav("/resume-generator/login");
             })
-            .then((error: any) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+            .catch((error) => {
+                console.log(error);
             })
     }
 
