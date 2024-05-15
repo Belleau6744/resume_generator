@@ -28,7 +28,7 @@ const ContactInfoSection = (props: ContactInfoProps) => {
 
 const SectionTitle = styled.div`
     font-weight: 800;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 `;
 
 const ItemContainer = styled.div`

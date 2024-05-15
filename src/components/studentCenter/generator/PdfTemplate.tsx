@@ -128,7 +128,7 @@ const BodyWrapper = styled.div`
 `;
 
 const Header = styled.div`
-    font-size: 40px;
+    font-size: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -149,6 +149,8 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     color: black;
+    width: 210mm;
+    height: 297mm;
     font-family: sans-serif, Arial, Helvetica;
     background: white;
     padding: 10px 50px;
@@ -162,8 +164,8 @@ const NameWrapper = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    line-height: 110px;
-    font-size: 90px;
+    line-height: 70px;
+    font-size: 1.5em;
 `;
 
 /**************** EXPERIENCE *************************/

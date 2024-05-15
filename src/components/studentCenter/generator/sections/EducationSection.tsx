@@ -7,7 +7,8 @@ type EducationSectionProps = {
 
 const SectionTitle = styled.div`
     font-weight: 800;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
 `;
 
 const EducationContainer = styled.div`
@@ -22,6 +23,7 @@ const DegreeContainer = styled.div`
 /********** Degree Content **************/
 const DegreeTitle = styled.div`
     font-weight: 1000;
+    font-size: 0.8rem;
 `;
 
 const FieldOfStudy = styled.div`
@@ -30,7 +32,13 @@ const FieldOfStudy = styled.div`
 
 const SchoolName = styled.div`
     font-weight: 500;
-    /* color: #667085; */
+    font-size: 0.8rem;
+`;
+
+const DateWrapper = styled.div`
+    display: flex;
+    color: #667085;
+    font-size: 0.6rem;
 `;
 /********** Degree Content **************/
 
@@ -40,18 +48,15 @@ const EducationSection = ({education}: EducationSectionProps) => {
             <SectionTitle>Education</SectionTitle>
                 {Object.values(education).map((item, index) => {
                     return (
-                        <DegreeContainer>
-                            <div style={{ display: 'flex' }}>
-                            <DegreeTitle key={index}>{item.degree},</DegreeTitle>
-                            <FieldOfStudy>{item.fieldOfStudy.toUpperCase()}</FieldOfStudy>
-                            </div>
-                            
+                        <DegreeContainer key={index}>
+                            <FieldOfStudy>{item.fieldOfStudy}</FieldOfStudy>
+                            <DegreeTitle>{item.degree},</DegreeTitle>
                             <SchoolName>{item.schoolName}</SchoolName>
-
-                            <div>{item.endDate}</div>
+                            <DateWrapper>
+                                <div>{item.startDate}&nbsp;</div>-
+                                <div>&nbsp;{item.endDate}</div>
+                            </DateWrapper>
                             <div>{item.schoolAddresss}</div>
-                            
-                            <div>{item.startDate}</div>
                         </DegreeContainer>
                     );
                 })}

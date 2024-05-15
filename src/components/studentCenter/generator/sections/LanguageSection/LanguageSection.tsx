@@ -19,7 +19,7 @@ const LanguageSection = ({languages}: {languages?: Language}) => {
 
 const SectionTitle = styled.div`
     font-weight: 800;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 `;
 
 const LanguageContainer = styled.div`
