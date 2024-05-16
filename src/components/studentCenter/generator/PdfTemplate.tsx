@@ -106,7 +106,7 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
                                         <div>{item.startDate}</div>
                                         <div>{item.stillWorking}</div>
                                         {item.taskDescription.map(task => {return <div>{task}</div>})}
-                                        <div>{item.stillWorking ? '' : item.endDate}</div>
+                                        <div>{item.stillWorking === false ? item.endDate : ''}</div>
                                     </>
                                 )
                             })};
