@@ -70,7 +70,7 @@ const ListView = (props: ListViewProps) => {
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);    
     useEffect(() => {
         if (!isSignedIn){
-            nav("/resume-generator/login");
+            nav("/login");
         }
     }, [isSignedIn, nav]);
 
