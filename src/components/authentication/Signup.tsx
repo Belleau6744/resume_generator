@@ -18,7 +18,7 @@ const Signup = () => {
 
         await createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
-                nav("/login");
+                nav("/resume_generator/login");
             })
             .catch((error) => {
                 console.log(error);
@@ -58,7 +58,7 @@ const Signup = () => {
                 </form>
                 <ExistingAccountWrapper>
                     <p>Already have an account?</p>
-                    <Link to="/login"><p style={{color: 'blue', fontWeight: 'bold'}}>Login</p></Link>
+                    <Link to="/resume_generator/login"><p style={{color: 'blue', fontWeight: 'bold'}}>Login</p></Link>
                 </ExistingAccountWrapper>
             </SignupContainer>
         </Container>
