@@ -2,6 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import './App.css';
 import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
 import Home from './components/Home';
