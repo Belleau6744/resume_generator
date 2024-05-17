@@ -40,27 +40,27 @@ const App = () => {
   const router = createBrowserRouter([
     {
       element: <Layout/>,
-      path: '/resume_generator/',
+      path: '/',
       children: [
         {
-          path: "/resume_generator/signup",
+          path: "/signup",
           element: <Signup />
         },
         {
-          path: '/resume_generator/login',
+          path: '/login',
           element: <Login />
         },
         {
-          path: '/resume_generator/',
+          path: '/',
           element: <Home userID={userID} />
         },
         {
-          path: '/resume_generator/test',
+          path: '/test',
           element: <PdfTemplate resumeId={''} userId={undefined} />
         }
       ]
     }
-  ])
+  ], { basename: '/resume_generator'})
 
 
   return (

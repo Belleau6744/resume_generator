@@ -20,7 +20,7 @@ const Login = () => {
 
     useEffect(() => {
         if(isSignedIn) {
-            nav("/resume_generator/");
+            nav("/");
         }
     }, [isSignedIn, nav])
 
@@ -32,7 +32,7 @@ const Login = () => {
             if(userList[user.uid] === undefined) {
                 initUserDBSpace(user.uid);
             }
-            nav("/resume_generator/");
+            nav("/");
         })
         .catch((error) => {
             // TODO Handle error
@@ -76,7 +76,7 @@ const Login = () => {
                 </form>
                 <p className='text-sm text-white text-center'>
                     No account yet? {' '}
-                    <Link style={{color: 'blue'}} to="/resume_generator/signup">
+                    <Link style={{color: 'blue'}} to="/signup">
                         Sign up
                     </Link>
                 </p>

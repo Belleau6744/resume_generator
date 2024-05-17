@@ -11,7 +11,7 @@ const NavBar = () => {
 
     const handleLogout = () => {
         signOut(auth).then(() => {
-            nav("/resume_generator/login");
+            nav("/login");
         }).catch(() => {
             // TODO Catch error
         });

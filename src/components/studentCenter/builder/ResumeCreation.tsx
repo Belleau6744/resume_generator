@@ -16,7 +16,7 @@ const ResumeCreation = () => {
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);    
     useEffect(() => {
         if (!isSignedIn){
-            nav("/resume_generator/login");
+            nav("/login");
         }
     }, [isSignedIn, nav]);
 
