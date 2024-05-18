@@ -5,6 +5,7 @@ import { ResumesType } from "../../../types/dbStructType";
 import { ResumeFormType } from "../../../types/resumeTypes";
 import ContactInfoSection from "./sections/ContactInfoSection";
 import EducationSection from "./sections/EducationSection";
+import ExperienceSection from "./sections/ExperienceSection/ExperienceSection";
 import LanguageSection from "./sections/LanguageSection/LanguageSection";
 
 type PdfTemplateProps = {
@@ -40,7 +41,7 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
 
     // TODO Handle "no user ID"
     return (
-        <Container>
+        <Container style={{ fontSize: '0.7rem' }}>
             <Header>
                 <NameWrapper>
                     <div>{resumeContent?.generalInfo["First Name"]}</div>
@@ -54,7 +55,6 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
                     {/* Contact Information Section */}
                     <ContactInfoSection 
                         phoneNumber={resumeContent?.generalInfo["Phone Number"]}
-                        address={resumeContent?.generalInfo.Address}
                         emailAddress={resumeContent?.generalInfo["Email Address"]}
                         linkedIn={resumeContent?.generalInfo["linkedIn"]}
                         citizenship={resumeContent?.generalInfo.Citizenship}
@@ -78,40 +78,7 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
                 </LeftColumn>
                 {/********************************** */}
                 <RightColumn>
-                    <ExperienceContainer>
-                        <ProjectExperienceWrapper>
-                            {resumeContent?.experience.projectExperience && Object.values(resumeContent?.experience.projectExperience).map((item, index) => {
-                                return (
-                                    <>
-                                        <div key={index}>{item.description}</div>
-                                    </>
-                                )
-                            })}
-                        </ProjectExperienceWrapper>
-                        <VolunteerExperienceWrapper>
-                            {resumeContent?.experience.volunteerExperience && Object.values(resumeContent?.experience.volunteerExperience).map((item, index) => {
-                                return (
-                                    <>
-                                        <div key={index}>{item.description}</div>
-                                    </>
-                                )
-                            })}
-                        </VolunteerExperienceWrapper>
-                        <WorkingExperienceWrapper>
-                            {resumeContent?.experience.workingExperience && Object.values(resumeContent?.experience.workingExperience).map((item, index) => {
-                                return (
-                                    <>
-                                        <div key={index}>{item.jobTitle}</div>
-                                        <div>{item.organizationName}</div>
-                                        <div>{item.startDate}</div>
-                                        <div>{item.stillWorking}</div>
-                                        {item.taskDescription.map(task => {return <div>{task}</div>})}
-                                        <div>{item.stillWorking === false ? item.endDate : ''}</div>
-                                    </>
-                                )
-                            })};
-                        </WorkingExperienceWrapper>
-                    </ExperienceContainer>
+                    <ExperienceSection experience={resumeContent?.experience}/>
                 </RightColumn>
             </BodyWrapper>
         </Container>
@@ -169,12 +136,6 @@ const NameWrapper = styled.div`
     line-height: 70px;
     font-size: 1.5em;
 `;
-
-/**************** EXPERIENCE *************************/
-const ExperienceContainer = styled(SectionContainer)``;
-const ProjectExperienceWrapper = styled(SectionContainer)``;
-const VolunteerExperienceWrapper = styled(SectionContainer)``;
-const WorkingExperienceWrapper = styled(SectionContainer)``;
 
 /**************** SKILLS *************************/
 const SkillsContainer = styled(SectionContainer)``;

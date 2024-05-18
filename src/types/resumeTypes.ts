@@ -3,7 +3,7 @@
 import { LangLevel } from "../utils/Languages";
 
 /** GENERAL INFORMATION */
-type GeneralInfoType = {
+export type GeneralInfoType = {
     'First Name': string;
     'Last Name' : string;
     'Citizenship' : string;
@@ -12,7 +12,7 @@ type GeneralInfoType = {
     'title'?: string;
     'linkedIn'?: string;
     'Email Address'?: string;
-    'Address'?: string;
+    // 'Address'?: string;
 }
 
 /************************* */
@@ -37,7 +37,7 @@ export type Education = {
         // Education | Software Engineering | Biology
         fieldOfStudy: string;
         schoolName: string;
-        schoolAddresss: string;
+        // schoolAddresss: string;
         startDate: string;
         endDate: string;
     };
@@ -45,7 +45,7 @@ export type Education = {
 
 /************************* */
 /** SKILLS */
-type Skills = {
+export type Skills = {
     [index: string]: {
         title: string;
         description: string;
@@ -54,12 +54,12 @@ type Skills = {
 
 /************************* */
 /** EXPERIENCE */
-type Experience = {
+export type Experience = {
     workingExperience?: WorkingExperience;
     volunteerExperience?: VolunteerExperience;
     projectExperience?: ProjectExperience;
 }
-type WorkingExperience = {
+export type WorkingExperience = {
     [index: string]: {
         organizationName: string;
         jobTitle: string;
@@ -76,7 +76,7 @@ type WorkingExperience = {
         endDate: string;
     }
 };
-type VolunteerExperience = {
+export type VolunteerExperience = {
     [index:string]: {
         organizationName: string;
         jobTitle: string;
@@ -85,7 +85,7 @@ type VolunteerExperience = {
         stillWorking: true;
     }
 }
-type ProjectExperience = {
+export type ProjectExperience = {
     [index: string]: {
         description: string;
     }

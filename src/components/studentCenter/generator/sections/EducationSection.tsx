@@ -7,7 +7,7 @@ type EducationSectionProps = {
 
 const SectionTitle = styled.div`
     font-weight: 800;
-    font-size: 1.3rem;
+    font-size: 1rem;
     margin-bottom: 8px;
 `;
 
@@ -56,7 +56,6 @@ const EducationSection = ({education}: EducationSectionProps) => {
                                 <div>{item.startDate}&nbsp;</div>-
                                 <div>&nbsp;{item.endDate}</div>
                             </DateWrapper>
-                            <div>{item.schoolAddresss}</div>
                         </DegreeContainer>
                     );
                 })}
