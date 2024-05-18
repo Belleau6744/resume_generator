@@ -10,7 +10,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
         <ExperienceContainer>
             <SectionTitle>Experience</SectionTitle>
             <WorkingExperienceWrapper>
-                {experience?.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
+                {experience.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
                     return (
                         <div style={{ borderBottom: '1px '}}>
                             <div style={{ fontWeight: 700 }} key={index}>{item.jobTitle}</div>
@@ -33,7 +33,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
             <ProjectExperienceWrapper>
                 <SubSectionTitle>Projects</SubSectionTitle>
                 <ul style={{ marginTop: '3px'}}>
-                    {experience?.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
+                    {experience.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
                         return (
                             <li><div key={index} style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
@@ -43,7 +43,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
             <VolunteerExperienceWrapper>
                 <SubSectionTitle>Volunteering</SubSectionTitle>
                 <ul style={{ marginTop: '3px'}}>
-                    {experience?.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
+                    {experience.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
                         return (
                             <li><div key={index} style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )

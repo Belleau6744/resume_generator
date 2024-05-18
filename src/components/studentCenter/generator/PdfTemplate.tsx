@@ -38,7 +38,6 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
         setResumeContent(Object.values(resumesList).find(resume => resume.id===resumeId)?.content);
     }, [resumeId, resumesList]);
 
-
     // TODO Handle "no user ID"
     return (
         <Container style={{ fontSize: '0.7rem' }}>

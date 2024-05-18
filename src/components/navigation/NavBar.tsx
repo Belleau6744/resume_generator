@@ -17,17 +17,15 @@ const NavBar = () => {
         });
     }
 
-    if (!isSignedIn) {
-        return;
-    }
-
     return (
-        <Container>
+        isSignedIn ? (
+            <Container>
             <div></div>
             <div>
                 <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
             </div>
         </Container>
+        ) : (<></>)
     )
 };
 

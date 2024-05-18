@@ -1,11 +1,11 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { MouseEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LockIcon from '../../assets/Icons/LockIcon';
 import UserIcon from '../../assets/Icons/UserIcon';
-import { initUserDBSpace } from '../../firebase_setup/db_actions';
+import { initStudentDBSpace } from '../../firebase_setup/db_actions';
 import { auth } from '../../firebase_setup/firebase';
 import { Features } from '../../redux/features';
 
@@ -20,7 +20,7 @@ const Login = () => {
 
     useEffect(() => {
         if(isSignedIn) {
-            nav("/");
+            redirect("/");
         }
     }, [isSignedIn, nav])
 
@@ -28,9 +28,21 @@ const Login = () => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
-            const user = userCredentials.user;
-            if(userList[user.uid] === undefined) {
-                initUserDBSpace(user.uid);
+            const user = userCredentials?.user;
+            // TODO ADD DISPLAY NAME
+            /**
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function(result) {
+                    return result.user.updateProfile({
+                        displayName: document.getElementById("name").value
+                    })
+                }).catch(function(error) {
+                    console.log(error);
+            });` 
+            
+             */
+            if(userList?.[user.uid] === undefined) {
+                initStudentDBSpace(user.uid);
             }
             nav("/");
         })
@@ -117,14 +129,14 @@ const InputContainer = styled.div`
 `;
 
 const StyledInput = styled.input`
-    background: none;
+    background: white;
     flex: 1;
     padding-left: 8px;
-    color: white;
+    color: black;
     height: 40px;
     border: none;
     &::placeholder {
-        color: white;
+        color: gray;
     }
     &:focus {
         border: none;
@@ -165,7 +177,7 @@ const LoginButton = styled.button`
     padding: 0 1rem;
     text-align: center;
     text-decoration: none;
-    transistion: box-shadow .2s ease-in-out;
+    transition: box-shadow .2s ease-in-out;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;

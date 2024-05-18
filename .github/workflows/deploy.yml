@@ -46,6 +46,8 @@ jobs:
           VITE_MESSAGINGSENDERID: ${{ vars.VITE_MESSAGINGSENDERID }}
           VITE_PROJECTID: ${{ vars.VITE_PROJECTID }}
           VITE_STORAGEBUCKET: ${{ vars.VITE_STORAGEBUCKET }}
+      - name: Post-build
+        run: npm run postbuild
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact

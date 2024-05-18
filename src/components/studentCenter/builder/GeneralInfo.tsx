@@ -1,70 +1,22 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
-import { writeNewPost } from "../../../firebase_setup/db_actions";
-import { MockCVContent } from "../../../utils/MockData";
+import { GeneralInfoType } from "../../../types/resumeTypes";
 
+type GeneralInfoProps = {
+    content: GeneralInfoType;
+}
+// { content }: GeneralInfoProps
 const GeneralInfo = () => {     
     const formRef = useRef<HTMLFormElement>(null);
-
-    // Record<string, string>
-    const [ originalValues, setOriginalValues ] = useState(MockCVContent['ABC'].resumes['0'].content.generalInfo);
-    const [ currentValues ] = useState(MockCVContent['ABC'].resumes['0'].content.generalInfo);
-
-
-    /**
-     * Keeps track if there are changes in the form
-     */
-    const isDirty = Object.keys(originalValues).some(
-        (fieldName) => originalValues[fieldName] !== currentValues[fieldName]
-    );
-
-    console.log(isDirty);
-
-    // TODO cleanup
-    // const generatePDF = () => {
-    //     if (!formRef.current) return;
-    
-    //     const formData = new FormData(formRef.current);
-    //     const pdf = new jsPDF('portrait', 'mm', 'a4');
-    //     let yPos = 10;
-    
-    //     formData.forEach((value, key) => {
-    //         console.log(value);
-    //         pdf.text("HELLO", 20, yPos);
-    //         yPos += 10;
-    //     });
-    
-    //     pdf.save('resume.pdf');
-    // }
-
-    /** INPUT CONTROLE start */
-  const handleInputChange = (field: string, value: string) => {
-    const newCurrentValues = { ...currentValues };
-    // Check if the new value is empty
-    if (value === '') {
-      newCurrentValues[field] = '';
-    } else {
-      newCurrentValues[field] = value;
-    }
-    // TODO verify need
-    // if(!isOpenUnsaved) {
-    //   setCurrentValues(newCurrentValues); 
-    // }
-  };
-//   writeNewPost
-
-    const handleSaving = useCallback(() => {
-        writeNewPost(currentValues, `/students/${0}/0/`).then(() => {
-            setOriginalValues({...currentValues});
-    });
-  }, [currentValues]);
+    const [ originalValues, setOriginalValues ] = useState<any>({});
+    const [ currentValues, setCurrentValues ] = useState<any>({});
 
     return (
         <Container>
             <SectionTitle>General Information</SectionTitle>
             <div>
                 <form ref={formRef}>
-                    {Object.entries(currentValues).map((item) => {
+                    {currentValues && Object.entries(currentValues).map((item) => {
                         return (
                             <InputWrapper>
                                 <StyledLabel htmlFor={`${item[0]}`}>{item[0]}</StyledLabel>
@@ -73,7 +25,7 @@ const GeneralInfo = () => {
                         )
                     })}
                 </form>
-                <button type="button" onClick={handleSaving}>TEST</button>
+                <button type="button" >TEST</button>
             </div>
         </Container>
     )

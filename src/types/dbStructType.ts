@@ -5,7 +5,7 @@ export type StudentsType = {
 };
 
 export type StudentType = {
-    resumes: ResumesType;
+    resumes: ResumesType | 'empty';
     
 }
 

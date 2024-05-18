@@ -1,20 +1,38 @@
 import "@ag-grid-community/styles/ag-grid.css"; // Core CSS
 import "@ag-grid-community/styles/ag-theme-quartz.css"; // Theme
 import { getDatabase, onValue, ref } from 'firebase/database';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+import { writeNewPost } from "../../../firebase_setup/db_actions";
 import { Features } from '../../../redux/features';
 import { StudentType } from '../../../types/dbStructType';
+import { MockCVContent } from "../../../utils/MockData";
 import ResumeRow from "./ResumeRow";
 
 type ListViewProps = {
     userID?: string;
 }
 
-const PageTitle = styled.h1`
+const HeaderSection = styled.div`
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px; 
+`;
+
+const NewResumeButton = styled.button`
+    background: #2185d0;
+    color: #FFFFFF;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 15px 40px;
+`;
+
+const PageHeader = styled.h1`
     color: rgba(0, 96, 133, 1);
 `;
 
@@ -81,18 +99,16 @@ const ListView = (props: ListViewProps) => {
     const dbRef = ref(db, `students/${userID}/`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
-            console.log('HERE');
             setDbContent(snapshot.val());
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    /**
-     * 
-     */
-    // const ft = () => {
-    //     writeNewPost(MockCVContent, '/students');
-    // };
+    const handleNewResume = useCallback(() => {
+        const resumeID = uuidv4();
+        nav(`/builder/${resumeID}`)
+    }, [nav]);
+    
     const ResumeTable = useMemo(() => {
         return (
             <TableContainer>
@@ -104,7 +120,7 @@ const ListView = (props: ListViewProps) => {
                         <Column><ColumnTitle>Get</ColumnTitle></Column>
                     </TableHeader>
                     <TableBody>
-                    {dbContent.resumes && Object.values(dbContent.resumes).map((value, index) => {
+                    {dbContent?.resumes && Object.values(dbContent.resumes).map((value, index) => {
                         return (
                             <ReactAriaRow key={index}>
                                 <ResumeRow creationDate={value.creationDate} id={value.id} status={value.status} />
@@ -116,15 +132,29 @@ const ListView = (props: ListViewProps) => {
                 </Table>
             </TableContainer>
         );
-    }, [dbContent.resumes]);
+    }, [dbContent?.resumes]);
+
+    const fn = () => {
+        writeNewPost(MockCVContent, '/students/');
+    }
 
 
     return (
         <Container>
-            {/* <button onClick={ft}></button> */}
-            <PageTitle>Resumes</PageTitle>    
+            <HeaderSection>
+                <PageHeader>Resumes</PageHeader>  
+                {dbContent?.resumes ? (<NewResumeButton>New Resume</NewResumeButton>) : (<></>)} 
+            </HeaderSection>
             <ContentContainer>
-                {ResumeTable}
+                <button onClick={fn}>TEST</button>
+                {dbContent?.resumes ? 
+                (ResumeTable)
+                : (
+                    <div style={{ color: 'white', fontSize: '2rem', fontWeight: '800', flexWrap:'nowrap', background: 'gray', width: '500px', height: '400px', display: 'flex', justifyContent:'center', alignItems: 'center', flexDirection: 'column', gap: '12px'}}>
+                        Create your first resume
+                        <NewResumeButton onClick={handleNewResume}>New Resume</NewResumeButton>
+                    </div>
+                )}
             </ContentContainer>
         </Container>
     )

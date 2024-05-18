@@ -1,14 +1,19 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, redirect } from "react-router-dom";
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
 import LockIcon from "../../assets/Icons/LockIcon";
 import UserIcon from "../../assets/Icons/UserIcon";
+import { initStudentDBSpace } from "../../firebase_setup/db_actions";
 import { auth } from "../../firebase_setup/firebase";
+import { Features } from "../../redux/features";
 
 
 const Signup = () => {
-    const nav = useNavigate();
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,8 +22,25 @@ const Signup = () => {
         e.preventDefault();
 
         await createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                nav("/login");
+            .then((credentials) => {
+                initStudentDBSpace(credentials.user.uid).then(() => {
+                    toast.success('Student Account Created!', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    })
+                    dispatch(Features.UserFeature.action.setUserAuthStatus(true));
+                    dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
+                    
+                }).finally(() => {
+                    redirect("/login");
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -27,6 +49,7 @@ const Signup = () => {
 
     return (
         <Container>
+            <ToastContainer />
             <SignupContainer>
                 <h2>Create Account</h2>
                 <form>
@@ -127,14 +150,14 @@ const InputsWrapper = styled.div`
 `;
 
 const StyledInput = styled.input`
-    background: none;
+    background: white;
     flex: 1;
     padding-left: 8px;
-    color: white;
+    color: black;
     height: 40px;
     border: none;
     &::placeholder {
-        color: white;
+        color: gray;
     }
     &:focus {
         border: none;
