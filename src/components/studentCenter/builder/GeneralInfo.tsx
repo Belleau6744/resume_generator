@@ -20,7 +20,8 @@ const GeneralInfo = () => {
                         return (
                             <InputWrapper>
                                 <StyledLabel htmlFor={`${item[0]}`}>{item[0]}</StyledLabel>
-                                <StyledInput value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
+                                {/* onChange={(e) => handleInputChange(item[0], e.target.value)}  */}
+                                <StyledInput value={item[1].toString()} />
                             </InputWrapper>
                         )
                     })}
