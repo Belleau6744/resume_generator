@@ -1,7 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { LanguageType } from "../../../../../types/resumeTypes";
 import { LangLevel, LangList } from "../../../../../utils/Languages";
-import { useState } from "react";
 import PickerModal from "./PickerModal";
 
 type LanguagePickerProps = {
@@ -23,7 +23,7 @@ const LanguagePicker = ({ languages }: LanguagePickerProps) => {
         <Container style={{ paddingBottom: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <StyledLabel id={`${'languagesInput'}`}>Languages</StyledLabel>
-                <AddLanguageButton type="button" onClick={handleAddNewLanguage}>+ Add Language</AddLanguageButton>
+                <AddLanguageButton type="button" onClick={handleAddNewLanguage}>+ Add</AddLanguageButton>
                 <PickerModal isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
             </div>
             <div style={{ marginLeft: '8px' }}>
@@ -72,7 +72,7 @@ const AddLanguageButton = styled.button`
     font-size: 0.8rem;
     border-radius: 5px;
     font-weight: 600;
-    padding: 10px 20px;
+    padding: 8px 10px;
 `;
 
 const StyledLabel = styled.label`

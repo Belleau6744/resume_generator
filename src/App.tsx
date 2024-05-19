@@ -45,16 +45,16 @@ const App = () => {
       path: '/',
       children: [
         {
-          path: '/home',
-          element: <Home userID={userID} />
-        },
-        {
           path: "/signup",
           element: <Signup />
         },
         {
           path: '/login',
           element: <Login />
+        },
+        {
+          path: '/home',
+          element: <Home userID={userID} />
         },
         {
           path: '/test',

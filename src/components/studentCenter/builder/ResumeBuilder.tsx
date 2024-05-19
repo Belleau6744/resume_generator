@@ -1,7 +1,7 @@
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Features } from "../../../redux/features";
 import { ResumeType } from "../../../types/dbStructType";
@@ -11,9 +11,7 @@ import GeneralInfoBuilder from "./GeneralInfoBuilder/GeneralInfoBuilder";
 import SkillsBuilder from "./SkillsBuilder/SkillsBuilder";
 
 const ResumeBuilder = () => {
-    const nav = useNavigate();
     const { resumeID } = useParams();
-    const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
     const userID = useSelector(Features.UserFeature.selector.getUserID);
 
     /**

@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
@@ -14,6 +14,7 @@ import { Features } from "../../redux/features";
 
 const Signup = () => {
     const dispatch = useDispatch();
+    const nav = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,7 +40,7 @@ const Signup = () => {
                     dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
                     
                 }).finally(() => {
-                    redirect("/login");
+                    nav("/login");
                 });
             })
             .catch((error) => {

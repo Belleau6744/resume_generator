@@ -1,25 +1,16 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { MouseEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { MouseEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LockIcon from '../../assets/Icons/LockIcon';
 import UserIcon from '../../assets/Icons/UserIcon';
 import { auth } from '../../firebase/firebase';
-import { Features } from '../../redux/features';
 
 const Login = () => {
     const nav = useNavigate();
-    const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    useEffect(() => {
-        if(isSignedIn) {
-            redirect("/");
-        }
-    }, [isSignedIn, nav])
 
     const onLogin = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
