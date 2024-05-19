@@ -82,14 +82,6 @@ const ListView = (props: ListViewProps) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [dbContent, setDbContent] = useState<StudentType>({resumes: {}});
 
-    /** Nav back if not logged in*/
-    const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);    
-    useEffect(() => {
-        if (!isSignedIn){
-            nav("/login");
-        }
-    }, [isSignedIn, nav]);
-
     /**
      * FETCHING 
      */ 

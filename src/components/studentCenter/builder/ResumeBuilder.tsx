@@ -71,15 +71,6 @@ const ResumeBuilder = () => {
     });  
 
     /**
-     * Safety is user tries to access this page without being logged in
-     */
-    useEffect(() => {
-        if (!isSignedIn){
-            nav("/login");
-        }
-    }, [isSignedIn, nav]);
-
-    /**
      * FETCHING - Resume content
      */ 
     const db = getDatabase();

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
 import { GeneralInfoType } from "../../../../types/resumeTypes";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
-import LanguagePicker from "./LanguagePicker";
+import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
 type GeneralInfoProps = {
     content: GeneralInfoType;
@@ -38,7 +38,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                                     const inputName = item[0];
                                     if (inputName !== 'languages') {
                                         return (
-                                            <InputWrapper key={index}>
+                                            <InputWrapper key={index} style={{display: 'flex', flexDirection: 'column'}}>
                                                 <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
                                                 <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
                                             </InputWrapper>
@@ -63,8 +63,9 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                                 })}
                             </RightColumn>
                         </ColumnsContainer>
-
-                        <LanguagePicker languages={currentValues['languages']}/>
+                        <ColumnsContainer>
+                            <LanguagePicker languages={currentValues['languages']}/>
+                        </ColumnsContainer>
                     </FormContainer>
                 </form>
                 <button type="button" >TEST</button>
@@ -82,7 +83,8 @@ const FormContainer = styled.div`
 const ColumnsContainer = styled.div`
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 100px;
 `;
 
 const LeftColumn = styled.div``
@@ -103,7 +105,7 @@ const StyledInput = styled.input`
     color: black;
     padding-left: 8px;
     height: 30px;
-    width: 200px;
+    width: 300px;
     border-radius: 8px;
     border: none;
     &::placeholder {
