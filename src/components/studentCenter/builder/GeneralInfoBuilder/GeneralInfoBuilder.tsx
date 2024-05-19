@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
-import { ResumeType } from "../../../types/dbStructType";
-import { GeneralInfoType } from "../../../types/resumeTypes";
-import { capitalizeEveryWord } from "../../../utils/stringUtils";
+import { ResumeType } from "../../../../types/dbStructType";
+import { GeneralInfoType } from "../../../../types/resumeTypes";
+import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 
 type GeneralInfoProps = {
     content: GeneralInfoType;
@@ -32,13 +32,21 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                 <form ref={formRef}>
                     {currentValues && Object.entries(currentValues).map((item, index) => {
                         const inputName = item[0];
-                        return (
-                            <InputWrapper key={index}>
-                                <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
-                                {/* onChange={(e) => handleInputChange(item[0], e.target.value)}  */}
-                                <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
-                            </InputWrapper>
-                        )
+                        if (inputName === 'languages') {
+                            console.log(item[1]);
+                            return (
+                                <div key={index}>
+                                </div>
+                            )
+                        } else {
+                            return (
+                                <InputWrapper key={index}>
+                                    <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
+                                    {/* onChange={(e) => handleInputChange(item[0], e.target.value)}  */}
+                                    <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
+                                </InputWrapper>
+                            )
+                        }
                     })}
                 </form>
                 <button type="button" >TEST</button>

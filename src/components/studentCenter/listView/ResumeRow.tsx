@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { ResumeStatusType } from "../../../types/dbStructType";
 import CreationDateCell from "./Cells/CreationDateCell";
 import EditCell from "./Cells/EditCell";
@@ -13,11 +12,6 @@ type ItemType = {
 
 const ResumeRow = (props: ItemType) => {
     const { creationDate, status, id } = props;
-
-    useEffect(() => {
-        console.log(creationDate);
-        console.log(status);
-    }, [creationDate, status]);
 
     return (
         (creationDate && status && id) ? (

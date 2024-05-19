@@ -9,16 +9,16 @@ export const MockCVContent: StudentsType = {
                 status: 'New',
                 content: {
                     generalInfo: {
-                        "First Name": "Jeremy",
-                        "Last Name": "Belleau",
-                        "Phone Number": "819-123-4567",
-                        Languages: {
-                            'fr': '3',
+                        "first name": "Jeremy",
+                        "last name": "Belleau",
+                        "phone number": "819-123-4567",
+                        "email address": "",
+                        languages: {
+                            'fra': '3',
                             'eng': '2',
                         },
                         title: "",
-                        linkedIn: "",
-                        "Email Address": ""
+                        linkedin: ""
                     },
                     education: {
                         '0': {
@@ -123,16 +123,16 @@ export const MockCVContent: StudentsType = {
                 status: 'Reviewed',
                 content: {
                     generalInfo: {
-                        "First Name": "Jeremy",
-                        "Last Name": "Belleau",
-                        "Phone Number": "819-123-4567",
-                        Languages: {
-                            'fr': '2',
+                        "first name": "Jeremy",
+                        "last name": "Belleau",
+                        "phone number": "819-123-4567",
+                        "email address": "",
+                        languages: {
+                            'fra': '2',
                             'eng': '3',
                         },
                         title: "",
-                        linkedIn: "",
-                        "Email Address": ""
+                        linkedin: ""
                     },
                     education: {
                         '0': {

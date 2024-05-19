@@ -1,7 +1,7 @@
 export const LangList = {
-    'fr': 'Francais',
+    'fra': 'Francais',
     'eng': 'English',
-    'esp': 'Espanol',
+    'spa': 'Espanol',
 }
 
 export const LangLevel = {

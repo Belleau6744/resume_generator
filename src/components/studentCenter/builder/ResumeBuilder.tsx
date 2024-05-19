@@ -5,10 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Features } from "../../../redux/features";
 import { ResumeType } from "../../../types/dbStructType";
-import EducationBuilder from "./EducationBuilder";
-import ExperienceBuilder from "./ExperienceBuilder";
-import GeneralInfoBuilder from "./GeneralInfoBuilder";
-import SkillsBuilder from "./SkillsBuilder";
+import EducationBuilder from "./EducationBuilder/EducationBuilder";
+import ExperienceBuilder from "./ExperienceBuilder/ExperienceBuilder";
+import GeneralInfoBuilder from "./GeneralInfoBuilder/GeneralInfoBuilder";
+import SkillsBuilder from "./SkillsBuilder/SkillsBuilder";
 
 const ResumeBuilder = () => {
     const nav = useNavigate();

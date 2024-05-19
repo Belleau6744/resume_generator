@@ -2,7 +2,7 @@ import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { auth } from "../../firebase_setup/firebase";
+import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
 
 const NavBar = () => {

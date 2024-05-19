@@ -5,8 +5,7 @@ import { Link, redirect, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LockIcon from '../../assets/Icons/LockIcon';
 import UserIcon from '../../assets/Icons/UserIcon';
-import { initStudentDBSpace } from '../../firebase_setup/db_actions';
-import { auth } from '../../firebase_setup/firebase';
+import { auth } from '../../firebase/firebase';
 import { Features } from '../../redux/features';
 
 const Login = () => {
@@ -15,8 +14,6 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [userList] = useState<any>();
 
     useEffect(() => {
         if(isSignedIn) {
@@ -28,7 +25,9 @@ const Login = () => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const user = userCredentials?.user;
+            // TODO Check for existing DB Space
             // TODO ADD DISPLAY NAME
             /**
             firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -41,14 +40,11 @@ const Login = () => {
             });` 
             
              */
-            if(userList?.[user.uid] === undefined) {
-                initStudentDBSpace(user.uid);
-            }
-            nav("/");
+            nav("/home");
         })
         .catch((error) => {
             // TODO Handle error
-            console.log(error.message);
+            console.warn(error.message);
             // const errorCode = error.code;
             // const errorMessage = error.message;
         })

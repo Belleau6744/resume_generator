@@ -9,11 +9,10 @@ type ContactInfoProps = {
     address?: string;
     emailAddress?: string;
     linkedIn?: string;
-    citizenship?: string;
 }
 
 const ContactInfoSection = (props: ContactInfoProps) => {
-    const { phoneNumber, address, emailAddress, linkedIn, citizenship } = props;
+    const { phoneNumber, address, emailAddress, linkedIn } = props;
     return (
         <ContactInfoContainer>    
             <SectionTitle>Contact</SectionTitle>
@@ -21,7 +20,6 @@ const ContactInfoSection = (props: ContactInfoProps) => {
             {address && <ItemContainer><LocationIcon />{address}</ItemContainer>}
             {emailAddress && <ItemContainer><EmailIcon />{emailAddress}</ItemContainer>}
             {linkedIn && <ItemContainer><LinkedInIcon />{linkedIn}</ItemContainer>}
-            {<div>{citizenship}</div>}
         </ContactInfoContainer>
     )
 };

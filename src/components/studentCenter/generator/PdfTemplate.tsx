@@ -43,8 +43,8 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
         <Container style={{ fontSize: '0.7rem' }}>
             <Header>
                 <NameWrapper>
-                    <div>{resumeContent?.generalInfo["First Name"]}</div>
-                    <div>{resumeContent?.generalInfo["Last Name"]}</div>
+                    <div>{resumeContent?.generalInfo["first name"]}</div>
+                    <div>{resumeContent?.generalInfo["last name"]}</div>
                 </NameWrapper>
                 {resumeContent?.generalInfo?.title && <div style={{ color: '#667085' }}>{resumeContent?.generalInfo?.title}</div>}
             </Header>
@@ -53,14 +53,13 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
                 <LeftColumn>
                     {/* Contact Information Section */}
                     <ContactInfoSection 
-                        phoneNumber={resumeContent?.generalInfo["Phone Number"]}
-                        emailAddress={resumeContent?.generalInfo["Email Address"]}
-                        linkedIn={resumeContent?.generalInfo["linkedIn"]}
-                        citizenship={resumeContent?.generalInfo.Citizenship}
+                        phoneNumber={resumeContent?.generalInfo["phone number"]}
+                        emailAddress={resumeContent?.generalInfo["email address"]}
+                        linkedIn={resumeContent?.generalInfo["linkedin"]}
                     />
 
                     {/* Language Section */}
-                    <LanguageSection languages={resumeContent?.generalInfo.Languages}/>
+                    <LanguageSection languages={resumeContent?.generalInfo.languages}/>
 
                     {/* Education Section */}
                     <EducationSection education={resumeContent?.education}/>                    

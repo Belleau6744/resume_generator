@@ -10,7 +10,7 @@ import Home from './components/Home';
 import NavBar from './components/navigation/NavBar';
 import ResumeBuilder from './components/studentCenter/builder/ResumeBuilder';
 import PdfTemplate from './components/studentCenter/generator/PdfTemplate';
-import { auth } from './firebase_setup/firebase';
+import { auth } from './firebase/firebase';
 import { Features } from './redux/features';
 
 const App = () => {
@@ -45,16 +45,16 @@ const App = () => {
       path: '/',
       children: [
         {
+          path: '/home',
+          element: <Home userID={userID} />
+        },
+        {
           path: "/signup",
           element: <Signup />
         },
         {
           path: '/login',
           element: <Login />
-        },
-        {
-          path: '/',
-          element: <Home userID={userID} />
         },
         {
           path: '/test',
@@ -66,11 +66,11 @@ const App = () => {
         }
       ]
     }
-  ], { basename: '/resume_generator'})
+  ], { basename: '/resume_generator', future: { v7_normalizeFormMethod: true}})
 
 
   return (
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} fallbackElement={<Home />} />
   )
 }
 

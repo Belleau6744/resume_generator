@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
 import LockIcon from "../../assets/Icons/LockIcon";
 import UserIcon from "../../assets/Icons/UserIcon";
-import { initStudentDBSpace } from "../../firebase_setup/db_actions";
-import { auth } from "../../firebase_setup/firebase";
+import { initStudentDBSpace } from "../../firebase/db_actions";
+import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
 
 
@@ -43,7 +43,7 @@ const Signup = () => {
                 });
             })
             .catch((error) => {
-                console.log(error);
+                console.warn(error);
             })
     }
 

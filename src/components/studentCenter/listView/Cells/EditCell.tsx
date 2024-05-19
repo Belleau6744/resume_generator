@@ -18,8 +18,8 @@ height: 50px;
 }
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const EditCell = ({id}: {id: string}) => {
-    console.log(id);
     return (
         <ReactAriaCell>
             <Content><EditIcon /></Content>

@@ -1,6 +1,4 @@
-/************************* */
-
-import { LangLevel } from "../utils/Languages";
+import { LangLevel, LangList } from "../utils/Languages";
 
 /** GENERAL INFORMATION */
 export type GeneralInfoType = {
@@ -11,17 +9,15 @@ export type GeneralInfoType = {
     'title': string;
     'linkedin': string;
     'email address': string;
-    // 'Address'?: string;
 }
 
 /************************* */
 /** LANGUAGE */
+export type LanguageKeys = keyof typeof LangList;
+export type LanguageLevelKeys = keyof typeof LangLevel;
+export type Language = Partial<Record<LanguageKeys, LanguageLevelKeys>>;
 
-// type Lang = 'Français' | 'English' | 'Espanol';
 
-export type Language = {
-    [lang: string] : keyof typeof LangLevel;
-}
 
 /************************* */
 /** EDUCATION */
