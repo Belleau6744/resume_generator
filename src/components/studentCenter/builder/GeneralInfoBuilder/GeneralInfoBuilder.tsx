@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
 import { GeneralInfoType } from "../../../../types/resumeTypes";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
+import LanguagePicker from "./LanguagePicker";
 
 type GeneralInfoProps = {
     content: GeneralInfoType;
@@ -30,30 +31,63 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
             <SectionTitle>General Information</SectionTitle>
             <div>
                 <form ref={formRef}>
-                    {currentValues && Object.entries(currentValues).map((item, index) => {
-                        const inputName = item[0];
-                        if (inputName === 'languages') {
-                            console.log(item[1]);
-                            return (
-                                <div key={index}>
-                                </div>
-                            )
-                        } else {
-                            return (
-                                <InputWrapper key={index}>
-                                    <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
-                                    {/* onChange={(e) => handleInputChange(item[0], e.target.value)}  */}
-                                    <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
-                                </InputWrapper>
-                            )
-                        }
-                    })}
+                    <FormContainer>
+                        <ColumnsContainer>
+                            <LeftColumn>
+                                {currentValues && Object.entries(currentValues).slice(0, Math.ceil(Object.keys(currentValues).length/2)).map((item, index) => {
+                                    const inputName = item[0];
+                                    if (inputName !== 'languages') {
+                                        return (
+                                            <InputWrapper key={index}>
+                                                <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
+                                                <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
+                                            </InputWrapper>
+                                        )
+                                    }
+                                    return <></>
+                                })}
+                            </LeftColumn>
+                            <RightColumn>
+                                {currentValues && Object.entries(currentValues).slice(Math.ceil(Object.keys(currentValues).length/2)).map((item, index) => {
+                                    const inputName = item[0];
+                                    if (inputName !== 'languages') {
+                                        return (
+                                            <InputWrapper key={index}>
+                                                <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
+                                                {/* onChange={(e) => handleInputChange(item[0], e.target.value)}  */}
+                                                <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
+                                            </InputWrapper>
+                                        )
+                                    }
+                                    return <></>
+                                })}
+                            </RightColumn>
+                        </ColumnsContainer>
+
+                        <LanguagePicker languages={currentValues['languages']}/>
+                    </FormContainer>
                 </form>
                 <button type="button" >TEST</button>
             </div>
         </Container>
     )
 };
+
+const FormContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const ColumnsContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+`;
+
+const LeftColumn = styled.div``
+
+const RightColumn = styled.div``
 
 const SectionTitle = styled.h1`
     color: black;
@@ -69,6 +103,7 @@ const StyledInput = styled.input`
     color: black;
     padding-left: 8px;
     height: 30px;
+    width: 200px;
     border-radius: 8px;
     border: none;
     &::placeholder {

@@ -4,7 +4,7 @@ import { LangLevel, LangList } from "../utils/Languages";
 export type GeneralInfoType = {
     'first name': string;
     'last name' : string;
-    'languages' : Language;
+    'languages' : LanguageType;
     'phone number': string;
     'title': string;
     'linkedin': string;
@@ -15,7 +15,7 @@ export type GeneralInfoType = {
 /** LANGUAGE */
 export type LanguageKeys = keyof typeof LangList;
 export type LanguageLevelKeys = keyof typeof LangLevel;
-export type Language = Partial<Record<LanguageKeys, LanguageLevelKeys>>;
+export type LanguageType = Partial<Record<LanguageKeys, LanguageLevelKeys>>;
 
 
 
