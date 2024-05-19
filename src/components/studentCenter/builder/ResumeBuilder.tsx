@@ -5,28 +5,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Features } from "../../../redux/features";
 import { ResumeType } from "../../../types/dbStructType";
-import Education from "./Education";
-import Experience from "./Experience";
-import GeneralInfo from "./GeneralInfo";
-import Skills from "./Skills";
+import EducationBuilder from "./EducationBuilder";
+import ExperienceBuilder from "./ExperienceBuilder";
+import GeneralInfoBuilder from "./GeneralInfoBuilder";
+import SkillsBuilder from "./SkillsBuilder";
 
 const ResumeBuilder = () => {
     const nav = useNavigate();
     const { resumeID } = useParams();
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
     const userID = useSelector(Features.UserFeature.selector.getUserID);
-
-    /**
-     * Different sections of the resume builder
-     */
-    const Sections = {
-        'generalInfo': <GeneralInfo />,
-        'education': <Education />,
-        'skills': <Skills />,
-        'experience': <Experience />,
-    };
-    type SectionEditingType = keyof typeof Sections;
-    const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');
 
     /**
      * * Keeps track of the original resume, as a point of reference for updates
@@ -37,14 +25,21 @@ const ResumeBuilder = () => {
         creationDate: '',
         content: {
             generalInfo: {
-                "First Name": "",
-                "Last Name": "",
-                Citizenship: "",
-                Languages: {}
+                "first name": "",
+                "last name": "",
+                'languages': {},
+                'phone number': '',
+                'title': '',
+                'linkedin': '',
+                'email address': '',
             },
             education: {},
             skills: {},
-            experience: {}
+            experience: {
+                workingExperience: {},
+                volunteerExperience: {},
+                projectExperience: {}
+            }
         }
     });
 
@@ -57,14 +52,21 @@ const ResumeBuilder = () => {
         creationDate: '',
         content: {
             generalInfo: {
-                "First Name": "",
-                "Last Name": "",
-                Citizenship: "",
-                Languages: {}
+                "first name": "",
+                "last name": "",
+                'languages': {},
+                'phone number': '',
+                'title': '',
+                'linkedin': '',
+                'email address': '',
             },
             education: {},
             skills: {},
-            experience: {}
+            experience: {
+                workingExperience: {},
+                volunteerExperience: {},
+                projectExperience: {}
+            }
         }
     });  
 
@@ -91,6 +93,18 @@ const ResumeBuilder = () => {
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    /**
+     * Different sections of the resume builder
+     */
+    const Sections = {
+        'generalInfo': <GeneralInfoBuilder setCurrentResume={setCurrentResume} content={originalResume.content.generalInfo} />,
+        'education': <EducationBuilder setCurrentResume={setCurrentResume} content={originalResume.content.education} />,
+        'skills': <SkillsBuilder setCurrentResume={setCurrentResume} content={originalResume.content.skills} />,
+        'experience': <ExperienceBuilder setCurrentResume={setCurrentResume} content={originalResume.content.experience} />,
+    };
+    type SectionEditingType = keyof typeof Sections;
+    const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');
 
     /**
      * Changes the section being currently edited

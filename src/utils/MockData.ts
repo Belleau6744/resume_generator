@@ -12,11 +12,13 @@ export const MockCVContent: StudentsType = {
                         "First Name": "Jeremy",
                         "Last Name": "Belleau",
                         "Phone Number": "819-123-4567",
-                        Citizenship: "Canadian",
                         Languages: {
                             'fr': '3',
                             'eng': '2',
                         },
+                        title: "",
+                        linkedIn: "",
+                        "Email Address": ""
                     },
                     education: {
                         '0': {
@@ -111,6 +113,7 @@ export const MockCVContent: StudentsType = {
                                 description: 'Creating embedded systems with C/C++'
                             },
                         },
+                        volunteerExperience: {}
                     },
                 }
             },
@@ -123,11 +126,13 @@ export const MockCVContent: StudentsType = {
                         "First Name": "Jeremy",
                         "Last Name": "Belleau",
                         "Phone Number": "819-123-4567",
-                        Citizenship: "Canadian",
                         Languages: {
                             'fr': '2',
                             'eng': '3',
                         },
+                        title: "",
+                        linkedIn: "",
+                        "Email Address": ""
                     },
                     education: {
                         '0': {
@@ -222,6 +227,7 @@ export const MockCVContent: StudentsType = {
                                 description: 'Creating embedded systems with C/C++'
                             },
                         },
+                        volunteerExperience: {}
                     },
                 }
             }

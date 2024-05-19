@@ -4,14 +4,13 @@ import { LangLevel } from "../utils/Languages";
 
 /** GENERAL INFORMATION */
 export type GeneralInfoType = {
-    'First Name': string;
-    'Last Name' : string;
-    'Citizenship' : string;
-    'Languages' : Language;
-    'Phone Number'?: string;
-    'title'?: string;
-    'linkedIn'?: string;
-    'Email Address'?: string;
+    'first name': string;
+    'last name' : string;
+    'languages' : Language;
+    'phone number': string;
+    'title': string;
+    'linkedin': string;
+    'email address': string;
     // 'Address'?: string;
 }
 
@@ -55,9 +54,9 @@ export type Skills = {
 /************************* */
 /** EXPERIENCE */
 export type Experience = {
-    workingExperience?: WorkingExperience;
-    volunteerExperience?: VolunteerExperience;
-    projectExperience?: ProjectExperience;
+    workingExperience: WorkingExperience;
+    volunteerExperience: VolunteerExperience;
+    projectExperience: ProjectExperience;
 }
 export type WorkingExperience = {
     [index: string]: {

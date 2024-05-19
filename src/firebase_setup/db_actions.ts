@@ -1,4 +1,5 @@
 import { getDatabase, ref, update } from "firebase/database";
+import { MockCVContent } from "../utils/MockData";
 
 // TODO
 export const initStudentDBSpace = (str: string) => {
@@ -25,3 +26,9 @@ export const writeNewPost = (data: object, updatePath: string) => {
   
     return update(ref(db), updates);
   }
+
+
+  
+export const resetDB = () => {
+    writeNewPost(MockCVContent, '/students/');
+}

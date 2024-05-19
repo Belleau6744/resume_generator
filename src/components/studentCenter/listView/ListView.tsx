@@ -7,10 +7,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { writeNewPost } from "../../../firebase_setup/db_actions";
 import { Features } from '../../../redux/features';
 import { StudentType } from '../../../types/dbStructType';
-import { MockCVContent } from "../../../utils/MockData";
 import ResumeRow from "./ResumeRow";
 
 type ListViewProps = {
@@ -132,12 +130,7 @@ const ListView = (props: ListViewProps) => {
                 </Table>
             </TableContainer>
         );
-    }, [dbContent?.resumes]);
-
-    const fn = () => {
-        writeNewPost(MockCVContent, '/students/');
-    }
-
+    }, [dbContent?.resumes]);    
 
     return (
         <Container>
@@ -146,7 +139,6 @@ const ListView = (props: ListViewProps) => {
                 {dbContent?.resumes ? (<NewResumeButton>New Resume</NewResumeButton>) : (<></>)} 
             </HeaderSection>
             <ContentContainer>
-                <button onClick={fn}>TEST</button>
                 {dbContent?.resumes ? 
                 (ResumeTable)
                 : (
