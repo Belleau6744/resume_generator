@@ -27,9 +27,9 @@ const LanguagePicker = ({ languages }: LanguagePickerProps) => {
                 <PickerModal isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
             </div>
             <div style={{ marginLeft: '8px' }}>
-                {Object.entries(mockLang).map((languageItem) => {
+                {Object.entries(mockLang).map((languageItem, index) => {
                     return (
-                        <LanguageContainer>
+                        <LanguageContainer key={index}>
                             <KnownLanguage>{LangList[languageItem[0]]} :</KnownLanguage>
                             <LanguageLevel>{LangLevel[languageItem[1]]}</LanguageLevel>
                         </LanguageContainer>

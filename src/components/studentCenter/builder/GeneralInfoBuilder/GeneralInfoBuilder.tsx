@@ -44,7 +44,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                                             </InputWrapper>
                                         )
                                     }
-                                    return <></>
+                                    return <div key={index}></div>
                                 })}
                             </LeftColumn>
                             <RightColumn>
@@ -59,7 +59,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                                             </InputWrapper>
                                         )
                                     }
-                                    return <></>
+                                    return <div key={index}></div>
                                 })}
                             </RightColumn>
                         </ColumnsContainer>
