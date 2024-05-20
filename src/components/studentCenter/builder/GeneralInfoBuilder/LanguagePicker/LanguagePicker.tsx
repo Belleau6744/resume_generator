@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { GeneralInfoType, LanguageType } from "../../../../../types/resumeTypes";
+import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
+import { GeneralInfoType, LanguageKeys, LanguageType } from "../../../../../types/resumeTypes";
 import { LangLevel, LangList } from "../../../../../utils/Languages";
 import PickerModal from "./PickerModal";
 
@@ -15,6 +16,21 @@ const LanguagePicker = ({ languages, setCurrentValues }: LanguagePickerProps) =>
     const handleAddNewLanguage = () => {
         setIsModalOpen(true);
     }
+
+    /**
+     * Remove the language from the list
+     * @param langToRemove Key associated to language
+     */
+    const deleteSelectedLanguage = (langToRemove: LanguageKeys) => {
+        setCurrentValues(prev => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { [langToRemove]: _, ...updatedLanguages } = prev.languages;
+            return {
+              ...prev,
+              languages: updatedLanguages
+            };
+          });
+    };
     
     return (
         <Container style={{ paddingBottom: '20px' }}>
@@ -26,16 +42,31 @@ const LanguagePicker = ({ languages, setCurrentValues }: LanguagePickerProps) =>
             <div style={{ marginLeft: '8px' }}>
                 {Object.entries(languages).map((languageItem, index) => {
                     return (
-                        <LanguageContainer key={index}>
-                            <KnownLanguage>{LangList[languageItem[0]]} :</KnownLanguage>
-                            <LanguageLevel>{LangLevel[languageItem[1]]}</LanguageLevel>
-                        </LanguageContainer>
+                        <div style={{ display: 'flex', alignItems: 'end', gap: '8px'}} key={index}>
+                            <LanguageContainer>
+                                <KnownLanguage>{LangList[languageItem[0]]} :</KnownLanguage>
+                                <LanguageLevel>{LangLevel[languageItem[1]]}</LanguageLevel>
+                            </LanguageContainer>
+                            <DeletedSelectedLanguageButton type='button' onClick={() => deleteSelectedLanguage(languageItem[0] as LanguageKeys)}><DeleteIcon/></DeletedSelectedLanguageButton>
+                        </div>
                     )
                 })}
             </div>
         </Container>
     )
 }
+
+const DeletedSelectedLanguageButton = styled.button`
+    background: none;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        background: #c6c6c6
+    }
+`;
 
 const KnownLanguage = styled.div`
     width: 100px;

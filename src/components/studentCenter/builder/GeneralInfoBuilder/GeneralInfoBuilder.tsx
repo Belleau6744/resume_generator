@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from "react";
+import _ from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
 import { GeneralInfoType } from "../../../../types/resumeTypes";
@@ -15,10 +16,17 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
     const [originalValues, setOriginalValues] = useState<GeneralInfoType>(content);
     const [currentValues, setCurrentValues] = useState<GeneralInfoType>(content);
 
-    // /**
-    //  * Keeps track if there are changes in the form
-    //  */
-    const isDirty = Object.keys(originalValues).some((inputName) => originalValues[inputName] !== currentValues[inputName]);
+    /**
+     * Update original values when DB updates
+     */
+    useEffect(() => {
+        setOriginalValues(content);
+    }, [content]);
+
+    /**
+     * If form is dirty - Unsaved changes are present
+     */
+    const isDirty = !(_.isEqual(currentValues, originalValues));
 
     const handleInputChange = useCallback((inputName, value) => {
         const newCurrentValues = { ...currentValues };
@@ -68,11 +76,18 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                         </ColumnsContainer>
                     </FormContainer>
                 </form>
-                <button type="button" >TEST</button>
+                <BottomWrapper>
+                    <button type="button" >Save</button>
+                    <div>{isDirty ? 'FORM IS DIRTY' : ''}</div>
+                </BottomWrapper>
             </div>
         </Container>
     )
 };
+
+const BottomWrapper = styled.div`
+    display: 'flex';
+`;
 
 const FormContainer = styled.div`
     display: flex;

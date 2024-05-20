@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
 import LockIcon from "../../assets/Icons/LockIcon";
 import UserIcon from "../../assets/Icons/UserIcon";
+import { STRINGS_ENG } from "../../assets/stringConstants";
 import { initStudentDBSpace } from "../../firebase/db_actions";
 import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
@@ -25,7 +26,7 @@ const Signup = () => {
         await createUserWithEmailAndPassword(auth, email, password)
             .then((credentials) => {
                 initStudentDBSpace(credentials.user.uid).then(() => {
-                    toast.success('Student Account Created!', {
+                    toast.success(STRINGS_ENG.student_account_created, {
                         position: "bottom-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -51,7 +52,7 @@ const Signup = () => {
     return (
         <Container>
             <SignupContainer>
-                <h2>Create Account</h2>
+                <h2>{STRINGS_ENG.create_account}</h2>
                 <form>
                     <InputsWrapper>
                         <InputContainer>
@@ -80,7 +81,7 @@ const Signup = () => {
                     </ButtonWrapper>
                 </form>
                 <ExistingAccountWrapper>
-                    <p>Already have an account?</p>
+                    <p>{STRINGS_ENG.already_have_account_q}</p>
                     <Link to="/login"><p style={{color: 'blue', fontWeight: 'bold'}}>Login</p></Link>
                 </ExistingAccountWrapper>
             </SignupContainer>

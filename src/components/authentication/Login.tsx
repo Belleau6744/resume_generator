@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LockIcon from '../../assets/Icons/LockIcon';
 import UserIcon from '../../assets/Icons/UserIcon';
+import { STRINGS_ENG } from '../../assets/stringConstants';
 import { auth } from '../../firebase/firebase';
 
 const Login = () => {
@@ -74,7 +75,7 @@ const Login = () => {
                     <ButtonWrapper><LoginButton onClick={onLogin}>Login</LoginButton></ButtonWrapper>
                 </form>
                 <p className='text-sm text-white text-center'>
-                    No account yet? {' '}
+                    {STRINGS_ENG.no_account_q}&nbsp;
                     <Link style={{color: 'blue'}} to="/signup">
                         Sign up
                     </Link>
