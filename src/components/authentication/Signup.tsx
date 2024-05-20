@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { Bounce, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
 import LockIcon from "../../assets/Icons/LockIcon";
@@ -50,7 +50,6 @@ const Signup = () => {
 
     return (
         <Container>
-            <ToastContainer />
             <SignupContainer>
                 <h2>Create Account</h2>
                 <form>

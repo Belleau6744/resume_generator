@@ -1,19 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { LanguageType } from "../../../../../types/resumeTypes";
+import { GeneralInfoType, LanguageType } from "../../../../../types/resumeTypes";
 import { LangLevel, LangList } from "../../../../../utils/Languages";
 import PickerModal from "./PickerModal";
 
 type LanguagePickerProps = {
     languages: LanguageType;
+    setCurrentValues: React.Dispatch<React.SetStateAction<GeneralInfoType>>
 }
 
-const LanguagePicker = ({ languages }: LanguagePickerProps) => {
+const LanguagePicker = ({ languages, setCurrentValues }: LanguagePickerProps) => {
     const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
-    const mockLang: LanguageType = {
-        'fra': '0',
-        'eng': '3'
-    }
 
     const handleAddNewLanguage = () => {
         setIsModalOpen(true);
@@ -24,10 +21,10 @@ const LanguagePicker = ({ languages }: LanguagePickerProps) => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <StyledLabel id={`${'languagesInput'}`}>Languages</StyledLabel>
                 <AddLanguageButton type="button" onClick={handleAddNewLanguage}>+ Add</AddLanguageButton>
-                <PickerModal isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
+                <PickerModal currentLanguages={languages} setCurrentValues={setCurrentValues} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
             </div>
             <div style={{ marginLeft: '8px' }}>
-                {Object.entries(mockLang).map((languageItem, index) => {
+                {Object.entries(languages).map((languageItem, index) => {
                     return (
                         <LanguageContainer key={index}>
                             <KnownLanguage>{LangList[languageItem[0]]} :</KnownLanguage>
@@ -49,7 +46,7 @@ const KnownLanguage = styled.div`
 
 const LanguageLevel = styled.div`
     width: 100px;
-    font-weight: 700;
+    font-weight: 500;
     display: flex;
     justify-content: flex-end;
 `;

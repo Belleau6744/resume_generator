@@ -64,7 +64,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                             </RightColumn>
                         </ColumnsContainer>
                         <ColumnsContainer>
-                            <LanguagePicker languages={currentValues['languages']}/>
+                            <LanguagePicker languages={currentValues['languages']} setCurrentValues={setCurrentValues}/>
                         </ColumnsContainer>
                     </FormContainer>
                 </form>
@@ -83,7 +83,7 @@ const FormContainer = styled.div`
 const ColumnsContainer = styled.div`
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 4rem;
 `;
 

@@ -2,6 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Login from './components/authentication/Login';
@@ -34,6 +35,7 @@ const App = () => {
 return (
     <BrowserRouter basename='/resume_generator'>
         {isUserSignedIn && <NavBar />}
+        <ToastContainer />
         <Routes>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/login' element={<Login />}/>
