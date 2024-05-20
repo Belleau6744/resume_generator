@@ -83,8 +83,8 @@ const FormContainer = styled.div`
 const ColumnsContainer = styled.div`
     display: flex;
     width: 100%;
-    justify-content: flex-start;
-    gap: 100px;
+    justify-content: space-between;
+    gap: 4rem;
 `;
 
 const LeftColumn = styled.div``
@@ -105,7 +105,7 @@ const StyledInput = styled.input`
     color: black;
     padding-left: 8px;
     height: 30px;
-    width: 300px;
+    width: 15rem;
     border-radius: 8px;
     border: none;
     &::placeholder {

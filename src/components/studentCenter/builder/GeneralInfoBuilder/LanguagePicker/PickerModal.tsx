@@ -19,18 +19,27 @@ type PickerModalProps = {
 const PickerModal = ({ isModalOpened, setIsModalOpened }: PickerModalProps) => {
     const [ selectedLanguage, setSelectedLanguage ] = useState('');
     const [ selectedLevel, setSelectedLevel] = useState('');
+    const [ error, setError ] = useState('');
 
     const handleChangeLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setError('');
         setSelectedLevel((event.target as HTMLInputElement).value);
     };
 
     const handleChangeLanguage = (event: SelectChangeEvent) => {
+        setError('');
         setSelectedLanguage(event.target.value as string);
     };
 
     const handleSaveNewLanguage = () => {
-        console.log(selectedLanguage);
-        console.log(selectedLevel);
+        if (selectedLanguage === '') {
+            setError('You need to select a language');
+        } else if (selectedLevel === '') {
+            setError('You need to set your proficiency level');
+        } else {
+            setError('');
+            // TODO
+        }
     }
     
     return (
@@ -46,6 +55,7 @@ const PickerModal = ({ isModalOpened, setIsModalOpened }: PickerModalProps) => {
                             labelId="language-select"
                             id="language-select"
                             required
+                            sx={{ marginBottom: '8px' }}
                             value={selectedLanguage}
                             placeholder='select a language'
                             label="Age"
@@ -80,7 +90,12 @@ const PickerModal = ({ isModalOpened, setIsModalOpened }: PickerModalProps) => {
                     <StyledCancelButton type='button' onClick={() => setIsModalOpened(false)} >Cancel</StyledCancelButton>
                     <StyledAddButton type='button' onClick={handleSaveNewLanguage}>Add</StyledAddButton>
                 </ButtonWrapper>                
-                {/* </form> */}
+                {error && (
+                    <div style={{ display: 'flex', paddingTop: '10px'}}>
+                        <div style={{ color: 'red', fontWeight: '700'}}>*</div>
+                        <div style={{ color: 'black', fontWeight: '600'}}>{error}</div>
+                    </div>
+                )}
             </Container>
         </Modal>
     )
