@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Login from './components/authentication/Login';
@@ -16,6 +16,7 @@ import { Features } from './redux/features';
 const App = () => {
   const dispatch = useDispatch();
   const userID = useSelector(Features.UserFeature.selector.getUserID);
+  const isUserSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -30,47 +31,17 @@ const App = () => {
       });
 }, [dispatch])
 
-  const Layout = () => {
-    return (
-      <>
-        <NavBar />
-        <Outlet />
-      </>
-    )
-  }
-
-  const router = createBrowserRouter([
-    {
-      element: <Layout/>,
-      path: '/',
-      children: [
-        {
-          path: "/signup",
-          element: <Signup />
-        },
-        {
-          path: '/login',
-          element: <Login />
-        },
-        {
-          path: '/home',
-          element: <Home userID={userID} />
-        },
-        {
-          path: '/test',
-          element: <PdfTemplate resumeId={''} userId={undefined} />
-        },
-        {
-          path: '/builder/:resumeID',
-          element: <ResumeBuilder />
-        }
-      ]
-    }
-  ], { basename: '/resume_generator', future: { v7_normalizeFormMethod: true}})
-
-
-  return (
-    <RouterProvider router={router} fallbackElement={<Home />} />
+return (
+    <BrowserRouter basename='/resume_generator'>
+        {isUserSignedIn && <NavBar />}
+        <Routes>
+            <Route path='/signup' element={<Signup/>}/>
+            <Route path='/login' element={<Login />}/>
+            <Route path='/home' element={<Home userID={userID}/>} />
+            <Route path='/test' element={<PdfTemplate resumeId={''} userId={undefined} />}/>
+            <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
+        </Routes>
+    </BrowserRouter> 
   )
 }
 
