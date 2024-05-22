@@ -1,7 +1,8 @@
-import { StudentsType } from "../types/dbStructType";
+import { UsersType } from "../types/dbStructType";
 
-export const MockCVContent: StudentsType = {
+export const MockCVContent: UsersType = {
     'CFIHxTvvnEOdIvKLt4EX9WW1dmh1': {
+        userRole: 'student',
         resumes: {
             '0': {
                 id: 'abc',
@@ -232,5 +233,10 @@ export const MockCVContent: StudentsType = {
                 }
             }
         }
+    },
+    'Zmf00OmNmDTgtoNFtHhpgx8TtOK2': {
+        userRole: 'reviewer',
+        firstName: 'TestName',
+        lastName: 'TestLastName'
     }
 }

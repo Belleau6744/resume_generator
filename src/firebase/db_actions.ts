@@ -1,14 +1,34 @@
 import { getDatabase, ref, update } from "firebase/database";
 import { MockCVContent } from "../utils/MockData";
 
-// TODO
-export const initStudentDBSpace = (str: string) => {
+/**
+ * 
+ * @param str 
+ * @returns 
+ */
+export const initStudentDBSpace = (user_id: string) => {
     const db = getDatabase();
-    const updates: {[path: string]: object} = {};
-    updates[`/students/${str}/`] = {
-        "resumes": {}
+    const usersRef = ref(db, 'users');
+    const updates = {};
+    updates[`${user_id}`] = {
+        userRole: 'student'
+    };
+    return update(usersRef, updates);
+};
+
+/**
+ * 
+ * @param str 
+ * @returns 
+ */
+export const initReviewerDBSpace = (user_id: string) => {
+    const db = getDatabase();
+    const usersRef = ref(db, 'users');
+    const updates = {};
+    updates[`${user_id}`] = {
+        userRole: 'reviewer'
     }
-    return update(ref(db), updates);
+    return update(usersRef, updates);
 };
 
 /**
@@ -30,5 +50,5 @@ export const writeNewPost = (data: object, updatePath: string) => {
 
   
 export const resetDB = () => {
-    writeNewPost(MockCVContent, '/students/');
+    writeNewPost(MockCVContent, 'users');
 }

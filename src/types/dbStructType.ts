@@ -1,13 +1,35 @@
 import { ResumeFormType } from "./resumeTypes";
 
-export type StudentsType = {
-    [index: string]: StudentType
+export type UserRole = 'reviewer' | 'student';
+
+/**
+ * DB Users section
+ */
+export type UsersType = {
+    [index: string]: StudentType | ReviewerType
 };
 
+/**
+ * Student user type
+ */
 export type StudentType = {
-    resumes: ResumesType | 'empty';
-    
+    userRole: UserRole;
+    resumes: ResumesType;
 }
+
+/**
+ * Reviewer user type
+ */
+export type ReviewerType = {
+    userRole: UserRole,
+    firstName: string,
+    lastName: string,
+}
+
+
+/**
+ * RESUME -
+ */
 
 export type ResumesType = {
     [index: string]: ResumeType;
@@ -20,13 +42,4 @@ export type ResumeType = {
     status: ResumeStatusType;
     creationDate: string;
     content: ResumeFormType;
-}
-
-export type UserRole = 'reviser' | 'student';
-
-export type SupervisorType = {
-    [id: string]: {
-        firstName: string,
-        lastName: string,
-    }
 }

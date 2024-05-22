@@ -32,7 +32,7 @@ const Login = () => {
             });` 
             
              */
-            nav("/home");
+            nav("/");
         })
         .catch((error) => {
             // TODO Handle error

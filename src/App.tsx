@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -19,29 +19,36 @@ const App = () => {
   const userID = useSelector(Features.UserFeature.selector.getUserID);
   const isUserSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
 
-  useEffect(()=>{
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-          dispatch(Features.UserFeature.action.setUserAuthStatus(true));
-          dispatch(Features.UserFeature.action.setUserID(user.uid))
-          // User is signed in
-        } else {
-          dispatch(Features.UserFeature.action.setUserAuthStatus(false));
-          // User is signed out
-        }
-      });
-}, [dispatch])
+      if (user) {
+        dispatch(Features.UserFeature.action.setUserAuthStatus(true));
+        dispatch(Features.UserFeature.action.setUserID(user.uid));
+      } else {
+        dispatch(Features.UserFeature.action.setUserAuthStatus(false));
+      }
+    });
+  }, [dispatch]);
 
 return (
     <BrowserRouter basename='/resume_generator'>
         {isUserSignedIn && <NavBar />}
         <ToastContainer />
         <Routes>
+        {!isUserSignedIn ? (
+          <>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/login' element={<Login />}/>
-            <Route path='/home' element={<Home userID={userID}/>} />
+            <Route path='*' element={<Navigate to="/login" />} />
+          </>
+        ) : (
+          <>
+            <Route path='/' element={<Home userID={userID}/>} />
             <Route path='/test' element={<PdfTemplate resumeId={''} userId={undefined} />}/>
             <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
+            <Route path='*' element={<Navigate to="/" />} />
+          </>
+        )}
         </Routes>
     </BrowserRouter> 
   )
