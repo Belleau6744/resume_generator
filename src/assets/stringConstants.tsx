@@ -1,7 +1,8 @@
 const save = 'save';
 const no_account_q = 'no account yet?';
 const already_have_account_q = 'already have an account?';
-const student_account_created = 'student Account Created';
+const student_account_created = 'student account created';
+const reviewer_account_created = 'reviewer account created';
 const create_account = 'create account';
 const student_role = 'student';
 const reviewer_role = 'reviewer';
@@ -25,6 +26,7 @@ export const STRINGS_ENG =  {
     save,
     no_account_q,
     student_account_created,
+    reviewer_account_created,
     create_account,
     already_have_account_q,
     student_role,

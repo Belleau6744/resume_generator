@@ -16,22 +16,7 @@ const Login = () => {
     const onLogin = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
-        .then((userCredentials) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const user = userCredentials?.user;
-            // TODO Check for existing DB Space
-            // TODO ADD DISPLAY NAME
-            /**
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(function(result) {
-                    return result.user.updateProfile({
-                        displayName: document.getElementById("name").value
-                    })
-                }).catch(function(error) {
-                    console.log(error);
-            });` 
-            
-             */
+        .then(() => {
             nav("/");
         })
         .catch((error) => {

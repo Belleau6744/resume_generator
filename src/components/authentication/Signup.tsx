@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, FormLabel, InputAdornment, TextField } from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -101,7 +101,7 @@ const Signup = () => {
                 .then((credentials) => {
                     if (userRole === 'student') {
                         initStudentDBSpace(credentials.user.uid).then(() => {
-                            toast.success(STRINGS_ENG.student_account_created, {
+                            toast.success(capitalizeEveryWord(STRINGS_ENG.student_account_created), {
                                 position: "bottom-right",
                                 autoClose: 5000,
                                 hideProgressBar: false,
@@ -115,12 +115,15 @@ const Signup = () => {
                             dispatch(Features.UserFeature.action.setUserRole(userRole))
                             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
                             dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
+                            updateProfile(credentials.user, {
+                                displayName: 'student'
+                            })
                         }).finally(() => {
                             nav("/");
                         });
                     } else {
                         initReviewerDBSpace(credentials.user.uid).then(() => {
-                            toast.success(STRINGS_ENG.student_account_created, {
+                            toast.success(capitalizeEveryWord(STRINGS_ENG.reviewer_account_created), {
                                 position: "bottom-right",
                                 autoClose: 5000,
                                 hideProgressBar: false,
@@ -134,6 +137,9 @@ const Signup = () => {
                             dispatch(Features.UserFeature.action.setUserRole(userRole))
                             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
                             dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
+                            updateProfile(credentials.user, {
+                                displayName: 'reviewer'
+                            })
                         }).finally(() => {
                             nav("/");
                         });

@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
+import { capitalizeEveryWord } from "../../utils/stringUtils";
 
 const NavBar = () => {
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
+    const userRole = useSelector(Features.UserFeature.selector.getUserRole);
     const nav = useNavigate();
 
     const handleLogout = () => {
@@ -20,7 +22,7 @@ const NavBar = () => {
     return (
         isSignedIn ? (
             <Container>
-            <div></div>
+            <div style={{ color: 'white' }}>{userRole && capitalizeEveryWord(userRole)}&nbsp;Account</div>
             <div>
                 <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
             </div>

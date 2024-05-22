@@ -13,6 +13,7 @@ import ResumeBuilder from './components/studentCenter/builder/ResumeBuilder';
 import PdfTemplate from './components/studentCenter/generator/PdfTemplate';
 import { auth } from './firebase/firebase';
 import { Features } from './redux/features';
+import { UserRole } from './types/dbStructType';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const App = () => {
       if (user) {
         dispatch(Features.UserFeature.action.setUserAuthStatus(true));
         dispatch(Features.UserFeature.action.setUserID(user.uid));
+        dispatch(Features.UserFeature.action.setUserRole(user.displayName as UserRole));
       } else {
         dispatch(Features.UserFeature.action.setUserAuthStatus(false));
       }

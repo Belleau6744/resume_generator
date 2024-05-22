@@ -1,7 +1,7 @@
 import { UsersType } from "../types/dbStructType";
 
 export const MockCVContent: UsersType = {
-    'CFIHxTvvnEOdIvKLt4EX9WW1dmh1': {
+    'wrBMCbFuRoZw9At4WH78WuIFoUT2': {
         userRole: 'student',
         resumes: {
             '0': {
@@ -234,7 +234,7 @@ export const MockCVContent: UsersType = {
             }
         }
     },
-    'Zmf00OmNmDTgtoNFtHhpgx8TtOK2': {
+    '2oiNJXKBT8PTw3iPKlqqVBea70Q2': {
         userRole: 'reviewer',
         firstName: 'TestName',
         lastName: 'TestLastName'

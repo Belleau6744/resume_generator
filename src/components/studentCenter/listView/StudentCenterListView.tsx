@@ -3,12 +3,10 @@ import "@ag-grid-community/styles/ag-theme-quartz.css"; // Theme
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { Features } from '../../../redux/features';
-import { StudentType } from '../../../types/dbStructType';
+import { UsersType } from '../../../types/dbStructType';
 import ResumeRow from "./ResumeRow";
 
 type ListViewProps = {
@@ -76,17 +74,17 @@ const ReactAriaRow = styled(Row)`
 `;
 
 
-const ListView = (props: ListViewProps) => {
+const StudentCenterListView = (props: ListViewProps) => {
     const { userID } = props;
     const nav = useNavigate();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [dbContent, setDbContent] = useState<StudentType>({resumes: {}});
+    const [dbContent, setDbContent] = useState<UsersType>({});
 
     /**
      * FETCHING 
      */ 
     const db = getDatabase();
-    const dbRef = ref(db, `students/${userID}/`);
+    const dbRef = ref(db, `users/${userID}/`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
             setDbContent(snapshot.val());
@@ -144,4 +142,4 @@ const ListView = (props: ListViewProps) => {
     )
 };
 
-export default ListView;
+export default StudentCenterListView;
