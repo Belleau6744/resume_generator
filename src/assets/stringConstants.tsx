@@ -13,6 +13,9 @@ const invalid_password = 'invalid passord';
 const invalid_key = 'invalid key';
 const enter_access_key = 'Please enter the access key you received';
 const password_must = `Password must: `;
+const create_first_resume = `Create your first resume`;
+const resumes = 'resumes';
+const new_resume = 'new resume';
 const password_requirements = [
     'Have at least 8 characteres', 
     'Contain at least one upper case letter',
@@ -38,5 +41,8 @@ export const STRINGS_ENG =  {
     invalid_key,
     enter_access_key,
     password_must,
-    password_requirements
+    password_requirements,
+    create_first_resume,
+    resumes,
+    new_resume
 }

@@ -1,12 +1,15 @@
 import "@ag-grid-community/styles/ag-grid.css"; // Core CSS
 import "@ag-grid-community/styles/ag-theme-quartz.css"; // Theme
+import { capitalize } from "@mui/material";
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import { STRINGS_ENG } from "../../../assets/stringConstants";
 import { UsersType } from '../../../types/dbStructType';
+import { capitalizeEveryWord } from "../../../utils/stringUtils";
 import ResumeRow from "./ResumeRow";
 
 type ListViewProps = {
@@ -42,6 +45,7 @@ const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 24px;
     margin: 24px;
+    min-width: 700px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -123,18 +127,18 @@ const StudentCenterListView = (props: ListViewProps) => {
     }, [dbContent?.resumes]);    
 
     return (
-        <Container>
+        <Container data-test-id={'student-center-list-view'}>
             <HeaderSection>
-                <PageHeader>Resumes</PageHeader>  
-                {dbContent?.resumes ? (<NewResumeButton>New Resume</NewResumeButton>) : (<></>)} 
+                <PageHeader>{capitalize(STRINGS_ENG.resumes)}</PageHeader>  
+                {dbContent?.resumes ? (<NewResumeButton onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</NewResumeButton>) : (<></>)} 
             </HeaderSection>
             <ContentContainer>
                 {dbContent?.resumes ? 
                 (ResumeTable)
                 : (
                     <div style={{ color: 'white', fontSize: '2rem', fontWeight: '800', flexWrap:'nowrap', background: 'gray', width: '500px', height: '400px', display: 'flex', justifyContent:'center', alignItems: 'center', flexDirection: 'column', gap: '12px'}}>
-                        Create your first resume
-                        <NewResumeButton onClick={handleNewResume}>New Resume</NewResumeButton>
+                        {capitalize(STRINGS_ENG.create_first_resume)}
+                        <NewResumeButton onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</NewResumeButton>
                     </div>
                 )}
             </ContentContainer>

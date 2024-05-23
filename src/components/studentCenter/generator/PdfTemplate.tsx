@@ -26,7 +26,7 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
     const [ resumeContent, setResumeContent ] = useState<ResumeFormType>();
   
     const db = getDatabase();
-    const dbRef = ref(db, `students/${userId}/resumes/`);
+    const dbRef = ref(db, `users/${userId}/resumes/`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
         setResumesList(snapshot.val());

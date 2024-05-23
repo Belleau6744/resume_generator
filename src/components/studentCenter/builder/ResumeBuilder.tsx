@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Features } from "../../../redux/features";
-import { ResumeType } from "../../../types/dbStructType";
+import { ResumesType, ResumeType } from "../../../types/dbStructType";
+import { getEmptyResumeInit } from "../../../utils/init";
 import EducationBuilder from "./EducationBuilder/EducationBuilder";
 import ExperienceBuilder from "./ExperienceBuilder/ExperienceBuilder";
 import GeneralInfoBuilder from "./GeneralInfoBuilder/GeneralInfoBuilder";
@@ -15,69 +16,25 @@ const ResumeBuilder = () => {
     const userID = useSelector(Features.UserFeature.selector.getUserID);
 
     /**
-     * * Keeps track of the original resume, as a point of reference for updates
+     * * Keeps track of the original resume, as a point of reference for updates, and the current version being updated
      */
-    const [ originalResume, setOriginalResume ] = useState<ResumeType>({
-        id: resumeID,
-        status: 'New',
-        creationDate: '',
-        content: {
-            generalInfo: {
-                "first name": "",
-                "last name": "",
-                'languages': {},
-                'phone number': '',
-                'title': '',
-                'linkedin': '',
-                'email address': '',
-            },
-            education: {},
-            skills: {},
-            experience: {
-                workingExperience: {},
-                volunteerExperience: {},
-                projectExperience: {}
-            }
-        }
-    });
-
-    /**
-     * Keeps track of the current resume form
-     */
-    const [ currentResume, setCurrentResume ] = useState<ResumeType>({
-        id: resumeID,
-        status: 'New',
-        creationDate: '',
-        content: {
-            generalInfo: {
-                "first name": "",
-                "last name": "",
-                'languages': {},
-                'phone number': '',
-                'title': '',
-                'linkedin': '',
-                'email address': '',
-            },
-            education: {},
-            skills: {},
-            experience: {
-                workingExperience: {},
-                volunteerExperience: {},
-                projectExperience: {}
-            }
-        }
-    });  
+    const [ originalResume, setOriginalResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
+    const [ currentResume, setCurrentResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));  
 
     /**
      * FETCHING - Resume content
      */ 
     const db = getDatabase();
-    const dbRef = ref(db, `students/${userID}/${resumeID}/`);
+    const dbRef = ref(db, `users/${userID}/resumes/`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
             if (snapshot.val()) {
-                setOriginalResume(snapshot.val());
-                setCurrentResume(snapshot.val());
+                const resumes: ResumesType = snapshot.val();
+                const content = Object.values(resumes).find((currRes: ResumeType)  => currRes.id === resumeID)
+                if(content) {
+                    setOriginalResume(content);
+                    setCurrentResume(content);
+                }
             }
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,7 +58,7 @@ const ResumeBuilder = () => {
     const handleSelect = useCallback((item: SectionEditingType) => () => setSectionEdit(item), [])
 
     return (
-        <Container>
+        <Container data-test-id={'resume-builder'}>
             <SectionSelector>
                 <ItemSelect $selected={sectionEdit == 'generalInfo'} onClick={handleSelect('generalInfo')}>General Info</ItemSelect>
                 <ItemSelect $selected={sectionEdit == 'education'} onClick={handleSelect('education')}>Education</ItemSelect>
@@ -151,6 +108,7 @@ const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 24px;
     margin: 24px;
+    min-width: 700px;   
     display: flex;
     justify-content: space-between;
     padding-top: 24px;

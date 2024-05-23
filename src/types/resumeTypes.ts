@@ -6,7 +6,7 @@ export type GeneralInfoType = {
     'last name' : string;
     'languages' : LanguageType;
     'phone number': string;
-    'title': string;
+    'role_title': string;
     'linkedin': string;
     'email address': string;
 }
@@ -86,7 +86,6 @@ export type ProjectExperience = {
     }
 };
 
-
 /************************* */
 /** FULL RESUME TYPE */
 export type ResumeFormType = {
@@ -95,3 +94,34 @@ export type ResumeFormType = {
     skills: Skills;
     experience: Experience;
 }
+
+interface Path {
+    pathname: string;
+    search: string;
+    hash: string;
+  }
+
+interface Location<State = unknown> extends Path {
+    state: State;
+    key: string;
+  }
+
+export type Blocker =
+  | {
+      state: "unblocked";
+      reset: undefined;
+      proceed: undefined;
+      location: undefined;
+    }
+  | {
+      state: "blocked";
+      reset(): void;
+      proceed(): void;
+      location: Location;
+    }
+  | {
+      state: "proceeding";
+      reset: undefined;
+      proceed: undefined;
+      location: Location;
+    };

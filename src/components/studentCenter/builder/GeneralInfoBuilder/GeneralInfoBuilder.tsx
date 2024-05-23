@@ -1,3 +1,4 @@
+import { Alert, Button, InputLabel, TextField } from "@mui/material";
 import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -37,62 +38,75 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
     return (
         <Container>
             <SectionTitle>General Information</SectionTitle>
-            <div>
+            <ContentWrapper>
                 <form ref={formRef}>
                     <FormContainer>
-                        <ColumnsContainer>
-                            <LeftColumn>
-                                {currentValues && Object.entries(currentValues).slice(0, Math.ceil(Object.keys(currentValues).length/2)).map((item, index) => {
-                                    const inputName = item[0];
-                                    if (inputName !== 'languages') {
-                                        return (
-                                            <InputWrapper key={index} style={{display: 'flex', flexDirection: 'column'}}>
-                                                <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
-                                                <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
-                                            </InputWrapper>
-                                        )
-                                    }
-                                    return <div key={index}></div>
-                                })}
-                            </LeftColumn>
-                            <RightColumn>
-                                {currentValues && Object.entries(currentValues).slice(Math.ceil(Object.keys(currentValues).length/2)).map((item, index) => {
-                                    const inputName = item[0];
-                                    if (inputName !== 'languages') {
-                                        return (
-                                            <InputWrapper key={index}>
-                                                <StyledLabel htmlFor={`${inputName}`}>{capitalizeEveryWord(inputName)}</StyledLabel>
-                                                {/* onChange={(e) => handleInputChange(item[0], e.target.value)}  */}
-                                                <StyledInput id={inputName} value={item[1].toString()} onChange={(e) => handleInputChange(item[0], e.target.value)} />
-                                            </InputWrapper>
-                                        )
-                                    }
-                                    return <div key={index}></div>
-                                })}
-                            </RightColumn>
-                        </ColumnsContainer>
+                        {currentValues && Object.entries(currentValues).map((item, index) => {
+                            const inputName = item[0];
+                            if (inputName !== 'languages') {
+                                return (
+                                    <InputWrapper key={index}>
+                                        <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{capitalizeEveryWord(inputName)}</InputLabel>
+                                        <TextField
+                                        variant='filled'
+                                        sx={{ flex: '1', minWidth: '100px' }}
+                                        // label={capitalizeEveryWord(inputName)}
+                                        type="text"
+                                        value={item[1].toString()}
+                                        onChange={(e) => handleInputChange(item[0], e.target.value)}
+                                        />
+                                    </InputWrapper>
+                                )
+                            }
+                            return <div key={index}></div>
+                        })}
+                            
                         <ColumnsContainer>
                             <LanguagePicker languages={currentValues['languages']} setCurrentValues={setCurrentValues}/>
                         </ColumnsContainer>
                     </FormContainer>
                 </form>
                 <BottomWrapper>
-                    <button type="button" >Save</button>
-                    <div>{isDirty ? 'FORM IS DIRTY' : ''}</div>
+                    <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
+                    <Button type="button" size='large' color='success' variant='contained'>Save</Button>
                 </BottomWrapper>
-            </div>
+            </ContentWrapper>
         </Container>
     )
 };
 
+const ContentWrapper = styled.div`
+    padding: 0 225px 0 55px;
+    @media screen and (max-width: 992px) {
+        padding: 0 125px 0 25px;
+    }
+`;
+
 const BottomWrapper = styled.div`
-    display: 'flex';
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: space-between;
+`;
+
+const InputWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 45px;
+    width: 100%;
+    @media screen and (max-width: 992px) {
+        gap: 10px;
+    }
 `;
 
 const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+
 `;
 
 const ColumnsContainer = styled.div`
@@ -102,43 +116,8 @@ const ColumnsContainer = styled.div`
     gap: 4rem;
 `;
 
-const LeftColumn = styled.div``
-
-const RightColumn = styled.div``
-
 const SectionTitle = styled.h1`
     color: black;
-`;
-
-const StyledLabel = styled.label`
-    margin-left: 8px;
-    font-weight: 800;
-`;
-
-const StyledInput = styled.input`
-    background: white;
-    color: black;
-    padding-left: 8px;
-    height: 30px;
-    width: 15rem;
-    border-radius: 8px;
-    border: none;
-    &::placeholder {
-        color: gray;
-    }
-    &:focus {
-        border: none;
-        outline: 1px solid #3a9fbf;
-    }
-`;
-
-const InputWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    gap: 5px;
-    justify-content: space-between;
-    margin-bottom: 20px;
 `;
 
 const Container = styled.div``;
