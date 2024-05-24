@@ -1,4 +1,5 @@
 import { getDatabase, onValue, ref } from "firebase/database";
+import { _ } from 'lodash';
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -19,7 +20,7 @@ const ResumeBuilder = () => {
      * * Keeps track of the original resume, as a point of reference for updates, and the current version being updated
      */
     const [ originalResume, setOriginalResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
-    const [ currentResume, setCurrentResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));  
+    const [ currentResume, setCurrentResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
 
     /**
      * FETCHING - Resume content
@@ -41,13 +42,18 @@ const ResumeBuilder = () => {
     }, []);
 
     /**
+     * If form is dirty - Unsaved changes are present
+     */
+    const isDirty = !(_.isEqual(currentResume, originalResume));
+
+    /**
      * Different sections of the resume builder
      */
     const Sections = {
-        'generalInfo': <GeneralInfoBuilder setCurrentResume={setCurrentResume} content={originalResume.content.generalInfo} />,
-        'education': <EducationBuilder setCurrentResume={setCurrentResume} content={originalResume.content.education} />,
-        'skills': <SkillsBuilder setCurrentResume={setCurrentResume} content={originalResume.content.skills} />,
-        'experience': <ExperienceBuilder setCurrentResume={setCurrentResume} content={originalResume.content.experience} />,
+        'generalInfo': <GeneralInfoBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.generalInfo} />,
+        'education': <EducationBuilder setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
+        'skills': <SkillsBuilder setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
+        'experience': <ExperienceBuilder setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
     };
     type SectionEditingType = keyof typeof Sections;
     const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');

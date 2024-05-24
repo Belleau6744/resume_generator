@@ -1,6 +1,5 @@
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
-import _ from "lodash";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
 import { GeneralInfoType } from "../../../../types/resumeTypes";
@@ -10,30 +9,24 @@ import LanguagePicker from "./LanguagePicker/LanguagePicker";
 type GeneralInfoProps = {
     content: GeneralInfoType;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    isDirty: boolean;
 }
 
-const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
+const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty }: GeneralInfoProps) => {
     const formRef = useRef<HTMLFormElement>(null);
-    const [originalValues, setOriginalValues] = useState<GeneralInfoType>(content);
-    const [currentValues, setCurrentValues] = useState<GeneralInfoType>(content);
 
-    /**
-     * Update original values when DB updates
-     */
-    useEffect(() => {
-        setOriginalValues(content);
-    }, [content]);
-
-    /**
-     * If form is dirty - Unsaved changes are present
-     */
-    const isDirty = !(_.isEqual(currentValues, originalValues));
-
-    const handleInputChange = useCallback((inputName, value) => {
-        const newCurrentValues = { ...currentValues };
-        newCurrentValues[inputName] = value;
-        setCurrentValues(newCurrentValues);
-    }, [currentValues]);
+    const handleInputChangeGeneral = useCallback((inputName: string, value: string) => {
+        setCurrentResume(prev => ({
+            ...prev,
+            ['content']: {
+                ...prev.content,
+                ['generalInfo']: {
+                    ...prev.content.generalInfo,
+                    [inputName]: value
+                }
+            }
+        }));
+    }, [setCurrentResume]);
 
     return (
         <Container>
@@ -41,7 +34,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
             <ContentWrapper>
                 <form ref={formRef}>
                     <FormContainer>
-                        {currentValues && Object.entries(currentValues).map((item, index) => {
+                        {content && Object.entries(content).map((item, index) => {
                             const inputName = item[0];
                             if (inputName !== 'languages') {
                                 return (
@@ -53,7 +46,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                                         // label={capitalizeEveryWord(inputName)}
                                         type="text"
                                         value={item[1].toString()}
-                                        onChange={(e) => handleInputChange(item[0], e.target.value)}
+                                        onChange={(e) => handleInputChangeGeneral(item[0], e.target.value)}
                                         />
                                     </InputWrapper>
                                 )
@@ -62,7 +55,7 @@ const GeneralInfoBuilder = ({ content }: GeneralInfoProps) => {
                         })}
                             
                         <ColumnsContainer>
-                            <LanguagePicker languages={currentValues['languages']} setCurrentValues={setCurrentValues}/>
+                            <LanguagePicker languages={content['languages']} setCurrentResume={setCurrentResume}/>
                         </ColumnsContainer>
                     </FormContainer>
                 </form>

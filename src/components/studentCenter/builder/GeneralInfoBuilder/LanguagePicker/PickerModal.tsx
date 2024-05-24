@@ -9,7 +9,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Heading, Modal, } from 'react-aria-components';
 import styled from 'styled-components';
 import ErrorIcon from '../../../../../assets/Icons/ErrorIcon';
-import { GeneralInfoType, LanguageKeys, LanguageLevelKeys, LanguageType } from '../../../../../types/resumeTypes';
+import { ResumeType } from '../../../../../types/dbStructType';
+import { LanguageKeys, LanguageLevelKeys, LanguageType } from '../../../../../types/resumeTypes';
 import { LangLevel, LangList } from '../../../../../utils/Languages';
 import './ModalStyling.css';
 
@@ -17,10 +18,10 @@ type PickerModalProps = {
     isModalOpened: boolean;
     currentLanguages: LanguageType;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentValues: React.Dispatch<React.SetStateAction<GeneralInfoType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
 }
 
-const PickerModal = ({ isModalOpened, setIsModalOpened, setCurrentValues, currentLanguages }: PickerModalProps) => {
+const PickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, currentLanguages }: PickerModalProps) => {
     const [ selectedLanguage, setSelectedLanguage ] = useState<LanguageKeys | ''>('');
     const [ selectedLevel, setSelectedLevel] = useState<LanguageLevelKeys | ''>('');
     const [ error, setError ] = useState<string>('');
@@ -61,11 +62,17 @@ const PickerModal = ({ isModalOpened, setIsModalOpened, setCurrentValues, curren
         } else if (selectedLevel === '') {
             setError(noProficiencySelected);
         } else {
-            setCurrentValues(prev => ({ 
-                ...prev, 
-                languages: { 
-                    ...prev.languages, 
-                    [selectedLanguage]: selectedLevel 
+            setCurrentResume(prev => ({
+                ...prev,
+                ['content']: {
+                    ...prev.content,
+                    ['generalInfo']: {
+                        ...prev.content.generalInfo,
+                        ['languages']: {
+                            ...prev.content.generalInfo.languages,
+                            [selectedLanguage]: selectedLevel
+                        }
+                    }
                 }
             }));
             setIsModalOpened(false);

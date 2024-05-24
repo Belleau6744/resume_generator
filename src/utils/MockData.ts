@@ -18,7 +18,7 @@ export const MockCVContent: UsersType = {
                             'fra': '3',
                             'eng': '2',
                         },
-                        title: "",
+                        role_title: "",
                         linkedin: ""
                     },
                     education: {
@@ -132,7 +132,7 @@ export const MockCVContent: UsersType = {
                             'fra': '2',
                             'eng': '3',
                         },
-                        title: "",
+                        role_title: "",
                         linkedin: ""
                     },
                     education: {

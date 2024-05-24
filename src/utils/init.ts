@@ -11,7 +11,7 @@ export const getEmptyResumeInit = (resumeID: string): ResumeType => {
                 "last name": "",
                 'languages': {},
                 'phone number': '',
-                'title': '',
+                'role_title': '',
                 'linkedin': '',
                 'email address': '',
             },

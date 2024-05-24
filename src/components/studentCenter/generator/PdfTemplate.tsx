@@ -46,7 +46,7 @@ const PdfTemplate = (_props: PdfTemplateProps) => {
                     <div>{resumeContent?.generalInfo["first name"]}</div>
                     <div>{resumeContent?.generalInfo["last name"]}</div>
                 </NameWrapper>
-                {resumeContent?.generalInfo?.title && <div style={{ color: '#667085' }}>{resumeContent?.generalInfo?.title}</div>}
+                {resumeContent?.generalInfo?.role_title && <div style={{ color: '#667085' }}>{resumeContent?.generalInfo?.role_title}</div>}
             </Header>
             {/********************************** */}
             <BodyWrapper>

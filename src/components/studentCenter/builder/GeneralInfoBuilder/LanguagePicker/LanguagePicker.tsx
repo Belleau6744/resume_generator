@@ -1,17 +1,18 @@
-import { Button, Divider, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
-import { GeneralInfoType, LanguageKeys, LanguageType } from "../../../../../types/resumeTypes";
+import { ResumeType } from "../../../../../types/dbStructType";
+import { LanguageKeys, LanguageType } from "../../../../../types/resumeTypes";
 import { LangLevel, LangList } from "../../../../../utils/Languages";
 import PickerModal from "./PickerModal";
 
 type LanguagePickerProps = {
     languages: LanguageType;
-    setCurrentValues: React.Dispatch<React.SetStateAction<GeneralInfoType>>
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
 }
 
-const LanguagePicker = ({ languages, setCurrentValues }: LanguagePickerProps) => {
+const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) => {
     const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
 
     const handleAddNewLanguage = () => {
@@ -23,19 +24,25 @@ const LanguagePicker = ({ languages, setCurrentValues }: LanguagePickerProps) =>
      * @param langToRemove Key associated to language
      */
     const deleteSelectedLanguage = (langToRemove: LanguageKeys) => {
-        setCurrentValues(prev => {
+        setCurrentResume(prev => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { [langToRemove]: _, ...updatedLanguages } = prev.languages;
-            return {
-              ...prev,
-              languages: updatedLanguages
-            };
-          });
+            const { [langToRemove]: _, ...updatedLanguages } = prev.content.generalInfo.languages;
+            return ({
+                ...prev,
+                ['content']: {
+                    ...prev.content,
+                    ['generalInfo']: {
+                        ...prev.content.generalInfo,
+                        ['languages']: {...updatedLanguages}
+                    }
+                }
+            })
+        });
     };
     
     return (
         <Container>
-            <PickerModal currentLanguages={languages} setCurrentValues={setCurrentValues} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
+            <PickerModal currentLanguages={languages} setCurrentResume={setCurrentResume} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
             <Table aria-label="simple table">
                 <TableHead sx={{ background: '#BEBEBE' }}>
                     <TableRow>
@@ -62,7 +69,6 @@ const LanguagePicker = ({ languages, setCurrentValues }: LanguagePickerProps) =>
                                             <DeleteIcon />
                                         </IconButton>
                                     </TableCell>
-                                    <Divider />
                                 </TableRow>
                             ))}
                         </TableBody>
