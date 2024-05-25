@@ -26,16 +26,18 @@ export type LanguageType = Partial<Record<LanguageKeys, LanguageLevelKeys>>;
 // type DegreeType = 'Associate' | 'Bachelor' | 'Master' | 'Doctorate' | 'College';
 
 export type Education = {
-    [index: string]: {
-        // Bachelor | Master | Doctorate
-        degree: string;
-        // Education | Software Engineering | Biology
-        fieldOfStudy: string;
-        schoolName: string;
-        // schoolAddresss: string;
-        startDate: string;
-        endDate: string;
-    };
+    // Bachelor | Master | Doctorate
+    'degree': string;
+    // Education | Software Engineering | Biology
+    'field of study': string;
+    'school name': string;
+    'school address': string;
+    'start date': string;
+    'end date': string;
+}
+
+export type EducationList = {
+    [index: string]: Education;
 }
 
 /************************* */
@@ -90,7 +92,7 @@ export type ProjectExperience = {
 /** FULL RESUME TYPE */
 export type ResumeFormType = {
     generalInfo: GeneralInfoType;
-    education: Education;
+    education: EducationList;
     skills: Skills;
     experience: Experience;
 }

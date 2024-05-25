@@ -5,7 +5,7 @@ import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import { ResumeType } from "../../../../../types/dbStructType";
 import { LanguageKeys, LanguageType } from "../../../../../types/resumeTypes";
 import { LangLevel, LangList } from "../../../../../utils/Languages";
-import PickerModal from "./PickerModal";
+import PickerModal from "./LanguagePickerModal";
 
 type LanguagePickerProps = {
     languages: LanguageType;

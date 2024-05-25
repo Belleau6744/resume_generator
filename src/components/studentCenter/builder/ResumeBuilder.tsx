@@ -51,7 +51,7 @@ const ResumeBuilder = () => {
      */
     const Sections = {
         'generalInfo': <GeneralInfoBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.generalInfo} />,
-        'education': <EducationBuilder setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
+        'education': <EducationBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
         'skills': <SkillsBuilder setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
         'experience': <ExperienceBuilder setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
     };
@@ -93,11 +93,20 @@ const ItemSelect = styled.div<{ $selected: boolean }>`
     padding: 0 20px;
     font-size: 1.2em;
     font-weight: 800;
+    border-radius: 5px;
     ${props => props.$selected && css`
         background: rgba(0, 96, 133, 0.8);
-        border-radius: 5px;
         color: white;
     `}
+    &:hover {
+        cursor: pointer;
+        background: #afafaf;
+        border-radius: 5px;
+        ${props => props.$selected && css`
+            background: rgba(0, 96, 133, 0.8);
+            color: white;
+    `}
+    }
 `;
 
 const SectionSelector = styled.div`

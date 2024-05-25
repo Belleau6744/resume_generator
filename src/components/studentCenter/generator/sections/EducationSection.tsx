@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { Education } from "../../../../types/resumeTypes";
+import { EducationList } from "../../../../types/resumeTypes";
 
 type EducationSectionProps = {
-    education?: Education;
+    education?: EducationList;
 }
 
 const SectionTitle = styled.div`
@@ -49,12 +49,12 @@ const EducationSection = ({education}: EducationSectionProps) => {
                 {Object.values(education).map((item, index) => {
                     return (
                         <DegreeContainer key={index}>
-                            <FieldOfStudy>{item.fieldOfStudy}</FieldOfStudy>
+                            <FieldOfStudy>{item["field of study"]}</FieldOfStudy>
                             <DegreeTitle>{item.degree},</DegreeTitle>
-                            <SchoolName>{item.schoolName}</SchoolName>
+                            <SchoolName>{item["school name"]}</SchoolName>
                             <DateWrapper>
-                                <div>{item.startDate}&nbsp;</div>-
-                                <div>&nbsp;{item.endDate}</div>
+                                <div>{item["start date"]}&nbsp;</div>-
+                                <div>&nbsp;{item["end date"]}</div>
                             </DateWrapper>
                         </DegreeContainer>
                     );

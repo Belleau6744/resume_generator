@@ -21,7 +21,7 @@ type PickerModalProps = {
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
 }
 
-const PickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, currentLanguages }: PickerModalProps) => {
+const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, currentLanguages }: PickerModalProps) => {
     const [ selectedLanguage, setSelectedLanguage ] = useState<LanguageKeys | ''>('');
     const [ selectedLevel, setSelectedLevel] = useState<LanguageLevelKeys | ''>('');
     const [ error, setError ] = useState<string>('');
@@ -191,4 +191,4 @@ const Container = styled.div<{ $error: boolean }>`
     padding-bottom: 0;
 `;
 
-export default PickerModal;
+export default LanguagePickerModal;
