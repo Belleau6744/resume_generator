@@ -1,5 +1,6 @@
 import { Time } from '@internationalized/date';
 import * as dateFunc from 'date-fns';
+import dayjs from 'dayjs';
 import { TimeValue } from 'react-aria-components';
 
 export const getWeekArray = (startDate: Date): Date[] => {
@@ -10,7 +11,7 @@ export const getWeekArray = (startDate: Date): Date[] => {
     return tempArray;
 };
 
-export const getDateString = (date: Date) => {
+export const getDateString = (date: dayjs.Dayjs) => {
     return date.toISOString().split("T")[0];
 };
 

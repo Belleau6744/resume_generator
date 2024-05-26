@@ -2,18 +2,24 @@ import { InputLabel, TextField } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from "dayjs";
 import { useState } from "react";
 import { Heading, Modal } from "react-aria-components";
 import styled from "styled-components";
+import { v4 as uuidv4 } from 'uuid';
 import ErrorIcon from "../../../../assets/Icons/ErrorIcon";
 import { ResumeType } from "../../../../types/dbStructType";
-import { Education } from "../../../../types/resumeTypes";
+import { Education, Education_DayJs, EducationList } from "../../../../types/resumeTypes";
+import { getDateString } from "../../../../utils/dateUtils";
+import { defaultEducationDayjs } from "../../../../utils/init";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
+import { educationIDExist } from "../../../../utils/validation";
 import './ModalStyling.css';
 
 type PickerModalProps = {
     isModalOpened: boolean;
-    currentEducation: Education;
+    content: EducationList;
+    educationID: string;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
 }
@@ -27,11 +33,50 @@ const Examples = {
     "end date": "Expected or graduated"
 }
 
-const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, currentEducation }: PickerModalProps) => {
+const educationToDayjs = (curr: Education): Education_DayJs => {
+    return {
+        ...curr,
+        ["end date"]: curr["end date"] ? dayjs(curr["end date"]) : null, 
+        ["start date"]: curr["start date"] ? dayjs(curr["start date"]): null
+    }
+}
+
+const dayjsToEducation = (curr: Education_DayJs): Education => {
+    return {
+        ...curr,
+        ["end date"]: curr["end date"] ? getDateString(curr["end date"]) : '',
+        ["start date"]: curr["start date"] ? getDateString(curr["start date"]) : ''
+    }
+}
+
+const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, content, educationID}: PickerModalProps) => {
+    const [selectedEducation, setSelectedEducation] = useState<Education_DayJs>(
+        (educationID && educationIDExist(content, educationID)) ? 
+        educationToDayjs(content[educationID]) :
+        defaultEducationDayjs);
+        
     const [error, setError] = useState('');
 
     const handleSaveNewEducation = () => {
-        // TODO
+        // console.log(checkInputEmptyEducation(selectedEducation));
+        setCurrentResume(prev => ({
+            ...prev,
+            ['content']: {
+                ...prev.content,
+                ['education']: {
+                    ...prev.content.education,
+                    [educationID ?? uuidv4()]: dayjsToEducation(selectedEducation)
+                }
+            }
+        }));
+        setIsModalOpened(false);
+    }
+
+    const handleInputChange = (inputName: string, value: string | dayjs.Dayjs) => {
+        setSelectedEducation(prev => ({
+            ...prev,
+            [inputName]: value
+        }))
     }
 
     return (
@@ -40,7 +85,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
             <Container $error={error !== ''}>
                 <Heading style={{ fontWeight: '800' }} slot="title">Degree information</Heading>
                 <FormContainer >
-                    {Object.entries(currentEducation).map((item => {
+                    {Object.entries(selectedEducation).map((item => {
                         return (
                             <InputWrapper key={item[0]}>
                                 <div>
@@ -48,7 +93,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                                     {item[0] === 'end date' && (<InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontSize: '10px' ,fontWeight: '500' }}>{'Expected or graduated'}</InputLabel>)}
                                 </div>
                             {item[0] === 'start date' || item[0] === 'end date' ? (
-                                <DatePicker sx={{ background: 'rgba(0, 0, 0, 0.06)', minWidth: '100px', flex:'1' }} label={'"month" and "year"'} views={['month', 'year']} />
+                                <DatePicker sx={{ background: 'rgba(0, 0, 0, 0.06)' ,minWidth: '100px', flex:'1' }} value={item[1]} onChange={prev => handleInputChange(item[0], prev)} label={'"month" and "year"'} views={['month', 'year']} />
                             ): (
                                 <TextField
                                     variant='filled'
@@ -56,7 +101,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                                     sx={{ flex: '1', minWidth: '100px' }}
                                     type="text"
                                     value={item[1].toString()}
-                                    // onChange={(e) => handle(item[0], e.target.value)}
+                                    onChange={(e) => handleInputChange(item[0], e.target.value)}
                                 />
                             )}
                         </InputWrapper>

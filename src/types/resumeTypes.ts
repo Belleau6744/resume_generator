@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { LangLevel, LangList } from "../utils/Languages";
 
 /** GENERAL INFORMATION */
@@ -39,6 +40,14 @@ export type Education = {
 export type EducationList = {
     [index: string]: Education;
 }
+
+export type Education_DayJs = Omit<Education, 
+    'end date' | 
+    'start date'> & 
+    { 
+        'end date': dayjs.Dayjs, 
+        'start date': dayjs.Dayjs
+    };
 
 /************************* */
 /** SKILLS */

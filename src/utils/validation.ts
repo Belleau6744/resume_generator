@@ -1,3 +1,5 @@
+import { Education_DayJs, EducationList } from "../types/resumeTypes";
+
 export const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -19,6 +21,19 @@ export const validatePassword = (password: string): boolean => {
     );
   };
 
-export const validateKey = (enteredKey: string, keyList: string[]) => {
+export const validateKey = (enteredKey: string, keyList: string[]): boolean => {
   return keyList.includes(enteredKey)
+}
+
+export const educationIDExist = (content: EducationList, id: string): boolean => {
+  return Object.keys(content).includes(id);
+}
+
+export const checkInputEmptyEducation = (inputFields: Education_DayJs): boolean => {
+  return Object.values(inputFields).every(item => {
+    if (item === '' || item === null) {
+      return false
+    }
+    return true;
+  });
 }
