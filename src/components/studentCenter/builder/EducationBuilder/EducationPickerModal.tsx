@@ -7,14 +7,14 @@ import { useState } from "react";
 import { Heading, Modal } from "react-aria-components";
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
-import ErrorIcon from "../../../../assets/Icons/ErrorIcon";
 import { ResumeType } from "../../../../types/dbStructType";
-import { Education, Education_DayJs, EducationList } from "../../../../types/resumeTypes";
+import { Education, Education_DayJs, EducationInputErrors, EducationList } from "../../../../types/resumeTypes";
 import { getDateString } from "../../../../utils/dateUtils";
 import { defaultEducationDayjs } from "../../../../utils/init";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
-import { educationIDExist } from "../../../../utils/validation";
+import { checkInputEmptyEducation, educationIDExist } from "../../../../utils/validation";
 import './ModalStyling.css';
+import { STRINGS_ENG } from "../../../../assets/stringConstants";
 
 type PickerModalProps = {
     isModalOpened: boolean;
@@ -55,21 +55,32 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
         educationToDayjs(content[educationID]) :
         defaultEducationDayjs);
         
-    const [error, setError] = useState('');
+    const [error, setError] = useState<EducationInputErrors>({
+        'degree': false,
+        'field of study': false,
+        'school name': false,
+        'school address': false,
+        'start date':false,
+        'end date': false,
+    });
 
     const handleSaveNewEducation = () => {
-        // console.log(checkInputEmptyEducation(selectedEducation));
-        setCurrentResume(prev => ({
-            ...prev,
-            ['content']: {
-                ...prev.content,
-                ['education']: {
-                    ...prev.content.education,
-                    [educationID ?? uuidv4()]: dayjsToEducation(selectedEducation)
+        const errorCheck = checkInputEmptyEducation(selectedEducation);
+        if (Object.values(errorCheck).every(err => err === false)) {
+            setCurrentResume(prev => ({
+                ...prev,
+                ['content']: {
+                    ...prev.content,
+                    ['education']: {
+                        ...prev.content.education,
+                        [educationID ?? uuidv4()]: dayjsToEducation(selectedEducation)
+                    }
                 }
-            }
-        }));
-        setIsModalOpened(false);
+            }));
+            setIsModalOpened(false);
+        } else {
+            setError(errorCheck);
+        }
     }
 
     const handleInputChange = (inputName: string, value: string | dayjs.Dayjs) => {
@@ -82,7 +93,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Modal style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Container $error={error !== ''}>
+            <Container $error={!Object.values(error).every(err => err === false)}>
                 <Heading style={{ fontWeight: '800' }} slot="title">Degree information</Heading>
                 <FormContainer >
                     {Object.entries(selectedEducation).map((item => {
@@ -90,13 +101,22 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                             <InputWrapper key={item[0]}>
                                 <div>
                                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{capitalizeEveryWord(item[0])}</InputLabel>
-                                    {item[0] === 'end date' && (<InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontSize: '10px' ,fontWeight: '500' }}>{'Expected or graduated'}</InputLabel>)}
+                                    {item[0] === 'end date' && (<InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontSize: 'ww' ,fontWeight: '500' }}>{'Expected or graduated'}</InputLabel>)}
                                 </div>
                             {item[0] === 'start date' || item[0] === 'end date' ? (
-                                <DatePicker sx={{ background: 'rgba(0, 0, 0, 0.06)' ,minWidth: '100px', flex:'1' }} value={item[1]} onChange={prev => handleInputChange(item[0], prev)} label={'"month" and "year"'} views={['month', 'year']} />
+                                <DatePicker value={item[1]} onChange={prev => handleInputChange(item[0], prev)} label={'"month" and "year"'} views={['month', 'year']} slotProps={{
+                                    textField: {
+                                        variant: 'filled',
+                                        helperText: error[item[0]] ? STRINGS_ENG.education_input_errors[item[0]] : '',
+                                        error: error[item[0]],
+                                        sx:{ flex: '1', minWidth: '100px' }
+                                       },
+                                }} />
                             ): (
                                 <TextField
                                     variant='filled'
+                                    helperText={error[item[0]] ? STRINGS_ENG.education_input_errors[item[0]] : ''}
+                                    error={error[item[0]]}
                                     placeholder={Examples[item[0]]}
                                     sx={{ flex: '1', minWidth: '100px' }}
                                     type="text"
@@ -112,14 +132,14 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                     <StyledCancelButton type='button' onClick={() => setIsModalOpened(false)} >Cancel</StyledCancelButton>
                     <StyledAddButton type='button' onClick={handleSaveNewEducation}>Add</StyledAddButton>
                 </ButtonWrapper>  
-                {error ? (
+                {/* {error ? (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems:'center', height: '30px', width:'270px', paddingTop: '5px', gap: '8px'}}>
                         <div><ErrorIcon/></div>
                         <div style={{ color: 'black', fontWeight: '600'}}>{error}</div>
                     </div>
                 ): (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems:'baseling', height: '30px', width: '270px', paddingTop: '5px'}}></div>
-                )}              
+                )}               */}
             </Container>
         </Modal>
         </LocalizationProvider>
@@ -166,7 +186,6 @@ const Container = styled.div<{ $error: boolean }>`
     width: 80vw;
     height: fit-content;
     padding: 40px;
-    padding-bottom: 0;
 `;
 
 const InputWrapper = styled.div`

@@ -46,7 +46,7 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuild
     return (
         <Container>
             <SectionTitle>Education</SectionTitle>
-            <EducationPickerModal educationID={editingID} content={content} setCurrentResume={setCurrentResume} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
+            {isModalOpen && <EducationPickerModal educationID={editingID} content={content} setCurrentResume={setCurrentResume} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>}
             <Table aria-label="simple table">
                 <TableHead sx={{ background: '#BEBEBE' }}>
                     <TableRow>
