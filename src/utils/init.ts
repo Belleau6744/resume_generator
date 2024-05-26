@@ -1,4 +1,5 @@
 import { ResumeType } from "../types/dbStructType"
+import { Education, Education_DayJs } from "../types/resumeTypes"
 
 export const getEmptyResumeInit = (resumeID: string): ResumeType => {
     return {
@@ -24,4 +25,22 @@ export const getEmptyResumeInit = (resumeID: string): ResumeType => {
             }
         }
     }
+}
+
+export const defaultEducation: Education = {
+    'degree': "",
+    'field of study': "",
+    'school name': "",
+    'school address': "",
+    'start date': "",
+    'end date': ""
+}
+
+export const defaultEducationDayjs: Education_DayJs = {
+    'degree': "",
+    'field of study': "",
+    'school name': "",
+    'school address': "",
+    'start date': null,
+    'end date': null
 }

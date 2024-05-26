@@ -23,6 +23,15 @@ const password_requirements = [
     'Contain at least one number',
     'Contain at least one special character',
 ];
+const education_input_errors = {
+    'degree': "Please fill in your degree",
+    'field of study': "Please fill in your field of study",
+    'school name': "Please fill in your school name",
+    'school address': "Please fill in your school address",
+    'start date': "Please fill in your start date",
+    'end date': "Please fill in your end date",
+    'multiple': "Please fill in the fields"
+}
 
 
 export const STRINGS_ENG =  {
@@ -44,5 +53,6 @@ export const STRINGS_ENG =  {
     password_requirements,
     create_first_resume,
     resumes,
-    new_resume
+    new_resume,
+    education_input_errors
 }

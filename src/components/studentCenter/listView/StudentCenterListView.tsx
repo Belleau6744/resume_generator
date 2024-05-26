@@ -81,7 +81,6 @@ const ReactAriaRow = styled(Row)`
 const StudentCenterListView = (props: ListViewProps) => {
     const { userID } = props;
     const nav = useNavigate();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [dbContent, setDbContent] = useState<UsersType>({});
 
     /**
