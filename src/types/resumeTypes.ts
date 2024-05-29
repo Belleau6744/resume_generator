@@ -62,13 +62,10 @@ export type EducationInputErrors = {
 // Define the Skill type with title and description
 export type Skill = {
     title: string;
-    description: string;
 };
 
 // Define the SkillsFlat type as an index signature where the index is a string and the value is a Skill
-export type SkillsFlat = {
-    [index: string]: Skill;
-};
+export type SkillsFlat = Skill[];
 
 // Define the SkillsHierarchical type as an index signature where the section title is a string and the value is SkillsFlat
 export type SkillsHierarchical = {

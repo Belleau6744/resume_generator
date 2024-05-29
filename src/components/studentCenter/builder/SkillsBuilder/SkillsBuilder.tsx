@@ -1,19 +1,17 @@
-import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { ChangeEvent, useMemo } from "react";
 import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
-import { Skills } from "../../../../types/resumeTypes";
-import CreateSkill from "./SingleList/CreateSkill";
+import { Skills, SkillsFlat, SkillsHierarchical } from "../../../../types/resumeTypes";
 import SingleListSkills from "./SingleList/SingleList";
 import { useConfirmation } from "./utils/skillsbuilder.hooks";
 import { SkillsUtils } from "./utils/skillsbuilder.utils";
 import LosingSectionsModal from "./WarningModal/LosingSectionsModal";
-import CreateSection from "./WithSections/CreateSection";
 import WithSections from "./WithSections/WithSections";
 
 type SkillsBuilderProps = {
     content: Skills;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
 }
 
 const Container = styled.div``;
@@ -23,8 +21,6 @@ const SectionTitle = styled.h1`
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
-    const [isSkillModalOpened, setIsSkillModalOpened] = useState<boolean>(false);
-    const [isSectionModalOpened, setIsSectionModalOpened] = useState<boolean>(false);
 
     const hasSections = useMemo(() => {
         if (content.hasSections === undefined) {
@@ -34,10 +30,6 @@ function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
     }, [content.hasSections]);
 
     const { isModalOpen, requestConfirmation, handleUserResponse } = useConfirmation();
-
-    useEffect(() => {
-        console.log('SECTIONS: ', hasSections);
-    }, [hasSections]);
 
     const handleToggleChange = async (event: ChangeEvent<HTMLInputElement>) => {
         try {
@@ -61,8 +53,8 @@ function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
                         ['content']: {
                             ...prev.content,
                             ['skills']: {
-                                hasSections: false, // TODO
-                                content: content.hasSections === true ? SkillsUtils.transformToFlat(content.content) : {}
+                                hasSections: false,
+                                content: content.hasSections === true ? SkillsUtils.transformToFlat(content.content) : []
                             }
                         }
                     }));
@@ -77,14 +69,11 @@ function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
         <Container>
             {/* Modals Section */}
             <LosingSectionsModal setUserResponse={handleUserResponse} isModalOpened={isModalOpen} setIsModalOpened={() => { } } />
-            <CreateSkill  isModalOpened={isSkillModalOpened} setIsModalOpened={setIsSkillModalOpened}/>
-            <CreateSection isModalOpened={isSectionModalOpened} setIsModalOpened={setIsSectionModalOpened} />
-
             <SectionTitle>Skills</SectionTitle>
-
+            
             {/* Has sections controls */}
             <FormControl>
-                <FormLabel>How would you like to organize your skills</FormLabel>
+                <h4 style={{ borderBottom: '1px solid black' }}>{'How would you like to organize your skills'}</h4>
                 <RadioGroup
                     value={hasSections}
                     onChange={handleToggleChange}
@@ -99,17 +88,12 @@ function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
             </FormControl>
 
             <div>
-                {content.hasSections === true && (<Button variant='contained' onClick={() => setIsSectionModalOpened(true)} sx={{ marginTop: '20px' }} >Add New section</Button>)}
-            </div>
-
-            <div>
-                {content.content && 
-                    (
-                        content.hasSections === true ? 
-                            (<WithSections content={content.content} />) 
-                            : (<SingleListSkills content={content.content} />)
-                    )
+                {
+                    hasSections === true ? 
+                        (<WithSections setCurrentResume={setCurrentResume} content={content.content as SkillsHierarchical} />) 
+                        : (<SingleListSkills setCurrentResume={setCurrentResume} content={content.content as SkillsFlat} />)
                 }
+                
             </div>
         </Container>
     );

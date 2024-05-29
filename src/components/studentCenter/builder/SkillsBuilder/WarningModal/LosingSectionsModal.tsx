@@ -20,7 +20,10 @@ const LosingSectionsModal = (props: ModalProps) => {
         <Modal isDismissable isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
             <Dialog style={{ padding: '25px', background: 'white', display: 'flex', flexDirection: 'column' }}>
                 <Heading slot="title">Before you continue...</Heading>
-                <Alert variant='filled' severity="warning">By continuing you will lose any section you've created</Alert>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '8px'}}>
+                    <Alert variant='filled' severity="warning">By continuing you will lose any section you've created</Alert>
+                    <Alert variant='filled' severity='info'>You will still keep all the skills you added</Alert>
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
                     <Button variant='outlined' onClick={() => handleUserResponse(false)}>Cancel</Button>
                     <Button variant='contained' color='info' onClick={() => handleUserResponse(true)}>Continue</Button>
