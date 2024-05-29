@@ -40,21 +40,133 @@ export const MockCVContent: UsersType = {
                         }
                     },
                     skills: {
-                        '0': {
-                           title: 'Programming Language',
-                           description: 'Java, C#, C, C++, Python, JavaScript, TypeScript, HTML, CSS, XML',
-                        },
-                        '1': {
-                            title: 'Libraries & Framework',
-                            description: 'React, SpringBoot, .NET, Node, RxJS, Redux, Jest'
-                        },
-                        '2': {
-                            title: 'Tools & Plateforms',
-                            description: 'Git, GitHub, Storybook, Figma, Jira, Android Studio, XCode, Eclipse, VSCode, Docker, Firebase, Linux, Jenkins'
-                        },
-                        '3': {
-                            title: 'Internet Protocols',
-                            description: 'MSRP, TCP, SIP, SDP, UDP, HTTP DNS, IP, REST'
+                        hasSections: true,
+                        content: {
+                            'Programming Language': [
+                                {
+                                    title: 'Java'
+                                },
+                                {
+                                    title: 'C#'
+                                },
+                                {
+                                    title: 'C'
+                                },
+                                {
+                                    title: 'C++'
+                                },
+                                {
+                                    title: 'Python'
+                                },
+                                {
+                                    title: 'JavaScript'
+                                },
+                                {
+                                    title: 'TypeScript'
+                                },
+                                {
+                                    title: 'HTML'
+                                },
+                                {
+                                    title: 'CSS'
+                                },
+                                {
+                                    title: 'XML'
+                                }
+                            ],
+                            'Libraries & Framework': [
+                                {
+                                    title: 'React'
+                                },
+                                {
+                                    title: 'SpringBoot'
+                                },
+                                {
+                                    title: '.NET'
+                                },
+                                {
+                                    title: 'Node'
+                                },
+                                {
+                                    title: 'RxJS'
+                                },
+                                {
+                                    title: 'Redux'
+                                },
+                                {
+                                    title: 'Jest'
+                                },
+                            ],
+                            'Tools & Plateforms': [
+                                {
+                                    title: 'Git'
+                                },
+                                {
+                                    title: 'GitHub'
+                                },
+                                {
+                                    title: 'Storybook'
+                                },
+                                {
+                                    title: 'Figma'
+                                },
+                                {
+                                    title: 'Jira'
+                                },
+                                {
+                                    title: 'Android Studio'
+                                },
+                                {
+                                    title: 'XCode'
+                                },
+                                {
+                                    title: 'Eclipse'
+                                },
+                                {
+                                    title: 'VSCode'
+                                },
+                                {
+                                    title: 'Docker'
+                                },
+                                {
+                                    title: 'Firebase'
+                                },
+                                {
+                                    title: 'Linux'
+                                },
+                                {
+                                    title: 'Jenkins'
+                                },
+                            ],
+                            'Internet Protocols': [
+                                {
+                                    title: 'MSRP'
+                                },
+                                {
+                                    title: 'TCP'
+                                },
+                                {
+                                    title: 'SIP'
+                                },
+                                {
+                                    title: 'SDP'
+                                },
+                                {
+                                    title: 'UDP'
+                                },
+                                {
+                                    title: 'HTTP'
+                                },
+                                {
+                                    title: 'DNS'
+                                },
+                                {
+                                    title: 'IP'
+                                },
+                                {
+                                    title: 'REST'
+                                },
+                            ]
                         }
                     },
                     experience: {
@@ -154,21 +266,133 @@ export const MockCVContent: UsersType = {
                         }
                     },
                     skills: {
-                        '0': {
-                           title: 'Programming Language',
-                           description: 'Java, C#, C, C++, Python, JavaScript, TypeScript, HTML, CSS, XML',
-                        },
-                        '1': {
-                            title: 'Libraries & Framework',
-                            description: 'React, SpringBoot, .NET, Node, RxJS, Redux, Jest'
-                        },
-                        '2': {
-                            title: 'Tools & Plateforms',
-                            description: 'Git, GitHub, Storybook, Figma, Jira, Android Studio, XCode, Eclipse, VSCode, Docker, Firebase, Linux, Jenkins'
-                        },
-                        '3': {
-                            title: 'Internet Protocols',
-                            description: 'MSRP, TCP, SIP, SDP, UDP, HTTP DNS, IP, REST'
+                        hasSections: true,
+                        content: {
+                            'Programming Language': [
+                                {
+                                    title: 'Java'
+                                },
+                                {
+                                    title: 'C#'
+                                },
+                                {
+                                    title: 'C'
+                                },
+                                {
+                                    title: 'C++'
+                                },
+                                {
+                                    title: 'Python'
+                                },
+                                {
+                                    title: 'JavaScript'
+                                },
+                                {
+                                    title: 'TypeScript'
+                                },
+                                {
+                                    title: 'HTML'
+                                },
+                                {
+                                    title: 'CSS'
+                                },
+                                {
+                                    title: 'XML'
+                                }
+                            ],
+                            'Libraries & Framework': [
+                                {
+                                    title: 'React'
+                                },
+                                {
+                                    title: 'SpringBoot'
+                                },
+                                {
+                                    title: '.NET'
+                                },
+                                {
+                                    title: 'Node'
+                                },
+                                {
+                                    title: 'RxJS'
+                                },
+                                {
+                                    title: 'Redux'
+                                },
+                                {
+                                    title: 'Jest'
+                                },
+                            ],
+                            'Tools & Plateforms': [
+                                {
+                                    title: 'Git'
+                                },
+                                {
+                                    title: 'GitHub'
+                                },
+                                {
+                                    title: 'Storybook'
+                                },
+                                {
+                                    title: 'Figma'
+                                },
+                                {
+                                    title: 'Jira'
+                                },
+                                {
+                                    title: 'Android Studio'
+                                },
+                                {
+                                    title: 'XCode'
+                                },
+                                {
+                                    title: 'Eclipse'
+                                },
+                                {
+                                    title: 'VSCode'
+                                },
+                                {
+                                    title: 'Docker'
+                                },
+                                {
+                                    title: 'Firebase'
+                                },
+                                {
+                                    title: 'Linux'
+                                },
+                                {
+                                    title: 'Jenkins'
+                                },
+                            ],
+                            'Internet Protocols': [
+                                {
+                                    title: 'MSRP'
+                                },
+                                {
+                                    title: 'TCP'
+                                },
+                                {
+                                    title: 'SIP'
+                                },
+                                {
+                                    title: 'SDP'
+                                },
+                                {
+                                    title: 'UDP'
+                                },
+                                {
+                                    title: 'HTTP'
+                                },
+                                {
+                                    title: 'DNS'
+                                },
+                                {
+                                    title: 'IP'
+                                },
+                                {
+                                    title: 'REST'
+                                },
+                            ]
                         }
                     },
                     experience: {
