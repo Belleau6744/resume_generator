@@ -58,12 +58,27 @@ export type EducationInputErrors = {
 
 /************************* */
 /** SKILLS */
-export type Skills = {
-    [index: string]: {
-        title: string;
-        description: string;
-    }    
-}
+
+// Define the Skill type with title and description
+export type Skill = {
+    title: string;
+    description: string;
+};
+
+// Define the SkillsFlat type as an index signature where the index is a string and the value is a Skill
+export type SkillsFlat = {
+    [index: string]: Skill;
+};
+
+// Define the SkillsHierarchical type as an index signature where the section title is a string and the value is SkillsFlat
+export type SkillsHierarchical = {
+    [sectionTitle: string]: SkillsFlat;
+};
+
+// Define the Skills type as a discriminated union with hasSections as the discriminant
+export type Skills = 
+    | { hasSections: true; content: SkillsHierarchical }
+    | { hasSections: false; content: SkillsFlat };
 
 /************************* */
 /** EXPERIENCE */
