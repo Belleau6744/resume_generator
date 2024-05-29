@@ -73,12 +73,13 @@ function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
             
             {/* Has sections controls */}
             <FormControl>
-                <h4 style={{ borderBottom: '1px solid black' }}>{'How would you like to organize your skills'}</h4>
+                <div style={{ padding: '0 10px', borderBottom: '1px solid black' }}>{'How would you like to organize your skills'}</div>
                 <RadioGroup
                     value={hasSections}
                     onChange={handleToggleChange}
                     aria-labelledby="language-level-select"
                     aria-required
+                    sx={{ margin: '20px 0' }}
                     defaultValue={''}
                     name="language-level-select"
                 >
