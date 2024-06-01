@@ -59,8 +59,8 @@ const CustomTabPanel = (props: TabPanelProps) => {
         <div
         role="tabpanel"
         hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
+        id={`skills-tabpanel-${index}`}
+        aria-labelledby={`skills-tab-${index}`}
         {...other}
         >
         {isSkillModalOpened && <CreateSkillInSection isModalOpened={isSkillModalOpened} section={section} setIsModalOpened={setIsSkillModalOpened} setCurrentResume={setCurrentResume} />}

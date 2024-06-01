@@ -1,4 +1,3 @@
-import { STRINGS_ENG } from "../assets/stringConstants";
 import { Education_DayJs, EducationInputErrors, EducationList } from "../types/resumeTypes";
 
 export const validateEmail = (email: string): boolean => {
@@ -29,7 +28,7 @@ export const validateKey = (enteredKey: string, keyList: string[]): boolean => {
 export const educationIDExist = (content: EducationList, id: string): boolean => {
   return Object.keys(content).includes(id);
 }
-
+// TODO RE-Organize
 export const checkInputEmptyEducation = (inputFields: Education_DayJs): EducationInputErrors => {
   const error: EducationInputErrors = {
     "degree": false,

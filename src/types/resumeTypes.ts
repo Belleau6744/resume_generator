@@ -85,22 +85,51 @@ export type Experience = {
     projectExperience: ProjectExperience;
 }
 export type WorkingExperience = {
-    [index: string]: {
-        organizationName: string;
-        jobTitle: string;
-        taskDescription: string[];
-        startDate: string;
-        stillWorking: true;
-    } | {
-        organizationName: string;
-        jobTitle: string;
-        taskDescription: string[];
-        startDate: string;
-        stillWorking: false;
-        // Only if not still working there
-        endDate: string;
-    }
+    [index: string]: Work
 };
+
+export type Work = {
+    organizationName: string;
+    jobTitle: string;
+    taskDescription: string[];
+    startDate: string;
+    stillWorking: true;
+} | {
+    organizationName: string;
+    jobTitle: string;
+    taskDescription: string[];
+    startDate: string;
+    stillWorking: false;
+    // Only if not still working there
+    endDate: string;
+}
+
+export type WorkExperienceInputErrors = {
+    organizationName: boolean;
+    jobTitle: boolean;
+    taskDescription: boolean;
+    startDate: boolean;
+    stillWorking: boolean;
+    endDate: boolean;
+}
+
+export type Work_DayJs = {
+    organizationName: string;
+    jobTitle: string;
+    taskDescription: string[];
+    startDate: dayjs.Dayjs;
+    stillWorking: true;
+} | {
+    organizationName: string;
+    jobTitle: string;
+    taskDescription: string[];
+    startDate: dayjs.Dayjs;
+    stillWorking: false;
+    // Only if not still working there
+    endDate: dayjs.Dayjs;
+}
+
+
 export type VolunteerExperience = {
     [index:string]: {
         organizationName: string;

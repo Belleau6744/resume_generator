@@ -7,14 +7,14 @@ import { useState } from "react";
 import { Heading, Modal } from "react-aria-components";
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
+import { STRINGS_ENG } from "../../../../assets/stringConstants";
 import { ResumeType } from "../../../../types/dbStructType";
-import { Education, Education_DayJs, EducationInputErrors, EducationList } from "../../../../types/resumeTypes";
-import { getDateString } from "../../../../utils/dateUtils";
+import { Education_DayJs, EducationInputErrors, EducationList } from "../../../../types/resumeTypes";
 import { defaultEducationDayjs } from "../../../../utils/init";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 import { checkInputEmptyEducation, educationIDExist } from "../../../../utils/validation";
 import './ModalStyling.css';
-import { STRINGS_ENG } from "../../../../assets/stringConstants";
+import { dayjsToEducation, educationToDayjs } from "./utils";
 
 type PickerModalProps = {
     isModalOpened: boolean;
@@ -22,31 +22,6 @@ type PickerModalProps = {
     educationID: string;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
-}
-
-const Examples = {
-    'degree': "Bachelor | Master's | PhD | DEC ...",
-    "field of study": "Computer Science | Business | Nursing ...",
-    "school name": "Enter the full name",
-    "school address": "Establishment number, street name, province | state, country",
-    "start date": "month - yearh",
-    "end date": "Expected or graduated"
-}
-
-const educationToDayjs = (curr: Education): Education_DayJs => {
-    return {
-        ...curr,
-        ["end date"]: curr["end date"] ? dayjs(curr["end date"]) : null, 
-        ["start date"]: curr["start date"] ? dayjs(curr["start date"]): null
-    }
-}
-
-const dayjsToEducation = (curr: Education_DayJs): Education => {
-    return {
-        ...curr,
-        ["end date"]: curr["end date"] ? getDateString(curr["end date"]) : '',
-        ["start date"]: curr["start date"] ? getDateString(curr["start date"]) : ''
-    }
 }
 
 const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, content, educationID}: PickerModalProps) => {
@@ -117,7 +92,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                                     variant='filled'
                                     helperText={error[item[0]] ? STRINGS_ENG.education_input_errors[item[0]] : ''}
                                     error={error[item[0]]}
-                                    placeholder={Examples[item[0]]}
+                                    placeholder={STRINGS_ENG.education_input_examples[item[0]]}
                                     sx={{ flex: '1', minWidth: '100px' }}
                                     type="text"
                                     value={item[1].toString()}
