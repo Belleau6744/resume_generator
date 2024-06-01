@@ -4,7 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from "dayjs";
 import { useState } from 'react';
-import { Dialog, Heading, Modal } from 'react-aria-components';
+import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import '../../../../../assets/ModalStyling.css';
@@ -91,20 +91,20 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
     };
 
     const handleInputChange = (inputName: string, value: string | dayjs.Dayjs) => {
-        // setSelectedWorkingExperience(prev => {
-        //     return ({
-        //         ...prev,
-        //         [inputName]: value
-        //     })
-        // })
+        setSelectedWorkingExperience(prev => {
+            return ({
+                ...prev,
+                [inputName]: value
+            })
+        })
     }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Dialog style={{ gap:'15px', padding: '25px', background: 'white', display: 'flex', flexDirection: 'column' }}>
-                <Heading slot="title">{STRINGS_ENG.adding.addNewWorkingExperience.toUpperCase()}</Heading>
+        <Modal style={{ background: 'white', padding: '25px' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
+            <Heading slot="title">{STRINGS_ENG.adding.addNewWorkingExperience.toUpperCase()}</Heading>
 
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Job Title */}
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Job Title'}</InputLabel>
@@ -136,18 +136,19 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                 {/* Start Date */}
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Start Date'}</InputLabel>
-                    <DatePicker 
-                        // value={selectedWorkingExperience.startDate} 
-                        // onChange={e => handleInputChange('startDate', e)} 
-                        // label={'Start Date'}
-                        // slotProps={{
-                        //     textField: {
-                        //         variant: 'filled',
-                        //         helperText: inputErrors.startDate ? 'Input a start date' : '',
-                        //         error: inputErrors.startDate,
-                        //         sx:{ flex: '1', minWidth: '100px' }
-                        //     },
-                        // }} 
+                    <DatePicker
+                        autoFocus
+                        value={selectedWorkingExperience.startDate} 
+                        onChange={e => handleInputChange('startDate', e)} 
+                        label={'Start Date'}
+                        slotProps={{
+                            textField: {
+                                variant: 'filled',
+                                helperText: inputErrors.startDate ? 'Input a start date' : '',
+                                error: inputErrors.startDate,
+                                sx:{ flex: '1', minWidth: '100px' }
+                            },
+                        }} 
                     />
                 </InputWrapper>
 
@@ -156,18 +157,18 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     {/* End Date */}
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'End Date'}</InputLabel>
                     <DatePicker 
-                        // value={selectedWorkingExperience.stillWorking === true ? '' : selectedWorkingExperience.endDate} 
-                        // onChange={e => handleInputChange('endDate', e)} 
-                        // label={selectedWorkingExperience.stillWorking === true ? 'Still Working' : 'End Date'}
-                        // disabled={selectedWorkingExperience.stillWorking === true}
-                        // slotProps={{
-                        //     textField: {
-                        //         variant: selectedWorkingExperience.stillWorking === true ? 'outlined' : 'filled',
-                        //         helperText: inputErrors.startDate ? 'Input a start date' : '',
-                        //         error: inputErrors.startDate,
-                        //         sx:{ flex: '1', minWidth: '100px' }
-                        //     },
-                        // }} 
+                        value={selectedWorkingExperience.stillWorking === true ? '' : selectedWorkingExperience.endDate} 
+                        onChange={e => handleInputChange('endDate', e)} 
+                        label={selectedWorkingExperience.stillWorking === true ? 'Still Working' : 'End Date'}
+                        disabled={selectedWorkingExperience.stillWorking === true}
+                        slotProps={{
+                            textField: {
+                                variant: selectedWorkingExperience.stillWorking === true ? 'outlined' : 'filled',
+                                helperText: inputErrors.startDate ? 'Input a start date' : '',
+                                error: inputErrors.startDate,
+                                sx:{ flex: '1', minWidth: '100px' }
+                            },
+                        }} 
                     />
 
                     {/* Still Working */}
@@ -194,13 +195,13 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     onChange={(e) => handleInputChange('taskDescription', e.target.value)}
                     />
                 </InputWrapper>
+                </div>
               
                 
                 <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
                     <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
                     <Button variant='contained' color='info' onClick={handleAddNewExperience}>Add Experience</Button>
                 </div>
-            </Dialog>
         </Modal>
         </LocalizationProvider>
     )
