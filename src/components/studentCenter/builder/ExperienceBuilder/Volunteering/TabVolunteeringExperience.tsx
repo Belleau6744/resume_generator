@@ -67,6 +67,8 @@ const TabVolunteeringExperience = (props: TabPanelProps) => {
                         <TableCell component="th" scope="row">{volunteeringExperience[item].organizationName}</TableCell>
                         <TableCell component="th" scope="row">{volunteeringExperience[item].description}</TableCell>
                         <TableCell component="th" scope="row">{volunteeringExperience[item].startDate}</TableCell>
+                        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                        {/* @ts-ignore */}
                         <TableCell component="th" scope="row">{volunteeringExperience[item].stillWorking === true ? STRINGS_ENG.still_working : volunteeringExperience[item].endDate}</TableCell>
                         <TableCell align="right">
                             <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedExperience(item)}>

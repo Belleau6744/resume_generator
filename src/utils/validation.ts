@@ -28,7 +28,7 @@ export const validateKey = (enteredKey: string, keyList: string[]): boolean => {
 export const educationIDExist = (content: EducationList, id: string): boolean => {
   return Object.keys(content).includes(id);
 }
-// TODO RE-Organize
+
 export const checkEmptyInputs = (inputFields: object, errorInputs ) => {
   const error = errorInputs;
   Object.entries(inputFields).forEach(item => {

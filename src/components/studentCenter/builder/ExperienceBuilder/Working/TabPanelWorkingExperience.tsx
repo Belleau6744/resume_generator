@@ -82,6 +82,8 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
                         <TableCell component="th" scope="row">{workingExperience[item].organizationName}</TableCell>
                         <TableCell component="th" scope="row">{workingExperience[item].taskDescription}</TableCell>
                         <TableCell component="th" scope="row">{workingExperience[item].startDate}</TableCell>
+                        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                        {/* @ts-ignore */}
                         <TableCell component="th" scope="row">{workingExperience[item].stillWorking === true ? STRINGS_ENG.still_working : workingExperience[item].endDate}</TableCell>
                         <TableCell align="right">
                             <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedExperience(item)}>
