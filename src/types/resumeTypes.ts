@@ -81,7 +81,7 @@ export type Skills =
 /** EXPERIENCE */
 export type Experience = {
     workingExperience: WorkingExperience;
-    volunteerExperience: VolunteerExperience;
+    volunteerExperience: VolunteeringExperience;
     projectExperience: ProjectExperience;
 }
 export type WorkingExperience = {
@@ -130,15 +130,47 @@ export type Work_DayJs = {
 }
 
 
-export type VolunteerExperience = {
-    [index:string]: {
-        organizationName: string;
-        jobTitle: string;
-        description: string[];
-        startDate: string;
-        stillWorking: true;
-    }
+export type VolunteeringExperience = {
+    [index:string]: Volunteering
 }
+
+export type Volunteering = {
+    organizationName: string;
+    jobTitle: string;
+    description: string[];
+    startDate: string;
+    stillWorking: true;
+} | {
+    organizationName: string;
+    jobTitle: string;
+    description: string[];
+    startDate: string;
+    stillWorking: false;
+    endDate: string;
+}
+export type Volunteering_DaysJs = {
+    organizationName: string;
+    jobTitle: string;
+    description: string[];
+    startDate: dayjs.Dayjs | null;
+    stillWorking: true;
+} | {
+    organizationName: string;
+    jobTitle: string;
+    description: string[];
+    startDate: dayjs.Dayjs | null;
+    stillWorking: false;
+    endDate: dayjs.Dayjs | null;
+}
+export type VolunteeringInputErrors = {
+    organizationName: boolean,
+    jobTitle: boolean,
+    description: boolean,
+    startDate: boolean,
+    stillWorking: boolean,
+    endDate: boolean,
+}
+
 export type ProjectExperience = {
     [index: string]: Project;
 };

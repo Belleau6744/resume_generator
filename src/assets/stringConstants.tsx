@@ -21,7 +21,9 @@ const adding = {
     plus_workingExperience: '+ add working experience',
     addNewWorkingExperience: 'add working experience',
     plus_projectExperience: '+ add project experience',
-    addNewProjectExperience: 'add project experience'
+    addNewProjectExperience: 'add project experience',
+    plus_volunteeringExperience: '+ add volunteering experience',
+    addNewVolunteeringExperience: 'add new volunteering experience'
 }
 const education_input_examples = {
     'degree': "Bachelor | Master's | PhD | DEC ...",

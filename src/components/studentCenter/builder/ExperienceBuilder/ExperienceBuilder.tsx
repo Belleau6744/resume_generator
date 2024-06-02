@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
 import { Experience } from "../../../../types/resumeTypes";
 import TabPanelProjectExperience from "./Project/TabPanelProjectExperience";
+import TabVolunteeringExperience from "./Volunteering/TabVolunteeringExperience";
 import TabPanelWorkingExperience from "./Working/TabPanelWorkingExperience";
 
 type ExperienceBuilderProps = {
@@ -39,6 +40,7 @@ const ExperienceBuilder = ({ content, setCurrentResume }: ExperienceBuilderProps
         </Box>
         <TabPanelWorkingExperience index={0} value={tabValue} workingExperience={content.workingExperience} setCurrentResume={setCurrentResume} />
         <TabPanelProjectExperience index={1} value={tabValue} projectExperience={content.projectExperience} setCurrentResume={setCurrentResume} />
+        <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content.volunteerExperience} setCurrentResume={setCurrentResume} />
 
         </Container>
     )

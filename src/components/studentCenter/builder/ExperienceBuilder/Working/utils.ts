@@ -42,7 +42,6 @@ export const checkInputEmptyWorkingExperience = (inputFields: Work_DayJs): WorkE
         endDate: false,
     }
     Object.entries(inputFields).forEach(item => {
-        console.log('input: ', item[0], '| value: ', item[1]);
         if(item[1] === '' || item[1] === null || (Array.isArray(item[1]) && item[1].length === 0)) {
             inputErrors[item[0]] = true;
         }

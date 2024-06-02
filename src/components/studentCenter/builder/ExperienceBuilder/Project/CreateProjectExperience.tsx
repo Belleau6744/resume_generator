@@ -83,7 +83,7 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     label={'Title'}
                     type="text"
                     value={selectedProjectExperience.title}
-                    onChange={(e) => handleInputChange('jobTitle', e.target.value)}
+                    onChange={(e) => handleInputChange('title', e.target.value)}
                     />
                 </InputWrapper>
 
@@ -97,7 +97,7 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     label={'Organization Name'}
                     type="text"
                     value={selectedProjectExperience.description}
-                    onChange={(e) => handleInputChange('organizationName', e.target.value)}
+                    onChange={(e) => handleInputChange('description', e.target.value)}
                     />
                 </InputWrapper>
                 </div>

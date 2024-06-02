@@ -2,21 +2,23 @@ import { Button, Checkbox, InputLabel, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
-import { ResumeType } from '../../../../../types/dbStructType';
-import { Work_DayJs, WorkExperienceInputErrors, WorkingExperience } from '../../../../../types/resumeTypes';
-import { defaultWorkingExperienceDayJs } from '../../../../../utils/init';
-import { checkInputEmptyWorkingExperience, dayJsToWorkingExperience, workingExperienceToDayJs } from './utils';
+import { ResumeType } from "../../../../../types/dbStructType";
+import { Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "../../../../../types/resumeTypes";
+import { defaultVolunteeringExperienceDayJs, defaultVolunteeringExperienceInputErrors } from '../../../../../utils/init';
+import { checkEmptyInputs } from '../../../../../utils/validation';
+import { dayJsToVolunteeringExperience, volunteeringExperienceToDayJs } from './utils';
 
-type CreateWorkingExperienceProps = {
+
+type CreateVolunteeringExperienceProps = {
     isModalOpened: boolean;
-    workingExperience: WorkingExperience;
+    volunteeringExperience: VolunteeringExperience;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
     setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
     editingID?: string;
@@ -33,19 +35,13 @@ const InputWrapper = styled.div`
     }
 `;
 
-const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, workingExperience }: CreateWorkingExperienceProps) => {
-    const [ selectedWorkingExperience, setSelectedWorkingExperience ] = useState<Work_DayJs>(editingID ? workingExperienceToDayJs(workingExperience[editingID]) : defaultWorkingExperienceDayJs);
-    const [ inputErrors, setInputErrors ] = useState<WorkExperienceInputErrors>({
-        organizationName: false,
-        jobTitle: false,
-        taskDescription: false,
-        startDate: false,
-        stillWorking: false,
-        endDate: false,
-    });
 
-    const handleAddNewExperience = () => {
-        const errorCheck = checkInputEmptyWorkingExperience(selectedWorkingExperience);
+const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, volunteeringExperience }: CreateVolunteeringExperienceProps) => {
+    const [ selectedVolunteeringExperience, setSelectedVolunteeringExperience ] = useState<Volunteering_DaysJs>(editingID ? volunteeringExperienceToDayJs(volunteeringExperience[editingID]) : defaultVolunteeringExperienceDayJs);
+    const [ inputErrors, setInputErrors ] = useState<VolunteeringInputErrors>(defaultVolunteeringExperienceInputErrors);
+
+    const addNewProjectExperience = () => {
+        const errorCheck = checkEmptyInputs(selectedVolunteeringExperience, defaultVolunteeringExperienceInputErrors);
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => {
                 return ({
@@ -54,54 +50,53 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                         ...prev.content,
                         'experience': {
                             ...prev.content.experience,
-                            'workingExperience': {
-                                ...prev.content.experience.workingExperience,
-                                [editingID ?? uuidv4()]: dayJsToWorkingExperience(selectedWorkingExperience)
+                            'volunteerExperience': {
+                                ...prev.content.experience.volunteerExperience,
+                                [editingID ?? uuidv4()]: dayJsToVolunteeringExperience(selectedVolunteeringExperience)
                             }
                         }
                     }
                 })
-            });
+            })
             setIsModalOpened(false);
         } else {
             setInputErrors(errorCheck);
         }
-        
+    }
+
+    const handleInputChange = (inputName: string, value: string | dayjs.Dayjs) => {
+        setSelectedVolunteeringExperience(prev => {
+            return ({
+                ...prev,
+                [inputName]: value,
+            })
+        })
     }
 
     const handleChangeStillWorking = (event: React.ChangeEvent<HTMLInputElement>) => {
         const isStillWorking = (event.target.checked);
-        if (isStillWorking) {
-            setSelectedWorkingExperience(prev => {
+        if (isStillWorking === true) {
+            setSelectedVolunteeringExperience(prev => {
                 return ({
                     ...prev,
-                    stillWorking: isStillWorking,
+                    stillWorking: true,
                 })
             })
         } else {
-            setSelectedWorkingExperience(prev => {
+            setSelectedVolunteeringExperience(prev => {
                 return ({
                     ...prev,
-                    stillWorking: isStillWorking,
+                    stillWorking: false,
                     endDate: (dayjs(new Date()))
                 })
             })
         }
-    };
-
-    const handleInputChange = (inputName: string, value: string | dayjs.Dayjs) => {
-        setSelectedWorkingExperience(prev => {
-            return ({
-                ...prev,
-                [inputName]: value
-            })
-        })
     }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Modal style={{ background: 'white', padding: '25px' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Heading slot="title">{STRINGS_ENG.adding.addNewWorkingExperience.toUpperCase()}</Heading>
+            <Heading slot="title">{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</Heading>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Job Title */}
@@ -113,7 +108,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     sx={{ flex: '1', minWidth: '100px' }}
                     label={'Job Title'}
                     type="text"
-                    value={selectedWorkingExperience.jobTitle}
+                    value={selectedVolunteeringExperience.jobTitle}
                     onChange={(e) => handleInputChange('jobTitle', e.target.value)}
                     />
                 </InputWrapper>
@@ -127,7 +122,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     error={inputErrors.organizationName}
                     label={'Organization Name'}
                     type="text"
-                    value={selectedWorkingExperience.organizationName}
+                    value={selectedVolunteeringExperience.organizationName}
                     onChange={(e) => handleInputChange('organizationName', e.target.value)}
                     />
                 </InputWrapper>
@@ -137,7 +132,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Start Date'}</InputLabel>
                     <DatePicker
                         autoFocus
-                        value={selectedWorkingExperience.startDate} 
+                        value={selectedVolunteeringExperience.startDate} 
                         onChange={e => handleInputChange('startDate', e)} 
                         label={'Start Date'}
                         slotProps={{
@@ -156,13 +151,13 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     {/* End Date */}
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'End Date'}</InputLabel>
                     <DatePicker 
-                        value={selectedWorkingExperience.stillWorking === true ? '' : selectedWorkingExperience.endDate} 
+                        value={selectedVolunteeringExperience.stillWorking === true ? '' : selectedVolunteeringExperience.endDate} 
                         onChange={e => handleInputChange('endDate', e)} 
-                        label={selectedWorkingExperience.stillWorking === true ? 'Still Working' : 'End Date'}
-                        disabled={selectedWorkingExperience.stillWorking === true}
+                        label={selectedVolunteeringExperience.stillWorking === true ? 'Still Working' : 'End Date'}
+                        disabled={selectedVolunteeringExperience.stillWorking === true}
                         slotProps={{
                             textField: {
-                                variant: selectedWorkingExperience.stillWorking === true ? 'outlined' : 'filled',
+                                variant: selectedVolunteeringExperience.stillWorking === true ? 'outlined' : 'filled',
                                 helperText: inputErrors.startDate ? 'Input a start date' : '',
                                 error: inputErrors.startDate,
                                 sx:{ flex: '1', minWidth: '100px' }
@@ -173,7 +168,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     {/* Still Working */}
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Still Working'}</InputLabel>
                     <Checkbox
-                        checked={selectedWorkingExperience.stillWorking}
+                        checked={selectedVolunteeringExperience.stillWorking}
                         onChange={handleChangeStillWorking}
                         inputProps={{ 'aria-label': 'controlled' }}
                     />
@@ -186,12 +181,12 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     multiline
                     inputProps={{ style: { resize: "both" } }}
                     variant='filled'
-                    error={inputErrors.taskDescription}
+                    error={inputErrors.description}
                     sx={{ flex: '1', minWidth: '100px' }}
                     label={'Description'}
                     type="text"
-                    value={selectedWorkingExperience.taskDescription}
-                    onChange={(e) => handleInputChange('taskDescription', e.target.value)}
+                    value={selectedVolunteeringExperience.description}
+                    onChange={(e) => handleInputChange('description', e.target.value)}
                     />
                 </InputWrapper>
                 </div>
@@ -199,11 +194,11 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                 
                 <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
                     <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
-                    <Button variant='contained' color='info' onClick={handleAddNewExperience}>Add Experience</Button>
+                    <Button variant='contained' color='info' onClick={addNewProjectExperience}>Add Experience</Button>
                 </div>
         </Modal>
         </LocalizationProvider>
     )
 }
 
-export default CreateWorkingExperience;
+export default CreateVolunteeringExperience;
