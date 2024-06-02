@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { ChangeEvent, useMemo } from "react";
 import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
@@ -11,6 +11,7 @@ import WithSections from "./WithSections/WithSections";
 
 type SkillsBuilderProps = {
     content: Skills;
+    isDirty: boolean;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
 }
 
@@ -19,7 +20,14 @@ const SectionTitle = styled.h1`
     color: black;
 `;
 
-const SkillsBuilder = ({ content, setCurrentResume }: SkillsBuilderProps) => {
+const BottomWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: space-between;
+`;
+
+const SkillsBuilder = ({ content, setCurrentResume, isDirty }: SkillsBuilderProps) => {
 
     const hasSections = useMemo(() => {
         if (content.hasSections === undefined) {
@@ -95,6 +103,10 @@ const SkillsBuilder = ({ content, setCurrentResume }: SkillsBuilderProps) => {
                 }
                 
             </div>
+            <BottomWrapper>
+                <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
+                <Button type="button" size='large' color='success' variant='contained'>Save</Button>
+            </BottomWrapper>
         </Container>
     );
 }

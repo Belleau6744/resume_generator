@@ -41,11 +41,11 @@ const TabVolunteeringExperience = (props: TabPanelProps) => {
         aria-labelledby={`experience-tab-${index}`}
         {...other}
         >
-        {/* Volunteering Experience Modal */}
-        {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} volunteeringExperience={volunteeringExperience} setIsModalOpened={setIsModalOpened} setCurrentResume={setCurrentResume} />}
 
         {value === index && (
         <Table>
+            {/* Volunteering Experience Modal */}
+            {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} volunteeringExperience={volunteeringExperience} setIsModalOpened={setIsModalOpened} setCurrentResume={setCurrentResume} />}
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Job Title</TableCell>

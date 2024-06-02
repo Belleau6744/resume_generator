@@ -1,16 +1,15 @@
-import "@ag-grid-community/styles/ag-grid.css"; // Core CSS
-import "@ag-grid-community/styles/ag-theme-quartz.css"; // Theme
-import { capitalize } from "@mui/material";
+import { capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import DownloadIcon from "../../../assets/Icons/DownloadIcon";
+import EditIcon from "../../../assets/Icons/EditIcon";
+import SendIcon from "../../../assets/Icons/SendIcon";
 import { STRINGS_ENG } from "../../../assets/stringConstants";
 import { UsersType } from '../../../types/dbStructType';
 import { capitalizeEveryWord } from "../../../utils/stringUtils";
-import ResumeRow from "./ResumeRow";
 
 type ListViewProps = {
     userID?: string;
@@ -53,31 +52,6 @@ const Container = styled.div`
     color: black;
 `;
 
-const TableContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 1000px;
-  background: #D2D2D2;
-  padding: 25px;
-  border-radius: 12px;
-`;
-
-const ColumnTitle = styled.div`
-display: flex;
-width: 100%;
-justify-content: center;
-align-items: center;
-`;
-
-
-const ReactAriaRow = styled(Row)`
-  --radius-bottom: 0 !important;
-  --radius-top: 0 !important;
-  border-radius: 0 !important;
-`;
-
-
 const StudentCenterListView = (props: ListViewProps) => {
     const { userID } = props;
     const nav = useNavigate();
@@ -99,31 +73,68 @@ const StudentCenterListView = (props: ListViewProps) => {
         const resumeID = uuidv4();
         nav(`/builder/${resumeID}`)
     }, [nav]);
+
+    const handleEditResume = useCallback((resumeID: string) => {
+        nav(`/builder/${resumeID}`)
+    }, [nav]);
+
+    const handleDownloadResume = (resumeID: string) => {
+        // TODO
+        console.log('download: ', resumeID);
+    };
+
+    const handleSubmitResume = (resumeID: string) => {
+        // TODO
+        console.log('submit: ', resumeID);
+    }
+
     
     const ResumeTable = useMemo(() => {
         return (
-            <TableContainer>
-                <Table aria-label="Files" style={{width: '100%'}} selectionMode="none">
-                    <TableHeader>
-                        <Column isRowHeader><ColumnTitle>Creation Date</ColumnTitle></Column>
-                        <Column><ColumnTitle>Status</ColumnTitle></Column>
-                        <Column><ColumnTitle>Edit</ColumnTitle></Column>
-                        <Column><ColumnTitle>Get</ColumnTitle></Column>
-                    </TableHeader>
-                    <TableBody>
+            <Table aria-label="simple table">
+                <TableHead sx={{ background: '#BEBEBE' }}>
+                    <TableRow>
+                        {/* <TableCell align="center" sx={{ fontWeight: '800' }}>ID</TableCell> */}
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Creation Date</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Status</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Edit</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Submit</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Download</TableCell>
+                        
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {dbContent?.resumes && Object.values(dbContent.resumes).map((value, index) => {
                         return (
-                            <ReactAriaRow key={index}>
-                                <ResumeRow creationDate={value.creationDate} id={value.id} status={value.status} />
-                            </ReactAriaRow>
-                            
+                            <TableRow
+                                key={index}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                {/* <TableCell align="center">{value.id}</TableCell> */}
+                                <TableCell align="center">{value.creationDate}</TableCell>
+                                <TableCell align="center">{value.status}</TableCell>
+                                <TableCell align="center">
+                                    <IconButton onClick={() => handleEditResume(value.id)}>
+                                        <EditIcon/>    
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton onClick={() => handleSubmitResume(value.id)}>
+                                        <SendIcon />
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton onClick={() => handleDownloadResume(value.id)}>
+                                        <DownloadIcon />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
                         )
                     })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                </TableBody>
+            </Table>
         );
-    }, [dbContent?.resumes]);    
+    }, [dbContent.resumes, handleEditResume]);    
 
     return (
         <Container data-test-id={'student-center-list-view'}>

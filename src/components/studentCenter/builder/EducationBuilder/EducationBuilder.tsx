@@ -1,4 +1,4 @@
-import { Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../assets/Icons/DeleteIcon";
@@ -13,6 +13,13 @@ type EducationBuilderProps = {
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
     isDirty: boolean;
 }
+
+const BottomWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: space-between;
+`;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuilderProps) => {
@@ -66,17 +73,19 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuild
                 </TableHead>
                     {Object.keys(content).length > 0 && (
                         <TableBody>
-                        {Object.entries(content).map((item) => (
+                        {Object.entries(content).map((item) => {
+                            console.log(item)
+                            return (
                                 <TableRow
                                     key={item[0]}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    <TableCell align="right">{capitalizeEveryWord(item[1]?.['degree'])}</TableCell>
-                                    <TableCell align="right">{capitalizeEveryWord(item[1]?.['field of study'])}</TableCell>
-                                    <TableCell align="right">{capitalizeEveryWord(item[1]?.['school name'])}</TableCell>
-                                    <TableCell align="right">{capitalizeEveryWord(item[1]?.['school address'])}</TableCell>
-                                    <TableCell align="right">{capitalizeEveryWord(item[1]?.['start date'])}</TableCell>
-                                    <TableCell align="right">{capitalizeEveryWord(item[1]?.['end date'])}</TableCell>
+                                    <TableCell align="right">{item[1]['degree'] ? capitalizeEveryWord(item[1]['degree']) : ''}</TableCell>
+                                    <TableCell align="right">{item[1]['field of study'] ? capitalizeEveryWord(item[1]['field of study']): ''}</TableCell>
+                                    <TableCell align="right">{item[1]['school name'] ? capitalizeEveryWord(item[1]['school name']): ''}</TableCell>
+                                    <TableCell align="right">{item[1]['school address'] ? capitalizeEveryWord(item[1]['school address']): ''}</TableCell>
+                                    <TableCell align="right">{item[1]['start date'] ? capitalizeEveryWord(item[1]['start date']): ''}</TableCell>
+                                    <TableCell align="right">{item[1]['end date'] ? capitalizeEveryWord(item[1]['end date']): ''}</TableCell>
                                     <TableCell align="right">
                                         <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedEducation(item[0])}>
                                             <DeleteIcon />
@@ -88,11 +97,16 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuild
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )
+                        })}
                         </TableBody>
                     )}
             </Table>
             {Object.keys(content).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Click "Add" to begin.</InputLabel>}
+            <BottomWrapper>
+                <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
+                <Button type="button" size='large' color='success' variant='contained'>Save</Button>
+            </BottomWrapper>
         </Container>
     )
 };

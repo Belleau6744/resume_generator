@@ -55,7 +55,7 @@ const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) =>
                         </TableCell>
                     </TableRow>
                 </TableHead>
-                    {Object.keys(languages).length > 0 && (
+                    {languages && Object.keys(languages).length > 0 && (
                         <TableBody>
                         {Object.entries(languages).map((languageItem) => (
                                 <TableRow
@@ -74,7 +74,7 @@ const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) =>
                         </TableBody>
                     )}
             </Table>
-            {Object.keys(languages).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Start by adding the languages you know. Click "Add" to begin.</InputLabel>}
+            {languages && Object.keys(languages).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Start by adding the languages you know. Click "Add" to begin.</InputLabel>}
         </Container>
     )
 }

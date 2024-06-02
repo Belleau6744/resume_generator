@@ -26,9 +26,9 @@ const WithSections = ({ content, setCurrentResume }: WithSectionsProps) => {
         <Box sx={{ borderColor: 'divider', borderBottom: 1, marginTop: '20px'}}>
             <Tabs value={tabValue} onChange={handleChange}>
                 {
-                content && Object.keys(content).map(section => {
+                content && Object.keys(content).map((section, index) => {
                         return (
-                            <Tab label={section} />
+                            <Tab key={index} label={section} />
                         )
                     })
                 }
@@ -36,7 +36,7 @@ const WithSections = ({ content, setCurrentResume }: WithSectionsProps) => {
         </Box>
         {Object.keys(content).map((section, index) => {
             return (
-                <CustomTabPanel section={section} skills={content[section]} setCurrentResume={setCurrentResume} index={index} value={tabValue} />
+                <CustomTabPanel section={section} key={index} skills={content[section]} setCurrentResume={setCurrentResume} index={index} value={tabValue} />
             )
         })}
         </>

@@ -11,7 +11,7 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { ResumeType } from "../../../../../types/dbStructType";
 import { Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "../../../../../types/resumeTypes";
-import { defaultVolunteeringExperienceDayJs, defaultVolunteeringExperienceInputErrors } from '../../../../../utils/init';
+import { getDefaultVolunteeringExperienceDayJs, getDefaultVolunteeringExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
 import { dayJsToVolunteeringExperience, volunteeringExperienceToDayJs } from './utils';
 
@@ -37,11 +37,11 @@ const InputWrapper = styled.div`
 
 
 const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, volunteeringExperience }: CreateVolunteeringExperienceProps) => {
-    const [ selectedVolunteeringExperience, setSelectedVolunteeringExperience ] = useState<Volunteering_DaysJs>(editingID ? volunteeringExperienceToDayJs(volunteeringExperience[editingID]) : defaultVolunteeringExperienceDayJs);
-    const [ inputErrors, setInputErrors ] = useState<VolunteeringInputErrors>(defaultVolunteeringExperienceInputErrors);
+    const [ selectedVolunteeringExperience, setSelectedVolunteeringExperience ] = useState<Volunteering_DaysJs>(editingID ? volunteeringExperienceToDayJs(volunteeringExperience[editingID]) : getDefaultVolunteeringExperienceDayJs());
+    const [ inputErrors, setInputErrors ] = useState<VolunteeringInputErrors>(getDefaultVolunteeringExperienceInputErrors());
 
     const addNewProjectExperience = () => {
-        const errorCheck = checkEmptyInputs(selectedVolunteeringExperience, defaultVolunteeringExperienceInputErrors);
+        const errorCheck = checkEmptyInputs(selectedVolunteeringExperience, getDefaultVolunteeringExperienceInputErrors());
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => {
                 return ({
@@ -159,7 +159,7 @@ const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, setCurr
                             textField: {
                                 variant: selectedVolunteeringExperience.stillWorking === true ? 'outlined' : 'filled',
                                 helperText: inputErrors.startDate ? 'Input a start date' : '',
-                                error: inputErrors.startDate,
+                                error: inputErrors.endDate,
                                 sx:{ flex: '1', minWidth: '100px' }
                             },
                         }} 

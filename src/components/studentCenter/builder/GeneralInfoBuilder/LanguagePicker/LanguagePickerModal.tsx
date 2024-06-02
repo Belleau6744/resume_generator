@@ -81,7 +81,11 @@ const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume
     }
 
     const availableLanguages = useMemo(() => {
-        return Object.keys(LangList).filter((lang) => !Object.keys(currentLanguages).includes(lang));
+        if (LangList && currentLanguages) {
+            return Object.keys(LangList).filter((lang) => !Object.keys(currentLanguages).includes(lang));
+        } else {
+            return []
+        }
       }, [currentLanguages]);
     
     return (
