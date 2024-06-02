@@ -11,8 +11,9 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { ResumeType } from '../../../../../types/dbStructType';
 import { Work_DayJs, WorkExperienceInputErrors, WorkingExperience } from '../../../../../types/resumeTypes';
-import { defaultWorkingExperienceDayJs } from '../../../../../utils/init';
-import { checkInputEmptyWorkingExperience, dayJsToWorkingExperience, workingExperienceToDayJs } from './utils';
+import { defaultWorkingExperienceDayJs, defaultWorkingExperienceInputErrors } from '../../../../../utils/init';
+import { checkEmptyInputs } from '../../../../../utils/validation';
+import { dayJsToWorkingExperience, workingExperienceToDayJs } from './utils';
 
 type CreateWorkingExperienceProps = {
     isModalOpened: boolean;
@@ -35,17 +36,10 @@ const InputWrapper = styled.div`
 
 const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, workingExperience }: CreateWorkingExperienceProps) => {
     const [ selectedWorkingExperience, setSelectedWorkingExperience ] = useState<Work_DayJs>(editingID ? workingExperienceToDayJs(workingExperience[editingID]) : defaultWorkingExperienceDayJs);
-    const [ inputErrors, setInputErrors ] = useState<WorkExperienceInputErrors>({
-        organizationName: false,
-        jobTitle: false,
-        taskDescription: false,
-        startDate: false,
-        stillWorking: false,
-        endDate: false,
-    });
+    const [ inputErrors, setInputErrors ] = useState<WorkExperienceInputErrors>(defaultWorkingExperienceInputErrors);
 
     const handleAddNewExperience = () => {
-        const errorCheck = checkInputEmptyWorkingExperience(selectedWorkingExperience);
+        const errorCheck = checkEmptyInputs(selectedWorkingExperience, defaultWorkingExperienceInputErrors);
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => {
                 return ({

@@ -1,5 +1,5 @@
 import { ResumeType } from "../types/dbStructType"
-import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExperienceInputErrors, Volunteering, Volunteering_DaysJs, VolunteeringInputErrors, Work, Work_DayJs } from "../types/resumeTypes"
+import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExperienceInputErrors, Volunteering, Volunteering_DaysJs, VolunteeringInputErrors, Work, Work_DayJs, WorkExperienceInputErrors } from "../types/resumeTypes"
 
 export const getEmptyResumeInit = (resumeID: string): ResumeType => {
     return {
@@ -74,6 +74,15 @@ export const defaultWorkingExperienceDayJs: Work_DayJs = {
     stillWorking: false,
     endDate: null
 }
+export const defaultWorkingExperienceInputErrors: WorkExperienceInputErrors = {
+    organizationName: false,
+    jobTitle: false,
+    taskDescription: false,
+    startDate: false,
+    stillWorking: false,
+    endDate: false,
+}
+
 
 export const defaultVolunteeringExperience: Volunteering = {
     organizationName: '',

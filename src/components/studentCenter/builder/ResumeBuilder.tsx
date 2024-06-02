@@ -1,11 +1,15 @@
+import { Button } from "@mui/material";
+import dayjs from "dayjs";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { _ } from 'lodash';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { saveResume } from "../../../firebase/db_actions";
 import { Features } from "../../../redux/features";
 import { ResumesType, ResumeType } from "../../../types/dbStructType";
+import { getDateString } from "../../../utils/dateUtils";
 import { getEmptyResumeInit } from "../../../utils/init";
 import EducationBuilder from "./EducationBuilder/EducationBuilder";
 import ExperienceBuilder from "./ExperienceBuilder/ExperienceBuilder";
@@ -44,7 +48,9 @@ const ResumeBuilder = () => {
     /**
      * If form is dirty - Unsaved changes are present
      */
-    const isDirty = !(_.isEqual(currentResume, originalResume));
+    const isDirty = useMemo(() => {
+        return !(_.isEqual(currentResume, originalResume))
+    }, [currentResume, originalResume]);
 
     /**
      * Different sections of the resume builder
@@ -52,11 +58,26 @@ const ResumeBuilder = () => {
     const Sections = {
         'generalInfo': <GeneralInfoBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.generalInfo} />,
         'education': <EducationBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
-        'skills': <SkillsBuilder setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
-        'experience': <ExperienceBuilder setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
+        'skills': <SkillsBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
+        'experience': <ExperienceBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
     };
     type SectionEditingType = keyof typeof Sections;
     const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');
+
+    const handleSaveResume = () => {
+        if (userID && resumeID) {
+            let newResume: ResumeType;
+            setCurrentResume(prev => {
+                newResume = {
+                    ...prev,
+                    creationDate: getDateString(dayjs(new Date()))
+                }
+                return newResume;
+            })
+            saveResume(newResume, userID, resumeID);
+            setOriginalResume(currentResume);
+        }
+    }
 
     /**
      * Changes the section being currently edited
@@ -64,17 +85,22 @@ const ResumeBuilder = () => {
     const handleSelect = useCallback((item: SectionEditingType) => () => setSectionEdit(item), [])
 
     return (
-        <Container data-test-id={'resume-builder'}>
-            <SectionSelector>
-                <ItemSelect $selected={sectionEdit == 'generalInfo'} onClick={handleSelect('generalInfo')}>General Info</ItemSelect>
-                <ItemSelect $selected={sectionEdit == 'education'} onClick={handleSelect('education')}>Education</ItemSelect>
-                <ItemSelect $selected={sectionEdit == 'skills'} onClick={handleSelect('skills')}>Skills</ItemSelect>
-                <ItemSelect $selected={sectionEdit == 'experience'} onClick={handleSelect('experience')}>Experience</ItemSelect>
-            </SectionSelector>
-            <EditContent>
-                {Sections[sectionEdit]}
-            </EditContent>
-        </Container>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <Button variant='contained' onClick={handleSaveResume}>SAVING</Button>
+            <div>
+                <Container data-test-id={'resume-builder'}>
+                    <SectionSelector>
+                        <ItemSelect $selected={sectionEdit == 'generalInfo'} onClick={handleSelect('generalInfo')}>General Info</ItemSelect>
+                        <ItemSelect $selected={sectionEdit == 'education'} onClick={handleSelect('education')}>Education</ItemSelect>
+                        <ItemSelect $selected={sectionEdit == 'skills'} onClick={handleSelect('skills')}>Skills</ItemSelect>
+                        <ItemSelect $selected={sectionEdit == 'experience'} onClick={handleSelect('experience')}>Experience</ItemSelect>
+                    </SectionSelector>
+                    <EditContent>
+                        {Sections[sectionEdit]}
+                    </EditContent>
+                </Container>
+            </div>
+        </div>
     )
 };
 

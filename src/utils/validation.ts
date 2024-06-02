@@ -32,7 +32,7 @@ export const educationIDExist = (content: EducationList, id: string): boolean =>
 export const checkEmptyInputs = <Type>(inputFields: object, errorInputs: Type ): Type => {
   const error = errorInputs
   Object.entries(inputFields).forEach(item => {
-    if (item[1] === '' || item[1] === null) {
+    if (item[1] === '' || item[1] === null || (Array.isArray(item[1]) && item[1].length === 0)) {
       error[item[0]] = true;
     }
   });

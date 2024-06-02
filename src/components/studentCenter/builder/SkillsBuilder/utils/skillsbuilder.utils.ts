@@ -13,7 +13,7 @@ const transformToFlat = (hierarchical: SkillsHierarchical): SkillsFlat => {
 };
 
 const transformToHierarchical = (flat: SkillsFlat): SkillsHierarchical => {
-    return { "General": flat };
+    return { "GENERAL": flat };
 };
 
 export const SkillsUtils = {

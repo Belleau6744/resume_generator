@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import { Work, Work_DayJs, WorkExperienceInputErrors } from "../../../../../types/resumeTypes"
+import { Work, Work_DayJs } from "../../../../../types/resumeTypes"
 import { getDateString } from "../../../../../utils/dateUtils"
 
 export const workingExperienceToDayJs = (curr: Work): Work_DayJs => {
@@ -30,21 +30,4 @@ export const dayJsToWorkingExperience = (curr: Work_DayJs): Work => {
             'endDate': curr.endDate ? getDateString(curr.endDate): ''
         }
     }
-}
-// TODO RE-Organize
-export const checkInputEmptyWorkingExperience = (inputFields: Work_DayJs): WorkExperienceInputErrors => {
-    const inputErrors: WorkExperienceInputErrors = {
-        organizationName: false,
-        jobTitle: false,
-        taskDescription: false,
-        startDate: false,
-        stillWorking: false,
-        endDate: false,
-    }
-    Object.entries(inputFields).forEach(item => {
-        if(item[1] === '' || item[1] === null || (Array.isArray(item[1]) && item[1].length === 0)) {
-            inputErrors[item[0]] = true;
-        }
-    });
-    return inputErrors;
 }
