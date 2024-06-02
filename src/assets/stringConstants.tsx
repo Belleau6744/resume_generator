@@ -16,6 +16,23 @@ const password_must = `Password must: `;
 const create_first_resume = `Create your first resume`;
 const resumes = 'resumes';
 const new_resume = 'new resume';
+const still_working = 'still working';
+const adding = {
+    plus_workingExperience: '+ add working experience',
+    addNewWorkingExperience: 'add working experience',
+    plus_projectExperience: '+ add project experience',
+    addNewProjectExperience: 'add project experience',
+    plus_volunteeringExperience: '+ add volunteering experience',
+    addNewVolunteeringExperience: 'add new volunteering experience'
+}
+const education_input_examples = {
+    'degree': "Bachelor | Master's | PhD | DEC ...",
+    "field of study": "Computer Science | Business | Nursing ...",
+    "school name": "Enter the full name",
+    "school address": "Establishment number, street name, province | state, country",
+    "start date": "month - yearh",
+    "end date": "Expected or graduated"
+}
 const password_requirements = [
     'Have at least 8 characteres', 
     'Contain at least one upper case letter',
@@ -54,5 +71,8 @@ export const STRINGS_ENG =  {
     create_first_resume,
     resumes,
     new_resume,
-    education_input_errors
+    education_input_errors,
+    still_working,
+    adding,
+    education_input_examples
 }

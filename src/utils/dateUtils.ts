@@ -28,7 +28,7 @@ export const getStartDate = (today: Date): Date => {
     sundayDate.setHours(0,0,0,0);
     sundayDate.setDate(today.getDate() - (dayNumber - 1));
     if (dateFunc.getISOWeek(sundayDate) !== dateFunc.getISOWeek(today)) {
-      console.log("ISO WEEK DIFFERENT");
+      console.warn("ISO WEEK DIFFERENT");
     }
     return sundayDate;
 };
