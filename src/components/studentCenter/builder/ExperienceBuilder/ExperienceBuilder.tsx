@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ResumeType } from "../../../../types/dbStructType";
 import { Experience } from "../../../../types/resumeTypes";
+import TabPanelProjectExperience from "./Project/TabPanelProjectExperience";
 import TabPanelWorkingExperience from "./Working/TabPanelWorkingExperience";
 
 type ExperienceBuilderProps = {
@@ -15,7 +16,6 @@ const SectionTitle = styled.h1`
     color: black;
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ExperienceBuilder = ({ content, setCurrentResume }: ExperienceBuilderProps) => {
     const [tabValue, setTabValue] = useState<number>(0);
 
@@ -33,11 +33,12 @@ const ExperienceBuilder = ({ content, setCurrentResume }: ExperienceBuilderProps
             <Box sx={{ borderColor: 'divider', borderBottom: 1, marginTop: '20px'}}>
             <Tabs value={tabValue} onChange={handleChange}>
                 <Tab label={'Working'} />
-                <Tab label={'Volunteering'} />
                 <Tab label={'Project'} />
+                <Tab label={'Volunteering'} />
             </Tabs>
         </Box>
         <TabPanelWorkingExperience index={0} value={tabValue} workingExperience={content.workingExperience} setCurrentResume={setCurrentResume} />
+        <TabPanelProjectExperience index={1} value={tabValue} projectExperience={content.projectExperience} setCurrentResume={setCurrentResume} />
 
         </Container>
     )

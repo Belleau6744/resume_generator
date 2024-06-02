@@ -10,9 +10,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { STRINGS_ENG } from "../../../../assets/stringConstants";
 import { ResumeType } from "../../../../types/dbStructType";
 import { Education_DayJs, EducationInputErrors, EducationList } from "../../../../types/resumeTypes";
-import { defaultEducationDayjs } from "../../../../utils/init";
+import { defaultEducationDayjs, defaultEducationInputErrors } from "../../../../utils/init";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
-import { checkInputEmptyEducation, educationIDExist } from "../../../../utils/validation";
+import { checkEmptyInputs, educationIDExist } from "../../../../utils/validation";
 import './ModalStyling.css';
 import { dayjsToEducation, educationToDayjs } from "./utils";
 
@@ -40,7 +40,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
     });
 
     const handleSaveNewEducation = () => {
-        const errorCheck = checkInputEmptyEducation(selectedEducation);
+        const errorCheck = checkEmptyInputs(selectedEducation, defaultEducationInputErrors);
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => ({
                 ...prev,

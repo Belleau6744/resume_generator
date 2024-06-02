@@ -140,10 +140,18 @@ export type VolunteerExperience = {
     }
 }
 export type ProjectExperience = {
-    [index: string]: {
-        description: string;
-    }
+    [index: string]: Project;
 };
+
+export type Project = {
+    title: string;
+    description: string;
+}
+
+export type ProjectExperienceInputErrors = {
+    title: boolean;
+    description: boolean;
+}
 
 /************************* */
 /** FULL RESUME TYPE */

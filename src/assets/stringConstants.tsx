@@ -19,8 +19,9 @@ const new_resume = 'new resume';
 const still_working = 'still working';
 const adding = {
     plus_workingExperience: '+ add working experience',
-    addNewWorkingExperience: 'add new working experience'
-
+    addNewWorkingExperience: 'add working experience',
+    plus_projectExperience: '+ add project experience',
+    addNewProjectExperience: 'add project experience'
 }
 const education_input_examples = {
     'degree': "Bachelor | Master's | PhD | DEC ...",

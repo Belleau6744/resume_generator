@@ -217,12 +217,15 @@ export const MockCVContent: UsersType = {
                         },
                         projectExperience: {
                             '0': {
+                                title: 'School Projects',
                                 description: 'Developed projects using Java and React for Web and Android, implementing front end and firebase backend'
                             },
                             '1': {
+                                title: 'Algorithm',
                                 description: 'Resolving algorithm and data structure problems with Java and Python'
                             },
                             '2': {
+                                title: 'Embedded',
                                 description: 'Creating embedded systems with C/C++'
                             },
                         },
@@ -443,12 +446,15 @@ export const MockCVContent: UsersType = {
                         },
                         projectExperience: {
                             '0': {
+                                title: 'School Projects',
                                 description: 'Developed projects using Java and React for Web and Android, implementing front end and firebase backend'
                             },
-                            '1': {
+                            '1': { 
+                                title: 'School Projects',
                                 description: 'Resolving algorithm and data structure problems with Java and Python'
                             },
                             '2': {
+                                title: 'School Projects',
                                 description: 'Creating embedded systems with C/C++'
                             },
                         },

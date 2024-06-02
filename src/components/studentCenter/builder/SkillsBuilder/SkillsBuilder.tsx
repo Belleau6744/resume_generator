@@ -19,8 +19,7 @@ const SectionTitle = styled.h1`
     color: black;
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function SkillsBuilder({ content, setCurrentResume }: SkillsBuilderProps) {
+const SkillsBuilder = ({ content, setCurrentResume }: SkillsBuilderProps) => {
 
     const hasSections = useMemo(() => {
         if (content.hasSections === undefined) {

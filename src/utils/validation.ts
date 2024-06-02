@@ -1,4 +1,4 @@
-import { Education_DayJs, EducationInputErrors, EducationList } from "../types/resumeTypes";
+import { EducationList } from "../types/resumeTypes";
 
 export const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,15 +29,8 @@ export const educationIDExist = (content: EducationList, id: string): boolean =>
   return Object.keys(content).includes(id);
 }
 // TODO RE-Organize
-export const checkInputEmptyEducation = (inputFields: Education_DayJs): EducationInputErrors => {
-  const error: EducationInputErrors = {
-    "degree": false,
-    "field of study": false,
-    "school name": false,
-    "school address": false,
-    "start date": false,
-    "end date": false
-  }
+export const checkEmptyInputs = <Type>(inputFields: object, errorInputs: Type ): Type => {
+  const error = errorInputs
   Object.entries(inputFields).forEach(item => {
     if (item[1] === '' || item[1] === null) {
       error[item[0]] = true;
