@@ -7,7 +7,7 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { ResumeType } from "../../../../../types/dbStructType";
 import { Project, ProjectExperience, ProjectExperienceInputErrors } from "../../../../../types/resumeTypes";
-import { defaultProjectExperience, defaultProjectExperienceInputErrors } from '../../../../../utils/init';
+import { getDefaultProjectExperience, getDefaultProjectExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
 
 type CreateProjectExperienceProps = {
@@ -31,11 +31,11 @@ const InputWrapper = styled.div`
 
 
 const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, projectExperience }: CreateProjectExperienceProps) => {
-    const [ selectedProjectExperience, setSelectedProjectExperience ] = useState<Project>(editingID ? projectExperience[editingID] : defaultProjectExperience);
-    const [ inputErrors, setInputErrors ] = useState<ProjectExperienceInputErrors>(defaultProjectExperienceInputErrors);
+    const [ selectedProjectExperience, setSelectedProjectExperience ] = useState<Project>(editingID ? projectExperience[editingID] : getDefaultProjectExperience());
+    const [ inputErrors, setInputErrors ] = useState<ProjectExperienceInputErrors>(getDefaultProjectExperienceInputErrors());
 
     const addNewProjectExperience = () => {
-        const errorCheck = checkEmptyInputs(selectedProjectExperience, defaultProjectExperienceInputErrors);
+        const errorCheck = checkEmptyInputs(selectedProjectExperience, getDefaultProjectExperienceInputErrors());
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => {
                 return ({

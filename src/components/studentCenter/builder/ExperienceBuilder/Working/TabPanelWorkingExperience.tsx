@@ -55,11 +55,11 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
         aria-labelledby={`experience-tab-${index}`}
         {...other}
         >
-        {/* Working Experience Modal */}
-        {isWorkingExperienceModalOpened && <CreateWorkingExperience workingExperience={workingExperience} editingID={editingID} isModalOpened={isWorkingExperienceModalOpened} setIsModalOpened={setIsWorkingExperienceModalOpened} setCurrentResume={setCurrentResume} />}
 
         {value === index && (
         <Table>
+        {/* Working Experience Modal */}
+            {isWorkingExperienceModalOpened && <CreateWorkingExperience workingExperience={workingExperience} editingID={editingID} isModalOpened={isWorkingExperienceModalOpened} setIsModalOpened={setIsWorkingExperienceModalOpened} setCurrentResume={setCurrentResume} />}
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Job Title</TableCell>

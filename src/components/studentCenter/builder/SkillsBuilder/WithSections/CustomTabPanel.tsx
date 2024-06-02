@@ -65,15 +65,16 @@ const CustomTabPanel = (props: TabPanelProps) => {
         >
         {isSkillModalOpened && <CreateSkillInSection isModalOpened={isSkillModalOpened} section={section} setIsModalOpened={setIsSkillModalOpened} setCurrentResume={setCurrentResume} />}
         {value === index && (
+        <>
+        <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <Button sx={{ margin: '10px' }} type="button" size='small' variant='contained' color='error' onClick={handleDeleteSection}>
+                x Delete Section
+            </Button>
+        </div>
         <Table>
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Skill</TableCell>
-                    <TableCell sx={{ fontWeight: '500'}} align='right'>
-                        <Button type="button" size='small' variant='contained' color='error' onClick={handleDeleteSection}>
-                            x Delete Section
-                        </Button>
-                    </TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="right">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={() => setIsSkillModalOpened(true)}>
                             + Add Skill
@@ -93,7 +94,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                     </TableRow>
                 ))}
             </TableBody>
-        </Table>)}
+        </Table></>)}
         </div>
     );
 }

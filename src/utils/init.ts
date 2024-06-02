@@ -30,92 +30,92 @@ export const getEmptyResumeInit = (resumeID: string): ResumeType => {
     }
 }
 
-export const defaultEducation: Education = {
-    'degree': "",
-    'field of study': "",
-    'school name': "",
-    'school address': "",
-    'start date': "",
-    'end date': ""
-}
+export const getDefaultEducation = (): Education => ({
+        'degree': "",
+        'field of study': "",
+        'school name': "",
+        'school address': "",
+        'start date': "",
+        'end date': ""
+    })
 
-export const defaultEducationInputErrors: EducationInputErrors = {
+export const getDefaultEducationInputErrors = (): EducationInputErrors => ({
     "degree": false,
     "field of study": false,
     "school name": false,
     "school address": false,
     "start date": false,
     "end date": false
-  }
+  })
 
-export const defaultEducationDayjs: Education_DayJs = {
+export const getDefaultEducationDayjs = (): Education_DayJs => ({
     'degree': "",
     'field of study': "",
     'school name': "",
     'school address': "",
     'start date': null,
     'end date': null
-}
+})
 
-export const defaultWorkingExperience: Work = {
+export const getDefaultWorkingExperience = (): Work => ({
     organizationName: '',
     jobTitle: '',
     taskDescription: [],
     startDate: '',
     stillWorking: false,
     endDate: ''
-}
+})
 
-export const defaultWorkingExperienceDayJs: Work_DayJs = {
+export const getDefaultWorkingExperienceDayJs = (): Work_DayJs => ({
     organizationName: '',
     jobTitle: '',
     taskDescription: [],
     startDate: null,
     stillWorking: false,
     endDate: null
-}
-export const defaultWorkingExperienceInputErrors: WorkExperienceInputErrors = {
+})
+export const getDefaultWorkingExperienceInputErrors = (): WorkExperienceInputErrors => ({
     organizationName: false,
     jobTitle: false,
     taskDescription: false,
     startDate: false,
     stillWorking: false,
     endDate: false,
-}
+})
 
 
-export const defaultVolunteeringExperience: Volunteering = {
+export const getDefaultVolunteeringExperience = (): Volunteering => ({
     organizationName: '',
     jobTitle: '',
     description: [],
     startDate: '',
     stillWorking: false,
     endDate: ''
-   
-}
-export const defaultVolunteeringExperienceDayJs: Volunteering_DaysJs = {
+})
+
+export const getDefaultVolunteeringExperienceDayJs = (): Volunteering_DaysJs => ({
     organizationName: '',
     jobTitle: '',
     description: [],
     startDate: null,
     stillWorking: false,
     endDate: null
-}
-export const defaultVolunteeringExperienceInputErrors: VolunteeringInputErrors = {
+})
+export const getDefaultVolunteeringExperienceInputErrors = (): VolunteeringInputErrors => ({
     organizationName: false,
     jobTitle: false,
     description: false,
     startDate: false,
     stillWorking: false,
     endDate: false
-}
+})
 
-export const defaultProjectExperience: Project = {
+export const getDefaultProjectExperience = (): Project => ({
     title: '',
     description: ''
-}
+})
 
-export const defaultProjectExperienceInputErrors: ProjectExperienceInputErrors = {
+export const getDefaultProjectExperienceInputErrors = (): ProjectExperienceInputErrors => ({
     title: false,
     description: false,
-}
+})

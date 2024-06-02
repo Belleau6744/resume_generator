@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { STRINGS_ENG } from "../../../../assets/stringConstants";
 import { ResumeType } from "../../../../types/dbStructType";
 import { Education_DayJs, EducationInputErrors, EducationList } from "../../../../types/resumeTypes";
-import { defaultEducationDayjs, defaultEducationInputErrors } from "../../../../utils/init";
+import { getDefaultEducationDayjs, getDefaultEducationInputErrors } from "../../../../utils/init";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 import { checkEmptyInputs, educationIDExist } from "../../../../utils/validation";
 import './ModalStyling.css';
@@ -28,7 +28,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
     const [selectedEducation, setSelectedEducation] = useState<Education_DayJs>(
         (educationID && educationIDExist(content, educationID)) ? 
         educationToDayjs(content[educationID]) :
-        defaultEducationDayjs);
+        getDefaultEducationDayjs());
         
     const [error, setError] = useState<EducationInputErrors>({
         'degree': false,
@@ -40,7 +40,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
     });
 
     const handleSaveNewEducation = () => {
-        const errorCheck = checkEmptyInputs(selectedEducation, defaultEducationInputErrors);
+        const errorCheck = checkEmptyInputs(selectedEducation, getDefaultEducationInputErrors());
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => ({
                 ...prev,

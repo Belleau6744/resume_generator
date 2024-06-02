@@ -11,7 +11,7 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { ResumeType } from '../../../../../types/dbStructType';
 import { Work_DayJs, WorkExperienceInputErrors, WorkingExperience } from '../../../../../types/resumeTypes';
-import { defaultWorkingExperienceDayJs, defaultWorkingExperienceInputErrors } from '../../../../../utils/init';
+import { getDefaultWorkingExperienceDayJs, getDefaultWorkingExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
 import { dayJsToWorkingExperience, workingExperienceToDayJs } from './utils';
 
@@ -35,11 +35,12 @@ const InputWrapper = styled.div`
 `;
 
 const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, workingExperience }: CreateWorkingExperienceProps) => {
-    const [ selectedWorkingExperience, setSelectedWorkingExperience ] = useState<Work_DayJs>(editingID ? workingExperienceToDayJs(workingExperience[editingID]) : defaultWorkingExperienceDayJs);
-    const [ inputErrors, setInputErrors ] = useState<WorkExperienceInputErrors>(defaultWorkingExperienceInputErrors);
+    const [ selectedWorkingExperience, setSelectedWorkingExperience ] = useState<Work_DayJs>(editingID ? workingExperienceToDayJs(workingExperience[editingID]) : getDefaultWorkingExperienceDayJs());
+    const [ inputErrors, setInputErrors ] = useState<WorkExperienceInputErrors>(getDefaultWorkingExperienceInputErrors());
 
     const handleAddNewExperience = () => {
-        const errorCheck = checkEmptyInputs(selectedWorkingExperience, defaultWorkingExperienceInputErrors);
+        const errorCheck = checkEmptyInputs(selectedWorkingExperience, getDefaultWorkingExperienceInputErrors());
+        setInputErrors(errorCheck);
         if (Object.values(errorCheck).every(err => err === false)) {
             setCurrentResume(prev => {
                 return ({
@@ -57,30 +58,19 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                 })
             });
             setIsModalOpened(false);
-        } else {
-            setInputErrors(errorCheck);
         }
         
     }
 
     const handleChangeStillWorking = (event: React.ChangeEvent<HTMLInputElement>) => {
         const isStillWorking = (event.target.checked);
-        if (isStillWorking) {
-            setSelectedWorkingExperience(prev => {
-                return ({
-                    ...prev,
-                    stillWorking: isStillWorking,
-                })
+        setSelectedWorkingExperience(prev => {
+            return ({
+                ...prev,
+                stillWorking: isStillWorking,
+                endDate: isStillWorking ? null : (dayjs(new Date()))
             })
-        } else {
-            setSelectedWorkingExperience(prev => {
-                return ({
-                    ...prev,
-                    stillWorking: isStillWorking,
-                    endDate: (dayjs(new Date()))
-                })
-            })
-        }
+        })
     };
 
     const handleInputChange = (inputName: string, value: string | dayjs.Dayjs) => {
@@ -158,7 +148,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                             textField: {
                                 variant: selectedWorkingExperience.stillWorking === true ? 'outlined' : 'filled',
                                 helperText: inputErrors.startDate ? 'Input a start date' : '',
-                                error: inputErrors.startDate,
+                                error: inputErrors.endDate,
                                 sx:{ flex: '1', minWidth: '100px' }
                             },
                         }} 
@@ -182,7 +172,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentRe
                     variant='filled'
                     error={inputErrors.taskDescription}
                     sx={{ flex: '1', minWidth: '100px' }}
-                    label={'Description'}
+                    label={'taskDescription'}
                     type="text"
                     value={selectedWorkingExperience.taskDescription}
                     onChange={(e) => handleInputChange('taskDescription', e.target.value)}
