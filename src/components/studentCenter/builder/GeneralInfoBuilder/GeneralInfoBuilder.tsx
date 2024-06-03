@@ -45,7 +45,7 @@ const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty }: GeneralInfoP
                                         sx={{ flex: '1', minWidth: '100px' }}
                                         // label={capitalizeEveryWord(inputName)}
                                         type="text"
-                                        value={item[1].toString()}
+                                        value={content[item[0]]?.toString()}
                                         onChange={(e) => handleInputChangeGeneral(item[0], e.target.value)}
                                         />
                                     </InputWrapper>

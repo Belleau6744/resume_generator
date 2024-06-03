@@ -1,7 +1,9 @@
+import { Button } from "@mui/material";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ResumesType } from "../../../types/dbStructType";
+import DownloadIcon from "../../../assets/Icons/DownloadIcon";
 import { ResumeFormType } from "../../../types/resumeTypes";
 import ContactInfoSection from "./sections/ContactInfoSection";
 import EducationSection from "./sections/EducationSection";
@@ -9,79 +11,94 @@ import ExperienceSection from "./sections/ExperienceSection/ExperienceSection";
 import LanguageSection from "./sections/LanguageSection/LanguageSection";
 
 type PdfTemplateProps = {
-    resumeId: string;
-    userId: string | undefined;
+    userID: string;
 }
 
-// TODO REMOVE THIS
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PdfTemplate = (_props: PdfTemplateProps) => {
-    // const { resumeId, userId } = props;
-    // TODO REMOVE
-    const resumeId = 'abc';
-    const userId = 'CFIHxTvvnEOdIvKLt4EX9WW1dmh1';
-    // TODO REMOVE
+const PdfTemplate = ({ userID }: PdfTemplateProps) => {    
+    const [ currentResume , setCurrentResume ] = useState<ResumeFormType>();
+    const { resumeID } = useParams();
 
-    const [ resumesList , setResumesList ] = useState<ResumesType>({});
-    const [ resumeContent, setResumeContent ] = useState<ResumeFormType>();
-  
     const db = getDatabase();
-    const dbRef = ref(db, `users/${userId}/resumes/`);
+    const dbRef = ref(db, `users/${userID}/resumes/${resumeID}`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
-        setResumesList(snapshot.val());
+            setCurrentResume(snapshot.val().content);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        setResumeContent(Object.values(resumesList).find(resume => resume.id===resumeId)?.content);
-    }, [resumeId, resumesList]);
+    console.log(currentResume);
 
     // TODO Handle "no user ID"
     return (
-        <Container style={{ fontSize: '0.7rem' }}>
-            <Header>
-                <NameWrapper>
-                    <div>{resumeContent?.generalInfo["first name"]}</div>
-                    <div>{resumeContent?.generalInfo["last name"]}</div>
-                </NameWrapper>
-                {resumeContent?.generalInfo?.role_title && <div style={{ color: '#667085' }}>{resumeContent?.generalInfo?.role_title}</div>}
-            </Header>
-            {/********************************** */}
-            <BodyWrapper>
-                <LeftColumn>
-                    {/* Contact Information Section */}
-                    <ContactInfoSection 
-                        phoneNumber={resumeContent?.generalInfo["phone number"]}
-                        emailAddress={resumeContent?.generalInfo["email address"]}
-                        linkedIn={resumeContent?.generalInfo["linkedin"]}
-                    />
+        <PageContainer style={{ display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <Heading>
+                <Title>Here is a preview of your resume</Title>
+                <Button variant='contained' color='primary' endIcon={<DownloadIcon />}>Download PDF</Button>
+            </Heading>
 
-                    {/* Language Section */}
-                    <LanguageSection languages={resumeContent?.generalInfo.languages}/>
-
-                    {/* Education Section */}
-                    <EducationSection education={resumeContent?.education}/>                    
-                    <SkillsContainer>
-                        {resumeContent?.skills && Object.values(resumeContent?.skills).map((item, index) => {
-                            return (
-                                <>
-                                    <div key={index}>{item.title}</div>
-                                    <div>{item.description}</div>
-                                </>
-                            )
-                        })}
-                    </SkillsContainer>
-                </LeftColumn>
+            <ResumeContainer style={{ fontSize: '0.7rem' }}>
+                <Header>
+                    <NameWrapper>
+                        <div>{currentResume?.generalInfo?.["first name"]}</div>
+                        <div>{currentResume?.generalInfo?.["last name"]}</div>
+                    </NameWrapper>
+                    {currentResume?.generalInfo?.role_title && <div style={{ color: '#667085' }}>{currentResume?.generalInfo?.role_title}</div>}
+                </Header>
                 {/********************************** */}
-                <RightColumn>
-                    <ExperienceSection experience={resumeContent?.experience}/>
-                </RightColumn>
-            </BodyWrapper>
-        </Container>
+                <BodyWrapper>
+                    <LeftColumn>
+                        {/* Contact Information Section */}
+                        <ContactInfoSection 
+                            phoneNumber={currentResume?.generalInfo?.["phone number"]}
+                            emailAddress={currentResume?.generalInfo?.["email address"]}
+                            linkedIn={currentResume?.generalInfo?.["linkedin"]}
+                        />
+
+                        {/* Language Section */}
+                        <LanguageSection languages={currentResume?.generalInfo?.languages}/>
+
+                        {/* Education Section */}
+                        <EducationSection education={currentResume?.education}/>                    
+                        <SkillsContainer>
+                            {currentResume?.skills && Object.values(currentResume?.skills).map((item, index) => {
+                                return (
+                                    <div key={index}>
+                                        <div>{item?.title}</div>
+                                        <div>{item?.description}</div>
+                                    </div>
+                                )
+                            })}
+                        </SkillsContainer>
+                    </LeftColumn>
+                    {/********************************** */}
+                    <RightColumn>
+                        <ExperienceSection experience={currentResume?.experience}/>
+                    </RightColumn>
+                </BodyWrapper>
+            </ResumeContainer>
+        </PageContainer>
     );
 };
+
+const Title = styled.h1`
+    
+`;
+
+const Heading = styled.div`
+    background: white;
+    margin: 20px 0 80px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`
+const PageContainer = styled.div`
+`
 
 const SectionContainer = styled.div`
     width: 100%;
@@ -111,7 +128,7 @@ const LeftColumn = styled.div`
 const RightColumn = styled.div`
 `;
 
-const Container = styled.div`
+const ResumeContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;

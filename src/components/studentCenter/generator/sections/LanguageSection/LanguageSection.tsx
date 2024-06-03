@@ -8,7 +8,7 @@ const LanguageSection = ({languages}: {languages?: LanguageType}) => {
             <SectionTitle>Languages</SectionTitle>
             {Object.entries(languages).map((lang, index) => {
                 return (
-                    <div>{<LanguageLevelScale key={index} language={lang[0]} level={+lang[1]} />}</div>
+                    <div key={index}>{<LanguageLevelScale key={index} language={lang[0]} level={+lang[1]} />}</div>
                 )
             })}
         </LanguageContainer>

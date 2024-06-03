@@ -20,7 +20,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                                 <div>&nbsp;- {item.stillWorking === false ? item.endDate : ''}</div>
                             </div>
                             <ul style={{ marginTop: '3px'}}>
-                                {item.taskDescription.map(task => {
+                                {item && Array.isArray(item.taskDescription) && item?.taskDescription.map(task => {
                                     return <li><div style={{ fontSize: '0.6rem' }}>{task}</div></li>
                                 })}
                             </ul>
