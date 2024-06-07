@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import { Experience } from "../../../../../types/resumeTypes";
+import { Experience } from "../../../../../../types/resumeTypes";
+import { SectionContainer } from "../utils";
 
 type ExperienceSectionProps = {
     experience: Experience;
 }
 
 const ExperienceSection = ({ experience }: ExperienceSectionProps) => { 
+
     return (
         <ExperienceContainer>
             <SectionTitle>Experience</SectionTitle>
@@ -35,7 +37,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                 <ul style={{ marginTop: '3px'}}>
                     {experience?.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
                         return (
-                            <li><div key={index} style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
+                            <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
                     })}
                 </ul>
@@ -45,7 +47,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                 <ul style={{ marginTop: '3px'}}>
                     {experience?.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
                         return (
-                            <li><div key={index} style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
+                            <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
                     })}
                 </ul>
@@ -68,13 +70,9 @@ const SectionTitle = styled.div`
     margin-bottom: 5px;
 `;
 
-
-const SectionContainer = styled.div`
-    width: 100%;
-`
-
 const ExperienceContainer = styled(SectionContainer)`
     padding-left: 20px;
+    height: 100%;
 `;
 const ProjectExperienceWrapper = styled(SectionContainer)``;
 const VolunteerExperienceWrapper = styled(SectionContainer)``;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { EducationList } from "../../../../types/resumeTypes";
+import { EducationList } from "../../../../../types/resumeTypes";
+import { SectionContainer } from "./utils";
 
 type EducationSectionProps = {
     education?: EducationList;
@@ -11,8 +12,7 @@ const SectionTitle = styled.div`
     margin-bottom: 8px;
 `;
 
-const EducationContainer = styled.div`
-    width: 100%;
+const EducationContainer = styled(SectionContainer)`
     margin-bottom: 20px;
 `;
 

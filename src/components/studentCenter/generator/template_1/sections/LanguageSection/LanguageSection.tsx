@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { LanguageType } from "../../../../../types/resumeTypes";
+import { LanguageType } from "../../../../../../types/resumeTypes";
+import { SectionContainer } from "../utils";
 import LanguageLevelScale from "./LanguageLevelScale";
 
 const LanguageSection = ({languages}: {languages?: LanguageType}) => {
@@ -22,8 +23,7 @@ const SectionTitle = styled.div`
     font-size: 1rem;
 `;
 
-const LanguageContainer = styled.div`
-    width: 100%;
+const LanguageContainer = styled(SectionContainer)`
     margin-bottom: 20px;
 `; 
 

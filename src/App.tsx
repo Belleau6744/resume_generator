@@ -10,7 +10,7 @@ import Signup from './components/authentication/Signup';
 import Home from './components/Home';
 import NavBar from './components/navigation/NavBar';
 import ResumeBuilder from './components/studentCenter/builder/ResumeBuilder';
-import PdfTemplate from './components/studentCenter/generator/PdfTemplate';
+import PdfPreview from './components/studentCenter/generator/PdfPreview';
 import { auth } from './firebase/firebase';
 import { Features } from './redux/features';
 import { UserRole } from './types/dbStructType';
@@ -46,7 +46,7 @@ return (
         ) : (
           <>
             <Route path='/' element={<Home userID={userID}/>} />
-            <Route path='/preview/:resumeID' element={<PdfTemplate userID={userID} />}/>
+            <Route path='/preview/:resumeID' element={<PdfPreview userID={userID} />}/>
             <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
             <Route path='*' element={<Navigate to="/" />} />
           </>

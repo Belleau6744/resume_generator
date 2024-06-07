@@ -1,7 +1,8 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import ReactDOM from "react-dom";
-import PdfTemplate from "../components/studentCenter/generator/PdfTemplate";
+import PdfTemplate from "../components/studentCenter/generator/template_1/PdfTemplate";
+import { ResumeFormType } from "../types/resumeTypes";
 
 export const generatePDF = (formRef: HTMLFormElement | null) => {
     if (!formRef) return;
@@ -19,7 +20,7 @@ export const generatePDF = (formRef: HTMLFormElement | null) => {
     pdf.save('resume.pdf');
 }
 
-export const captureAndPrint = (userId: string, id: string) => {
+export const captureAndPrint = (resume: ResumeFormType) => {
     // Render the content of the div off-screen
     const divToPrint = document.createElement('div');
     divToPrint.id = 'divToPrint';
@@ -27,7 +28,7 @@ export const captureAndPrint = (userId: string, id: string) => {
     divToPrint.style.left = '-9999px';
     divToPrint.style.top = '-9999px';
     document.body.appendChild(divToPrint);
-    ReactDOM.render(<PdfTemplate userId={userId} resumeId={id} />, divToPrint);
+    ReactDOM.render(<PdfTemplate resume={resume} />, divToPrint);
     if (divToPrint) {
       html2canvas(document.getElementById('divToPrint') as HTMLElement, { scrollY: -window.scrollY })
         .then((canvas) => {
