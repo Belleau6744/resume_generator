@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { LanguageType } from "../../../../../../../../types/resumeTypes";
-import { SectionContainer } from "../utils";
+import { LanguageType } from "../../../../../../../../../types/resumeTypes";
+import { SectionContainer } from "../../../resume/sections/utils";
 import LanguageLevelScale from "./LanguageLevelScale";
 
 const LanguageSection = ({languages}: {languages?: LanguageType}) => {

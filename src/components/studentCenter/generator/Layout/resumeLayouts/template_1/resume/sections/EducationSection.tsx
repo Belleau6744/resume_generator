@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { EducationList } from "../../../../../../../types/resumeTypes";
+import { EducationList } from "../../../../../../../../types/resumeTypes";
 import { SectionContainer } from "./utils";
 
 type EducationSectionProps = {

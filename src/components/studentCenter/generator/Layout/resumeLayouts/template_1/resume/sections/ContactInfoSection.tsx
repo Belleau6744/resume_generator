@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import EmailIcon from "../../../../../../../assets/Icons/EmailIcon";
-import LinkedInIcon from "../../../../../../../assets/Icons/LinkedInIcon";
-import LocationIcon from "../../../../../../../assets/Icons/LocationIcon";
-import PhoneIcon from "../../../../../../../assets/Icons/PhoneIcon";
+import EmailIcon from "../../../../../../../../assets/Icons/EmailIcon";
+import LinkedInIcon from "../../../../../../../../assets/Icons/LinkedInIcon";
+import LocationIcon from "../../../../../../../../assets/Icons/LocationIcon";
+import PhoneIcon from "../../../../../../../../assets/Icons/PhoneIcon";
 import { SectionContainer } from "./utils";
 
 type ContactInfoProps = {

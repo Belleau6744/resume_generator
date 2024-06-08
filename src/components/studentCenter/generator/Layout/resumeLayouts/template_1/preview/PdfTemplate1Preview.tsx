@@ -1,50 +1,41 @@
 import styled from "styled-components";
-import { ResumeFormType } from "../../../../../../types/resumeTypes";
-import ContactInfoSection from "./sections/ContactInfoSection";
-import EducationSection from "./sections/EducationSection";
-import ExperienceSection from "./sections/ExperienceSection/ExperienceSection";
-import LanguageSection from "./sections/LanguageSection/LanguageSection";
-import SkillsSection from "./sections/SkillsSection";
+import { Skeleton } from "@mui/material";
+import ContactInfoSectionPreview from "./sections/ContactInfoSectionPreview";
+import ExperienceSectionPreview from "./sections/ExperienceSection/ExperienceSectionPreview";
+import EducationSectionPreview from "./sections/EducationSection";
+import LanguageSectionPreview from "./sections/LanguageSection/LanguageSectionPreview";
+import SkillsSectionPreview from "./sections/SkillsSection";
 
-type PdfTemplateProps = {
-    resume: ResumeFormType;
-}
-
-const PdfTemplate1 = ({ resume }: PdfTemplateProps) => {    
+const PdfTemplate1Preview = () => {    
 
     // TODO Handle "no user ID"
     return (    
         <ResumeContainer id='resume-container' style={{ fontSize: '0.7rem' }}>
             <Header>
                 <NameWrapper>
-                    <div>{resume?.generalInfo?.["first name"]}</div>
-                    <div>{resume?.generalInfo?.["last name"]}</div>
+                    <Skeleton variant="rectangular" width={210} height={60} />
+                    <Skeleton variant="rectangular" width={210} height={60} />
                 </NameWrapper>
-                {resume?.generalInfo?.role_title && <div style={{ color: '#667085' }}>{resume?.generalInfo?.role_title}</div>}
+                <Skeleton variant="rectangular" width={210} height={60} />
             </Header>
             {/********************************** */}
             <BodyWrapper id='body-wrapper'>
                 <LeftColumn id='left-column'>
                     {/* Contact Information Section */}
-                    <ContactInfoSection
-                        data-test-id='contact-section'
-                        phoneNumber={resume?.generalInfo?.["phone number"]}
-                        emailAddress={resume?.generalInfo?.["email address"]}
-                        linkedIn={resume?.generalInfo?.["linkedin"]}
-                    />
+                    <ContactInfoSectionPreview />
 
                     {/* Language Section */}
-                    <LanguageSection data-test-id='language-section' languages={resume?.generalInfo?.languages}/>
+                    <LanguageSectionPreview data-test-id='language-section' />
 
                     {/* Education Section */}
-                    <EducationSection data-test-id='education-section' education={resume?.education}/>                    
+                    <EducationSectionPreview data-test-id='education-section' />                    
 
                     {/* Skills Section */}
-                    <SkillsSection data-test-id='skills-section' skills={resume?.skills} />
+                    <SkillsSectionPreview data-test-id='skills-section' />
                 </LeftColumn>
                 {/********************************** */}
                 <RightColumn id='right-column'>
-                    <ExperienceSection data-test-id='experience-section' experience={resume?.experience}/>
+                    <ExperienceSectionPreview data-test-id='experience-section' />
                 </RightColumn>
             </BodyWrapper>
         </ResumeContainer>
@@ -86,8 +77,6 @@ const ResumeContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     color: black;
-    width: 210mm;
-    height: 297mm;
     font-family: sans-serif, Arial, Helvetica;
     background: white;
     padding: 10px 50px;
@@ -101,8 +90,7 @@ const NameWrapper = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    line-height: 70px;
     font-size: 1.5em;
 `;
 
-export default PdfTemplate1;
+export default PdfTemplate1Preview;

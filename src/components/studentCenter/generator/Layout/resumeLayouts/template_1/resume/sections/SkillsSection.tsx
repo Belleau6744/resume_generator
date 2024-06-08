@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Skill, Skills } from "../../../../../../../types/resumeTypes";
+import { Skill, Skills } from "../../../../../../../../types/resumeTypes";
 import { SectionContainer } from "./utils";
 
 type SkillsSectionProps = {

@@ -7,7 +7,7 @@ import DownloadIcon from "../../../assets/Icons/DownloadIcon";
 import GridIcon from "../../../assets/Icons/GridIcon";
 import { ResumeFormType } from "../../../types/resumeTypes";
 import PdfLayoutsPreview from "./Layout/PdfLayoutsPreview";
-import PdfTemplate1 from "./Layout/resumeLayouts/template_1/PdfTemplate1";
+import PdfTemplate1 from "./Layout/resumeLayouts/template_1/resume/PdfTemplate1";
 
 const Title = styled.h1`
     

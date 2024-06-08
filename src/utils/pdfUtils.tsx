@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import ReactDOM from "react-dom";
-import PdfTemplate1 from "../components/studentCenter/generator/Layout/resumeLayouts/template_1/PdfTemplate1";
+import PdfTemplate1 from "../components/studentCenter/generator/Layout/resumeLayouts/template_1/resume/PdfTemplate1";
 import { ResumeFormType } from "../types/resumeTypes";
 
 export const generatePDF = (formRef: HTMLFormElement | null) => {
