@@ -1,6 +1,6 @@
-import dayjs from "dayjs"
-import { Volunteering, Volunteering_DaysJs } from "../../../../../types/resumeTypes"
-import { getDateString } from "../../../../../utils/dateUtils"
+import { Volunteering, Volunteering_DaysJs } from "@types";
+import dayjs from "dayjs";
+import { getDateString } from "../../../../../utils/dateUtils";
 
 export const volunteeringExperienceToDayJs = (curr: Volunteering): Volunteering_DaysJs => {
     if (curr.stillWorking === true) {
