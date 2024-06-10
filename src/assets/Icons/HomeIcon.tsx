@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const HomeIcon = ({ height = 30, width = 30 }: IconProps) => {
     return (

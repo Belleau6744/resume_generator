@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const DeleteIcon = ({ width = 20, height = 20 }: IconProps) => {
     return (

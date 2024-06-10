@@ -1,3 +1,4 @@
+import { UserRole } from "@types";
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,6 @@ import ResumeBuilder from './components/studentCenter/builder/ResumeBuilder';
 import PdfPreview from './components/studentCenter/generator/PdfPreview';
 import { auth } from './firebase/firebase';
 import { Features } from './redux/features';
-import { UserRole } from './types/dbStructType';
 
 const App = () => {
   const dispatch = useDispatch();

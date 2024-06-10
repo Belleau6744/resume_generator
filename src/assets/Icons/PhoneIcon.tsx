@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const PhoneIcon = ({ width = 20, height = 20 }: IconProps) => {
     return (

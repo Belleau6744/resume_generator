@@ -1,6 +1,7 @@
 import { FormControl, FormControlLabel, FormLabel, InputAdornment, TextField } from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
+import { UserRole } from "@types";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { FormEvent, useEffect, useState } from "react";
@@ -15,7 +16,6 @@ import { STRINGS_ENG } from "../../assets/stringConstants";
 import { initReviewerDBSpace, initStudentDBSpace } from "../../firebase/db_actions";
 import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
-import { UserRole } from "../../types/dbStructType";
 import { capitalizeEveryWord } from "../../utils/stringUtils";
 import { validateEmail, validateKey, validatePassword } from "../../utils/validation";
 

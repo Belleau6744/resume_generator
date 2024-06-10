@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const OpenIcon = ({ width = 30, height = 30 }: IconProps) => {
     return (

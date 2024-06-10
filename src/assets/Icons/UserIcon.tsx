@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const UserIcon = ({ height = 40, width = 40 }: IconProps) => {
     return (

@@ -1,6 +1,6 @@
-import dayjs from "dayjs"
-import { Work, Work_DayJs } from "../../../../../types/resumeTypes"
-import { getDateString } from "../../../../../utils/dateUtils"
+import { Work, Work_DayJs } from "@types";
+import dayjs from "dayjs";
+import { getDateString } from "../../../../../utils/dateUtils";
 
 export const workingExperienceToDayJs = (curr: Work): Work_DayJs => {
     if (curr.stillWorking === true) {

@@ -1,5 +1,5 @@
+import { ResumeFormType } from "@types";
 import styled from "styled-components";
-import { ResumeFormType } from "../../../../../../../types/resumeTypes";
 import ContactInfoSection from "./sections/ContactInfoSection";
 import EducationSection from "./sections/EducationSection";
 import ExperienceSection from "./sections/ExperienceSection/ExperienceSection";

@@ -1,4 +1,4 @@
-import { SkillsFlat, SkillsHierarchical } from "../../../../../types/resumeTypes";
+import { SkillsFlat, SkillsHierarchical } from "@types";
 
 
 

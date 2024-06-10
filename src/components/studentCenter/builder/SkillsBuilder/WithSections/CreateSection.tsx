@@ -1,12 +1,12 @@
 import { Button, InputLabel, TextField } from '@mui/material';
+import { ResumeType } from "@types";
 import { Dialog, Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import '../../../../../assets/ModalStyling.css';
-import { ResumeType } from '../../../../../types/dbStructType';
 
+import { SkillsHierarchical } from "@types";
 import { useState } from 'react';
 import '../../../../../assets/ModalStyling.css';
-import { SkillsHierarchical } from '../../../../../types/resumeTypes';
 
 type CreateSectionModalProps = {
     isModalOpened: boolean;

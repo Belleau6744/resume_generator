@@ -1,5 +1,5 @@
+import { ResumeType } from "@types";
 import { getDatabase, ref, update } from "firebase/database";
-import { ResumeType } from "../types/dbStructType";
 import { MockCVContent } from "../utils/MockData";
 
 /**

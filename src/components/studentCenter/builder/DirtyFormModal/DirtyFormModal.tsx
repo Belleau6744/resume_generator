@@ -1,5 +1,5 @@
+import { Blocker } from "@types";
 import { Button, Dialog, Heading, Input, Label, Modal, TextField } from 'react-aria-components';
-import { Blocker } from '../../../../types/resumeTypes';
 import './ModalStyling.css';
 
 type ModalProps = {

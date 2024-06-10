@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { ResumesType, ResumeType } from "@types";
 import dayjs from "dayjs";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { _ } from 'lodash';
@@ -8,7 +9,6 @@ import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { saveResume } from "../../../firebase/db_actions";
 import { Features } from "../../../redux/features";
-import { ResumesType, ResumeType } from "../../../types/dbStructType";
 import { getDateString } from "../../../utils/dateUtils";
 import { getEmptyResumeInit } from "../../../utils/init";
 import EducationBuilder from "./EducationBuilder/EducationBuilder";

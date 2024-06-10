@@ -1,5 +1,5 @@
+import { Experience } from "@types";
 import styled from "styled-components";
-import { Experience } from "../../../../../../../../../types/resumeTypes";
 import { SectionContainer } from "../utils";
 
 type ExperienceSectionProps = {

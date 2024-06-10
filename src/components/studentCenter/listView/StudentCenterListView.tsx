@@ -1,4 +1,5 @@
 import { capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { UsersType } from "@types";
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +10,6 @@ import EditIcon from "../../../assets/Icons/EditIcon";
 import OpenIcon from "../../../assets/Icons/OpenIcon";
 import SendIcon from "../../../assets/Icons/SendIcon";
 import { STRINGS_ENG } from "../../../assets/stringConstants";
-import { UsersType } from '../../../types/dbStructType';
 import { capitalizeEveryWord } from "../../../utils/stringUtils";
 
 type ListViewProps = {

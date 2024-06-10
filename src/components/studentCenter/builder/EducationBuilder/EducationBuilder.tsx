@@ -1,10 +1,9 @@
 import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { EducationList, ResumeType } from "@types";
 import { useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../assets/Icons/EditIcon";
-import { ResumeType } from "../../../../types/dbStructType";
-import { EducationList } from "../../../../types/resumeTypes";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 import EducationPickerModal from "./EducationPickerModal";
 

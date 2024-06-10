@@ -1,8 +1,7 @@
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
+import { GeneralInfoType, ResumeType } from "@types";
 import { useCallback, useRef } from "react";
 import styled from "styled-components";
-import { ResumeType } from "../../../../types/dbStructType";
-import { GeneralInfoType } from "../../../../types/resumeTypes";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 import LanguagePicker from "./LanguagePicker/LanguagePicker";
 

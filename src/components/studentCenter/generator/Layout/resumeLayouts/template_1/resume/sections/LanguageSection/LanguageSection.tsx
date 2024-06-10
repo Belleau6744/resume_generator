@@ -1,5 +1,5 @@
+import { LanguageType } from "@types";
 import styled from "styled-components";
-import { LanguageType } from "../../../../../../../../../types/resumeTypes";
 import { SectionContainer } from "../../../resume/sections/utils";
 import LanguageLevelScale from "./LanguageLevelScale";
 

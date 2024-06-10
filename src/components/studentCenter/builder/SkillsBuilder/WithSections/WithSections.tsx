@@ -1,7 +1,6 @@
 import { Box, Button, Tab, Tabs } from "@mui/material";
+import { ResumeType, SkillsHierarchical } from "@types";
 import { useState } from "react";
-import { ResumeType } from "../../../../../types/dbStructType";
-import { SkillsHierarchical } from "../../../../../types/resumeTypes";
 import CreateSection from "./CreateSection";
 import CustomTabPanel from "./CustomTabPanel";
 

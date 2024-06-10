@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
+import { ResumeFormType } from "@types";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DownloadIcon from "../../../assets/Icons/DownloadIcon";
 import GridIcon from "../../../assets/Icons/GridIcon";
-import { ResumeFormType } from "../../../types/resumeTypes";
 import PdfLayoutsPreview from "./Layout/PdfLayoutsPreview";
 import PdfTemplate1 from "./Layout/resumeLayouts/template_1/resume/PdfTemplate1";
 

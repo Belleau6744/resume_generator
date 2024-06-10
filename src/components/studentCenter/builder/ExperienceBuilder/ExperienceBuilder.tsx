@@ -1,8 +1,7 @@
 import { Alert, Box, Button, Tab, Tabs } from "@mui/material";
+import { Experience, ResumeType } from "@types";
 import { useState } from "react";
 import styled from "styled-components";
-import { ResumeType } from "../../../../types/dbStructType";
-import { Experience } from "../../../../types/resumeTypes";
 import TabPanelProjectExperience from "./Project/TabPanelProjectExperience";
 import TabVolunteeringExperience from "./Volunteering/TabVolunteeringExperience";
 import TabPanelWorkingExperience from "./Working/TabPanelWorkingExperience";

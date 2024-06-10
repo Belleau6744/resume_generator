@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const EmailIcon = ({ height = 20, width = 20 }: IconProps) => {
     return (

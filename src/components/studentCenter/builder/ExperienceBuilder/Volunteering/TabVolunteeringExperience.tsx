@@ -1,10 +1,9 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { ResumeType, VolunteeringExperience } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
-import { ResumeType } from "../../../../../types/dbStructType";
-import { VolunteeringExperience } from "../../../../../types/resumeTypes";
 import CreateProjectExperience from "./CreateVolunteeringExperience";
 
 interface TabPanelProps {

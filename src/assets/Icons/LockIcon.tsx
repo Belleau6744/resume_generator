@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const LockIcon = ({ width = 40, height = 40 }: IconProps) => {
     return (

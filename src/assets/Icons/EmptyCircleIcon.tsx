@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const EmptyCircleIcon = ({ height = 10, width = 10 }: IconProps) => {
     return (

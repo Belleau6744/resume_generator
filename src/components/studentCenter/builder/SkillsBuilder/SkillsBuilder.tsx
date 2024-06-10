@@ -1,8 +1,7 @@
 import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { ResumeType, Skills, SkillsFlat, SkillsHierarchical } from "@types";
 import { ChangeEvent, useMemo } from "react";
 import styled from "styled-components";
-import { ResumeType } from "../../../../types/dbStructType";
-import { Skills, SkillsFlat, SkillsHierarchical } from "../../../../types/resumeTypes";
 import SingleListSkills from "./SingleList/SingleList";
 import { useConfirmation } from "./utils/skillsbuilder.hooks";
 import { SkillsUtils } from "./utils/skillsbuilder.utils";

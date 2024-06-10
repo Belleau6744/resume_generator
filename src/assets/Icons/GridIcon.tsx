@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from "@types";
 
 const GridIcon = ({ fill = 'black', height = 30, width = 30 }: IconProps) => {
     return (

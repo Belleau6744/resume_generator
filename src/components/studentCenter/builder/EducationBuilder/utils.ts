@@ -1,6 +1,6 @@
-import dayjs from "dayjs"
-import { Education, Education_DayJs } from "../../../../types/resumeTypes"
-import { getDateString } from "../../../../utils/dateUtils"
+import { Education, Education_DayJs } from "@types";
+import dayjs from "dayjs";
+import { getDateString } from "../../../../utils/dateUtils";
 
 export const educationToDayjs = (curr: Education): Education_DayJs => {
     return {
