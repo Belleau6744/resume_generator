@@ -1,17 +1,18 @@
 import { Button } from "@mui/material";
 import { ResumeFormType } from "@types";
 import { getDatabase, onValue, ref } from "firebase/database";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DownloadIcon from "../../../assets/Icons/DownloadIcon";
 import GridIcon from "../../../assets/Icons/GridIcon";
 import PdfLayoutsPreview from "./Layout/PdfLayoutsPreview";
 import PdfTemplate1 from "./Layout/resumeLayouts/template_1/resume/PdfTemplate1";
+import PdfTemplate2 from "./Layout/resumeLayouts/template_2/resume/PdfTempalte2";
+import PdfTemplate3 from "./Layout/resumeLayouts/template_3/resume/PdfTemplate3";
+import PdfTemplate4 from "./Layout/resumeLayouts/template_4/resume/PdfTemplate4";
 
-const Title = styled.h1`
-    
-`;
+const Title = styled.h1``;
 
 const Heading = styled.div`
     background: white;
@@ -26,14 +27,14 @@ const Heading = styled.div`
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `
 const PageContainer = styled.div`
-`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+`;
 
 type PdfPreviewProps = {
     userID: string;
 }
-
-
-
 
 const PdfPreview = ({ userID }: PdfPreviewProps) => {
     const [ currentResume , setCurrentResume ] = useState<ResumeFormType>();
@@ -50,24 +51,43 @@ const PdfPreview = ({ userID }: PdfPreviewProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const updateLayoutID = (value) => {
+        setLayoutID(value);
+        setPreviewingLayout(false);
+    }
+
     const handleDownloadResume = () => {
         // TODO Implement
         // captureAndPrint(currentResume);
     };
 
-    const CurrentLayout = useCallback((id: string) => {
-        switch(id) {
-            case '0':
-                break;
+    useEffect(() => {
+        console.log(currentResume);
+    }, [currentResume]);
+
+    useEffect(() => {
+        console.log(layoutID);
+    }, [layoutID]);
+
+    const CurrentLayout = useMemo(() => {
+        switch(layoutID) {
+            case '1':
+                return <PdfTemplate1 resume={currentResume} />
+            case '2':
+                return <PdfTemplate2 resume={currentResume} />
+            case '3':
+                return <PdfTemplate3 resume={currentResume} />
+            case '4':
+                return <PdfTemplate4 resume={currentResume} />
             default:
                 return <PdfTemplate1 resume={currentResume} />
         }
-    }, [currentResume]);
+    }, [currentResume, layoutID]);
 
     return (
         <PageContainer id='page-container' style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', width: '100%', height: '100%'}}>
             {previewingLayout ? (
-                <PdfLayoutsPreview />
+                <PdfLayoutsPreview setLayoutID={updateLayoutID} />
             ) : (
                 <>
                     <Heading>
@@ -77,7 +97,7 @@ const PdfPreview = ({ userID }: PdfPreviewProps) => {
                             <Button variant='contained' color='success' onClick={handleDownloadResume} endIcon={<DownloadIcon fill="white" />}>Download PDF</Button>
                         </div>
                     </Heading>
-                    {CurrentLayout(layoutID)}
+                    {CurrentLayout}
                 </>
             )}
         </PageContainer>

@@ -1,25 +1,53 @@
-import styled from "styled-components";
-import EmptyCircleIcon from "../../../../../../../../../assets/Icons/EmptyCircleIcon";
-import FullCircleIcon from "../../../../../../../../../assets/Icons/FullCircleIcon";
 import { Skeleton } from "@mui/material";
+import styled from "styled-components";
 
 
 const LanguageLevelScalePreview = () => {
     
     return (
         <Container>
-            <LeftSide>
-                <LanguageName><Skeleton variant="rectangular" width={100} height={60} /></LanguageName>
-                <LanguageLevelDescription><Skeleton variant="rectangular" width={100} height={60} /></LanguageLevelDescription>
-            </LeftSide>
-            <Scale>
-                <FullCircleIcon />
-                <FullCircleIcon />
-                <FullCircleIcon />
-                <FullCircleIcon />
-                <EmptyCircleIcon />
-                <EmptyCircleIcon />
-            </Scale>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <LeftSide>
+                    <LanguageName><Skeleton variant="rectangular" width={60} height={10} /></LanguageName>
+                    <LanguageLevelDescription><Skeleton variant="rectangular" width={60} height={10} /></LanguageLevelDescription>
+                </LeftSide>
+                <Scale>
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                </Scale>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <LeftSide>
+                    <LanguageName><Skeleton variant="rectangular" width={60} height={10} /></LanguageName>
+                    <LanguageLevelDescription><Skeleton variant="rectangular" width={60} height={10} /></LanguageLevelDescription>
+                </LeftSide>
+                <Scale>
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                </Scale>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <LeftSide>
+                    <LanguageName><Skeleton variant="rectangular" width={60} height={10} /></LanguageName>
+                    <LanguageLevelDescription><Skeleton variant="rectangular" width={60} height={10} /></LanguageLevelDescription>
+                </LeftSide>
+                <Scale>
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                </Scale>
+            </div>
         </Container>
     )
 };
@@ -37,13 +65,17 @@ const Scale = styled.div`
 
 const LeftSide = styled.div`
     display: flex;
+    gap: 5px;
     flex-direction: column;
 `;
 
 const Container = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+    padding-bottom: 13px;
     border-bottom: 1px solid black;
 `;
 

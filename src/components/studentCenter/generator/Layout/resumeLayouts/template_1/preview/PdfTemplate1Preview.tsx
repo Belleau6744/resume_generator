@@ -1,22 +1,38 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { Skeleton } from "@mui/material";
+import SelectTemplateButton from "../../SelectTemplateButton";
+import { ResumeContainer } from "../../utilts";
 import ContactInfoSectionPreview from "./sections/ContactInfoSectionPreview";
-import ExperienceSectionPreview from "./sections/ExperienceSection/ExperienceSectionPreview";
 import EducationSectionPreview from "./sections/EducationSection";
+import ExperienceSectionPreview from "./sections/ExperienceSection/ExperienceSectionPreview";
 import LanguageSectionPreview from "./sections/LanguageSection/LanguageSectionPreview";
 import SkillsSectionPreview from "./sections/SkillsSection";
 
-const PdfTemplate1Preview = () => {    
+type LayoutPreviewProps = {
+    setLayoutID: (newLayoutID: string) => void;
+}
+
+const PdfTemplate1Preview = ({ setLayoutID }: LayoutPreviewProps) => {    
+    const [ isHovered, setIsHovered ] = useState<boolean>(false);
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+    
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };  
 
     // TODO Handle "no user ID"
     return (    
-        <ResumeContainer id='resume-container' style={{ fontSize: '0.7rem' }}>
+        <ResumeContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} id='resume-container' style={{ fontSize: '0.7rem' }}>
+            {isHovered && <SelectTemplateButton onClick={() => setLayoutID('1')} />}
             <Header>
                 <NameWrapper>
-                    <Skeleton variant="rectangular" width={210} height={60} />
-                    <Skeleton variant="rectangular" width={210} height={60} />
+                    <div>John</div>
+                    <div>Doe</div>
                 </NameWrapper>
-                <Skeleton variant="rectangular" width={210} height={60} />
+                <div style={{ fontSize: '0.7em' }} >Resume Creator</div>
             </Header>
             {/********************************** */}
             <BodyWrapper id='body-wrapper'>
@@ -46,8 +62,7 @@ const BodyWrapper = styled.div`
     display: flex;
     width: 100%;
     flex: 1;
-    margin-top: 20px;
-    border-top: 1px solid black;
+    margin-top: 10px;    
 `;
 
 const Header = styled.div`
@@ -57,6 +72,7 @@ const Header = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+    border-bottom: 1px solid black;
 `;
 
 /**************** LEFT COLUMN *************************/
@@ -72,25 +88,15 @@ const RightColumn = styled.div`
     /* background-color: red; */
 `;
 
-const ResumeContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    color: black;
-    font-family: sans-serif, Arial, Helvetica;
-    background: white;
-    padding: 10px 50px;
-`;
-
-
 /**************** GENERAL INFO *************************/
 const NameWrapper = styled.div`
     display: flex;
-    gap: 12px;
+    gap: 20px;
     width: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 1.5em;
+    font-weight: 700;
+    font-size: 1em;
 `;
 
 export default PdfTemplate1Preview;

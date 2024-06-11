@@ -8,8 +8,8 @@ type EducationSectionProps = {
 }
 
 const SectionTitle = styled.div`
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.8rem;
     margin-bottom: 8px;
 `;
 

@@ -12,12 +12,12 @@ const LanguageSectionPreview = () => {
 };
 
 const SectionTitle = styled.div`
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.8rem;
 `;
 
 const LanguageContainer = styled(SectionContainer)`
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: black;
 `; 
 
