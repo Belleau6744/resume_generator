@@ -6,6 +6,7 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding-left: 20px;
+    padding-top: 4px;
     gap: 8px;
 `;
 

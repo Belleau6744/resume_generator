@@ -7,7 +7,7 @@ const ContentWrapper = styled.div`
     align-items: center;
     padding-left: 20px;
     gap: 8px;
-    margin-bottom: 10px;
+    padding-top: 4px;
 `;
 
 const Container = styled.div`    
