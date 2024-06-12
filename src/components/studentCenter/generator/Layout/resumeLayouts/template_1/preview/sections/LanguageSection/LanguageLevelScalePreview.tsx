@@ -8,64 +8,57 @@ const LanguageLevelScalePreview = () => {
         <Container>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LeftSide>
-                    <LanguageName><Skeleton variant="rectangular" width={60} height={10} /></LanguageName>
-                    <LanguageLevelDescription><Skeleton variant="rectangular" width={60} height={10} /></LanguageLevelDescription>
+                    <div><Skeleton width={60} height={12} /></div>
+                    <div><Skeleton width={60} height={12} /></div>
                 </LeftSide>
                 <Scale>
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
                 </Scale>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LeftSide>
-                    <LanguageName><Skeleton variant="rectangular" width={60} height={10} /></LanguageName>
-                    <LanguageLevelDescription><Skeleton variant="rectangular" width={60} height={10} /></LanguageLevelDescription>
+                    <div><Skeleton width={60} height={12} /></div>
+                    <div><Skeleton width={60} height={12} /></div>
                 </LeftSide>
                 <Scale>
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
                 </Scale>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LeftSide>
-                    <LanguageName><Skeleton variant="rectangular" width={60} height={10} /></LanguageName>
-                    <LanguageLevelDescription><Skeleton variant="rectangular" width={60} height={10} /></LanguageLevelDescription>
+                    <div><Skeleton width={60} height={12} /></div>
+                    <div><Skeleton width={60} height={12} /></div>
                 </LeftSide>
                 <Scale>
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
-                    <Skeleton variant='circular' animation={false} width={10} height={10} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
+                    <Skeleton variant='circular' animation={false} width={8} height={8} />
                 </Scale>
             </div>
         </Container>
     )
 };
 
-const LanguageLevelDescription = styled.div`
-    color: #667085;
-    font-size: 0.8rem;
-`;
-
-const LanguageName = styled.div``;
-
 const Scale = styled.div`
     display: flex;
+    gap: 2px;
 `;
 
 const LeftSide = styled.div`
     display: flex;
-    gap: 5px;
     flex-direction: column;
 `;
 

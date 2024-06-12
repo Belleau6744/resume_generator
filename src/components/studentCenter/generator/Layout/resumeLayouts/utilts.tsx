@@ -8,7 +8,7 @@ export const ResumeContainer = styled.div`
     color: black;
     font-family: sans-serif, Arial, Helvetica;
     background: white;
-    height: 600px;
+    height: 550px;
     width: 400px;
     padding: 10px 20px;
 `;

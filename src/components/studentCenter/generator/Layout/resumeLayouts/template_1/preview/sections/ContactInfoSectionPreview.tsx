@@ -10,10 +10,10 @@ const ContactInfoSectionPreview = () => {
     return (
         <ContactInfoContainer>    
             <SectionTitle>Contact</SectionTitle>
-            <ItemContainer><PhoneIcon width={15} height={15} /><Skeleton variant="rectangular" width={100} height={10} /></ItemContainer>
-            <ItemContainer><LocationIcon width={15} height={15} /><Skeleton variant="rectangular" width={100} height={10} /></ItemContainer>
-            <ItemContainer><EmailIcon width={15} height={15} /><Skeleton variant="rectangular" width={100} height={10} /></ItemContainer>
-            <ItemContainer><LinkedInIcon width={15} height={15} /><Skeleton variant="rectangular" width={100} height={10} /></ItemContainer>
+            <ItemContainer><PhoneIcon width={15} height={15} /><Skeleton width={100} height={12} /></ItemContainer>
+            <ItemContainer><LocationIcon width={15} height={15} /><Skeleton width={100} height={12} /></ItemContainer>
+            <ItemContainer><EmailIcon width={15} height={15} /><Skeleton width={100} height={12} /></ItemContainer>
+            <ItemContainer><LinkedInIcon width={15} height={15} /><Skeleton width={100} height={12} /></ItemContainer>
         </ContactInfoContainer>
     )
 };

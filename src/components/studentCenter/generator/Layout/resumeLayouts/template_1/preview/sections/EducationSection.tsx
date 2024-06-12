@@ -1,63 +1,46 @@
 import { Skeleton } from "@mui/material";
-import { EducationList } from "@types";
 import styled from "styled-components";
 import { SectionContainer } from "./utils";
-
-type EducationSectionProps = {
-    education?: EducationList;
-}
 
 const SectionTitle = styled.div`
     font-weight: 700;
     font-size: 0.8rem;
-    margin-bottom: 8px;
 `;
 
 const EducationContainer = styled(SectionContainer)`
     margin-bottom: 20px;
 `;
 
-const DegreeContainer = styled.div`
-    margin-bottom: 15px;
-`;
-
-/********** Degree Content **************/
-const DegreeTitle = styled.div`
-    font-weight: 1000;
-    font-size: 0.8rem;
-`;
-
-const FieldOfStudy = styled.div`
-    font-weight: 800;
-`;
-
-const SchoolName = styled.div`
-    font-weight: 500;
-    font-size: 0.8rem;
-`;
-
 const DateWrapper = styled.div`
     display: flex;
     color: #667085;
+    gap: 8px;
     font-size: 0.6rem;
 `;
-/********** Degree Content **************/
 
-const EducationSectionPreview = ({education}: EducationSectionProps) => {
-    return education ? (
+const EducationSectionPreview = () => {
+    return (
         <EducationContainer>
             <SectionTitle>Education</SectionTitle>
-                <DegreeContainer>
-                    <FieldOfStudy><Skeleton variant="rectangular" width={100} height={60} /></FieldOfStudy>
-                    <DegreeTitle><Skeleton variant="rectangular" width={100} height={60} /></DegreeTitle>
-                    <SchoolName><Skeleton variant="rectangular" width={100} height={60} /></SchoolName>
+                <span>
+                    <div><Skeleton width={60} height={10} /></div>
                     <DateWrapper>
-                        <Skeleton variant="rectangular" width={100} height={60} />
+                        <Skeleton width={30} height={10} animation={false} />
+                        <Skeleton width={30} height={10} animation={false} />
                     </DateWrapper>
-                </DegreeContainer>
+                    <div><Skeleton width={100} height={10} /></div>
+                    <div><Skeleton width={100} height={10} /></div>
+                </span>
+                <span>
+                    <div><Skeleton width={60} height={10} /></div>
+                    <DateWrapper>
+                        <Skeleton width={30} height={10} animation={false} />
+                        <Skeleton width={30} height={10} animation={false} />
+                    </DateWrapper>
+                    <div><Skeleton width={100} height={10} /></div>
+                    <div><Skeleton width={100} height={10} /></div>
+                </span>
         </EducationContainer>
-    ): (
-        <></>
     )
 };
 
