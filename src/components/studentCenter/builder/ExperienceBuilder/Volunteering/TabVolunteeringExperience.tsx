@@ -10,7 +10,7 @@ interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
-    volunteeringExperience: VolunteeringExperience;
+    volunteeringExperience?: VolunteeringExperience;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
   }
 

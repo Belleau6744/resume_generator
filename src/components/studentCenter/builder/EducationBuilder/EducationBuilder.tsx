@@ -70,7 +70,7 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuild
                         <TableCell sx={{ fontWeight: '800' }} align="right"></TableCell>
                     </TableRow>
                 </TableHead>
-                    {Object.keys(content).length > 0 && (
+                    {content && Object.keys(content).length > 0 && (
                         <TableBody>
                         {Object.entries(content).map((item) => {
                             console.log(item)
@@ -101,7 +101,7 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuild
                         </TableBody>
                     )}
             </Table>
-            {Object.keys(content).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Click "Add" to begin.</InputLabel>}
+            {content && Object.keys(content).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Click "Add" to begin.</InputLabel>}
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
                 <Button type="button" size='large' color='success' variant='contained'>Save</Button>

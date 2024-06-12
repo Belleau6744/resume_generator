@@ -10,7 +10,7 @@ interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
-    workingExperience: WorkingExperience;
+    workingExperience?: WorkingExperience;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
   }
 

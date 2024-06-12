@@ -29,11 +29,7 @@ const ExperienceBuilder = ({ content, setCurrentResume, isDirty }: ExperienceBui
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
-      };
-    
-    // workingExperience: WorkingExperience;
-    // volunteerExperience: VolunteerExperience;
-    // projectExperience: ProjectExperience;
+    };
     
     return (
         <Container>
@@ -45,9 +41,9 @@ const ExperienceBuilder = ({ content, setCurrentResume, isDirty }: ExperienceBui
                         <Tab label={'Volunteering'} />
                     </Tabs>
                 </Box>
-            <TabPanelWorkingExperience index={0} value={tabValue} workingExperience={content.workingExperience} setCurrentResume={setCurrentResume} />
-            <TabPanelProjectExperience index={1} value={tabValue} projectExperience={content.projectExperience} setCurrentResume={setCurrentResume} />
-            <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content.volunteerExperience} setCurrentResume={setCurrentResume} />
+            <TabPanelWorkingExperience index={0} value={tabValue} workingExperience={content?.workingExperience} setCurrentResume={setCurrentResume} />
+            <TabPanelProjectExperience index={1} value={tabValue} projectExperience={content?.projectExperience} setCurrentResume={setCurrentResume} />
+            <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content?.volunteerExperience} setCurrentResume={setCurrentResume} />
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
                 <Button type="button" size='large' color='success' variant='contained'>Save</Button>
