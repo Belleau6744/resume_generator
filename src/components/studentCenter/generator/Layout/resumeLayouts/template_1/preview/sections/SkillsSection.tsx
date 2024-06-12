@@ -17,19 +17,19 @@ const SkillsSectionPreview = () => {
             <SectionTitle>Skills</SectionTitle>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <div>
-                    <div><Skeleton width={100} height={10} /></div>
+                    <div><Skeleton width={100} height={10} animation={false} /></div>
                     <div style={{ paddingLeft: '10px', display: 'flex', flexDirection: 'column' }}>
-                        <div><Skeleton width={100} height={10} /></div>
-                        <div><Skeleton width={100} height={10} /></div>
-                        <div><Skeleton width={100} height={10} /></div>
+                        <div><Skeleton width={100} height={10} animation={false} /></div>
+                        <div><Skeleton width={100} height={10} animation={false} /></div>
+                        <div><Skeleton width={100} height={10} animation={false} /></div>
                     </div>
                 </div>
                 <div>
-                    <div><Skeleton width={100} height={10} /></div>
+                    <div><Skeleton width={100} height={10} animation={false} /></div>
                     <div style={{ paddingLeft: '10px', display: 'flex', flexDirection: 'column' }}>
-                        <div><Skeleton width={100} height={10} /></div>
-                        <div><Skeleton width={100} height={10} /></div>
-                        <div><Skeleton width={100} height={10} /></div>
+                        <div><Skeleton width={100} height={10} animation={false} /></div>
+                        <div><Skeleton width={100} height={10} animation={false} /></div>
+                        <div><Skeleton width={100} height={10} animation={false} /></div>
                     </div>
                 </div>
             </div>

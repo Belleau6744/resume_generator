@@ -8,8 +8,8 @@ const LanguageLevelScalePreview = () => {
         <Container>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LeftSide>
-                    <div><Skeleton width={60} height={12} /></div>
-                    <div><Skeleton width={60} height={12} /></div>
+                    <div><Skeleton width={60} height={12} animation={false} /></div>
+                    <div><Skeleton width={60} height={12} animation={false} /></div>
                 </LeftSide>
                 <Scale>
                     <Skeleton variant='circular' animation={false} width={8} height={8} />
@@ -22,8 +22,8 @@ const LanguageLevelScalePreview = () => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LeftSide>
-                    <div><Skeleton width={60} height={12} /></div>
-                    <div><Skeleton width={60} height={12} /></div>
+                    <div><Skeleton width={60} height={12} animation={false} /></div>
+                    <div><Skeleton width={60} height={12} animation={false} /></div>
                 </LeftSide>
                 <Scale>
                     <Skeleton variant='circular' animation={false} width={8} height={8} />
@@ -36,8 +36,8 @@ const LanguageLevelScalePreview = () => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <LeftSide>
-                    <div><Skeleton width={60} height={12} /></div>
-                    <div><Skeleton width={60} height={12} /></div>
+                    <div><Skeleton width={60} height={12} animation={false} /></div>
+                    <div><Skeleton width={60} height={12} animation={false} /></div>
                 </LeftSide>
                 <Scale>
                     <Skeleton variant='circular' animation={false} width={8} height={8} />

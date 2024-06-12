@@ -23,22 +23,22 @@ const EducationSectionPreview = () => {
         <EducationContainer>
             <SectionTitle>Education</SectionTitle>
                 <span>
-                    <div><Skeleton width={60} height={10} /></div>
+                    <div><Skeleton width={60} height={10} animation={false} /></div>
                     <DateWrapper>
                         <Skeleton width={30} height={10} animation={false} />
                         <Skeleton width={30} height={10} animation={false} />
                     </DateWrapper>
-                    <div><Skeleton width={100} height={10} /></div>
-                    <div><Skeleton width={100} height={10} /></div>
+                    <div><Skeleton width={100} height={10} animation={false} /></div>
+                    <div><Skeleton width={100} height={10} animation={false} /></div>
                 </span>
                 <span>
-                    <div><Skeleton width={60} height={10} /></div>
+                    <div><Skeleton width={60} height={10} animation={false} /></div>
                     <DateWrapper>
                         <Skeleton width={30} height={10} animation={false} />
                         <Skeleton width={30} height={10} animation={false} />
                     </DateWrapper>
-                    <div><Skeleton width={100} height={10} /></div>
-                    <div><Skeleton width={100} height={10} /></div>
+                    <div><Skeleton width={100} height={10} animation={false} /></div>
+                    <div><Skeleton width={100} height={10} animation={false} /></div>
                 </span>
         </EducationContainer>
     )
