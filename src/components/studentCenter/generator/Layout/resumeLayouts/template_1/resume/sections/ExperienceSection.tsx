@@ -1,6 +1,6 @@
 import { Experience } from "@types";
 import styled from "styled-components";
-import { SectionContainer } from "../utils";
+import { SectionContainer } from "./utils";
 
 type ExperienceSectionProps = {
     experience: Experience;

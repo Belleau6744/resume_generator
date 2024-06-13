@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import styled from "styled-components";
-import { SectionContainer } from "../utils";
+import { SectionContainer } from "./utils";
 
 const ExperienceSectionPreview = () => { 
 

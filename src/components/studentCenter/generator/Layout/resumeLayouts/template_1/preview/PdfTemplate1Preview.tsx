@@ -4,7 +4,7 @@ import SelectTemplateButton from "../../SelectTemplateButton";
 import { ResumeContainer } from "../../utilts";
 import ContactInfoSectionPreview from "./sections/ContactInfoSectionPreview";
 import EducationSectionPreview from "./sections/EducationSection";
-import ExperienceSectionPreview from "./sections/ExperienceSection/ExperienceSectionPreview";
+import ExperienceSectionPreview from "./sections/ExperienceSectionPreview";
 import LanguageSectionPreview from "./sections/LanguageSection/LanguageSectionPreview";
 import SkillsSectionPreview from "./sections/SkillsSection";
 

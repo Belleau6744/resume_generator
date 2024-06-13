@@ -9,8 +9,6 @@ import GridIcon from "../../../assets/Icons/GridIcon";
 import PdfLayoutsPreview from "./Layout/PdfLayoutsPreview";
 import PdfTemplate1 from "./Layout/resumeLayouts/template_1/resume/PdfTemplate1";
 import PdfTemplate2 from "./Layout/resumeLayouts/template_2/resume/PdfTempalte2";
-import PdfTemplate3 from "./Layout/resumeLayouts/template_3/resume/PdfTemplate3";
-import PdfTemplate4 from "./Layout/resumeLayouts/template_4/resume/PdfTemplate4";
 
 const Title = styled.h1``;
 
@@ -75,10 +73,6 @@ const PdfPreview = ({ userID }: PdfPreviewProps) => {
                 return <PdfTemplate1 resume={currentResume} />
             case '2':
                 return <PdfTemplate2 resume={currentResume} />
-            case '3':
-                return <PdfTemplate3 resume={currentResume} />
-            case '4':
-                return <PdfTemplate4 resume={currentResume} />
             default:
                 return <PdfTemplate1 resume={currentResume} />
         }

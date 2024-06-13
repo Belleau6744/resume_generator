@@ -2,7 +2,7 @@ import { ResumeFormType } from "@types";
 import styled from "styled-components";
 import ContactInfoSection from "./sections/ContactInfoSection";
 import EducationSection from "./sections/EducationSection";
-import ExperienceSection from "./sections/ExperienceSection/ExperienceSection";
+import ExperienceSection from "./sections/ExperienceSection";
 import LanguageSection from "./sections/LanguageSection/LanguageSection";
 import SkillsSection from "./sections/SkillsSection";
 
