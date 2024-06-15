@@ -6,50 +6,13 @@ import ExperienceSection from "./sections/ExperienceSection";
 import LanguageSection from "./sections/LanguageSection/LanguageSection";
 import SkillsSection from "./sections/SkillsSection";
 
-type PdfTemplateProps = {
-    resume: ResumeFormType;
-}
-
-const PdfTemplate1 = ({ resume }: PdfTemplateProps) => {    
-
-    // TODO Handle "no user ID"
-    return (    
-        <ResumeContainer id='resume-container' style={{ fontSize: '0.7rem' }}>
-            <Header>
-                <NameWrapper>
-                    <div>{resume?.generalInfo?.["first name"]}</div>
-                    <div>{resume?.generalInfo?.["last name"]}</div>
-                </NameWrapper>
-                {resume?.generalInfo?.role_title && <div style={{ color: '#667085' }}>{resume?.generalInfo?.role_title}</div>}
-            </Header>
-            {/********************************** */}
-            <BodyWrapper id='body-wrapper'>
-                <LeftColumn id='left-column'>
-                    {/* Contact Information Section */}
-                    <ContactInfoSection
-                        data-test-id='contact-section'
-                        phoneNumber={resume?.generalInfo?.["phone number"]}
-                        emailAddress={resume?.generalInfo?.["email address"]}
-                        linkedIn={resume?.generalInfo?.["linkedin"]}
-                    />
-
-                    {/* Language Section */}
-                    <LanguageSection data-test-id='language-section' languages={resume?.generalInfo?.languages}/>
-
-                    {/* Education Section */}
-                    <EducationSection data-test-id='education-section' education={resume?.education}/>                    
-
-                    {/* Skills Section */}
-                    <SkillsSection data-test-id='skills-section' skills={resume?.skills} />
-                </LeftColumn>
-                {/********************************** */}
-                <RightColumn id='right-column'>
-                    <ExperienceSection data-test-id='experience-section' experience={resume?.experience}/>
-                </RightColumn>
-            </BodyWrapper>
-        </ResumeContainer>
-    );
-};
+const RoleTile = styled.div`
+    color: #667085;
+    display: flex;
+    width: 100%; 
+    justify-content: center;
+    font-size: 1.5rem;
+`;
 
 const BodyWrapper = styled.div`
     display: flex;
@@ -57,6 +20,7 @@ const BodyWrapper = styled.div`
     flex: 1;
     margin-top: 20px;
     border-top: 1px solid black;
+    padding-top: 10px;
 `;
 
 const Header = styled.div`
@@ -104,5 +68,50 @@ const NameWrapper = styled.div`
     line-height: 70px;
     font-size: 1.5em;
 `;
+
+type PdfTemplateProps = {
+    resume: ResumeFormType;
+}
+
+const PdfTemplate1 = ({ resume }: PdfTemplateProps) => {    
+
+    // TODO Handle "no user ID"
+    return (    
+        <ResumeContainer id='resume-container' style={{ fontSize: '0.7rem' }}>
+            <Header>
+                <NameWrapper>
+                    {resume?.generalInfo?.["first name"] && <div style={{ fontSize: '2.5rem' }}>{resume.generalInfo["first name"].toLocaleUpperCase()}</div>}
+                    {resume?.generalInfo?.["last name"] && <div style={{ fontSize: '2.5rem' }}>{resume.generalInfo["last name"].toLocaleUpperCase()}</div>}
+                </NameWrapper>
+                {resume?.generalInfo?.role_title && <RoleTile>{resume.generalInfo.role_title.toLocaleUpperCase()}</RoleTile>}
+            </Header>
+            {/********************************** */}
+            <BodyWrapper id='body-wrapper'>
+                <LeftColumn id='left-column'>
+                    {/* Contact Information Section */}
+                    <ContactInfoSection
+                        data-test-id='contact-section'
+                        phoneNumber={resume?.generalInfo?.["phone number"]}
+                        emailAddress={resume?.generalInfo?.["email address"]}
+                        linkedIn={resume?.generalInfo?.["linkedin"]}
+                    />
+
+                    {/* Language Section */}
+                    <LanguageSection data-test-id='language-section' languages={resume?.generalInfo?.languages}/>
+
+                    {/* Education Section */}
+                    <EducationSection data-test-id='education-section' education={resume?.education}/>                    
+
+                    {/* Skills Section */}
+                    <SkillsSection data-test-id='skills-section' skills={resume?.skills} />
+                </LeftColumn>
+                {/********************************** */}
+                <RightColumn id='right-column'>
+                    <ExperienceSection data-test-id='experience-section' experience={resume?.experience}/>
+                </RightColumn>
+            </BodyWrapper>
+        </ResumeContainer>
+    );
+};
 
 export default PdfTemplate1;

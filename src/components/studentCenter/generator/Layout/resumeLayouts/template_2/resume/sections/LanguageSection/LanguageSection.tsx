@@ -16,7 +16,7 @@ const Content = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 5px 30px 0 15px;
+    padding: 5px 35px 0 35px;
 `;
 
 const LanguageSection = ({ languages }: LanguageSectionProps) => {

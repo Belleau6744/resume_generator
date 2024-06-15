@@ -29,7 +29,7 @@ const Header = styled.div`
     font-size: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
 `;
@@ -46,6 +46,14 @@ const ResumeContainer = styled.div`
     padding: 10px 50px;
 `;
 
+const RoleTile = styled.div`
+    color: #667085;
+    display: flex;
+    width: 100%; 
+    justify-content: flex-end;
+    font-size: 1.5rem;
+`;
+
 type Props = {
     resume: ResumeFormType;
 }
@@ -56,10 +64,10 @@ const PdfTemplate2 = ({ resume }: Props) => {
         <ResumeContainer id='resume-container' style={{ fontSize: '0.7rem' }}>
             <Header>
                 <NameWrapper>
-                <div>{resume?.generalInfo?.["first name"]}</div>
-                    <div style={{ display: 'flex' }}><div></div><div>{resume?.generalInfo?.["last name"]}</div></div>
+                    {resume?.generalInfo?.["first name"] && <div style={{ fontSize: '2.5rem' }}>{(resume.generalInfo["first name"]).toLocaleUpperCase()}</div>}
+                    {resume?.generalInfo?.["last name"] && <div style={{ fontSize: '2.5rem' }}>{(resume.generalInfo["last name"]).toLocaleUpperCase()}</div>}
                 </NameWrapper>
-                <div style={{ fontSize: '0.7em', display: 'flex', justifyContent: 'flex-end', width: '100%' }} >{resume?.generalInfo?.role_title && <div style={{ color: '#667085' }}>{resume?.generalInfo?.role_title}</div>}</div>
+                {resume?.generalInfo?.role_title && <RoleTile>{resume.generalInfo.role_title.toUpperCase()}</RoleTile>}
             </Header>
             <BodyWrapper>
                 {/** CONTACT SECTION  */}
@@ -75,7 +83,7 @@ const PdfTemplate2 = ({ resume }: Props) => {
                 <EducationSection education={resume?.education} />
 
                 {/** EXPERIENCE SECTION */}
-                <ExperienceSection />
+                <ExperienceSection experience={resume?.experience}/>
             </BodyWrapper>
         </ResumeContainer>
     )

@@ -1,4 +1,3 @@
-import { Skeleton } from "@mui/material";
 import { styled } from "styled-components";
 import { ExperienceSectionProps } from "../../../types";
 
@@ -20,19 +19,33 @@ const SectionTitle = styled.div`
     padding-bottom: 3px;
 `;
 
+const SubSectionTitle = styled.div`
+    font-weight: 600;
+    font-size: 0.7rem;
+    padding: 0 5px;
+    width: fit-content;
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+`;
+
 const ExperienceSection = ({experience}: ExperienceSectionProps) => {
     return (
         <Container>
             <SectionTitle>Experience</SectionTitle>
-            <ContentWrapper style={{ marginBottom: '3px' }}>
+            <ContentWrapper style={{ marginBottom: '3px', width: '100%' }}>
                 {experience?.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
                     return (
-                        <div style={{ borderBottom: '1px '}}>
-                            <div style={{ fontWeight: 700 }} key={index}>{item.jobTitle}</div>
-                            <div>{item.organizationName}</div>
-                            <div style={{ display: 'flex', color: '#667085' }}>
-                                <div>{item.startDate}</div>
-                                <div>&nbsp;- {item.stillWorking === false ? item.endDate : ''}</div>
+                        <div style={{ borderBottom: '1px ', width: '100%' }}>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                                <div>
+                                    <div style={{ fontWeight: 700 }} key={index}>{item.jobTitle}</div>
+                                    <div>{item.organizationName}</div>
+                                </div>
+                                <div style={{ display: 'flex', color: '#667085' }}>
+                                    <div>&nbsp;&nbsp;</div>
+                                    <div>{item.startDate}</div>
+                                    <div>&nbsp;- {item.stillWorking === false ? item.endDate : ''}</div>
+                                </div>
                             </div>
                             <ul style={{ marginTop: '3px'}}>
                                 {item && Array.isArray(item.taskDescription) && item?.taskDescription.map(task => {
@@ -43,15 +56,26 @@ const ExperienceSection = ({experience}: ExperienceSectionProps) => {
                     )
                 })}
             </ContentWrapper>
-            <SectionTitle style={{fontWeight: '700', fontSize: '0.8rem'}}>Project / Volunteering</SectionTitle>
             <ContentWrapper>
-                <div style={{ borderBottom: '1px ', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ marginBottom: '5px'}} ><Skeleton animation={false} width={300} height={12} /></div>
-                    <div style={{ padding: '0', margin: '0', display: 'flex', flexDirection: 'column' ,paddingLeft: '8px', gap: '3px' }}>
-                        <div style={{ padding: '0', display: 'flex', alignItems: 'center' }}><Skeleton animation={false} width={330} height={10} /></div>
-                        <div style={{ padding: '0', display: 'flex', alignItems: 'center' }}><Skeleton animation={false} width={330} height={10} /></div>
-                        <div style={{ padding: '0', display: 'flex', alignItems: 'center' }}><Skeleton animation={false} width={330} height={10} /></div>
-                    </div>
+                <div>
+                    <SubSectionTitle>Projects</SubSectionTitle>
+                    <ul style={{ marginTop: '3px'}}>
+                        {experience?.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
+                            return (
+                                <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
+                            )
+                        })}
+                    </ul>
+                </div>
+                <div>
+                    <SubSectionTitle>Volunteering</SubSectionTitle>
+                    <ul style={{ marginTop: '3px'}}>
+                        {experience?.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
+                            return (
+                                <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
+                            )
+                        })}
+                    </ul>
                 </div>
             </ContentWrapper>
         </Container>
