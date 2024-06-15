@@ -16,7 +16,7 @@ const LanguageLevelScale = (props: LanguageLevelScaleProps) => {
                 {Array.from(Array(6)).map((_, index) => {
                     return  (
                         <div key={index}>
-                            {(index < level) ? (<FullCircleIcon />) : (<EmptyCircleIcon />)}
+                            {(index <= level) ? (<FullCircleIcon />) : (<EmptyCircleIcon />)}
                         </div>
                     );
                 })}
@@ -46,7 +46,6 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 200px;
-    border-bottom: 1px solid black;
 `;
 
 

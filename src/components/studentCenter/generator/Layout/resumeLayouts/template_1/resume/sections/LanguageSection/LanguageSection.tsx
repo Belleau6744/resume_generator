@@ -1,9 +1,9 @@
-import { LanguageType } from "@types";
 import styled from "styled-components";
+import { LanguageSectionProps } from "../../../../types";
 import { SectionContainer } from "../../../resume/sections/utils";
 import LanguageLevelScale from "./LanguageLevelScale";
 
-const LanguageSection = ({languages}: {languages?: LanguageType}) => {
+const LanguageSection = ({languages}: LanguageSectionProps) => {
     return languages ? (
         <LanguageContainer>
             <SectionTitle>Languages</SectionTitle>

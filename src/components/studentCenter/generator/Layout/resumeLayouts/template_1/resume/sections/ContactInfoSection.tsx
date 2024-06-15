@@ -1,24 +1,16 @@
 import styled from "styled-components";
 import EmailIcon from "../../../../../../../../assets/Icons/EmailIcon";
 import LinkedInIcon from "../../../../../../../../assets/Icons/LinkedInIcon";
-import LocationIcon from "../../../../../../../../assets/Icons/LocationIcon";
 import PhoneIcon from "../../../../../../../../assets/Icons/PhoneIcon";
+import { ContactInfoProps } from "../../../types";
 import { SectionContainer } from "./utils";
 
-type ContactInfoProps = {
-    phoneNumber?: string;
-    address?: string;
-    emailAddress?: string;
-    linkedIn?: string;
-}
-
 const ContactInfoSection = (props: ContactInfoProps) => {
-    const { phoneNumber, address, emailAddress, linkedIn } = props;
+    const { phoneNumber, emailAddress, linkedIn } = props;
     return (
         <ContactInfoContainer>    
             <SectionTitle>Contact</SectionTitle>
             {phoneNumber && <ItemContainer><PhoneIcon />{phoneNumber}</ItemContainer>}
-            {address && <ItemContainer><LocationIcon />{address}</ItemContainer>}
             {emailAddress && <ItemContainer><EmailIcon />{emailAddress}</ItemContainer>}
             {linkedIn && <ItemContainer><LinkedInIcon />{linkedIn}</ItemContainer>}
         </ContactInfoContainer>

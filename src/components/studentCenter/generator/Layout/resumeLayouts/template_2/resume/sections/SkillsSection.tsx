@@ -1,14 +1,13 @@
 import { Skill } from "@types";
 import styled from "styled-components";
 import { SkillsSectionProps } from "../../../types";
-import { SectionContainer } from "./utils";
 
 const SectionTitle = styled.div`
     font-weight: 800;
     font-size: 1rem;
 `;
 
-const SkillsContainer = styled(SectionContainer)`
+const SkillsContainer = styled.div`
     margin-bottom: 20px;
 `; 
 
@@ -25,7 +24,7 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                                 <div>
                                     {skills.content[item].map((skillItem: Skill) => {
                                         return (
-                                            <div>{skillItem.title}</div>
+                                            <div>&#x2022;{skillItem.title}</div>
                                         )
 
                                     })}
@@ -34,11 +33,19 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                         )
                     })
                 ) : (
-                    skills.content.map((skillItem: Skill, index) => {
-                        return (
-                            <div key={index}>{skillItem.title}</div>
-                        )
-                    })
+                    <div style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap',
+                        justifyContent: 'start',
+                        gap: '10px',
+                        padding: '5px 30px 0 15px',
+                    }}>
+                        {skills.content.map((skillItem: Skill, index) => {
+                            return (
+                                <div key={index}>&#x2022;{skillItem.title}</div>
+                            )
+                        })}
+                    </div>
                 )
             )}
         </SkillsContainer>

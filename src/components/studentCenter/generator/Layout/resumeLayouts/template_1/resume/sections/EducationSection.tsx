@@ -1,10 +1,6 @@
-import { EducationList } from "@types";
 import styled from "styled-components";
+import { EducationSectionProps } from "../../../types";
 import { SectionContainer } from "./utils";
-
-type EducationSectionProps = {
-    education?: EducationList;
-}
 
 const SectionTitle = styled.div`
     font-weight: 800;
