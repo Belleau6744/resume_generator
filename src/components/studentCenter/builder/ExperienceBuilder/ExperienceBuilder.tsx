@@ -33,7 +33,7 @@ const ExperienceBuilder = ({ content, setCurrentResume, isDirty }: ExperienceBui
     
     return (
         <Container>
-            <SectionTitle>Education</SectionTitle>
+            <SectionTitle>Experience</SectionTitle>
                 <Box sx={{ borderColor: 'divider', borderBottom: 1, marginTop: '20px'}}>
                     <Tabs value={tabValue} onChange={handleChange}>
                         <Tab label={'Working'} />

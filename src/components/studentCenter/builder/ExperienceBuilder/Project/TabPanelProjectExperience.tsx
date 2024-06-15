@@ -64,7 +64,7 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
                     <TableCell sx={{ fontWeight: '800' }}>Description</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="right">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
-                            {STRINGS_ENG.adding.plus_workingExperience}
+                            {STRINGS_ENG.adding.plus_projectExperience}
                         </Button>
                     </TableCell>
                 </TableRow>
