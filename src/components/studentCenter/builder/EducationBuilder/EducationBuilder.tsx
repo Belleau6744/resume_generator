@@ -1,5 +1,5 @@
 import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { EducationList, ResumeType } from "@types";
+import { EducationList, ResumeDefinition } from "@types";
 import { useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../assets/Icons/DeleteIcon";
@@ -9,7 +9,7 @@ import EducationPickerModal from "./EducationPickerModal";
 
 type EducationBuilderProps = {
     content: EducationList;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     isDirty: boolean;
 }
 

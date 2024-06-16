@@ -2,7 +2,7 @@ import { InputLabel, TextField } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Education_DayJs, EducationInputErrors, EducationList, ResumeType } from "@types";
+import { Education_DayJs, EducationInputErrors, EducationList, ResumeDefinition } from "@types";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Heading, Modal } from "react-aria-components";
@@ -20,7 +20,7 @@ type PickerModalProps = {
     content: EducationList;
     educationID: string;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, content, educationID}: PickerModalProps) => {

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { ResumesType, ResumeType } from "@types";
+import { ResumeDefinition, ResumeGroup, } from "@types";
 import dayjs from "dayjs";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { _ } from 'lodash';
@@ -23,8 +23,8 @@ const ResumeBuilder = () => {
     /**
      * * Keeps track of the original resume, as a point of reference for updates, and the current version being updated
      */
-    const [ originalResume, setOriginalResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
-    const [ currentResume, setCurrentResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
+    const [ originalResume, setOriginalResume ] = useState<ResumeDefinition>(getEmptyResumeInit(resumeID));
+    const [ currentResume, setCurrentResume ] = useState<ResumeDefinition>(getEmptyResumeInit(resumeID));
 
     /**
      * FETCHING - Resume content
@@ -34,8 +34,8 @@ const ResumeBuilder = () => {
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
             if (snapshot.val()) {
-                const resumes: ResumesType = snapshot.val();
-                const content = Object.values(resumes).find((currRes: ResumeType)  => currRes.id === resumeID)
+                const resumes: ResumeGroup = snapshot.val();
+                const content = Object.values(resumes).find((currRes: ResumeDefinition)  => currRes.id === resumeID)
                 if(content) {
                     setOriginalResume(content);
                     setCurrentResume(content);
@@ -66,7 +66,7 @@ const ResumeBuilder = () => {
 
     const handleSaveResume = () => {
         if (userID && resumeID) {
-            let newResume: ResumeType;
+            let newResume: ResumeDefinition;
             setCurrentResume(prev => {
                 newResume = {
                     ...prev,

@@ -1,5 +1,5 @@
 import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { ResumeType, Skills, SkillsFlat, SkillsHierarchical } from "@types";
+import { ResumeDefinition, Skills, SkillsFlat, SkillsHierarchical } from "@types";
 import { ChangeEvent, useMemo } from "react";
 import styled from "styled-components";
 import SingleListSkills from "./SingleList/SingleList";
@@ -11,7 +11,7 @@ import WithSections from "./WithSections/WithSections";
 type SkillsBuilderProps = {
     content: Skills;
     isDirty: boolean;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const Container = styled.div``;

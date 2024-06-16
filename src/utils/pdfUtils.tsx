@@ -1,4 +1,4 @@
-import { ResumeFormType } from "@types";
+import { ResumeContentType } from "@types";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { createElement } from "react";
@@ -20,7 +20,7 @@ export const generatePDF = (formRef: HTMLFormElement | null) => {
     pdf.save('resume.pdf');
 }
 
-export const captureAndPrint = async (resume: ResumeFormType, layout: React.ComponentType<{ resume: ResumeFormType }>) => {
+export const captureAndPrint = async (resume: ResumeContentType, layout: React.ComponentType<{ resume: ResumeFormType }>) => {
     // Render the content of the div off-screen
     const divToPrint = document.createElement('div');
     divToPrint.id = 'divToPrint';

@@ -1,12 +1,12 @@
 import { Box, Button, Tab, Tabs } from "@mui/material";
-import { ResumeType, SkillsHierarchical } from "@types";
+import { ResumeDefinition, SkillsHierarchical } from "@types";
 import { useState } from "react";
 import CreateSection from "./CreateSection";
 import CustomTabPanel from "./CustomTabPanel";
 
 type WithSectionsProps = {
     content: SkillsHierarchical;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const WithSections = ({ content, setCurrentResume }: WithSectionsProps) => {

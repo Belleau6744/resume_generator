@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { ResumeFormType } from "@types";
+import { ResumeContentType } from "@types";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -41,7 +41,7 @@ const Layouts = {
 }
 
 const PdfPreview = ({ userID }: PdfPreviewProps) => {
-    const [ currentResume , setCurrentResume ] = useState<ResumeFormType>();
+    const [ currentResume , setCurrentResume ] = useState<ResumeContentType>();
     const [ previewingLayout, setPreviewingLayout ] = useState<boolean>(false);
     const [ layoutID, setLayoutID ] = useState<string>('1');
     const { resumeID } = useParams();

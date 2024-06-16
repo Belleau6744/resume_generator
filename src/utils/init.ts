@@ -1,6 +1,6 @@
-import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExperienceInputErrors, ResumeType, Volunteering, Volunteering_DaysJs, VolunteeringInputErrors, Work, Work_DayJs, WorkExperienceInputErrors } from "@types";
+import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExperienceInputErrors, ResumeDefinition, Volunteering, Volunteering_DaysJs, VolunteeringInputErrors, Work, Work_DayJs, WorkExperienceInputErrors } from "@types";
 
-export const getEmptyResumeInit = (resumeID: string): ResumeType => {
+export const getEmptyResumeInit = (resumeID: string): ResumeDefinition => {
     return {
         id: resumeID,
         status: 'New',

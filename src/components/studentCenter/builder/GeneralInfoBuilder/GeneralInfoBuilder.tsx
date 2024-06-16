@@ -1,5 +1,5 @@
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
-import { GeneralInfoType, ResumeType } from "@types";
+import { GeneralInfoType, ResumeDefinition } from "@types";
 import { useCallback, useRef } from "react";
 import styled from "styled-components";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
@@ -7,7 +7,7 @@ import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
 type GeneralInfoProps = {
     content: GeneralInfoType;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     isDirty: boolean;
 }
 

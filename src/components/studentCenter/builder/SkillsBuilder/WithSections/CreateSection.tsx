@@ -1,5 +1,5 @@
 import { Button, InputLabel, TextField } from '@mui/material';
-import { ResumeType } from "@types";
+import { ResumeDefinition } from "@types";
 import { Dialog, Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import '../../../../../assets/ModalStyling.css';
@@ -11,7 +11,7 @@ import '../../../../../assets/ModalStyling.css';
 type CreateSectionModalProps = {
     isModalOpened: boolean;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     setTabValue: React.Dispatch<React.SetStateAction<number>>;
 }
 

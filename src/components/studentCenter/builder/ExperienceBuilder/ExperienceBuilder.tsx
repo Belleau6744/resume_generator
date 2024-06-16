@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Tab, Tabs } from "@mui/material";
-import { Experience, ResumeType } from "@types";
+import { Experience, ResumeDefinition } from "@types";
 import { useState } from "react";
 import styled from "styled-components";
 import TabPanelProjectExperience from "./Project/TabPanelProjectExperience";
@@ -9,7 +9,7 @@ import TabPanelWorkingExperience from "./Working/TabPanelWorkingExperience";
 type ExperienceBuilderProps = {
     content: Experience;
     isDirty: boolean;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const Container = styled.div``;

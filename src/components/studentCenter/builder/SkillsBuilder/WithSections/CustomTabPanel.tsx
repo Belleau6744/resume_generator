@@ -1,5 +1,5 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { ResumeType, SkillsFlat, SkillsHierarchical } from "@types";
+import { ResumeDefinition, SkillsFlat, SkillsHierarchical } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import CreateSkillInSection from "./CreateSkillInSection";
@@ -10,7 +10,7 @@ interface TabPanelProps {
     value: number;
     skills: SkillsFlat;
     section: string;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
   }
 
 const CustomTabPanel = (props: TabPanelProps) => {

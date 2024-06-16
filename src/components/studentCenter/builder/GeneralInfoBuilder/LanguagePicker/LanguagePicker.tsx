@@ -1,5 +1,5 @@
 import { Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { LanguageKeys, LanguageType, ResumeType } from "@types";
+import { LanguageKeys, LanguageType, ResumeDefinition } from "@types";
 import { useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
@@ -8,7 +8,7 @@ import PickerModal from "./LanguagePickerModal";
 
 type LanguagePickerProps = {
     languages: LanguageType;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) => {
