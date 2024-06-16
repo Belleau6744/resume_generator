@@ -1,8 +1,8 @@
 import { ResumeFormType } from "@types";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import ReactDOM from "react-dom";
-import PdfTemplate1 from "../components/studentCenter/generator/Layout/resumeLayouts/template_1/resume/PdfTemplate1";
+import { createElement } from "react";
+import { createRoot } from "react-dom/client";
 
 export const generatePDF = (formRef: HTMLFormElement | null) => {
     if (!formRef) return;
@@ -20,7 +20,7 @@ export const generatePDF = (formRef: HTMLFormElement | null) => {
     pdf.save('resume.pdf');
 }
 
-export const captureAndPrint = (resume: ResumeFormType) => {
+export const captureAndPrint = async (resume: ResumeFormType, layout: React.ComponentType<{ resume: ResumeFormType }>) => {
     // Render the content of the div off-screen
     const divToPrint = document.createElement('div');
     divToPrint.id = 'divToPrint';
@@ -28,27 +28,27 @@ export const captureAndPrint = (resume: ResumeFormType) => {
     divToPrint.style.left = '-9999px';
     divToPrint.style.top = '-9999px';
     document.body.appendChild(divToPrint);
-    ReactDOM.render(<PdfTemplate1 resume={resume} />, divToPrint);
+
+    const element = createElement(layout, { resume });
+    // ReactDOM.render(element, divToPrint);
+    const root = createRoot(divToPrint);
+    root.render(element);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
     if (divToPrint) {
-      html2canvas(document.getElementById('divToPrint') as HTMLElement, { scrollY: -window.scrollY })
+      html2canvas(divToPrint)
         .then((canvas) => {
           const imgData = canvas.toDataURL('image/png');
           const pdf = new jsPDF();
-          const pdfWidth = 210;
-          const pdfHeight = 297;
-          // const pdfWidth = pdf.internal.pageSize.getWidth();
-          // const pdfHeight = pdf.internal.pageSize.getHeight();
-          const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-          let position = 0;
 
-          pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
-          position -= pdfHeight;
+          // const pdfWidth = 210;
+          const imgWidth: number = 210;
+          const imgHeight: number = (canvas.height * imgWidth) / canvas.width;
 
-          while (position > -canvas.height) {
-            pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
-            position -= pdfHeight;
-          }
+          const pdfHeight: number = imgHeight > 297 ? imgHeight : 297;
+
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, pdfHeight);
 
           pdf.save("download.pdf");
         });

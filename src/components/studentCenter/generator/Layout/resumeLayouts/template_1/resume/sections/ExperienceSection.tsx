@@ -10,8 +10,8 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
             <WorkingExperienceWrapper>
                 {experience?.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
                     return (
-                        <div style={{ borderBottom: '1px '}}>
-                            <div style={{ fontWeight: 700 }} key={index}>{item.jobTitle}</div>
+                        <div style={{ borderBottom: '1px '}} key={index}>
+                            <div style={{ fontWeight: 700 }}>{item.jobTitle}</div>
                             <div>{item.organizationName}</div>
                             <div style={{ display: 'flex', color: '#667085' }}>
                                 <div>{item.startDate}</div>

@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import { ResumeFormType } from "@types";
 import { getDatabase, onValue, ref } from "firebase/database";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { captureAndPrint } from "utils/pdfUtils";
 import DownloadIcon from "../../../assets/Icons/DownloadIcon";
 import GridIcon from "../../../assets/Icons/GridIcon";
 import PdfLayoutsPreview from "./Layout/PdfLayoutsPreview";
@@ -34,10 +35,15 @@ type PdfPreviewProps = {
     userID: string;
 }
 
+const Layouts = {
+    '1': PdfTemplate1,
+    '2': PdfTemplate2
+}
+
 const PdfPreview = ({ userID }: PdfPreviewProps) => {
     const [ currentResume , setCurrentResume ] = useState<ResumeFormType>();
     const [ previewingLayout, setPreviewingLayout ] = useState<boolean>(false);
-    const [ layoutID, setLayoutID ] = useState<string>('');
+    const [ layoutID, setLayoutID ] = useState<string>('1');
     const { resumeID } = useParams();
 
     const db = getDatabase();
@@ -54,10 +60,9 @@ const PdfPreview = ({ userID }: PdfPreviewProps) => {
         setPreviewingLayout(false);
     }
 
-    const handleDownloadResume = () => {
-        // TODO Implement
-        // captureAndPrint(currentResume);
-    };
+    const handleDownloadResume = useCallback(() => {
+        captureAndPrint(currentResume, Layouts[layoutID]);
+    }, [currentResume, layoutID]);
 
     useEffect(() => {
         console.log(currentResume);
@@ -74,7 +79,7 @@ const PdfPreview = ({ userID }: PdfPreviewProps) => {
             case '2':
                 return <PdfTemplate2 resume={currentResume} />
             default:
-                return <PdfTemplate1 resume={currentResume} />
+                setLayoutID('1');
         }
     }, [currentResume, layoutID]);
 

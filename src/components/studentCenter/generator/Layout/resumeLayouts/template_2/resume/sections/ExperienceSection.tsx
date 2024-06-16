@@ -35,10 +35,10 @@ const ExperienceSection = ({experience}: ExperienceSectionProps) => {
             <ContentWrapper style={{ marginBottom: '3px', width: '100%' }}>
                 {experience?.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
                     return (
-                        <div style={{ borderBottom: '1px ', width: '100%' }}>
+                        <div style={{ borderBottom: '1px ', width: '100%' }} key={index}>
                             <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                 <div>
-                                    <div style={{ fontWeight: 700 }} key={index}>{item.jobTitle}</div>
+                                    <div style={{ fontWeight: 700 }}>{item.jobTitle}</div>
                                     <div>{item.organizationName}</div>
                                 </div>
                                 <div style={{ display: 'flex', color: '#667085' }}>
