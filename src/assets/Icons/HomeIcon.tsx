@@ -1,6 +1,8 @@
-const HomeIcon = () => {
+import { IconProps } from "@types";
+
+const HomeIcon = ({ height = 30, width = 30 }: IconProps) => {
     return (
-        <svg width="30px" height="30px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg width={`${width}px`}  height={`${height}px`}  viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <g id="Page-1" stroke="none" strokeWidth="1" fill="white" fillRule="evenodd">
                 <g id="Dribbble-Light-Preview" transform="translate(-419.000000, -720.000000)" fill="white">
                     <g id="icons" transform="translate(56.000000, 160.000000)">

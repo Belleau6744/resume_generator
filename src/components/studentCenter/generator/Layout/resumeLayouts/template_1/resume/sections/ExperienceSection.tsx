@@ -1,26 +1,24 @@
 import styled from "styled-components";
-import { Experience } from "../../../../../types/resumeTypes";
-
-type ExperienceSectionProps = {
-    experience: Experience;
-}
+import { ExperienceSectionProps } from "../../../types";
+import { SectionContainer } from "./utils";
 
 const ExperienceSection = ({ experience }: ExperienceSectionProps) => { 
+
     return (
         <ExperienceContainer>
             <SectionTitle>Experience</SectionTitle>
             <WorkingExperienceWrapper>
                 {experience?.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
                     return (
-                        <div style={{ borderBottom: '1px '}}>
-                            <div style={{ fontWeight: 700 }} key={index}>{item.jobTitle}</div>
+                        <div style={{ borderBottom: '1px '}} key={index}>
+                            <div style={{ fontWeight: 700 }}>{item.jobTitle}</div>
                             <div>{item.organizationName}</div>
                             <div style={{ display: 'flex', color: '#667085' }}>
                                 <div>{item.startDate}</div>
                                 <div>&nbsp;- {item.stillWorking === false ? item.endDate : ''}</div>
                             </div>
                             <ul style={{ marginTop: '3px'}}>
-                                {item.taskDescription.map(task => {
+                                {item && Array.isArray(item.taskDescription) && item?.taskDescription.map(task => {
                                     return <li><div style={{ fontSize: '0.6rem' }}>{task}</div></li>
                                 })}
                             </ul>
@@ -35,7 +33,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                 <ul style={{ marginTop: '3px'}}>
                     {experience?.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
                         return (
-                            <li><div key={index} style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
+                            <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
                     })}
                 </ul>
@@ -45,7 +43,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                 <ul style={{ marginTop: '3px'}}>
                     {experience?.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
                         return (
-                            <li><div key={index} style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
+                            <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
                     })}
                 </ul>
@@ -68,51 +66,12 @@ const SectionTitle = styled.div`
     margin-bottom: 5px;
 `;
 
-
-const SectionContainer = styled.div`
-    width: 100%;
-`
-
 const ExperienceContainer = styled(SectionContainer)`
     padding-left: 20px;
+    height: 100%;
 `;
 const ProjectExperienceWrapper = styled(SectionContainer)``;
 const VolunteerExperienceWrapper = styled(SectionContainer)``;
 const WorkingExperienceWrapper = styled(SectionContainer)``;
 
 export default ExperienceSection;
-
-{/* <ExperienceContainer>
-<ProjectExperienceWrapper>
-    {resumeContent?.experience.projectExperience && Object.values(resumeContent?.experience.projectExperience).map((item, index) => {
-        return (
-            <>
-                <div key={index}>{item.description}</div>
-            </>
-        )
-    })}
-</ProjectExperienceWrapper>
-<VolunteerExperienceWrapper>
-    {resumeContent?.experience.volunteerExperience && Object.values(resumeContent?.experience.volunteerExperience).map((item, index) => {
-        return (
-            <>
-                <div key={index}>{item.description}</div>
-            </>
-        )
-    })}
-</VolunteerExperienceWrapper>
-<WorkingExperienceWrapper>
-    {resumeContent?.experience.workingExperience && Object.values(resumeContent?.experience.workingExperience).map((item, index) => {
-        return (
-            <>
-                <div key={index}>{item.jobTitle}</div>
-                <div>{item.organizationName}</div>
-                <div>{item.startDate}</div>
-                <div>{item.stillWorking}</div>
-                {item.taskDescription.map(task => {return <div>{task}</div>})}
-                <div>{item.stillWorking === false ? item.endDate : ''}</div>
-            </>
-        )
-    })};
-</WorkingExperienceWrapper>
-</ExperienceContainer> */}

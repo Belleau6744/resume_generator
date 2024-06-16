@@ -5,12 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { LanguageKeys, LanguageLevelKeys, LanguageType, ResumeType } from "@types";
 import { useEffect, useMemo, useState } from 'react';
 import { Heading, Modal, } from 'react-aria-components';
 import styled from 'styled-components';
 import ErrorIcon from '../../../../../assets/Icons/ErrorIcon';
-import { ResumeType } from '../../../../../types/dbStructType';
-import { LanguageKeys, LanguageLevelKeys, LanguageType } from '../../../../../types/resumeTypes';
 import { LangLevel, LangList } from '../../../../../utils/Languages';
 import './ModalStyling.css';
 

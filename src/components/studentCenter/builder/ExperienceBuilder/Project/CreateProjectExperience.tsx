@@ -1,12 +1,11 @@
 import { Button, InputLabel, TextField } from '@mui/material';
+import { Project, ProjectExperience, ProjectExperienceInputErrors, ResumeType } from "@types";
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
-import { ResumeType } from "../../../../../types/dbStructType";
-import { Project, ProjectExperience, ProjectExperienceInputErrors } from "../../../../../types/resumeTypes";
 import { getDefaultProjectExperience, getDefaultProjectExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
 

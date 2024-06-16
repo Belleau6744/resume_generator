@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UserRole } from '../../../types/dbStructType';
+import { UserRole } from "@types";
 
 export const setUserAuthStatus = createAction<boolean>('user/setUserAuthStatus');
 

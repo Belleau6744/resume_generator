@@ -1,17 +1,16 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { ResumeType, WorkingExperience } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
-import { ResumeType } from "../../../../../types/dbStructType";
-import { WorkingExperience } from "../../../../../types/resumeTypes";
 import CreateWorkingExperience from "./CreateWorkingExperience";
 
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
-    workingExperience: WorkingExperience;
+    workingExperience?: WorkingExperience;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
   }
 

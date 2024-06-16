@@ -1,17 +1,16 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { ProjectExperience, ResumeType } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
-import { ResumeType } from "../../../../../types/dbStructType";
-import { ProjectExperience } from "../../../../../types/resumeTypes";
 import CreateProjectExperience from "./CreateProjectExperience";
 
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
-    projectExperience: ProjectExperience;
+    projectExperience?: ProjectExperience;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
   }
 
@@ -65,7 +64,7 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
                     <TableCell sx={{ fontWeight: '800' }}>Description</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="right">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
-                            {STRINGS_ENG.adding.plus_workingExperience}
+                            {STRINGS_ENG.adding.plus_projectExperience}
                         </Button>
                     </TableCell>
                 </TableRow>

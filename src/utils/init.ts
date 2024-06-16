@@ -1,5 +1,4 @@
-import { ResumeType } from "../types/dbStructType"
-import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExperienceInputErrors, Volunteering, Volunteering_DaysJs, VolunteeringInputErrors, Work, Work_DayJs, WorkExperienceInputErrors } from "../types/resumeTypes"
+import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExperienceInputErrors, ResumeType, Volunteering, Volunteering_DaysJs, VolunteeringInputErrors, Work, Work_DayJs, WorkExperienceInputErrors } from "@types";
 
 export const getEmptyResumeInit = (resumeID: string): ResumeType => {
     return {

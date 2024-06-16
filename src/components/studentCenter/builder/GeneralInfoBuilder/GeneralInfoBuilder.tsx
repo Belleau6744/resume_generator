@@ -1,8 +1,7 @@
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
+import { GeneralInfoType, ResumeType } from "@types";
 import { useCallback, useRef } from "react";
 import styled from "styled-components";
-import { ResumeType } from "../../../../types/dbStructType";
-import { GeneralInfoType } from "../../../../types/resumeTypes";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
@@ -45,7 +44,7 @@ const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty }: GeneralInfoP
                                         sx={{ flex: '1', minWidth: '100px' }}
                                         // label={capitalizeEveryWord(inputName)}
                                         type="text"
-                                        value={item[1].toString()}
+                                        value={content[item[0]]?.toString()}
                                         onChange={(e) => handleInputChangeGeneral(item[0], e.target.value)}
                                         />
                                     </InputWrapper>

@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import EmptyCircleIcon from "../../../../../assets/Icons/EmptyCircleIcon";
-import FullCircleIcon from "../../../../../assets/Icons/FullCircleIcon";
-import { LangLevel, LangList } from "../../../../../utils/Languages";
-
-type LanguageLevelScaleProps = {
-    level: number;
-    language: string;
-}
+import EmptyCircleIcon from "../../../../../../../../../assets/Icons/EmptyCircleIcon";
+import FullCircleIcon from "../../../../../../../../../assets/Icons/FullCircleIcon";
+import { LangLevel, LangList } from "../../../../../../../../../utils/Languages";
+import { LanguageLevelScaleProps } from "../../../../types";
 
 const LanguageLevelScale = (props: LanguageLevelScaleProps) => {
     const { level, language } = props;

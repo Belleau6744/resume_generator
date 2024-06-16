@@ -1,4 +1,4 @@
-import { UserRole } from "../../../types/dbStructType";
+import { UserRole } from "@types";
 
 export type UserState = {
     isSignedIn: boolean;

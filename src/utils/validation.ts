@@ -1,4 +1,4 @@
-import { EducationList } from "../types/resumeTypes";
+import { EducationList } from "@types";
 
 export const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

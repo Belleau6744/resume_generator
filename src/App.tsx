@@ -1,3 +1,4 @@
+import { UserRole } from "@types";
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,10 +11,9 @@ import Signup from './components/authentication/Signup';
 import Home from './components/Home';
 import NavBar from './components/navigation/NavBar';
 import ResumeBuilder from './components/studentCenter/builder/ResumeBuilder';
-import PdfTemplate from './components/studentCenter/generator/PdfTemplate';
+import PdfPreview from './components/studentCenter/generator/PdfPreview';
 import { auth } from './firebase/firebase';
 import { Features } from './redux/features';
-import { UserRole } from './types/dbStructType';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ return (
         ) : (
           <>
             <Route path='/' element={<Home userID={userID}/>} />
-            <Route path='/test' element={<PdfTemplate resumeId={''} userId={undefined} />}/>
+            <Route path='/preview/:resumeID' element={<PdfPreview userID={userID} />}/>
             <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
             <Route path='*' element={<Navigate to="/" />} />
           </>

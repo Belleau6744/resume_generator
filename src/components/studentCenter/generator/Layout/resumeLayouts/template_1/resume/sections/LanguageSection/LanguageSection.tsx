@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { LanguageType } from "../../../../../types/resumeTypes";
+import { LanguageSectionProps } from "../../../../types";
+import { SectionContainer } from "../../../resume/sections/utils";
 import LanguageLevelScale from "./LanguageLevelScale";
 
-const LanguageSection = ({languages}: {languages?: LanguageType}) => {
+const LanguageSection = ({languages}: LanguageSectionProps) => {
     return languages ? (
         <LanguageContainer>
             <SectionTitle>Languages</SectionTitle>
             {Object.entries(languages).map((lang, index) => {
                 return (
-                    <div>{<LanguageLevelScale key={index} language={lang[0]} level={+lang[1]} />}</div>
+                    <div key={index}>{<LanguageLevelScale key={index} language={lang[0]} level={+lang[1]} />}</div>
                 )
             })}
         </LanguageContainer>
@@ -22,8 +23,7 @@ const SectionTitle = styled.div`
     font-size: 1rem;
 `;
 
-const LanguageContainer = styled.div`
-    width: 100%;
+const LanguageContainer = styled(SectionContainer)`
     margin-bottom: 20px;
 `; 
 

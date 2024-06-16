@@ -1,14 +1,15 @@
 import { capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { UsersType } from "@types";
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import DownloadIcon from "../../../assets/Icons/DownloadIcon";
+import DeleteIcon from "../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../assets/Icons/EditIcon";
+import OpenIcon from "../../../assets/Icons/OpenIcon";
 import SendIcon from "../../../assets/Icons/SendIcon";
 import { STRINGS_ENG } from "../../../assets/stringConstants";
-import { UsersType } from '../../../types/dbStructType';
 import { capitalizeEveryWord } from "../../../utils/stringUtils";
 
 type ListViewProps = {
@@ -78,14 +79,17 @@ const StudentCenterListView = (props: ListViewProps) => {
         nav(`/builder/${resumeID}`)
     }, [nav]);
 
-    const handleDownloadResume = (resumeID: string) => {
-        // TODO
-        console.log('download: ', resumeID);
+    const handlePreviewResume = (resumeID: string) => {
+        nav(`/preview/${resumeID}`);
     };
 
     const handleSubmitResume = (resumeID: string) => {
         // TODO
         console.log('submit: ', resumeID);
+    }
+    
+    const handleDeleteResume = (resumeID: string) => {
+        // TODO
     }
 
     
@@ -99,8 +103,8 @@ const StudentCenterListView = (props: ListViewProps) => {
                         <TableCell align="center" sx={{ fontWeight: '800' }}>Status</TableCell>
                         <TableCell align="center" sx={{ fontWeight: '800' }}>Edit</TableCell>
                         <TableCell align="center" sx={{ fontWeight: '800' }}>Submit</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Download</TableCell>
-                        
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Preview</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: '800' }}>Delete</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -124,8 +128,13 @@ const StudentCenterListView = (props: ListViewProps) => {
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => handleDownloadResume(value.id)}>
-                                        <DownloadIcon />
+                                    <IconButton onClick={() => handlePreviewResume(value.id)}>
+                                        <OpenIcon />
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton onClick={() => handleDeleteResume(value.id)}>
+                                        <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>

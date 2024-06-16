@@ -1,5 +1,5 @@
 import { PayloadAction, createReducer } from '@reduxjs/toolkit';
-import { UserRole } from '../../../types/dbStructType';
+import { UserRole } from "@types";
 import { setUserAuthStatus, setUserID, setUserRole } from './action';
 import { UserState } from "./types";
 

@@ -1,6 +1,8 @@
-const EditIcon = () => {
+import { IconProps } from "@types";
+
+const EditIcon = ({ height = 30, width = 30 }: IconProps) => {
     return (
-        <svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg width={`${width}px`}  height={`${height}px`}  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <title/>
             <g id="Complete">
                 <g id="edit">

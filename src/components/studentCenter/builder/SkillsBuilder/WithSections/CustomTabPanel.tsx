@@ -1,8 +1,7 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { ResumeType, SkillsFlat, SkillsHierarchical } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
-import { ResumeType } from "../../../../../types/dbStructType";
-import { SkillsFlat, SkillsHierarchical } from "../../../../../types/resumeTypes";
 import CreateSkillInSection from "./CreateSkillInSection";
 
 interface TabPanelProps {

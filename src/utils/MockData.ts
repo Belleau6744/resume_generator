@@ -1,4 +1,4 @@
-import { UsersType } from "../types/dbStructType";
+import { UsersType } from "@types";
 
 export const MockCVContent: UsersType = {
     'wrBMCbFuRoZw9At4WH78WuIFoUT2': {

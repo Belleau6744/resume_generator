@@ -1,7 +1,7 @@
+import { UserRole } from "@types";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Features } from "../redux/features";
-import { UserRole } from "../types/dbStructType";
 import ReviewerCenterListView from "./reviewerCenter/listView/ReviewerCenterListView";
 import StudentCenterListView from "./studentCenter/listView/StudentCenterListView";
 
