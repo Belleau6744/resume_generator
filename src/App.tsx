@@ -1,3 +1,4 @@
+import ReviewCenter from 'components/reviewerCenter/review/ReviewCenter';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,6 +47,7 @@ return (
             <Route path='/' element={<Home userID={userID}/>} />
             <Route path='/preview/:resumeID' element={<PdfPreview />}/>
             <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
+            <Route path='/review/:resumeID' element={<ReviewCenter />}/>
             <Route path='*' element={<Navigate to="/" />} />
           </>
         )}

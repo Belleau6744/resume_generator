@@ -3,7 +3,8 @@ import { ResumeGroup, UsersType } from "@types";
 import FeedbackIcon from "assets/Icons/FeedbackIcon";
 import { STRINGS_ENG } from "assets/stringConstants";
 import { getDatabase, onValue, ref } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { capitalizeEveryWord } from "utils/stringUtils";
 import { getUserID } from "utils/userUtils";
@@ -23,6 +24,7 @@ const Container = styled.div`
 const ReviewerCenterListView = () => {
     const [ resumesToReviewList, setResumesToReviewList ] = useState<ResumeGroup>();
     const [ usersList, setUsersList ] = useState<UsersType>();
+    const nav = useNavigate();
 
     /**
      * FETCHING - User resumes IDs
@@ -53,6 +55,10 @@ const ReviewerCenterListView = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleReviewResume = useCallback((resumeID) => {
+        nav(`/review/${resumeID}`);
+    }, [nav]);
+
 
     return (
         <Container>
@@ -81,7 +87,7 @@ const ReviewerCenterListView = () => {
                                 <TableCell align="center" sx={{ fontWeight: '800', width: '80px' }}>{capitalizeEveryWord(resumeContent[1].status)}</TableCell>
                                 <TableCell align="center" sx={{ width: '80px' }}>{resumeContent[1].submissionDate}</TableCell>
                                 <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-                                    <IconButton>
+                                    <IconButton onClick={() => handleReviewResume(resumeContent[0])}>
                                         <FeedbackIcon width={20} height={20}/>
                                     </IconButton>
                                 </TableCell>
