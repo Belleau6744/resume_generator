@@ -2,7 +2,7 @@ import { Education, Education_DayJs, EducationInputErrors, Project, ProjectExper
 
 export const getEmptyResumeInit = (): ResumeDefinition => {
     return {
-        status: 'New',
+        status: 'new',
         creationDate: '',
         content: {
             generalInfo: {

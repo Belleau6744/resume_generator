@@ -1,4 +1,4 @@
-import { Alert, IconButton, Snackbar, TableCell, TableHead, TableRow } from "@mui/material"
+import { Alert, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import { ResumeGroup } from "@types"
 import DeleteIcon from "assets/Icons/DeleteIcon"
 import EditIcon from "assets/Icons/EditIcon"
@@ -6,14 +6,13 @@ import OpenIcon from "assets/Icons/OpenIcon"
 import SendIcon from "assets/Icons/SendIcon"
 import { STRINGS_ENG } from "assets/stringConstants"
 import { useCallback, useState } from "react"
-import { Table, TableBody } from "react-aria-components"
 import { useNavigate } from "react-router-dom"
 import { capitalizeEveryWord } from "utils/stringUtils"
 import ConfirmDeletionModal from "./ConfirmDeletionModal"
 import ConfirmSubmissionModal from "./ConfirmSubmissionModal"
 
 type ResumeTableProps = {
-    userResumes: ResumeGroup;
+    userResumes?: ResumeGroup;
 }
 
 const ResumeTable = ({ userResumes }: ResumeTableProps) => {

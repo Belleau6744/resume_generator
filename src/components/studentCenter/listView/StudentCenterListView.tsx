@@ -54,7 +54,7 @@ const StudentCenterListView = (props: ListViewProps) => {
     const { userID } = props;
     const nav = useNavigate();
     const [resumeIDs, setResumeIDs] = useState<string[]>([]);
-    const [userResumes, setUserResumes] = useState<ResumeGroup>({});
+    const [userResumes, setUserResumes] = useState<ResumeGroup>();
 
     /**
      * FETCHING - User resumes IDs

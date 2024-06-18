@@ -2,6 +2,8 @@ import { ResumeGroup, UsersType } from "@types";
 
 export const MockUsers: UsersType = {
     'wrBMCbFuRoZw9At4WH78WuIFoUT2': {
+        firstName: 'Jeremy',
+        lastName: 'Belleau',
         userRole: 'student',
         resumeIDs: ['wrBMCbFuRoZw9At4WH78WuIFoUT2_0', 'wrBMCbFuRoZw9At4WH78WuIFoUT2_1']
     },
@@ -15,7 +17,7 @@ export const MockUsers: UsersType = {
 export const MockResumes: ResumeGroup = {
     'wrBMCbFuRoZw9At4WH78WuIFoUT2_0': {
         creationDate: '24-05-2024',
-        status: 'New',
+        status: 'new',
         content: {
             generalInfo: {
                 "first name": "Jeremy",
@@ -243,7 +245,7 @@ export const MockResumes: ResumeGroup = {
     },
     'wrBMCbFuRoZw9At4WH78WuIFoUT2_1': {
         creationDate: '24-05-2024',
-        status: 'Reviewed',
+        status: 'revised',
         content: {
             generalInfo: {
                 "first name": "Jeremy",
