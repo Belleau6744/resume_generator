@@ -20,7 +20,7 @@ export const generatePDF = (formRef: HTMLFormElement | null) => {
     pdf.save('resume.pdf');
 }
 
-export const captureAndPrint = async (resume: ResumeContentType, layout: React.ComponentType<{ resume: ResumeFormType }>) => {
+export const captureAndPrint = async (resume: ResumeContentType, layout: React.ComponentType<{ resume: ResumeContentType }>) => {
     // Render the content of the div off-screen
     const divToPrint = document.createElement('div');
     divToPrint.id = 'divToPrint';

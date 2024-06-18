@@ -12,6 +12,7 @@ type SkillsBuilderProps = {
     content: Skills;
     isDirty: boolean;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
+    handleSaveResume: () => void;
 }
 
 const Container = styled.div``;
@@ -26,7 +27,7 @@ const BottomWrapper = styled.div`
     justify-content: space-between;
 `;
 
-const SkillsBuilder = ({ content, setCurrentResume, isDirty }: SkillsBuilderProps) => {
+const SkillsBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: SkillsBuilderProps) => {
 
     const hasSections = useMemo(() => {
         if (content.hasSections === undefined) {
@@ -104,7 +105,7 @@ const SkillsBuilder = ({ content, setCurrentResume, isDirty }: SkillsBuilderProp
             </div>
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                <Button type="button" size='large' color='success' variant='contained'>Save</Button>
+                <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
             </BottomWrapper>
         </Container>
     );

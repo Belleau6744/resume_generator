@@ -11,6 +11,7 @@ type EducationBuilderProps = {
     content: EducationList;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     isDirty: boolean;
+    handleSaveResume: () => void;
 }
 
 const BottomWrapper = styled.div`
@@ -21,7 +22,7 @@ const BottomWrapper = styled.div`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuilderProps) => {
+const EducationBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: EducationBuilderProps) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [editingID, setEditinID] = useState<string | undefined>(undefined);
 
@@ -104,7 +105,7 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty }: EducationBuild
             {content && Object.keys(content).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Click "Add" to begin.</InputLabel>}
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                <Button type="button" size='large' color='success' variant='contained'>Save</Button>
+                <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
             </BottomWrapper>
         </Container>
     )

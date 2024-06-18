@@ -1,6 +1,6 @@
 import { ResumeDefinition } from "@types";
 import { getDatabase, ref, update } from "firebase/database";
-import { MockCVContent } from "../utils/MockData";
+import { MockDBContent } from "../utils/MockData";
 
 /**
  * 
@@ -35,7 +35,7 @@ export const initReviewerDBSpace = (user_id: string) => {
 export const saveResume = (resume: ResumeDefinition, userID: string, resumeID: string, ) => {
     const db = getDatabase();
     const updates = {};
-    updates[`users/${userID}/resumes/${resumeID}`] = resume;
+    updates[`content/resumes/${resumeID}`] = resume;
     return update(ref(db), updates);
 
 }
@@ -59,5 +59,5 @@ export const writeNewPost = (data: object, updatePath: string) => {
 
   
 export const resetDB = () => {
-    writeNewPost(MockCVContent, 'users');
+    writeNewPost(MockDBContent, 'content');
 }

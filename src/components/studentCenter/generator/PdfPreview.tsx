@@ -31,26 +31,24 @@ const PageContainer = styled.div`
     justify-content: center;
 `;
 
-type PdfPreviewProps = {
-    userID: string;
-}
-
 const Layouts = {
     '1': PdfTemplate1,
     '2': PdfTemplate2
 }
 
-const PdfPreview = ({ userID }: PdfPreviewProps) => {
+const PdfPreview = () => {
     const [ currentResume , setCurrentResume ] = useState<ResumeContentType>();
     const [ previewingLayout, setPreviewingLayout ] = useState<boolean>(false);
     const [ layoutID, setLayoutID ] = useState<string>('1');
     const { resumeID } = useParams();
 
     const db = getDatabase();
-    const dbRef = ref(db, `users/${userID}/resumes/${resumeID}`);
+    const dbRef = ref(db, `content/resumes/${resumeID}`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
-            setCurrentResume(snapshot.val().content);
+            if (snapshot.val()) {
+                setCurrentResume(snapshot.val().content);
+            }
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

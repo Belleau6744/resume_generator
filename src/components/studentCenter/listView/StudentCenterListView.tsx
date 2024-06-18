@@ -1,5 +1,5 @@
 import { capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { UsersType } from "@types";
+import { ResumeGroup } from "@types";
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +17,10 @@ type ListViewProps = {
 }
 
 const HeaderSection = styled.div`
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px; 
+    padding: 0 15px;
 `;
 
 const NewResumeButton = styled.button`
@@ -56,32 +56,51 @@ const Container = styled.div`
 const StudentCenterListView = (props: ListViewProps) => {
     const { userID } = props;
     const nav = useNavigate();
-    const [dbContent, setDbContent] = useState<UsersType>({});
+    const [resumeIDs, setResumeIDs] = useState<string[]>([]);
+    const [userResumes, setUserResumes] = useState<ResumeGroup>({});
 
     /**
-     * FETCHING 
-     */ 
+     * FETCHING - User resumes IDs
+     */
     const db = getDatabase();
-    const dbRef = ref(db, `users/${userID}/`);
+    const dbRef = ref(db, `content/users/${userID}/`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
-            setDbContent(snapshot.val());
+            setResumeIDs(snapshot.val().resumeIDs);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /**
+     * FETCHING - User resumes content
+     */
+    useEffect(() => {
+        const dbRef = ref(db, `content/resumes/`);
+        onValue(dbRef, (snapshot) => {
+            const filteredGroup: ResumeGroup = {};
+            const resumeList = snapshot.val();
+            resumeIDs.forEach(id => {
+                if (resumeList[id]) {
+                    filteredGroup[id] = resumeList[id];
+                }
+            });
+            setUserResumes(filteredGroup);
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [resumeIDs]);
+
     const handleNewResume = useCallback(() => {
-        const resumeID = uuidv4();
+        const resumeID = `${userID}_${uuidv4()}`;
         nav(`/builder/${resumeID}`)
-    }, [nav]);
+    }, [nav, userID]);
 
     const handleEditResume = useCallback((resumeID: string) => {
         nav(`/builder/${resumeID}`)
     }, [nav]);
 
-    const handlePreviewResume = (resumeID: string) => {
+    const handlePreviewResume = useCallback((resumeID: string) => {
         nav(`/preview/${resumeID}`);
-    };
+    }, [nav]);
 
     const handleSubmitResume = (resumeID: string) => {
         // TODO
@@ -108,32 +127,32 @@ const StudentCenterListView = (props: ListViewProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {dbContent?.resumes && Object.values(dbContent.resumes).map((value, index) => {
+                    {userResumes && Object.entries(userResumes).map((resumeContent, index) => {
                         return (
                             <TableRow
                                 key={index}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 {/* <TableCell align="center">{value.id}</TableCell> */}
-                                <TableCell align="center">{value.creationDate}</TableCell>
-                                <TableCell align="center">{value.status}</TableCell>
+                                <TableCell align="center">{resumeContent[1].creationDate}</TableCell>
+                                <TableCell align="center">{resumeContent[1].status}</TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => handleEditResume(value.id)}>
+                                    <IconButton onClick={() => handleEditResume(resumeContent[0])}>
                                         <EditIcon/>    
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => handleSubmitResume(value.id)}>
+                                    <IconButton onClick={() => handleSubmitResume(resumeContent[0])}>
                                         <SendIcon />
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => handlePreviewResume(value.id)}>
+                                    <IconButton onClick={() => handlePreviewResume(resumeContent[0])}>
                                         <OpenIcon />
                                     </IconButton>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => handleDeleteResume(value.id)}>
+                                    <IconButton onClick={() => handleDeleteResume(resumeContent[0])}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
@@ -143,16 +162,16 @@ const StudentCenterListView = (props: ListViewProps) => {
                 </TableBody>
             </Table>
         );
-    }, [dbContent.resumes, handleEditResume]);    
+    }, [userResumes, handleEditResume, handlePreviewResume]);    
 
     return (
         <Container data-test-id={'student-center-list-view'}>
             <HeaderSection>
                 <PageHeader>{capitalize(STRINGS_ENG.resumes)}</PageHeader>  
-                {dbContent?.resumes ? (<NewResumeButton onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</NewResumeButton>) : (<></>)} 
+                {userResumes ? (<NewResumeButton onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</NewResumeButton>) : (<></>)}
             </HeaderSection>
             <ContentContainer>
-                {dbContent?.resumes ? 
+                {userResumes ? 
                 (ResumeTable)
                 : (
                     <div style={{ color: 'white', fontSize: '2rem', fontWeight: '800', flexWrap:'nowrap', background: 'gray', width: '500px', height: '400px', display: 'flex', justifyContent:'center', alignItems: 'center', flexDirection: 'column', gap: '12px'}}>

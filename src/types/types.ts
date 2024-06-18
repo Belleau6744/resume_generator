@@ -233,7 +233,6 @@ export type  ResumeStatusType = 'Reviewed' | 'New' | 'ToBeReviewed' | 'Edited' |
  * A resume is defined by 
  */
 export type ResumeDefinition = {
-    studentID: string;
     status: ResumeStatusType;
     creationDate: string;
     content: ResumeContentType;

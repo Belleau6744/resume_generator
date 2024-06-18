@@ -10,6 +10,7 @@ type ExperienceBuilderProps = {
     content: Experience;
     isDirty: boolean;
     setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
+    handleSaveResume: () => void;
 }
 
 const Container = styled.div``;
@@ -24,7 +25,7 @@ const BottomWrapper = styled.div`
     justify-content: space-between;
 `;
 
-const ExperienceBuilder = ({ content, setCurrentResume, isDirty }: ExperienceBuilderProps) => {
+const ExperienceBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: ExperienceBuilderProps) => {
     const [tabValue, setTabValue] = useState<number>(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -46,7 +47,7 @@ const ExperienceBuilder = ({ content, setCurrentResume, isDirty }: ExperienceBui
             <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content?.volunteerExperience} setCurrentResume={setCurrentResume} />
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                <Button type="button" size='large' color='success' variant='contained'>Save</Button>
+                <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
             </BottomWrapper>
         </Container>
     )

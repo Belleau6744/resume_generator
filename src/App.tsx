@@ -46,7 +46,7 @@ return (
         ) : (
           <>
             <Route path='/' element={<Home userID={userID}/>} />
-            <Route path='/preview/:resumeID' element={<PdfPreview userID={userID} />}/>
+            <Route path='/preview/:resumeID' element={<PdfPreview />}/>
             <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
             <Route path='*' element={<Navigate to="/" />} />
           </>

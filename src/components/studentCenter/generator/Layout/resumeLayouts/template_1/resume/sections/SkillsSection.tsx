@@ -21,11 +21,11 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                     Object.keys(skills.content).map((item, index) => {
                         return (
                             <div key={index}>
-                                Title: {item}
-                                <div>
+                                <div style={{ fontWeight: 800 }}>{item}</div>
+                                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                                     {skills.content[item].map((skillItem: Skill) => {
                                         return (
-                                            <div>{skillItem.title}</div>
+                                            <div style={{ flex: '0 1 auto', margin: '1px', padding: '2px', boxSizing: 'border-box' }}>&#x2022;&nbsp;{skillItem.title}</div>
                                         )
 
                                     })}
