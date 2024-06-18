@@ -59,7 +59,7 @@ const ResumeBuilder = () => {
                 setOriginalResume(newResume);
                 return newResume;
             })
-            saveResume(newResume, userID, resumeID);
+            saveResume(newResume, resumeID);
         }
     }
 

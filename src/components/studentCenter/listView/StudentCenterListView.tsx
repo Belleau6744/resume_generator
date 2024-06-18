@@ -1,16 +1,13 @@
-import { capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { capitalize } from "@mui/material";
 import { ResumeGroup } from "@types";
 import { getDatabase, onValue, ref } from 'firebase/database';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import DeleteIcon from "../../../assets/Icons/DeleteIcon";
-import EditIcon from "../../../assets/Icons/EditIcon";
-import OpenIcon from "../../../assets/Icons/OpenIcon";
-import SendIcon from "../../../assets/Icons/SendIcon";
 import { STRINGS_ENG } from "../../../assets/stringConstants";
 import { capitalizeEveryWord } from "../../../utils/stringUtils";
+import ResumeTable from "./ResumeTable";
 
 type ListViewProps = {
     userID?: string;
@@ -94,76 +91,6 @@ const StudentCenterListView = (props: ListViewProps) => {
         nav(`/builder/${resumeID}`)
     }, [nav, userID]);
 
-    const handleEditResume = useCallback((resumeID: string) => {
-        nav(`/builder/${resumeID}`)
-    }, [nav]);
-
-    const handlePreviewResume = useCallback((resumeID: string) => {
-        nav(`/preview/${resumeID}`);
-    }, [nav]);
-
-    const handleSubmitResume = (resumeID: string) => {
-        // TODO
-        console.log('submit: ', resumeID);
-    }
-    
-    const handleDeleteResume = (resumeID: string) => {
-        // TODO
-    }
-
-    
-    const ResumeTable = useMemo(() => {
-        return (
-            <Table aria-label="simple table">
-                <TableHead sx={{ background: '#BEBEBE' }}>
-                    <TableRow>
-                        {/* <TableCell align="center" sx={{ fontWeight: '800' }}>ID</TableCell> */}
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Creation Date</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Status</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Edit</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Submit</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Preview</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>Delete</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {userResumes && Object.entries(userResumes).map((resumeContent, index) => {
-                        return (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                {/* <TableCell align="center">{value.id}</TableCell> */}
-                                <TableCell align="center">{resumeContent[1].creationDate}</TableCell>
-                                <TableCell align="center">{resumeContent[1].status}</TableCell>
-                                <TableCell align="center">
-                                    <IconButton onClick={() => handleEditResume(resumeContent[0])}>
-                                        <EditIcon/>    
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell align="center">
-                                    <IconButton onClick={() => handleSubmitResume(resumeContent[0])}>
-                                        <SendIcon />
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell align="center">
-                                    <IconButton onClick={() => handlePreviewResume(resumeContent[0])}>
-                                        <OpenIcon />
-                                    </IconButton>
-                                </TableCell>
-                                <TableCell align="center">
-                                    <IconButton onClick={() => handleDeleteResume(resumeContent[0])}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
-        );
-    }, [userResumes, handleEditResume, handlePreviewResume]);    
-
     return (
         <Container data-test-id={'student-center-list-view'}>
             <HeaderSection>
@@ -172,7 +99,7 @@ const StudentCenterListView = (props: ListViewProps) => {
             </HeaderSection>
             <ContentContainer>
                 {userResumes ? 
-                (ResumeTable)
+                <ResumeTable userResumes={userResumes} />
                 : (
                     <div style={{ color: 'white', fontSize: '2rem', fontWeight: '800', flexWrap:'nowrap', background: 'gray', width: '500px', height: '400px', display: 'flex', justifyContent:'center', alignItems: 'center', flexDirection: 'column', gap: '12px'}}>
                         {capitalize(STRINGS_ENG.create_first_resume)}

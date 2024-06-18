@@ -1,4 +1,3 @@
-import { UserRole } from "@types";
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +24,6 @@ const App = () => {
       if (user) {
         dispatch(Features.UserFeature.action.setUserAuthStatus(true));
         dispatch(Features.UserFeature.action.setUserID(user.uid));
-        dispatch(Features.UserFeature.action.setUserRole(user.displayName as UserRole));
       } else {
         dispatch(Features.UserFeature.action.setUserAuthStatus(false));
       }

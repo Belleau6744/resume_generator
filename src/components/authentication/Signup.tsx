@@ -2,7 +2,7 @@ import { FormControl, FormControlLabel, FormLabel, InputAdornment, TextField } f
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { UserRole } from "@types";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -115,9 +115,9 @@ const Signup = () => {
                             dispatch(Features.UserFeature.action.setUserRole(userRole))
                             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
                             dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
-                            updateProfile(credentials.user, {
-                                displayName: 'student'
-                            })
+                            // updateProfile(credentials.user, {
+                            //     displayName: 'student'
+                            // })
                         }).finally(() => {
                             nav("/");
                         });
@@ -137,9 +137,9 @@ const Signup = () => {
                             dispatch(Features.UserFeature.action.setUserRole(userRole))
                             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
                             dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
-                            updateProfile(credentials.user, {
-                                displayName: 'reviewer'
-                            })
+                            // updateProfile(credentials.user, {
+                            //     displayName: 'reviewer'
+                            // })
                         }).finally(() => {
                             nav("/");
                         });

@@ -228,7 +228,7 @@ export type IconProps = {
 /**********************************************************************************/
 /** RESUMES DB DEFINITION */
 
-export type  ResumeStatusType = 'Reviewed' | 'New' | 'ToBeReviewed' | 'Edited' | 'Approved';
+export type  ResumeStatusType = 'reviewed' | 'new' | 'submitted' | 'approved' | 'revised';
 /**
  * A resume is defined by 
  */
@@ -236,6 +236,8 @@ export type ResumeDefinition = {
     status: ResumeStatusType;
     creationDate: string;
     content: ResumeContentType;
+    submissionDate?: string;
+    lastReviewDate?: string;
 }
 
 /**
@@ -260,14 +262,18 @@ export type UserRole = 'reviewer' | 'student';
  * DB Users section
  */
 export type UsersType = {
-    [index: string]: StudentType | ReviewerType
+    [index: string]: UserType
 };
+
+export type UserType = StudentType | ReviewerType;
 
 /**
  * Student user type
  */
 export type StudentType = {
     userRole: UserRole;
+    firstName: string,
+    lastName: string,
     resumeIDs: string[];
 }
 
