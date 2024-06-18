@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { LanguageKeys, LanguageLevelKeys, LanguageType, ResumeType } from "@types";
+import { LanguageKeys, LanguageLevelKeys, LanguageType, ResumeDefinition } from "@types";
 import { useEffect, useMemo, useState } from 'react';
 import { Heading, Modal, } from 'react-aria-components';
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ type PickerModalProps = {
     isModalOpened: boolean;
     currentLanguages: LanguageType;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume, currentLanguages }: PickerModalProps) => {

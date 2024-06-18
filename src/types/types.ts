@@ -1,49 +1,8 @@
-export type UserRole = 'reviewer' | 'student';
-
-/**
- * DB Users section
- */
-export type UsersType = {
-    [index: string]: StudentType | ReviewerType
-};
-
-/**
- * Student user type
- */
-export type StudentType = {
-    userRole: UserRole;
-    resumes: ResumesType;
-}
-
-/**
- * Reviewer user type
- */
-export type ReviewerType = {
-    userRole: UserRole,
-    firstName: string,
-    lastName: string,
-}
-
-
-/**
- * RESUME -
- */
-
-export type ResumesType = {
-    [index: string]: ResumeType;
-}
-
-export type  ResumeStatusType = 'Reviewed' | 'New' | 'ToBeReviewed' | 'Edited' | 'Approved';
-
-export type ResumeType = {
-    id: string;
-    status: ResumeStatusType;
-    creationDate: string;
-    content: ResumeFormType;
-}
-
 import dayjs from "dayjs";
 import { LangLevel, LangList } from "../utils/Languages";
+
+/**********************************************************************************/
+/** RESUME DEFINITION  */
 
 /** GENERAL INFORMATION */
 export type GeneralInfoType = {
@@ -56,20 +15,14 @@ export type GeneralInfoType = {
     'email address': string;
 }
 
-/************************* */
 /** LANGUAGE */
 export type LanguageKeys = keyof typeof LangList;
 export type LanguageLevelKeys = keyof typeof LangLevel;
 export type LanguageType = Partial<Record<LanguageKeys, LanguageLevelKeys>>;
 
-
-
-/************************* */
 /** EDUCATION */
-
 // TODO Specify Type
 // type DegreeType = 'Associate' | 'Bachelor' | 'Master' | 'Doctorate' | 'College';
-
 export type Education = {
     'degree': string;
     'field of study': string;
@@ -100,9 +53,7 @@ export type EducationInputErrors = {
     'end date': boolean,
 }
 
-/************************* */
 /** SKILLS */
-
 // Define the Skill type with title and description
 export type Skill = {
     title: string;
@@ -121,7 +72,6 @@ export type Skills =
     | { hasSections: true; content: SkillsHierarchical }
     | { hasSections: false; content: SkillsFlat };
 
-/************************* */
 /** EXPERIENCE */
 export type Experience = {
     workingExperience: WorkingExperience;
@@ -231,7 +181,7 @@ export type ProjectExperienceInputErrors = {
 
 /************************* */
 /** FULL RESUME TYPE */
-export type ResumeFormType = {
+export type ResumeContentType = {
     generalInfo: GeneralInfoType;
     education: EducationList;
     skills: Skills;
@@ -273,4 +223,65 @@ export type IconProps = {
     fill?: string;
     width?: number;
     height?: number;
+}
+
+/**********************************************************************************/
+/** RESUMES DB DEFINITION */
+
+export type  ResumeStatusType = 'reviewed' | 'new' | 'submitted' | 'approved' | 'revised';
+/**
+ * A resume is defined by 
+ */
+export type ResumeDefinition = {
+    status: ResumeStatusType;
+    creationDate: string;
+    content: ResumeContentType;
+    submissionDate?: string;
+    lastReviewDate?: string;
+}
+
+/**
+ * Resumes are grouped by their ID and their content
+ */
+export type ResumeGroup = {
+    [resumeID: string]: ResumeDefinition;
+}
+
+/**
+ * The Resume DB section contains all of the resumes by ID
+ */
+export type ResumeDB = {
+    resumes: ResumeGroup;
+}
+
+/**********************************************************************************/
+/** USERS DB DEFINITION */
+
+export type UserRole = 'reviewer' | 'student';
+/**
+ * DB Users section
+ */
+export type UsersType = {
+    [index: string]: UserType
+};
+
+export type UserType = StudentType | ReviewerType;
+
+/**
+ * Student user type
+ */
+export type StudentType = {
+    userRole: UserRole;
+    firstName: string,
+    lastName: string,
+    resumeIDs: string[];
+}
+
+/**
+ * Reviewer user type
+ */
+export type ReviewerType = {
+    userRole: UserRole,
+    firstName: string,
+    lastName: string,
 }

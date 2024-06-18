@@ -17,6 +17,7 @@ const create_first_resume = `Create your first resume`;
 const resumes = 'resumes';
 const new_resume = 'new resume';
 const still_working = 'still working';
+const resume_to_review_title = 'resumes to review';
 const adding = {
     plus_workingExperience: '+ add working experience',
     addNewWorkingExperience: 'add working experience',
@@ -49,6 +50,14 @@ const education_input_errors = {
     'end date': "Please fill in your end date",
     'multiple': "Please fill in the fields"
 }
+const resume_submission_status = {
+    "error": "There was an error submitting your resume",
+    "success": "Your resume was submitted successfully"
+}
+const resume_deletion_status = {
+    "error": "There was an error deleting your resume",
+    "success": "Your resume was deleted successfully"
+}
 
 
 export const STRINGS_ENG =  {
@@ -74,5 +83,8 @@ export const STRINGS_ENG =  {
     education_input_errors,
     still_working,
     adding,
-    education_input_examples
+    education_input_examples,
+    resume_submission_status,
+    resume_deletion_status,
+    resume_to_review_title
 }

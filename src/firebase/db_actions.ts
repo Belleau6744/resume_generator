@@ -1,6 +1,8 @@
-import { ResumeType } from "@types";
+import { ResumeDefinition } from "@types";
+import dayjs from "dayjs";
 import { getDatabase, ref, update } from "firebase/database";
-import { MockCVContent } from "../utils/MockData";
+import { getDateString } from "utils/dateUtils";
+import { MockDBContent } from "../utils/MockData";
 
 /**
  * 
@@ -32,12 +34,19 @@ export const initReviewerDBSpace = (user_id: string) => {
     return update(usersRef, updates);
 };
 
-export const saveResume = (resume: ResumeType, userID: string, resumeID: string, ) => {
+export const saveResume = (resume: ResumeDefinition, resumeID: string, ) => {
     const db = getDatabase();
     const updates = {};
-    updates[`users/${userID}/resumes/${resumeID}`] = resume;
+    updates[`content/resumes/${resumeID}`] = resume;
     return update(ref(db), updates);
+}
 
+export const submitResume = (resumeID: string) => {
+    const db = getDatabase();
+    const updates = {};
+    updates[`content/resumes/${resumeID}/status`] = 'submitted';
+    updates[`content/resumes/${resumeID}/submissionDate`] = getDateString(dayjs(new Date()));
+    return update(ref(db), updates);
 }
 
 /**
@@ -59,5 +68,5 @@ export const writeNewPost = (data: object, updatePath: string) => {
 
   
 export const resetDB = () => {
-    writeNewPost(MockCVContent, 'users');
+    writeNewPost(MockDBContent, 'content');
 }

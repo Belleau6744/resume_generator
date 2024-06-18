@@ -1,5 +1,4 @@
-import { Button } from "@mui/material";
-import { ResumesType, ResumeType } from "@types";
+import { ResumeDefinition } from "@types";
 import dayjs from "dayjs";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { _ } from 'lodash';
@@ -23,23 +22,20 @@ const ResumeBuilder = () => {
     /**
      * * Keeps track of the original resume, as a point of reference for updates, and the current version being updated
      */
-    const [ originalResume, setOriginalResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
-    const [ currentResume, setCurrentResume ] = useState<ResumeType>(getEmptyResumeInit(resumeID));
+    const [ originalResume, setOriginalResume ] = useState<ResumeDefinition>(getEmptyResumeInit());
+    const [ currentResume, setCurrentResume ] = useState<ResumeDefinition>(getEmptyResumeInit());
 
     /**
      * FETCHING - Resume content
      */ 
     const db = getDatabase();
-    const dbRef = ref(db, `users/${userID}/resumes/`);
+    const dbRef = ref(db, `content/resumes/${resumeID}`);
     useEffect(() => {
         onValue(dbRef, (snapshot) => {
-            if (snapshot.val()) {
-                const resumes: ResumesType = snapshot.val();
-                const content = Object.values(resumes).find((currRes: ResumeType)  => currRes.id === resumeID)
-                if(content) {
-                    setOriginalResume(content);
-                    setCurrentResume(content);
-                }
+            const content = snapshot.val();
+            if (content) {
+                setOriginalResume(content);
+                setCurrentResume(content);
             }
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,32 +48,32 @@ const ResumeBuilder = () => {
         return !(_.isEqual(currentResume, originalResume))
     }, [currentResume, originalResume]);
 
-    /**
-     * Different sections of the resume builder
-     */
-    const Sections = {
-        'generalInfo': <GeneralInfoBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.generalInfo} />,
-        'education': <EducationBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
-        'skills': <SkillsBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
-        'experience': <ExperienceBuilder isDirty={isDirty} setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
-    };
-    type SectionEditingType = keyof typeof Sections;
-    const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');
-
-    const handleSaveResume = () => {
+    const handleSaveResume = (): void => {
         if (userID && resumeID) {
-            let newResume: ResumeType;
+            let newResume: ResumeDefinition;
             setCurrentResume(prev => {
                 newResume = {
                     ...prev,
                     creationDate: getDateString(dayjs(new Date()))
                 }
+                setOriginalResume(newResume);
                 return newResume;
             })
-            saveResume(newResume, userID, resumeID);
-            setOriginalResume(currentResume);
+            saveResume(newResume, resumeID);
         }
     }
+
+    /**
+     * Different sections of the resume builder
+     */
+    const Sections = {
+        'generalInfo': <GeneralInfoBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.generalInfo} />,
+        'education': <EducationBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
+        'skills': <SkillsBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
+        'experience': <ExperienceBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
+    };
+    type SectionEditingType = keyof typeof Sections;
+    const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');
 
     /**
      * Changes the section being currently edited
@@ -86,7 +82,6 @@ const ResumeBuilder = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Button variant='contained' onClick={handleSaveResume}>SAVING</Button>
             <div>
                 <Container data-test-id={'resume-builder'}>
                     <SectionSelector>

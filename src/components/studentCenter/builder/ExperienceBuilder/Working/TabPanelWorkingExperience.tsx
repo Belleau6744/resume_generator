@@ -1,5 +1,5 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { ResumeType, WorkingExperience } from "@types";
+import { ResumeDefinition, WorkingExperience } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
@@ -11,7 +11,7 @@ interface TabPanelProps {
     index: number;
     value: number;
     workingExperience?: WorkingExperience;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
   }
 
 const TabPanelWorkingExperience = (props: TabPanelProps) => {

@@ -1,5 +1,5 @@
 import { Button, InputLabel, TextField } from '@mui/material';
-import { ResumeType, Skill, SkillsFlat } from "@types";
+import { ResumeDefinition, Skill, SkillsFlat } from "@types";
 import { useState } from 'react';
 import { Dialog, Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ import '../../../../../assets/ModalStyling.css';
 type CreateSkillModalProps = {
     isModalOpened: boolean;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const InputWrapper = styled.div`

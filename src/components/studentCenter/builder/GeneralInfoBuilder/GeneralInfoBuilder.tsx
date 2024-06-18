@@ -1,5 +1,5 @@
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
-import { GeneralInfoType, ResumeType } from "@types";
+import { GeneralInfoType, ResumeDefinition } from "@types";
 import { useCallback, useRef } from "react";
 import styled from "styled-components";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
@@ -7,11 +7,12 @@ import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
 type GeneralInfoProps = {
     content: GeneralInfoType;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     isDirty: boolean;
+    handleSaveResume: () => void;
 }
 
-const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty }: GeneralInfoProps) => {
+const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: GeneralInfoProps) => {
     const formRef = useRef<HTMLFormElement>(null);
 
     const handleInputChangeGeneral = useCallback((inputName: string, value: string) => {
@@ -60,7 +61,7 @@ const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty }: GeneralInfoP
                 </form>
                 <BottomWrapper>
                     <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                    <Button type="button" size='large' color='success' variant='contained'>Save</Button>
+                    <Button type="button" size='large' color='success' onClick={handleSaveResume} variant='contained'>Save</Button>
                 </BottomWrapper>
             </ContentWrapper>
         </Container>

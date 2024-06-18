@@ -1,12 +1,12 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { ResumeType, SkillsFlat } from "@types";
+import { ResumeDefinition, SkillsFlat } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import CreateSkill from "./CreateSkill";
 
 type SingleListSkillsProps = {
     content: SkillsFlat;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
 }
 
 const SingleListSkills = ({ content, setCurrentResume }: SingleListSkillsProps) => {

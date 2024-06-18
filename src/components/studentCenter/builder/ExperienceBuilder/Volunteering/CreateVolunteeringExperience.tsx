@@ -2,7 +2,7 @@ import { Button, Checkbox, InputLabel, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { ResumeType, Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "@types";
+import { ResumeDefinition, Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "@types";
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
@@ -19,7 +19,7 @@ type CreateVolunteeringExperienceProps = {
     isModalOpened: boolean;
     volunteeringExperience: VolunteeringExperience;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     editingID?: string;
 }
 

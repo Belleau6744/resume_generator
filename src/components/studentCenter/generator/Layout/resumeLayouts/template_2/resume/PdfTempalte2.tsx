@@ -1,4 +1,4 @@
-import { ResumeFormType } from "@types";
+import { ResumeContentType } from "@types";
 import styled from "styled-components";
 import ContactSection from "./sections/ContactSection";
 import EducationSection from "./sections/EducationSection";
@@ -54,11 +54,8 @@ const RoleTile = styled.div`
     font-size: 1.5rem;
 `;
 
-type Props = {
-    resume: ResumeFormType;
-}
 
-const PdfTemplate2 = ({ resume }: Props) => {
+const PdfTemplate2 = ({ resume }: { resume: ResumeContentType }) => {
     // TODO
     return(
         <ResumeContainer id='resume-container' style={{ fontSize: '0.7rem' }}>

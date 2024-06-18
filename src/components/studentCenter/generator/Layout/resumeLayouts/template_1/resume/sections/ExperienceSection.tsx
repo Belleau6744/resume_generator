@@ -7,6 +7,8 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
     return (
         <ExperienceContainer>
             <SectionTitle>Experience</SectionTitle>
+
+            {/** WORKING EXPERIENCE */}
             <WorkingExperienceWrapper>
                 {experience?.workingExperience && Object.values(experience.workingExperience).map((item, index) => {
                     return (
@@ -27,27 +29,31 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                 })}
             </WorkingExperienceWrapper>
 
-            {/* TODO MOVE THIS SECTION */}
+            {/* PROJECT EXPERIENCE */}
+            {experience?.projectExperience && 
             <ProjectExperienceWrapper>
                 <SubSectionTitle>Projects</SubSectionTitle>
                 <ul style={{ marginTop: '3px'}}>
-                    {experience?.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
+                    {Object.values(experience.projectExperience).map((item, index) => {
                         return (
                             <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
                     })}
                 </ul>
-            </ProjectExperienceWrapper>
+            </ProjectExperienceWrapper>}
+
+            {/** VOLUNTEERING EXPERIENCE */}
+            {experience?.volunteerExperience &&
             <VolunteerExperienceWrapper>
                 <SubSectionTitle>Volunteering</SubSectionTitle>
                 <ul style={{ marginTop: '3px'}}>
-                    {experience?.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
+                    {Object.values(experience.volunteerExperience).map((item, index) => {
                         return (
                             <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                         )
                     })}
                 </ul>
-            </VolunteerExperienceWrapper>
+            </VolunteerExperienceWrapper>}
         </ExperienceContainer>
     )
 }

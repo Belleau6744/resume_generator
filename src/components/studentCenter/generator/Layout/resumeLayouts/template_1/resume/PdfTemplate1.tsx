@@ -1,4 +1,4 @@
-import { ResumeFormType } from "@types";
+import { ResumeContentType } from "@types";
 import styled from "styled-components";
 import ContactInfoSection from "./sections/ContactInfoSection";
 import EducationSection from "./sections/EducationSection";
@@ -69,11 +69,7 @@ const NameWrapper = styled.div`
     font-size: 1.5em;
 `;
 
-type PdfTemplateProps = {
-    resume: ResumeFormType;
-}
-
-const PdfTemplate1 = ({ resume }: PdfTemplateProps) => {    
+const PdfTemplate1 = ({ resume }: { resume: ResumeContentType }) => {    
 
     // TODO Handle "no user ID"
     return (    

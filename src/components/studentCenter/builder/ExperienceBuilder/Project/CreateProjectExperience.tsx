@@ -1,5 +1,5 @@
 import { Button, InputLabel, TextField } from '@mui/material';
-import { Project, ProjectExperience, ProjectExperienceInputErrors, ResumeType } from "@types";
+import { Project, ProjectExperience, ProjectExperienceInputErrors, ResumeDefinition } from "@types";
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ type CreateProjectExperienceProps = {
     isModalOpened: boolean;
     projectExperience: ProjectExperience;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeType>>;
+    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     editingID?: string;
 }
 

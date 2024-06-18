@@ -1,4 +1,4 @@
-import { UserRole } from "@types";
+import ReviewCenter from 'components/reviewerCenter/review/ReviewCenter';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +25,6 @@ const App = () => {
       if (user) {
         dispatch(Features.UserFeature.action.setUserAuthStatus(true));
         dispatch(Features.UserFeature.action.setUserID(user.uid));
-        dispatch(Features.UserFeature.action.setUserRole(user.displayName as UserRole));
       } else {
         dispatch(Features.UserFeature.action.setUserAuthStatus(false));
       }
@@ -46,8 +45,9 @@ return (
         ) : (
           <>
             <Route path='/' element={<Home userID={userID}/>} />
-            <Route path='/preview/:resumeID' element={<PdfPreview userID={userID} />}/>
+            <Route path='/preview/:resumeID' element={<PdfPreview />}/>
             <Route path='/builder/:resumeID' element={<ResumeBuilder />}/>
+            <Route path='/review/:resumeID' element={<ReviewCenter />}/>
             <Route path='*' element={<Navigate to="/" />} />
           </>
         )}

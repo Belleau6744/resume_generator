@@ -57,26 +57,32 @@ const ExperienceSection = ({experience}: ExperienceSectionProps) => {
                 })}
             </ContentWrapper>
             <ContentWrapper>
+
+                {/** PROJECT EXPERIENCE */}
+                {experience?.projectExperience && 
                 <div>
                     <SubSectionTitle>Projects</SubSectionTitle>
                     <ul style={{ marginTop: '3px'}}>
-                        {experience?.projectExperience && Object.values(experience.projectExperience).map((item, index) => {
+                        {Object.values(experience.projectExperience).map((item, index) => {
                             return (
                                 <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                             )
                         })}
                     </ul>
-                </div>
+                </div>}
+
+                {/** VOLUNTEERING EXPERIENCE */}
+                {experience?.volunteerExperience &&
                 <div>
                     <SubSectionTitle>Volunteering</SubSectionTitle>
                     <ul style={{ marginTop: '3px'}}>
-                        {experience?.volunteerExperience && Object.values(experience.volunteerExperience).map((item, index) => {
+                        {Object.values(experience.volunteerExperience).map((item, index) => {
                             return (
                                 <li key={index}><div style={{ fontSize: '0.6rem' }}>{item.description}</div></li>
                             )
                         })}
                     </ul>
-                </div>
+                </div>}
             </ContentWrapper>
         </Container>
     )
