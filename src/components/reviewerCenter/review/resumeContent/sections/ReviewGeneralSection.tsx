@@ -62,17 +62,17 @@ const ReviewGeneralSection = ({ generalInfo }: ReviewGeneralSectionProps) => {
                     }
                     {
                         generalInfo["languages"] && 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'baseline', gap: '12px'}}>
+                        <>
                             <Typography variant="h5">Languages</Typography>
                             {Object.keys(generalInfo["languages"]).map(item => {
                                 return (
-                                    <div style={{ display: 'flex', alignItems: 'baseline', width: '100%', paddingLeft: '12px'}}>
+                                    <div style={{ display: 'flex', alignItems: 'baseline', paddingLeft: '12px'}}>
                                         <InputLabel sx={{ width: '108px' }}>{LangList[item]}</InputLabel>
-                                        <StyledTextField sx={{ flex: '1' }} InputProps={{readOnly: true}} value={LangLevel[generalInfo["languages"][item]]} />
+                                        <StyledTextField fullWidth sx={{ flex: '1' }} InputProps={{readOnly: true}} value={LangLevel[generalInfo["languages"][item]]} />
                                     </div>
                                 )
                             })}
-                        </div>
+                        </>
                     }
                 </div>
             }

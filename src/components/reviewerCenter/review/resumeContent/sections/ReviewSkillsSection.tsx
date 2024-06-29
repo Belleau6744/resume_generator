@@ -16,9 +16,9 @@ const ReviewSkillsSection = ({ skills }: ReviewSkillsSectionProps) => {
                             <div key={index}>
                                 <div style={{ fontWeight: 800 }}>{item}</div>
                                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                    {skills.content[item].map((skillItem: Skill) => {
+                                    {skills.content[item].map((skillItem: Skill, index: number) => {
                                         return (
-                                            <div style={{ flex: '0 1 auto', margin: '1px', padding: '2px', boxSizing: 'border-box' }}>&#x2022;&nbsp;{skillItem.title}</div>
+                                            <div key={index} style={{ flex: '0 1 auto', margin: '1px', padding: '2px', boxSizing: 'border-box' }}>&#x2022;&nbsp;{skillItem.title}</div>
                                         )
 
                                     })}

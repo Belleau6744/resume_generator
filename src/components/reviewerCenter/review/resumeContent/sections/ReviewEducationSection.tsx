@@ -19,7 +19,7 @@ const ReviewEducationSection = ({ education }: ReviewEducationSectionProps) => {
                 return (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}}>
                         <Typography variant="h5">&#x2022;&nbsp;{education[item].degree}</Typography>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px' }}>
                             {
                             education[item]["field of study"] && 
                                 <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
