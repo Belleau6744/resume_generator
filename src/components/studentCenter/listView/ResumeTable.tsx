@@ -1,14 +1,17 @@
 import { Alert, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
-import { ResumeGroup } from "@types"
+import { ResumeDefinition, ResumeGroup } from "@types"
 import DeleteIcon from "assets/Icons/DeleteIcon"
 import EditIcon from "assets/Icons/EditIcon"
 import OpenIcon from "assets/Icons/OpenIcon"
 import SendIcon from "assets/Icons/SendIcon"
 import { STRINGS_ENG } from "assets/stringConstants"
+import { getDatabase, onValue, ref } from "firebase/database"
+import { saveResume } from "firebase/db_actions"
 import { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { capitalizeEveryWord } from "utils/stringUtils"
 import ConfirmDeletionModal from "./ConfirmDeletionModal"
+import ConfirmEditingModal from "./ConfirmEditingModal"
 import ConfirmSubmissionModal from "./ConfirmSubmissionModal"
 
 type ResumeTableProps = {
@@ -17,6 +20,7 @@ type ResumeTableProps = {
 
 const ResumeTable = ({ userResumes }: ResumeTableProps) => {
     const nav = useNavigate();
+    const db = getDatabase();
     const [ resumeToSubmit, setResumeToSubmit ] = useState<string>('');
     const [ submissionStatus, setSubmissionStatus ] = useState<{ open: boolean, status?: 'error' | 'success' }>({ open: false, status: undefined });
     const [ isConfirmSubmitOpen, setIsConfirmSubmitOpen ] = useState<boolean>(false);
@@ -25,12 +29,44 @@ const ResumeTable = ({ userResumes }: ResumeTableProps) => {
     const [ deletionStatus, setDeletionStatus ] = useState<{ open: boolean, status?: 'error' | 'success' }>({ open: false, status: undefined });
     const [ resumeToDelete, setResumeToDelete ] = useState<string>('');
 
+    const [ isConfirmEditingOpen, setIsConfirmEditingOpen ] = useState<boolean>(false);
+    const [ resumeToEdit, setResumeToEdit ] = useState<string>('');
+    
+
     /**
      * Takes users to the page to edit the selected resume
      */
     const handleEditResume = useCallback((resumeID: string) => {
-        nav(`/builder/${resumeID}`)
-    }, [nav]);
+        const dbRef = ref(db, `content/resumes/${resumeID}`);
+        onValue(dbRef, (snapshot) => {
+            if (snapshot.val()) {
+                if((snapshot.val() as ResumeDefinition).status === 'submitted' || (snapshot.val() as ResumeDefinition).status === 'approved') {
+                    setResumeToEdit(resumeID);
+                    setIsConfirmEditingOpen(true);
+                    return;
+                } else {
+                    setResumeToEdit('');
+                    nav(`/builder/${resumeID}`);
+                }
+            }
+        });
+    }, [db, nav]);
+
+    const handleCloseConfirmEditing = (resumeID: string, status: 'continue' | 'cancel') => {
+        if (status === 'continue') {
+            const dbRef = ref(db, `content/resumes/${resumeID}`);
+            let currentResume: ResumeDefinition;
+            onValue(dbRef, (snapshot) => {
+                if (snapshot.val()) {
+                    currentResume = snapshot.val() as ResumeDefinition;    
+                    currentResume.status = 'new';
+                    saveResume(currentResume, resumeID);
+                    nav(`/builder/${resumeID}`);
+                    
+                }
+            });
+        }        
+    }
 
     /**
      * Takes users to the page to preview the selected resume
@@ -113,6 +149,13 @@ const ResumeTable = ({ userResumes }: ResumeTableProps) => {
                 setResumeToSubmit={setResumeToSubmit}
                 setDeletionStatus={setDeletionStatus}
                 resumeToDelete={resumeToDelete}
+            />
+
+            <ConfirmEditingModal
+                open={isConfirmEditingOpen}
+                resumeID={resumeToEdit}
+                setIsConfirmEditingOpen={setIsConfirmEditingOpen}
+                onClose={handleCloseConfirmEditing}
             />
 
              {/** Submission Status */}

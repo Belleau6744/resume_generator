@@ -24,8 +24,8 @@ const ConfirmDeletionModal = ({ isConfirmDeleteOpen }: ConfirmDeleteModalProps) 
         <Dialog open={isConfirmDeleteOpen}>
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <DialogContent>
-                    <Alert severity='info'>
-                        This will submit your resume for review. A reviewer will add his comments in the next 24h-48h.
+                    <Alert severity='error'>
+                        This will permenantly delete your resume.
                     </Alert>
                     <div style={{ display: 'flex', paddingTop: '12px', width: '100%', justifyContent: 'flex-end', gap: '12px' }}>
                         <Button variant='outlined' color='info' onClick={cancelDeletion}>Cancel</Button>

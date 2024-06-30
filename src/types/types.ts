@@ -228,7 +228,7 @@ export type IconProps = {
 /**********************************************************************************/
 /** RESUMES DB DEFINITION */
 
-export type  ResumeStatusType = 'reviewed' | 'new' | 'submitted' | 'approved' | 'revised';
+export type  ResumeStatusType = 'reviewed' | 'new' | 'submitted' | 'approved';
 /**
  * A resume is defined by 
  */
