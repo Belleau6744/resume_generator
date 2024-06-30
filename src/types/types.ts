@@ -236,6 +236,7 @@ export type ResumeDefinition = {
     status: ResumeStatusType;
     creationDate: string;
     content: ResumeContentType;
+    comment?: string;
     submissionDate?: string;
     lastReviewDate?: string;
 }

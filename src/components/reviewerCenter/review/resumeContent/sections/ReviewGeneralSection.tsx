@@ -14,7 +14,7 @@ type ReviewGeneralSectionProps = {
 const ReviewGeneralSection = ({ generalInfo }: ReviewGeneralSectionProps) => {
     
     return (
-        <div>
+        <div style={{ marginBottom: '20px' }}>
             <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} fontWeight={800}>General Information</Typography>
             {generalInfo && 
                 <div style={{ paddingLeft: '20px', paddingTop: '15px', display: 'flex', flexDirection: 'column', gap: '12px' }}>

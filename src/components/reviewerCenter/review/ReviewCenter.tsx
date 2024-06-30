@@ -1,24 +1,16 @@
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import PrintIcon from '@mui/icons-material/Print';
-import SaveIcon from '@mui/icons-material/Save';
-import ShareIcon from '@mui/icons-material/Share';
+import Send from '@mui/icons-material/Send';
+import Verified from '@mui/icons-material/Verified';
 import { SpeedDial } from "@mui/material";
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import { ResumeDefinition, ResumeGroup } from "@types";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { ResumeDefinition } from "@types";
+import { child, get, getDatabase, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentField from "./CommentField";
 import ResumeContent from "./resumeContent/ResumeContent";
-
-const actions = [
-    { icon: <FileCopyIcon />, name: 'Copy' },
-    { icon: <SaveIcon />, name: 'Save' },
-    { icon: <PrintIcon />, name: 'Print' },
-    { icon: <ShareIcon />, name: 'Share' },
-  ];
+import { saveResume } from 'firebase/db_actions';
 
 
 const Container = styled.div`
@@ -35,16 +27,59 @@ const Container = styled.div`
 
 const ReviewCenter = () => {
     const { resumeID } = useParams();
+    const dbRef = ref(getDatabase());
     const [userResume, setUserResume] = useState<ResumeDefinition>();
+    const [ commentInput, setCommentInput ] = useState<string>('');
+    const [ confirmDialog, setConfirmDialog ] = useState<{open: boolean, status: string}>({open: false, status: ''});
+
+    const handleSubmitComments = () => {
+        setUserResume(prev => {
+            const newResume: ResumeDefinition = {...prev, comment: commentInput, status: 'reviewed'};
+            saveResume(newResume, resumeID);
+            return newResume;
+        });
+    }
+    
+    const handleApproveResume = () => {
+        if (commentInput === '') {
+            setConfirmDialog({open: true, status: "You are going to approve this resume"});
+        } else {
+            setConfirmDialog({open: true, status: "You are going to approve a resume that has comments"});
+        }
+    }
+
+    /**
+     * This function handles the confirmEditing modal's action
+     * @param resumeID Resume to be edited
+     * @param status Approval or cancellation of the editing
+     */
+    const handleCloseSubmit = (resumeID: string, status: 'continue' | 'cancel') => {
+        if (status === 'continue') {
+            
+        }        
+    }
+
+    /**
+     * Update comment content from DB update
+     */
+    useEffect(() => {
+        setCommentInput(userResume.comment);
+    }, [userResume.comment]);
+    
+    const actions = [
+        { icon: <Send />, name: 'Send', onClick: handleSubmitComments},
+        { icon: <Verified />, name: 'Verified', onClick: handleApproveResume},
+      ];
 
     /**
      * FETCHING - User resumes IDs
      */
-    const db = getDatabase();
-    const dbRef = ref(db, `content/resumes`);
+    
     useEffect(() => {
-        onValue(dbRef, (snapshot) => {
-            setUserResume((snapshot.val() as ResumeGroup)[resumeID]);
+        get(child(dbRef, `content/resumes/${resumeID}`)).then((snapshot) => {
+            if (snapshot.val()) {
+                setUserResume(snapshot.val());
+            }
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -52,7 +87,7 @@ const ReviewCenter = () => {
     return (
         <Container>
             <ResumeContent content={userResume?.content}/>
-            <CommentField/>
+            <CommentField commentInput={commentInput} setCommentInput={setCommentInput}/>
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
                 sx={{ position: 'fixed', bottom: 20, right: 40 }}
@@ -62,6 +97,7 @@ const ReviewCenter = () => {
                 <SpeedDialAction
                     key={action.name}
                     icon={action.icon}
+                    onClick={action.onClick}
                     tooltipTitle={action.name}
                 />
                 ))}
