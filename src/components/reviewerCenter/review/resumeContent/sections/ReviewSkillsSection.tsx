@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { Skill, Skills } from "@types";
 
 type ReviewSkillsSectionProps = {
@@ -8,30 +8,30 @@ type ReviewSkillsSectionProps = {
 const ReviewSkillsSection = ({ skills }: ReviewSkillsSectionProps) => {
     return (
         <div>
-            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} marginRight={'20px'} fontWeight={800}>Skills</Typography>
+            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} fontWeight={800} marginBottom={'12px'}>Skills</Typography>
             {skills && (
                 skills.hasSections === true ? (
                     Object.keys(skills.content).map((item, index) => {
                         return (
-                            <div key={index}>
-                                <div style={{ fontWeight: 800 }}>{item}</div>
+                            <div key={index} style={{ paddingLeft: '12px', marginBottom: '15px'}}>
+                                <Typography fontWeight={800} marginBottom={'3px'}>{item}</Typography>
                                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                    {skills.content[item].map((skillItem: Skill, index: number) => {
+                                    <TextField InputProps={{readOnly: true}} fullWidth multiline value={skills.content[item].map((skillItem: Skill) => {
                                         return (
-                                            <div key={index} style={{ flex: '0 1 auto', margin: '1px', padding: '2px', boxSizing: 'border-box' }}>&#x2022;&nbsp;{skillItem.title}</div>
+                                            ` ${skillItem.title}`
                                         )
 
-                                    })}
+                                    })}/>
                                 </div>
                             </div>
                         )
                     })
                 ) : (
-                    skills.content.map((skillItem: Skill, index) => {
+                    <TextField InputProps={{readOnly: true}} fullWidth multiline value={skills.content.map((skillItem: Skill) => {
                         return (
-                            <div key={index}>{skillItem.title}</div>
+                            ` ${skillItem.title}`
                         )
-                    })
+                    })}/>
                 )
             )}
         </div>

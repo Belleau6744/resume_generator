@@ -49,26 +49,44 @@ const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) =
             </div>            
 
             {/* Project Experience */}
-            <Typography variant="h5">{"Project Experience"}</Typography>
+            <Typography borderBottom={'1px solid black'} marginTop={'12px'} variant="h5">{"Project Experience"}</Typography>
             {experience?.projectExperience && Object.keys(experience.projectExperience).map(item => {
                 return (
-                    <div>
-                        <Typography>{experience.projectExperience[item].title}</Typography>
-                        <Typography>{experience.projectExperience[item].description}</Typography>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px', marginBottom: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
+                            <InputLabel sx={{ width: '130px' }}>Title</InputLabel>
+                            <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={experience.projectExperience[item].title}/>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
+                            <InputLabel sx={{ width: '130px' }}>Task Description</InputLabel>
+                            <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={experience.projectExperience[item].description}/>
+                        </div>
                     </div>
                 )
             })}            
 
             {/* Volunteering Experience */}
-            <Typography variant="h5">{"Volunteering Experience"}</Typography>
+            <Typography borderBottom={'1px solid black'} marginTop={'12px'} variant="h5">{"Volunteering Experience"}</Typography>
             {experience?.volunteerExperience && Object.keys(experience.volunteerExperience).map(item => {
                 return (
-                    <div>
-                        <Typography>{experience.volunteerExperience[item].jobTitle}</Typography>
-                        <Typography>{experience.volunteerExperience[item].organizationName}</Typography>
-                        <Typography>{experience.volunteerExperience[item].startDate}</Typography>
-                        <Typography>{experience.volunteerExperience[item].description}</Typography>
-                        <Typography>{experience.volunteerExperience[item].stillWorking === true ? 'Stil Working' : experience.volunteerExperience[item].endDate}</Typography>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px', marginBottom: '12px' }}>
+                        <Typography variant="h5">&#x2022;&nbsp;{experience.volunteerExperience[item].organizationName ?? 'Unknown Organization'}</Typography>
+
+
+                        <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
+                            <InputLabel sx={{ width: '130px' }}>Job Title</InputLabel>
+                            <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={experience.volunteerExperience[item].jobTitle}/>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
+                            <InputLabel sx={{ width: '130px' }}>Description</InputLabel>
+                            <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={experience.volunteerExperience[item].description}/>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
+                            <InputLabel sx={{ width: '130px' }}>Dates</InputLabel>
+                            <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={`${experience.volunteerExperience[item].startDate} - ${experience.volunteerExperience[item].stillWorking === true ? 'Stil Working' : experience.volunteerExperience[item].endDate}`}/>
+                        </div>
                     </div>
                 )
             })}
