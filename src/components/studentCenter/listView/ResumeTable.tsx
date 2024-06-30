@@ -5,7 +5,7 @@ import EditIcon from "assets/Icons/EditIcon"
 import OpenIcon from "assets/Icons/OpenIcon"
 import SendIcon from "assets/Icons/SendIcon"
 import { STRINGS_ENG } from "assets/stringConstants"
-import { getDatabase, onValue, ref } from "firebase/database"
+import { child, get, getDatabase, ref } from "firebase/database"
 import { saveResume } from "firebase/db_actions"
 import { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -20,7 +20,7 @@ type ResumeTableProps = {
 
 const ResumeTable = ({ userResumes }: ResumeTableProps) => {
     const nav = useNavigate();
-    const db = getDatabase();
+    const dbRef = ref(getDatabase());
     const [ resumeToSubmit, setResumeToSubmit ] = useState<string>('');
     const [ submissionStatus, setSubmissionStatus ] = useState<{ open: boolean, status?: 'error' | 'success' }>({ open: false, status: undefined });
     const [ isConfirmSubmitOpen, setIsConfirmSubmitOpen ] = useState<boolean>(false);
@@ -37,8 +37,7 @@ const ResumeTable = ({ userResumes }: ResumeTableProps) => {
      * Takes users to the page to edit the selected resume
      */
     const handleEditResume = useCallback((resumeID: string) => {
-        const dbRef = ref(db, `content/resumes/${resumeID}`);
-        onValue(dbRef, (snapshot) => {
+        get(child(dbRef, `content/resumes/${resumeID}`)).then((snapshot) => {
             if (snapshot.val()) {
                 if((snapshot.val() as ResumeDefinition).status === 'submitted' || (snapshot.val() as ResumeDefinition).status === 'approved') {
                     setResumeToEdit(resumeID);
@@ -50,13 +49,17 @@ const ResumeTable = ({ userResumes }: ResumeTableProps) => {
                 }
             }
         });
-    }, [db, nav]);
+    }, [dbRef, nav]);
 
+    /**
+     * This function handles the confirmEditing modal's action
+     * @param resumeID Resume to be edited
+     * @param status Approval or cancellation of the editing
+     */
     const handleCloseConfirmEditing = (resumeID: string, status: 'continue' | 'cancel') => {
         if (status === 'continue') {
-            const dbRef = ref(db, `content/resumes/${resumeID}`);
             let currentResume: ResumeDefinition;
-            onValue(dbRef, (snapshot) => {
+            get(child(dbRef, `content/resumes/${resumeID}`)).then((snapshot) => {
                 if (snapshot.val()) {
                     currentResume = snapshot.val() as ResumeDefinition;    
                     currentResume.status = 'new';
