@@ -6,12 +6,12 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { ResumeDefinition } from "@types";
 import { STRINGS_ENG } from 'assets/stringConstants';
 import { child, get, getDatabase, ref } from "firebase/database";
-import { saveResume } from 'firebase/db_actions';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentField from "./CommentField";
 import ConfirmApproveModal from './ConfirmApproveModal';
+import ConfirmRevisionModal from './ConfirmRevisionModal';
 import ResumeContent from "./resumeContent/ResumeContent";
 
 
@@ -34,19 +34,10 @@ const ReviewCenter = () => {
     const [ commentInput, setCommentInput ] = useState<string>('');
     const [ confirmDialog, setConfirmDialog ] = useState<{open: boolean, status: string}>({open: false, status: ''});
     const [ submissionStatus, setSubmissionStatus ] = useState<{ open: boolean, status?: 'error' | 'success', reason: 'approve' | 'revise' }>({ open: false, status: undefined, reason: 'approve'});
+    const [ isConfirmRevisionOpen, setIsConfirmRevisionOpen ] = useState<boolean>(false);
 
     const handleSubmitComments = () => {
-        setUserResume(prev => {
-            const newResume: ResumeDefinition = {...prev, comment: commentInput, status: 'reviewed'};
-            saveResume(newResume, resumeID).then(() => {
-                setSubmissionStatus({open: true, status: 'success', reason: 'revise'});
-            });
-            return newResume;
-        });
-    }
-
-    const handleCloseDeletionStatus = () => {
-        setSubmissionStatus({open: false, reason: 'approve'})
+        setIsConfirmRevisionOpen(true);
     }
 
     const handleApproveResume = () => {
@@ -55,6 +46,13 @@ const ReviewCenter = () => {
         } else {
             setConfirmDialog({open: true, status: "You are going to approve a resume that has comments"});
         }
+    }
+
+    /**
+     * Update the snackbar status when closes from timeout
+     */
+    const handleCloseDeletionStatus = () => {
+        setSubmissionStatus({open: false, reason: 'approve'})
     }
 
     /**
@@ -117,6 +115,14 @@ const ReviewCenter = () => {
                 setUserResume={setUserResume}
                 commentInput={commentInput}
                 setConfirmDialog={setConfirmDialog}
+            />
+            <ConfirmRevisionModal 
+                isConfirmRevisionOpen={isConfirmRevisionOpen}
+                setIsConfirmRevisionOpen={setIsConfirmRevisionOpen}
+                commentInput={commentInput}
+                setUserResume={setUserResume}
+                setSubmissionStatus={setSubmissionStatus}
+                resumeID={resumeID}
             />
 
             <Snackbar open={submissionStatus.open} autoHideDuration={2000} onClose={handleCloseDeletionStatus}>
