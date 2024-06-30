@@ -22,42 +22,42 @@ const ReviewGeneralSection = ({ generalInfo }: ReviewGeneralSectionProps) => {
                         generalInfo?.["first name"] && 
                             <div style={{ display: 'flex', alignItems: 'baseline'}}>
                                 <InputLabel sx={{ width: '120px' }}>First Name</InputLabel>
-                                <StyledTextField sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={generalInfo["first name"]}/>
+                                <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={generalInfo["first name"]}/>
                             </div>
                     }
                     {
                         generalInfo?.["last name"] && 
                             <div style={{ display: 'flex', alignItems: 'baseline'}}>
                                 <InputLabel sx={{ width: '120px' }}>Last Name</InputLabel>
-                                <StyledTextField sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["last name"]}/>
+                                <StyledTextField multiline sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["last name"]}/>
                             </div>
                     }
                     {
                         generalInfo?.["email address"] &&
                             <div style={{ display: 'flex', alignItems: 'baseline'}}>
                                 <InputLabel sx={{ width: '120px' }}>Email Address</InputLabel>
-                                <StyledTextField sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["email address"]}/>
+                                <StyledTextField multiline sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["email address"]}/>
                             </div>
                     }
                     {
                         generalInfo?.["linkedin"] && 
                             <div style={{ display: 'flex', alignItems: 'baseline'}}>
                                 <InputLabel sx={{ width: '120px' }}>LinkedIn</InputLabel>
-                                <StyledTextField sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["linkedin"]}/>
+                                <StyledTextField multiline sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["linkedin"]}/>
                             </div>
                     }   
                     {
                         generalInfo["phone number"] && 
                         <div style={{ display: 'flex', alignItems: 'baseline'}}>
                             <InputLabel sx={{ width: '120px' }}>Phone Number</InputLabel>
-                            <StyledTextField sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["phone number"]}/>
+                            <StyledTextField multiline sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["phone number"]}/>
                         </div>
                     }
                     {
                         generalInfo["role_title"] && 
                         <div style={{ display: 'flex', alignItems: 'baseline'}}>
                             <InputLabel sx={{ width: '120px' }}>Role Title</InputLabel>
-                            <StyledTextField sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["role_title"]}/>
+                            <StyledTextField multiline sx={{ flex: '1'}} InputProps={{readOnly: true}} value={generalInfo["role_title"]}/>
                         </div>
                     }
                     {
@@ -68,7 +68,7 @@ const ReviewGeneralSection = ({ generalInfo }: ReviewGeneralSectionProps) => {
                                 return (
                                     <div style={{ display: 'flex', alignItems: 'baseline', paddingLeft: '12px'}}>
                                         <InputLabel sx={{ width: '108px' }}>{LangList[item]}</InputLabel>
-                                        <StyledTextField fullWidth sx={{ flex: '1' }} InputProps={{readOnly: true}} value={LangLevel[generalInfo["languages"][item]]} />
+                                        <StyledTextField multiline fullWidth sx={{ flex: '1' }} InputProps={{readOnly: true}} value={LangLevel[generalInfo["languages"][item]]} />
                                     </div>
                                 )
                             })}

@@ -14,7 +14,7 @@ type ReviewEducationSectionProps = {
 const ReviewEducationSection = ({ education }: ReviewEducationSectionProps) => {
     return (
         <div style={{ marginBottom: '20px' }}>
-            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} marginRight={'20px'} marginBottom={'20px'} fontWeight={800}>Education</Typography>
+            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} marginBottom={'20px'} fontWeight={800}>Education</Typography>
             {education && Object.keys(education).map(item => {
                 return (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}}>
@@ -24,28 +24,28 @@ const ReviewEducationSection = ({ education }: ReviewEducationSectionProps) => {
                             education[item]["field of study"] && 
                                 <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                                         <InputLabel sx={{ width: '120px' }}>Field Of Study</InputLabel>
-                                        <StyledTextField sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={education[item]["field of study"]}/>
+                                        <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={education[item]["field of study"]}/>
                                 </div>
                             }
                             {
                             education[item]["school address"] && 
                                 <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                                         <InputLabel sx={{ width: '120px' }}>School Address</InputLabel>
-                                        <StyledTextField sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={education[item]["school address"]}/>
+                                        <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={education[item]["school address"]}/>
                                 </div>
                             }
                             {
                             education[item]["school name"] && 
                                 <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                                         <InputLabel sx={{ width: '120px' }}>School Name</InputLabel>
-                                        <StyledTextField sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={education[item]["school name"]}/>
+                                        <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={education[item]["school name"]}/>
                                 </div>
                             }
                             {
                             education[item]["end date"] && education[item]["start date"] &&
                                 <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                                         <InputLabel sx={{ width: '120px' }}>Dates</InputLabel>
-                                        <StyledTextField sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={`${education[item]["start date"]} - ${education[item]["end date"]}`}/>
+                                        <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={`${education[item]["start date"]} - ${education[item]["end date"]}`}/>
                                 </div>
                             }
                         </div>
