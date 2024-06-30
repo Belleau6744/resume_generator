@@ -44,37 +44,17 @@ const ReviewCenter = () => {
             return newResume;
         });
     }
-    
+
+    const handleCloseDeletionStatus = () => {
+        setSubmissionStatus({open: false, reason: 'approve'})
+    }
+
     const handleApproveResume = () => {
         if (commentInput === '') {
             setConfirmDialog({open: true, status: "You are going to approve this resume"});
         } else {
             setConfirmDialog({open: true, status: "You are going to approve a resume that has comments"});
         }
-    }
-
-    /**
-     * This function handles the confirmEditing modal's action
-     * @param resumeID Resume to be edited
-     * @param status Approval or cancellation of the editing
-     */
-    const handleCloseApprove = (status: 'continue' | 'cancel') => {
-        if (status === 'continue') {
-            setUserResume(prev => {
-                const newResume: ResumeDefinition = {...prev, comment: commentInput, status: 'approved'};
-                saveResume(newResume, resumeID).then(() => {
-                    setSubmissionStatus({open: true, status: 'success', reason: 'approve'});
-                });
-                setConfirmDialog({ open: false, status: ''});
-                return newResume;
-            });
-        } else if (status === 'cancel') {
-            setConfirmDialog({ open: false, status: ''});
-        }
-    }
-
-    const handleCloseDeletionStatus = () => {
-        setSubmissionStatus({open: false, reason: 'approve'})
     }
 
     /**
@@ -129,7 +109,15 @@ const ReviewCenter = () => {
         <Container>
             <ResumeContent content={userResume?.content}/>
             <CommentField commentInput={commentInput} setCommentInput={setCommentInput}/>
-            <ConfirmApproveModal isConfirmSubmitOpen={confirmDialog.open} content={confirmDialog.status} onClose={handleCloseApprove} />
+            <ConfirmApproveModal 
+                setSubmissionStatus={setSubmissionStatus} 
+                resumeID={resumeID} 
+                isConfirmSubmitOpen={confirmDialog.open} 
+                content={confirmDialog.status}
+                setUserResume={setUserResume}
+                commentInput={commentInput}
+                setConfirmDialog={setConfirmDialog}
+            />
 
             <Snackbar open={submissionStatus.open} autoHideDuration={2000} onClose={handleCloseDeletionStatus}>
                 <Alert
