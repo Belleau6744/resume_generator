@@ -58,6 +58,14 @@ const resume_deletion_status = {
     "error": "There was an error deleting your resume",
     "success": "Your resume was deleted successfully"
 }
+const resume_approval_status = {
+    "error": "The resume could not be approved at the moment. Please try again later",
+    "success": "The resume was approved successfully"
+}
+const resume_ask_revision_status = {
+    "error": "The resume could not be sent for revision at the moment. Please try again later",
+    "success": "The resume was successfully sent for revision"
+}
 
 
 export const STRINGS_ENG =  {
@@ -86,5 +94,7 @@ export const STRINGS_ENG =  {
     education_input_examples,
     resume_submission_status,
     resume_deletion_status,
-    resume_to_review_title
+    resume_to_review_title,
+    resume_approval_status,
+    resume_ask_revision_status
 }

@@ -1,16 +1,18 @@
-import Send from '@mui/icons-material/Send';
+import RateReview from '@mui/icons-material/RateReview';
 import Verified from '@mui/icons-material/Verified';
-import { SpeedDial } from "@mui/material";
+import { Alert, Snackbar, SpeedDial } from "@mui/material";
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { ResumeDefinition } from "@types";
+import { STRINGS_ENG } from 'assets/stringConstants';
 import { child, get, getDatabase, ref } from "firebase/database";
+import { saveResume } from 'firebase/db_actions';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentField from "./CommentField";
+import ConfirmApproveModal from './ConfirmApproveModal';
 import ResumeContent from "./resumeContent/ResumeContent";
-import { saveResume } from 'firebase/db_actions';
 
 
 const Container = styled.div`
@@ -31,11 +33,14 @@ const ReviewCenter = () => {
     const [userResume, setUserResume] = useState<ResumeDefinition>();
     const [ commentInput, setCommentInput ] = useState<string>('');
     const [ confirmDialog, setConfirmDialog ] = useState<{open: boolean, status: string}>({open: false, status: ''});
+    const [ submissionStatus, setSubmissionStatus ] = useState<{ open: boolean, status?: 'error' | 'success', reason: 'approve' | 'revise' }>({ open: false, status: undefined, reason: 'approve'});
 
     const handleSubmitComments = () => {
         setUserResume(prev => {
             const newResume: ResumeDefinition = {...prev, comment: commentInput, status: 'reviewed'};
-            saveResume(newResume, resumeID);
+            saveResume(newResume, resumeID).then(() => {
+                setSubmissionStatus({open: true, status: 'success', reason: 'revise'});
+            });
             return newResume;
         });
     }
@@ -53,22 +58,58 @@ const ReviewCenter = () => {
      * @param resumeID Resume to be edited
      * @param status Approval or cancellation of the editing
      */
-    const handleCloseSubmit = (resumeID: string, status: 'continue' | 'cancel') => {
+    const handleCloseApprove = (status: 'continue' | 'cancel') => {
         if (status === 'continue') {
-            
-        }        
+            setUserResume(prev => {
+                const newResume: ResumeDefinition = {...prev, comment: commentInput, status: 'approved'};
+                saveResume(newResume, resumeID).then(() => {
+                    setSubmissionStatus({open: true, status: 'success', reason: 'approve'});
+                });
+                setConfirmDialog({ open: false, status: ''});
+                return newResume;
+            });
+        } else if (status === 'cancel') {
+            setConfirmDialog({ open: false, status: ''});
+        }
     }
+
+    const handleCloseDeletionStatus = () => {
+        setSubmissionStatus({open: false, reason: 'approve'})
+    }
+
+    /**
+     * Return a text matching the Deletion Status
+     */
+    const getDeletionStatusString = (status: 'success' | 'error', reason: 'approve' | 'revise') => {
+        if (reason === 'approve') {
+            if (status === 'success') {
+                return STRINGS_ENG.resume_approval_status.success;
+            } else if (status === 'error') {
+                return STRINGS_ENG.resume_approval_status.error;
+            } else {
+                return '';
+            }
+        } else if (reason === 'revise') {
+            if (status === 'success') {
+                return STRINGS_ENG.resume_ask_revision_status.success;
+            } else if (status === 'error') {
+                return STRINGS_ENG.resume_ask_revision_status.error;
+            }
+        }
+    };
 
     /**
      * Update comment content from DB update
      */
     useEffect(() => {
-        setCommentInput(userResume.comment);
-    }, [userResume.comment]);
+        if (userResume?.comment) {
+            setCommentInput(userResume?.comment);
+        }
+    }, [userResume]);
     
     const actions = [
-        { icon: <Send />, name: 'Send', onClick: handleSubmitComments},
-        { icon: <Verified />, name: 'Verified', onClick: handleApproveResume},
+        { icon: <RateReview />, name: 'Request Revisions', onClick: handleSubmitComments},
+        { icon: <Verified />, name: 'Approve', onClick: handleApproveResume},
       ];
 
     /**
@@ -88,6 +129,17 @@ const ReviewCenter = () => {
         <Container>
             <ResumeContent content={userResume?.content}/>
             <CommentField commentInput={commentInput} setCommentInput={setCommentInput}/>
+            <ConfirmApproveModal isConfirmSubmitOpen={confirmDialog.open} content={confirmDialog.status} onClose={handleCloseApprove} />
+
+            <Snackbar open={submissionStatus.open} autoHideDuration={2000} onClose={handleCloseDeletionStatus}>
+                <Alert
+                    onClose={handleCloseDeletionStatus}
+                    severity={submissionStatus.status}
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >{getDeletionStatusString(submissionStatus.status, submissionStatus.reason)}</Alert>
+             </Snackbar>
+
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
                 sx={{ position: 'fixed', bottom: 20, right: 40 }}
