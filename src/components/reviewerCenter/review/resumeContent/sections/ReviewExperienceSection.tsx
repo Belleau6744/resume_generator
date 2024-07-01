@@ -40,6 +40,8 @@ const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) =
                             {
                                 <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                                     <InputLabel sx={{ width: '130px' }}>Dates</InputLabel>
+                                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                                    {/* @ts-ignore */}
                                     <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={`${experience.workingExperience[item].startDate} - ${experience.workingExperience[item].stillWorking === true ? 'Stil Working' : experience.workingExperience[item].endDate}`}/>
                                 </div>
                             }
@@ -85,6 +87,8 @@ const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) =
 
                         <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                             <InputLabel sx={{ width: '130px' }}>Dates</InputLabel>
+                            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                            {/* @ts-ignore */}
                             <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={`${experience.volunteerExperience[item].startDate} - ${experience.volunteerExperience[item].stillWorking === true ? 'Stil Working' : experience.volunteerExperience[item].endDate}`}/>
                         </div>
                     </div>

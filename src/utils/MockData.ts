@@ -245,7 +245,7 @@ export const MockResumes: ResumeGroup = {
     },
     'wrBMCbFuRoZw9At4WH78WuIFoUT2_1': {
         creationDate: '24-05-2024',
-        status: 'revised',
+        status: 'approved',
         content: {
             generalInfo: {
                 "first name": "Jeremy",
