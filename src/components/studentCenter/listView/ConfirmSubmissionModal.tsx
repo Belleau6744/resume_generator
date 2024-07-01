@@ -37,17 +37,17 @@ const ConfirmSubmissionModal = ({ isConfirmSubmitOpen, setIsConfirmSubmitOpen, r
 
     return (
         <Dialog open={isConfirmSubmitOpen}>
-                <DialogTitle>Confirm submission</DialogTitle>
-                <DialogContent>
-                    <Alert severity='info'>
-                        This will submit your resume for review. A reviewer will add his comments in the next 24h-48h.
-                    </Alert>
-                    <div style={{ display: 'flex', paddingTop: '12px', width: '100%', justifyContent: 'flex-end', gap: '12px' }}>
-                        <Button variant='outlined' color='error' onClick={cancelSubmission}>Cancel</Button>
-                        <Button variant='contained' color='success' onClick={confirmSubmission}>Submit</Button>
-                    </div>
-                </DialogContent>
-             </Dialog>
+            <DialogTitle>Confirm submission</DialogTitle>
+            <DialogContent>
+                <Alert severity='info'>
+                    This will submit your resume for review. A reviewer will add his comments in the next 24h-48h.
+                </Alert>
+                <div style={{ display: 'flex', paddingTop: '12px', width: '100%', justifyContent: 'flex-end', gap: '12px' }}>
+                    <Button variant='outlined' color='error' onClick={cancelSubmission}>Cancel</Button>
+                    <Button variant='contained' color='success' onClick={confirmSubmission}>Submit</Button>
+                </div>
+            </DialogContent>
+        </Dialog>
     )
 }
 export default ConfirmSubmissionModal;

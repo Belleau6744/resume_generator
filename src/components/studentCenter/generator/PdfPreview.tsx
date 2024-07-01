@@ -63,10 +63,6 @@ const PdfPreview = () => {
     }, [currentResume, layoutID]);
 
     useEffect(() => {
-        console.log(currentResume);
-    }, [currentResume]);
-
-    useEffect(() => {
         console.log(layoutID);
     }, [layoutID]);
 

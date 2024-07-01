@@ -64,7 +64,9 @@ const ReviewerCenterListView = () => {
         <Container>
             <Table aria-label="simple table">
                 <TableHead >
-                    <TableRow sx={{ fontWeight: '800', fontSize: '1.8rem'}}><div style={{ paddingBottom: '12px' }}>{STRINGS_ENG.resume_to_review_title.toLocaleUpperCase()}</div></TableRow>
+                    <TableRow sx={{ fontWeight: '800', fontSize: '1.8rem'}}>
+                        <TableCell><div style={{ paddingBottom: '12px' }}>{STRINGS_ENG.resume_to_review_title.toLocaleUpperCase()}</div></TableCell>
+                    </TableRow>
                     <TableRow sx={{ background: '#BEBEBE' }}>
                         {/* <TableCell align="center" sx={{ fontWeight: '800' }}>ID</TableCell> */}
                         <TableCell align="center" sx={{ fontWeight: '800' }}>First Name</TableCell>
