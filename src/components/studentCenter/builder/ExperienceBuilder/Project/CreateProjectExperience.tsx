@@ -1,5 +1,5 @@
 import { Button, InputLabel, TextField } from '@mui/material';
-import { Project, ProjectExperience, ProjectExperienceInputErrors, ResumeDefinition } from "@types";
+import { Project, ProjectExperience, ProjectExperienceInputErrors } from "@types";
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
@@ -8,12 +8,12 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { getDefaultProjectExperience, getDefaultProjectExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
+import { useResumeContext } from '../../useResumeContext';
 
 type CreateProjectExperienceProps = {
     isModalOpened: boolean;
     projectExperience: ProjectExperience;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     editingID?: string;
 }
 
@@ -29,7 +29,8 @@ const InputWrapper = styled.div`
 `;
 
 
-const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, projectExperience }: CreateProjectExperienceProps) => {
+const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, projectExperience }: CreateProjectExperienceProps) => {
+    const { setCurrentResume } = useResumeContext();
     const [ selectedProjectExperience, setSelectedProjectExperience ] = useState<Project>(editingID ? projectExperience[editingID] : getDefaultProjectExperience());
     const [ inputErrors, setInputErrors ] = useState<ProjectExperienceInputErrors>(getDefaultProjectExperienceInputErrors());
 

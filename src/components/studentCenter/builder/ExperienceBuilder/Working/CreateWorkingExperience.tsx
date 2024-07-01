@@ -2,7 +2,7 @@ import { Button, Checkbox, InputLabel, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { ResumeDefinition, Work_DayJs, WorkExperienceInputErrors, WorkingExperience } from "@types";
+import { Work_DayJs, WorkExperienceInputErrors, WorkingExperience } from "@types";
 import dayjs from "dayjs";
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
@@ -12,13 +12,13 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { getDefaultWorkingExperienceDayJs, getDefaultWorkingExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
+import { useResumeContext } from '../../useResumeContext';
 import { dayJsToWorkingExperience, workingExperienceToDayJs } from './utils';
 
 type CreateWorkingExperienceProps = {
     isModalOpened: boolean;
     workingExperience: WorkingExperience;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     editingID?: string;
 }
 
@@ -33,7 +33,8 @@ const InputWrapper = styled.div`
     }
 `;
 
-const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, workingExperience }: CreateWorkingExperienceProps) => {
+const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, workingExperience }: CreateWorkingExperienceProps) => {
+    const { setCurrentResume } = useResumeContext();
     const [ selectedWorkingExperience, setSelectedWorkingExperience ] = useState<Work_DayJs>(editingID ? workingExperienceToDayJs(workingExperience[editingID]) : getDefaultWorkingExperienceDayJs());
     const [ inputErrors, setInputErrors ] = useState<WorkExperienceInputErrors>(getDefaultWorkingExperienceInputErrors());
 

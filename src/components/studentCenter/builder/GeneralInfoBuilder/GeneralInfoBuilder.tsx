@@ -1,18 +1,24 @@
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
-import { GeneralInfoType, ResumeDefinition } from "@types";
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import styled from "styled-components";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
+import { useResumeContext } from "../useResumeContext";
 import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
-type GeneralInfoProps = {
-    content: GeneralInfoType;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
-    isDirty: boolean;
-    handleSaveResume: () => void;
-}
+const GeneralInfoBuilder = () => {
+    const {
+        isDirty,
+        handleSaveResume,
+        currentResume,
+        setCurrentResume,
+        handleCommentSectionToggle,
+      } = useResumeContext();
 
-const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: GeneralInfoProps) => {
+    const content = useMemo(() => {
+        return currentResume.content.generalInfo;
+    }, [currentResume.content.generalInfo]);
+    
     const formRef = useRef<HTMLFormElement>(null);
 
     const handleInputChangeGeneral = useCallback((inputName: string, value: string) => {
@@ -30,7 +36,13 @@ const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty, handleSaveResu
 
     return (
         <Container>
-            <SectionTitle>General Information</SectionTitle>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <SectionTitle>General Information</SectionTitle>
+                <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <RateReviewIcon />
+                    View Comments
+                </Button>
+            </div>
             <ContentWrapper>
                 <form ref={formRef}>
                     <FormContainer>
@@ -69,7 +81,7 @@ const GeneralInfoBuilder = ({ content, setCurrentResume, isDirty, handleSaveResu
 };
 
 const ContentWrapper = styled.div`
-    padding: 0 225px 0 55px;
+    padding: 0 55px 0 55px;
     @media screen and (max-width: 992px) {
         padding: 0 125px 0 25px;
     }

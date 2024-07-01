@@ -1,19 +1,14 @@
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { ResumeDefinition, Skills, SkillsFlat, SkillsHierarchical } from "@types";
+import { SkillsFlat, SkillsHierarchical } from "@types";
 import { ChangeEvent, useMemo } from "react";
 import styled from "styled-components";
+import { useResumeContext } from "../useResumeContext";
 import SingleListSkills from "./SingleList/SingleList";
 import { useConfirmation } from "./utils/skillsbuilder.hooks";
 import { SkillsUtils } from "./utils/skillsbuilder.utils";
 import LosingSectionsModal from "./WarningModal/LosingSectionsModal";
 import WithSections from "./WithSections/WithSections";
-
-type SkillsBuilderProps = {
-    content: Skills;
-    isDirty: boolean;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
-    handleSaveResume: () => void;
-}
 
 const Container = styled.div``;
 const SectionTitle = styled.h1`
@@ -27,7 +22,18 @@ const BottomWrapper = styled.div`
     justify-content: space-between;
 `;
 
-const SkillsBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: SkillsBuilderProps) => {
+const SkillsBuilder = () => {
+    const {
+        isDirty,
+        handleSaveResume,
+        currentResume,
+        setCurrentResume,
+        handleCommentSectionToggle
+    } = useResumeContext();
+
+    const content = useMemo(() => {
+        return currentResume.content.skills;
+    }, [currentResume.content.skills]);
 
     const hasSections = useMemo(() => {
         if (content.hasSections === undefined) {
@@ -76,7 +82,14 @@ const SkillsBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }:
         <Container>
             {/* Modals Section */}
             <LosingSectionsModal setUserResponse={handleUserResponse} isModalOpened={isModalOpen} setIsModalOpened={() => { } } />
-            <SectionTitle>Skills</SectionTitle>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <SectionTitle>Skills</SectionTitle>
+                <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <RateReviewIcon />
+                    View Comments
+                </Button>
+            </div>
+            
             
             {/* Has sections controls */}
             <FormControl>

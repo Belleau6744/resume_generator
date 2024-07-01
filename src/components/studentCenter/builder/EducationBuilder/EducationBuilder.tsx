@@ -1,18 +1,12 @@
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { EducationList, ResumeDefinition } from "@types";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../assets/Icons/EditIcon";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
+import { useResumeContext } from "../useResumeContext";
 import EducationPickerModal from "./EducationPickerModal";
-
-type EducationBuilderProps = {
-    content: EducationList;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
-    isDirty: boolean;
-    handleSaveResume: () => void;
-}
 
 const BottomWrapper = styled.div`
     display: flex;
@@ -22,9 +16,20 @@ const BottomWrapper = styled.div`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const EducationBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: EducationBuilderProps) => {
+const EducationBuilder = () => {
+    const {
+        isDirty,
+        handleSaveResume,
+        currentResume,
+        setCurrentResume,
+        handleCommentSectionToggle
+      } = useResumeContext();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [editingID, setEditinID] = useState<string | undefined>(undefined);
+
+    const content = useMemo(() => {
+        return currentResume.content.education;
+    }, [currentResume.content.education]);
 
     const handleAddNewEducation = () => {
         setEditinID(undefined);
@@ -52,7 +57,13 @@ const EducationBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume
 
     return (
         <Container>
-            <SectionTitle>Education</SectionTitle>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <SectionTitle>Education</SectionTitle>
+                <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <RateReviewIcon />
+                    View Comments
+                </Button>
+            </div>
             {isModalOpen && <EducationPickerModal educationID={editingID} content={content} setCurrentResume={setCurrentResume} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>}
             <Table aria-label="simple table">
                 <TableHead sx={{ background: '#BEBEBE' }}>

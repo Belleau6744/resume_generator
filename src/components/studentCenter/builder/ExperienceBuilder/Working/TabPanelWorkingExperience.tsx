@@ -1,9 +1,10 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { ResumeDefinition, WorkingExperience } from "@types";
+import { WorkingExperience } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
+import { useResumeContext } from "../../useResumeContext";
 import CreateWorkingExperience from "./CreateWorkingExperience";
 
 interface TabPanelProps {
@@ -11,11 +12,11 @@ interface TabPanelProps {
     index: number;
     value: number;
     workingExperience?: WorkingExperience;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
   }
 
 const TabPanelWorkingExperience = (props: TabPanelProps) => {
-    const { value, index, setCurrentResume, workingExperience, ...other } = props;
+    const { value, index, workingExperience, ...other } = props;
+    const { setCurrentResume } = useResumeContext();
     const [ isWorkingExperienceModalOpened, setIsWorkingExperienceModalOpened] = useState<boolean>(false);
     const [editingID, setEditinID] = useState<string | undefined>(undefined);
 
@@ -58,7 +59,7 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
         {value === index && (
         <Table>
         {/* Working Experience Modal */}
-            {isWorkingExperienceModalOpened && <CreateWorkingExperience workingExperience={workingExperience} editingID={editingID} isModalOpened={isWorkingExperienceModalOpened} setIsModalOpened={setIsWorkingExperienceModalOpened} setCurrentResume={setCurrentResume} />}
+            {isWorkingExperienceModalOpened && <CreateWorkingExperience workingExperience={workingExperience} editingID={editingID} isModalOpened={isWorkingExperienceModalOpened} setIsModalOpened={setIsWorkingExperienceModalOpened} />}
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Job Title</TableCell>

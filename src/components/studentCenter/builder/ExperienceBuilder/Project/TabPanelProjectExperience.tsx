@@ -1,9 +1,10 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { ProjectExperience, ResumeDefinition } from "@types";
+import { ProjectExperience } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
+import { useResumeContext } from "../../useResumeContext";
 import CreateProjectExperience from "./CreateProjectExperience";
 
 interface TabPanelProps {
@@ -11,11 +12,11 @@ interface TabPanelProps {
     index: number;
     value: number;
     projectExperience?: ProjectExperience;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
   }
 
 const TabPanelProjectExperience = (props: TabPanelProps) => {
-    const { value, index, setCurrentResume, projectExperience, ...other } = props;
+    const { value, index, projectExperience, ...other } = props;
+    const { setCurrentResume } = useResumeContext();
     const [ isModalOpened, setIsModalOpened] = useState<boolean>(false);
     const [ editingID, setEditinID] = useState<string | undefined>(undefined);
 
@@ -57,7 +58,7 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
         {value === index && (
         <Table>
             {/* Project Experience Modal */}
-            {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} projectExperience={projectExperience} setIsModalOpened={setIsModalOpened} setCurrentResume={setCurrentResume} />}
+            {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} projectExperience={projectExperience} setIsModalOpened={setIsModalOpened} />}
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Title</TableCell>

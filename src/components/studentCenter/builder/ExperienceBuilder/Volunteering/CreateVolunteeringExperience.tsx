@@ -2,7 +2,7 @@ import { Button, Checkbox, InputLabel, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { ResumeDefinition, Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "@types";
+import { Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "@types";
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Heading, Modal } from 'react-aria-components';
@@ -12,6 +12,7 @@ import '../../../../../assets/ModalStyling.css';
 import { STRINGS_ENG } from '../../../../../assets/stringConstants';
 import { getDefaultVolunteeringExperienceDayJs, getDefaultVolunteeringExperienceInputErrors } from '../../../../../utils/init';
 import { checkEmptyInputs } from '../../../../../utils/validation';
+import { useResumeContext } from '../../useResumeContext';
 import { dayJsToVolunteeringExperience, volunteeringExperienceToDayJs } from './utils';
 
 
@@ -19,7 +20,6 @@ type CreateVolunteeringExperienceProps = {
     isModalOpened: boolean;
     volunteeringExperience: VolunteeringExperience;
     setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
     editingID?: string;
 }
 
@@ -35,7 +35,8 @@ const InputWrapper = styled.div`
 `;
 
 
-const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, setCurrentResume, editingID, volunteeringExperience }: CreateVolunteeringExperienceProps) => {
+const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, editingID, volunteeringExperience }: CreateVolunteeringExperienceProps) => {
+    const { setCurrentResume } = useResumeContext();
     const [ selectedVolunteeringExperience, setSelectedVolunteeringExperience ] = useState<Volunteering_DaysJs>(editingID ? volunteeringExperienceToDayJs(volunteeringExperience[editingID]) : getDefaultVolunteeringExperienceDayJs());
     const [ inputErrors, setInputErrors ] = useState<VolunteeringInputErrors>(getDefaultVolunteeringExperienceInputErrors());
 

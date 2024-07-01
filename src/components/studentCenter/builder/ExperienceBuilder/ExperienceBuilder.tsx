@@ -1,17 +1,11 @@
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Alert, Box, Button, Tab, Tabs } from "@mui/material";
-import { Experience, ResumeDefinition } from "@types";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
+import { useResumeContext } from "../useResumeContext";
 import TabPanelProjectExperience from "./Project/TabPanelProjectExperience";
 import TabVolunteeringExperience from "./Volunteering/TabVolunteeringExperience";
 import TabPanelWorkingExperience from "./Working/TabPanelWorkingExperience";
-
-type ExperienceBuilderProps = {
-    content: Experience;
-    isDirty: boolean;
-    setCurrentResume:  React.Dispatch<React.SetStateAction<ResumeDefinition>>;
-    handleSaveResume: () => void;
-}
 
 const Container = styled.div``;
 const SectionTitle = styled.h1`
@@ -25,16 +19,32 @@ const BottomWrapper = styled.div`
     justify-content: space-between;
 `;
 
-const ExperienceBuilder = ({ content, setCurrentResume, isDirty, handleSaveResume }: ExperienceBuilderProps) => {
+const ExperienceBuilder = () => {
+    const {
+        isDirty,
+        handleSaveResume,
+        currentResume,
+        handleCommentSectionToggle
+    } = useResumeContext();
     const [tabValue, setTabValue] = useState<number>(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
+
+    const content = useMemo(() => {
+        return currentResume.content.experience;
+    }, [currentResume.content.experience])
     
     return (
         <Container>
-            <SectionTitle>Experience</SectionTitle>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <SectionTitle>Experience</SectionTitle>
+                <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <RateReviewIcon />
+                    View Comments
+                </Button>
+            </div>
                 <Box sx={{ borderColor: 'divider', borderBottom: 1, marginTop: '20px'}}>
                     <Tabs value={tabValue} onChange={handleChange}>
                         <Tab label={'Working'} />
@@ -42,9 +52,9 @@ const ExperienceBuilder = ({ content, setCurrentResume, isDirty, handleSaveResum
                         <Tab label={'Volunteering'} />
                     </Tabs>
                 </Box>
-            <TabPanelWorkingExperience index={0} value={tabValue} workingExperience={content?.workingExperience} setCurrentResume={setCurrentResume} />
-            <TabPanelProjectExperience index={1} value={tabValue} projectExperience={content?.projectExperience} setCurrentResume={setCurrentResume} />
-            <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content?.volunteerExperience} setCurrentResume={setCurrentResume} />
+            <TabPanelWorkingExperience index={0} value={tabValue} workingExperience={content?.workingExperience} />
+            <TabPanelProjectExperience index={1} value={tabValue} projectExperience={content?.projectExperience} />
+            <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content?.volunteerExperience} />
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
                 <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>

@@ -1,5 +1,5 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { ResumeDefinition, VolunteeringExperience } from "@types";
+import { VolunteeringExperience } from "@types";
 import { useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
@@ -11,15 +11,16 @@ interface TabPanelProps {
     index: number;
     value: number;
     volunteeringExperience?: VolunteeringExperience;
-    setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
   }
 
 const TabVolunteeringExperience = (props: TabPanelProps) => {
-    const { value, index, setCurrentResume, volunteeringExperience, ...other } = props;
+    const { value, index, volunteeringExperience, ...other } = props;
     const [ isModalOpened, setIsModalOpened] = useState<boolean>(false);
     const [ editingID, setEditinID] = useState<string | undefined>(undefined);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const deleteSelectedExperience = (experienceIndex: string) => {
+        // TODO IMPLEMENT
     }
 
     const addNewExperience = () => {
@@ -44,7 +45,7 @@ const TabVolunteeringExperience = (props: TabPanelProps) => {
         {value === index && (
         <Table>
             {/* Volunteering Experience Modal */}
-            {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} volunteeringExperience={volunteeringExperience} setIsModalOpened={setIsModalOpened} setCurrentResume={setCurrentResume} />}
+            {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} volunteeringExperience={volunteeringExperience} setIsModalOpened={setIsModalOpened} />}
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Job Title</TableCell>

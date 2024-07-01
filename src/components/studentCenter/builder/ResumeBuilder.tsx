@@ -10,14 +10,17 @@ import { saveResume } from "../../../firebase/db_actions";
 import { Features } from "../../../redux/features";
 import { getDateString } from "../../../utils/dateUtils";
 import { getEmptyResumeInit } from "../../../utils/init";
+import CommentField from "./CommentField";
 import EducationBuilder from "./EducationBuilder/EducationBuilder";
 import ExperienceBuilder from "./ExperienceBuilder/ExperienceBuilder";
 import GeneralInfoBuilder from "./GeneralInfoBuilder/GeneralInfoBuilder";
+import { ResumeContext } from "./ResumeContext";
 import SkillsBuilder from "./SkillsBuilder/SkillsBuilder";
 
 const ResumeBuilder = () => {
     const { resumeID } = useParams();
     const userID = useSelector(Features.UserFeature.selector.getUserID);
+    const [ isCommentSectionOpen, setIsCommentSectionOpen ] = useState<boolean>(false);
 
     /**
      * * Keeps track of the original resume, as a point of reference for updates, and the current version being updated
@@ -67,13 +70,20 @@ const ResumeBuilder = () => {
      * Different sections of the resume builder
      */
     const Sections = {
-        'generalInfo': <GeneralInfoBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.generalInfo} />,
-        'education': <EducationBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.education} />,
-        'skills': <SkillsBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.skills} />,
-        'experience': <ExperienceBuilder isDirty={isDirty} handleSaveResume={handleSaveResume} setCurrentResume={setCurrentResume} content={currentResume.content.experience} />,
+        'generalInfo': <GeneralInfoBuilder />,
+        'education': <EducationBuilder />,
+        'skills': <SkillsBuilder />,
+        'experience': <ExperienceBuilder />,
     };
     type SectionEditingType = keyof typeof Sections;
     const [ sectionEdit, setSectionEdit ] = useState<SectionEditingType>('generalInfo');
+
+     /**
+     * Toggles open or closed the comment section
+     */
+     const handleCommentSectionToggle = () => {
+        setIsCommentSectionOpen(prev => !prev);
+    }
 
     /**
      * Changes the section being currently edited
@@ -81,8 +91,19 @@ const ResumeBuilder = () => {
     const handleSelect = useCallback((item: SectionEditingType) => () => setSectionEdit(item), [])
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div>
+        <ResumeContext.Provider value={{
+            isCommentSectionOpen,
+            handleCommentSectionToggle,
+            originalResume,
+            currentResume,
+            setCurrentResume,
+            isDirty,
+            handleSaveResume,
+            sectionEdit,
+            setSectionEdit,
+            handleSelect
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <Container data-test-id={'resume-builder'}>
                     <SectionSelector>
                         <ItemSelect $selected={sectionEdit == 'generalInfo'} onClick={handleSelect('generalInfo')}>General Info</ItemSelect>
@@ -93,9 +114,10 @@ const ResumeBuilder = () => {
                     <EditContent>
                         {Sections[sectionEdit]}
                     </EditContent>
+                    <CommentField />
                 </Container>
             </div>
-        </div>
+        </ResumeContext.Provider>
     )
 };
 
