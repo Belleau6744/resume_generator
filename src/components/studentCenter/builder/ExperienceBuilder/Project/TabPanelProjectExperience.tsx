@@ -63,6 +63,7 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800' }}>Title</TableCell>
                     <TableCell sx={{ fontWeight: '800' }}>Description</TableCell>
+                    <TableCell sx={{ fontWeight: '800' }}>Edit</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="right">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
                             {STRINGS_ENG.adding.plus_projectExperience}
@@ -75,14 +76,14 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
                     <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{projectExperience[item].title}</TableCell>
                         <TableCell component="th" scope="row">{projectExperience[item].description}</TableCell>
-                        <TableCell align="right">
-                            <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedExperience(item)}>
-                                <DeleteIcon />
+                        <TableCell align="center">
+                            <IconButton aria-label="comment" type='button' onClick={() => editExperience(item)}>
+                                <EditIcon width={20} height={20} />
                             </IconButton>
                         </TableCell>
-                        <TableCell align="right">
-                            <IconButton aria-label="comment" type='button' onClick={() => editExperience(item)}>
-                                <EditIcon />
+                        <TableCell align="center">
+                            <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedExperience(item)}>
+                                <DeleteIcon width={23} height={23} />
                             </IconButton>
                         </TableCell>
                     </TableRow>

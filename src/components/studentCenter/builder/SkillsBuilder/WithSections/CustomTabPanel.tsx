@@ -87,7 +87,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                         <TableCell component="th" scope="row">{item.title}</TableCell>
                         <TableCell align="right">
                             <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedSkill(item.title, index)}>
-                                <DeleteIcon />
+                                <DeleteIcon width={23} height={23} />
                             </IconButton>
                         </TableCell>
                     </TableRow>

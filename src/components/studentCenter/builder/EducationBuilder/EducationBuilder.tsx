@@ -69,17 +69,18 @@ const EducationBuilder = () => {
                 <TableHead sx={{ background: '#BEBEBE' }}>
                     <TableRow>
                         <TableCell sx={{ fontWeight: '800' }}>Degree</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">Field of Study</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">School Name</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">School Address</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">Start Date</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">End Date</TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center">Field of Study</TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center">School Name</TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center">School Address</TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center">Start Date</TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center">End Date</TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center">Edit</TableCell>
                         <TableCell sx={{ fontWeight: '800' }} align="right">
                             <Button type="button" size='small' variant='contained' color='primary' onClick={handleAddNewEducation}>
                                 + Add
                             </Button>
                         </TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right"></TableCell>
+                        <TableCell sx={{ fontWeight: '800' }} align="center"></TableCell>
                     </TableRow>
                 </TableHead>
                     {content && Object.keys(content).length > 0 && (
@@ -91,20 +92,20 @@ const EducationBuilder = () => {
                                     key={item[0]}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                    <TableCell align="right">{item[1]['degree'] ? capitalizeEveryWord(item[1]['degree']) : ''}</TableCell>
-                                    <TableCell align="right">{item[1]['field of study'] ? capitalizeEveryWord(item[1]['field of study']): ''}</TableCell>
-                                    <TableCell align="right">{item[1]['school name'] ? capitalizeEveryWord(item[1]['school name']): ''}</TableCell>
-                                    <TableCell align="right">{item[1]['school address'] ? capitalizeEveryWord(item[1]['school address']): ''}</TableCell>
-                                    <TableCell align="right">{item[1]['start date'] ? capitalizeEveryWord(item[1]['start date']): ''}</TableCell>
-                                    <TableCell align="right">{item[1]['end date'] ? capitalizeEveryWord(item[1]['end date']): ''}</TableCell>
-                                    <TableCell align="right">
-                                        <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedEducation(item[0])}>
-                                            <DeleteIcon />
+                                    <TableCell align="center">{item[1]['degree'] ? capitalizeEveryWord(item[1]['degree']) : ''}</TableCell>
+                                    <TableCell align="center">{item[1]['field of study'] ? capitalizeEveryWord(item[1]['field of study']): ''}</TableCell>
+                                    <TableCell align="center">{item[1]['school name'] ? capitalizeEveryWord(item[1]['school name']): ''}</TableCell>
+                                    <TableCell align="center">{item[1]['school address'] ? capitalizeEveryWord(item[1]['school address']): ''}</TableCell>
+                                    <TableCell align="center">{item[1]['start date'] ? capitalizeEveryWord(item[1]['start date']): ''}</TableCell>
+                                    <TableCell align="center">{item[1]['end date'] ? capitalizeEveryWord(item[1]['end date']): ''}</TableCell>
+                                    <TableCell align="center">
+                                        <IconButton aria-label="Edit" type='button' onClick={() => editSelectedEducation(item[0])}>
+                                            <EditIcon width={20} height={20} />
                                         </IconButton>
                                     </TableCell>
-                                    <TableCell align="right">
-                                        <IconButton aria-label="comment" type='button' onClick={() => editSelectedEducation(item[0])}>
-                                            <EditIcon />
+                                    <TableCell align="center">
+                                        <IconButton aria-label="Delete" type='button' onClick={() => deleteSelectedEducation(item[0])}>
+                                            <DeleteIcon width={23} height={23} />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>

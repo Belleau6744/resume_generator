@@ -67,7 +67,8 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
                     <TableCell sx={{ fontWeight: '800' }}>Description</TableCell>
                     <TableCell sx={{ fontWeight: '800' }}>Start Date</TableCell>
                     <TableCell sx={{ fontWeight: '800' }}>End Date</TableCell>
-                    <TableCell sx={{ fontWeight: '500' }} align="right">
+                    <TableCell sx={{ fontWeight: '800' }}>Edit</TableCell>
+                    <TableCell sx={{ fontWeight: '500' }} align="center">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
                             {STRINGS_ENG.adding.plus_workingExperience}
                         </Button>
@@ -85,14 +86,14 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
                         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                         {/* @ts-ignore */}
                         <TableCell component="th" scope="row">{workingExperience[item].stillWorking === true ? STRINGS_ENG.still_working : workingExperience[item].endDate}</TableCell>
-                        <TableCell align="right">
-                            <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedExperience(item)}>
-                                <DeleteIcon />
+                        <TableCell align="center">
+                            <IconButton aria-label="comment" type='button' onClick={() => editExperience(item)}>
+                                <EditIcon width={20} height={20} />
                             </IconButton>
                         </TableCell>
-                        <TableCell align="right">
-                            <IconButton aria-label="comment" type='button' onClick={() => editExperience(item)}>
-                                <EditIcon />
+                        <TableCell align="center">
+                            <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedExperience(item)}>
+                                <DeleteIcon width={23} height={23} />
                             </IconButton>
                         </TableCell>
                     </TableRow>

@@ -65,7 +65,7 @@ const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) =>
                                     <TableCell align="right">{LangLevel[languageItem[1]]}</TableCell>
                                     <TableCell align="right">
                                         <IconButton aria-label="comment" type='button' onClick={() => deleteSelectedLanguage(languageItem[0] as LanguageKeys)}>
-                                            <DeleteIcon />
+                                            <DeleteIcon width={23} height={23} />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
