@@ -1,6 +1,7 @@
 import { Alert, Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { ResumeDefinition } from "@types";
 import { saveResume } from "firebase/db_actions";
+import { useNavigate } from "react-router-dom";
 
 type ConfirmSubmitModalProps = {
     isConfirmSubmitOpen: boolean;
@@ -20,6 +21,7 @@ type ConfirmSubmitModalProps = {
 }
 
 const ConfirmApproveModal = ({ isConfirmSubmitOpen, resumeID, setSubmissionStatus, commentInput, content, setConfirmDialog, setUserResume }: ConfirmSubmitModalProps) => {
+    const nav = useNavigate();
 
     /**
      * This function handles the confirmEditing modal's action
@@ -36,6 +38,7 @@ const ConfirmApproveModal = ({ isConfirmSubmitOpen, resumeID, setSubmissionStatu
                 setConfirmDialog({ open: false, status: ''});
                 return newResume;
             });
+            nav('/');
         } else if (status === 'cancel') {
             setConfirmDialog({ open: false, status: ''});
         }

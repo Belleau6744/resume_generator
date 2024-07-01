@@ -2,6 +2,7 @@ import { Alert, Button, Dialog, DialogContent, DialogTitle } from "@mui/material
 import { ResumeDefinition } from "@types";
 import { saveResume } from "firebase/db_actions";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 type ConfirmRevisionModalProps = {
     isConfirmRevisionOpen: boolean;
@@ -17,7 +18,7 @@ type ConfirmRevisionModalProps = {
 }
 
 const ConfirmRevisionModal = ({ isConfirmRevisionOpen, setUserResume, commentInput, resumeID, setSubmissionStatus, setIsConfirmRevisionOpen}: ConfirmRevisionModalProps) => {
-
+    const nav = useNavigate();
 
     const handleCloseRevision = (status: 'continue' | 'cancel') => {
         if (status === 'continue') {
@@ -29,6 +30,7 @@ const ConfirmRevisionModal = ({ isConfirmRevisionOpen, setUserResume, commentInp
                 setIsConfirmRevisionOpen(false);
                 return newResume;
             });
+            nav('/');
         } else if (status === 'cancel') {
             setIsConfirmRevisionOpen(false);
         }
