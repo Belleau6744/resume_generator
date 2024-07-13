@@ -10,7 +10,7 @@ export const getEmptyResumeInit = (): ResumeDefinition => {
                 "last name": "",
                 'languages': {},
                 'phone number': '',
-                'role_title': '',
+                'role title': '',
                 'linkedin': '',
                 'email address': '',
             },

@@ -34,7 +34,7 @@ const CommentField = () => {
     return (
         <Container $isCommentSectionOpen={isCommentSectionOpen}>
             <Typography padding={'5px 10px'} variant="h4">Comments</Typography>
-            <TextField value={commentValue} InputProps={{readOnly: true}} placeholder="Add your comments here" fullWidth multiline/>
+            <TextField aria-readonly variant="standard" value={commentValue} InputProps={{readOnly: true}} placeholder="Add your comments here" fullWidth multiline/>
         </Container>
     )
 }

@@ -64,7 +64,7 @@ const PdfTemplate2 = ({ resume }: { resume: ResumeContentType }) => {
                     {resume?.generalInfo?.["first name"] && <div style={{ fontSize: '2.5rem' }}>{(resume.generalInfo["first name"]).toLocaleUpperCase()}</div>}
                     {resume?.generalInfo?.["last name"] && <div style={{ fontSize: '2.5rem' }}>{(resume.generalInfo["last name"]).toLocaleUpperCase()}</div>}
                 </NameWrapper>
-                {resume?.generalInfo?.role_title && <RoleTile>{resume.generalInfo.role_title.toUpperCase()}</RoleTile>}
+                {resume?.generalInfo?.["role title"] && <RoleTile>{resume.generalInfo["role title"].toUpperCase()}</RoleTile>}
             </Header>
             <BodyWrapper>
                 {/** CONTACT SECTION  */}

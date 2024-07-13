@@ -28,7 +28,7 @@ export const MockResumes: ResumeGroup = {
                     'fra': '3',
                     'eng': '2',
                 },
-                role_title: "",
+                "role title": "",
                 linkedin: ""
             },
             education: {
@@ -256,7 +256,7 @@ export const MockResumes: ResumeGroup = {
                     'fra': '2',
                     'eng': '3',
                 },
-                role_title: "",
+                "role title": "",
                 linkedin: ""
             },
             education: {
