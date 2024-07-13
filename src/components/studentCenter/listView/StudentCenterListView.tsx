@@ -1,5 +1,7 @@
-import { capitalize } from "@mui/material";
+
+import { Button, capitalize } from "@mui/material";
 import { ResumeGroup } from "@types";
+import HelpIcon from "assets/Icons/HelpIcon";
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +9,7 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { STRINGS_ENG } from "../../../assets/stringConstants";
 import { capitalizeEveryWord } from "../../../utils/stringUtils";
+import FAQModal from './FAQModal';
 import ResumeTable from "./ResumeTable";
 
 type ListViewProps = {
@@ -15,9 +18,8 @@ type ListViewProps = {
 
 const HeaderSection = styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
+    flex-direction: column;
+    width: 100%;
 `;
 
 const NewResumeButton = styled.button`
@@ -55,6 +57,7 @@ const StudentCenterListView = (props: ListViewProps) => {
     const nav = useNavigate();
     const [resumeIDs, setResumeIDs] = useState<string[]>([]);
     const [userResumes, setUserResumes] = useState<ResumeGroup>();
+    const [isHelpModalOpened, setIsHelpModalOpened] = useState<boolean>(false);
 
     /**
      * FETCHING - User resumes IDs
@@ -91,11 +94,24 @@ const StudentCenterListView = (props: ListViewProps) => {
         nav(`/builder/${resumeID}`)
     }, [nav, userID]);
 
+    const handleClickHelpModal = () => {
+        setIsHelpModalOpened(true);
+    }
+    const handleCloseHelpDialog = () => {
+        setIsHelpModalOpened(false);
+    }
+
     return (
         <Container data-test-id={'student-center-list-view'}>
+            <FAQModal handleCloseHelpDialog={handleCloseHelpDialog} isHelpModalOpened={isHelpModalOpened} />
             <HeaderSection>
-                <PageHeader>{capitalize(STRINGS_ENG.resumes)}</PageHeader>  
-                {userResumes ? (<NewResumeButton onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</NewResumeButton>) : (<></>)}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
+                <Button onClick={handleClickHelpModal} sx={{ display: 'flex', alignItems: 'center', gap: '5px' }} variant="outlined" size="large" color="info"><HelpIcon width={15}  fill={'rgba(5, 138, 209, 0.79)'} height={15}/>Help</Button>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 15px' }}>
+                    <PageHeader>{capitalize(STRINGS_ENG.resumes)}</PageHeader>  
+                    {userResumes ? (<NewResumeButton onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</NewResumeButton>) : (<></>)}
+                </div>
             </HeaderSection>
             <ContentContainer>
                 {userResumes ? 

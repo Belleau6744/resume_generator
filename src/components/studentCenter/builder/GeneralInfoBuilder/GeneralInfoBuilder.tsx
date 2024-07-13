@@ -1,10 +1,25 @@
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Alert, Button, InputLabel, TextField } from "@mui/material";
+import { GeneralInfoType, LanguageType } from '@types';
 import { useCallback, useMemo, useRef } from "react";
 import styled from "styled-components";
 import { capitalizeEveryWord } from "../../../../utils/stringUtils";
 import { useResumeContext } from "../useResumeContext";
 import LanguagePicker from "./LanguagePicker/LanguagePicker";
+
+const sortGeneralInfo = (info: GeneralInfoType): [string, string][] => {
+    const order = [
+        'first name',
+        'last name',
+        'email address',
+        'phone number',
+        'role title',
+        'linkedin',
+        'languages',
+        
+    ];
+    return order.map(key => [key, info[key]]);
+};
 
 const GeneralInfoBuilder = () => {
     const {
@@ -16,8 +31,10 @@ const GeneralInfoBuilder = () => {
       } = useResumeContext();
 
     const content = useMemo(() => {
-        return currentResume.content.generalInfo;
+        return sortGeneralInfo(currentResume.content.generalInfo);
     }, [currentResume.content.generalInfo]);
+
+    const languages = content.find(item => item[0] === 'languages')?.[1] as LanguageType;
     
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -46,7 +63,7 @@ const GeneralInfoBuilder = () => {
             <ContentWrapper>
                 <form ref={formRef}>
                     <FormContainer>
-                        {content && Object.entries(content).map((item, index) => {
+                        {content && content.map((item, index) => {
                             const inputName = item[0];
                             if (inputName !== 'languages') {
                                 return (
@@ -57,7 +74,7 @@ const GeneralInfoBuilder = () => {
                                         sx={{ flex: '1', minWidth: '100px' }}
                                         // label={capitalizeEveryWord(inputName)}
                                         type="text"
-                                        value={content[item[0]]?.toString()}
+                                        value={item[1]?.toString()}
                                         onChange={(e) => handleInputChangeGeneral(item[0], e.target.value)}
                                         />
                                     </InputWrapper>
@@ -67,7 +84,7 @@ const GeneralInfoBuilder = () => {
                         })}
                             
                         <ColumnsContainer>
-                            <LanguagePicker languages={content['languages']} setCurrentResume={setCurrentResume}/>
+                            <LanguagePicker languages={languages} setCurrentResume={setCurrentResume}/>
                         </ColumnsContainer>
                     </FormContainer>
                 </form>

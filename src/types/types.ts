@@ -10,7 +10,7 @@ export type GeneralInfoType = {
     'last name' : string;
     'languages' : LanguageType;
     'phone number': string;
-    'role_title': string;
+    'role title': string;
     'linkedin': string;
     'email address': string;
 }
