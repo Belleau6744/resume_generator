@@ -129,9 +129,10 @@ const ResumeBuilder = () => {
 
 const EditContent = styled.div`
     padding: 24px;
+    max-width: 100%;
     flex: 1;
+    overflow: hidden;
     background: #D2D2D2;
-    width: 100%;
     margin: 0 10px 10px 25px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

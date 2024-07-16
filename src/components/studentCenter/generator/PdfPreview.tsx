@@ -62,10 +62,6 @@ const PdfPreview = () => {
         captureAndPrint(currentResume, Layouts[layoutID]);
     }, [currentResume, layoutID]);
 
-    useEffect(() => {
-        console.log(layoutID);
-    }, [layoutID]);
-
     const CurrentLayout = useMemo(() => {
         switch(layoutID) {
             case '1':

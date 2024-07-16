@@ -86,7 +86,6 @@ const EducationBuilder = () => {
                     {content && Object.keys(content).length > 0 && (
                         <TableBody>
                         {Object.entries(content).map((item) => {
-                            console.log(item)
                             return (
                                 <TableRow
                                     key={item[0]}

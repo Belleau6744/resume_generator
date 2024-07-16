@@ -1,6 +1,6 @@
-import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Button, capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from "@mui/material";
 import { WorkingExperience } from "@types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
@@ -19,6 +19,8 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
     const { setCurrentResume } = useResumeContext();
     const [ isWorkingExperienceModalOpened, setIsWorkingExperienceModalOpened] = useState<boolean>(false);
     const [editingID, setEditinID] = useState<string | undefined>(undefined);
+    const [ cellWidth, setCellWidth ] = useState<number>(0);
+    const rowRef = useRef<HTMLDivElement>(null);
 
     const deleteSelectedExperience = (experienceIndex: string) => {
         setCurrentResume(prev => {
@@ -47,9 +49,15 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
         setIsWorkingExperienceModalOpened(true);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        setCellWidth(Math.floor(+(rowRef?.current?.clientWidth)/7));
+    });
+
     return (
         <div
         role="tabpanel"
+        ref={rowRef}
         hidden={value !== index}
         id={`experience-tabpanel-${index}`}
         aria-labelledby={`experience-tab-${index}`}
@@ -62,12 +70,11 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
             {isWorkingExperienceModalOpened && <CreateWorkingExperience workingExperience={workingExperience} editingID={editingID} isModalOpened={isWorkingExperienceModalOpened} setIsModalOpened={setIsWorkingExperienceModalOpened} />}
             <TableHead sx={{ background: '#BEBEBE' }}>
                 <TableRow>
-                    <TableCell sx={{ fontWeight: '800' }}>Job Title</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }}>Organization Name</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }}>Description</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }}>Start Date</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }}>End Date</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }}>Edit</TableCell>
+                    <TableCell sx={{ fontWeight: '800' }} align="left">Job Title</TableCell>
+                    <TableCell sx={{ fontWeight: '800' }} align="left">Organization Name</TableCell>
+                    <TableCell sx={{ fontWeight: '800' }} align="left">Start Date</TableCell>
+                    <TableCell sx={{ fontWeight: '800' }} align="left">End Date</TableCell>
+                    <TableCell sx={{ fontWeight: '800' }} align="center">Edit</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="center">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
                             {STRINGS_ENG.adding.plus_workingExperience}
@@ -79,13 +86,36 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
             <TableBody>
                 {workingExperience && Object.keys(workingExperience).map((item, index) => (
                     <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell component="th" scope="row">{workingExperience[item].jobTitle}</TableCell>
-                        <TableCell component="th" scope="row">{workingExperience[item].organizationName}</TableCell>
-                        <TableCell component="th" scope="row">{workingExperience[item].taskDescription}</TableCell>
-                        <TableCell component="th" scope="row">{workingExperience[item].startDate}</TableCell>
+                        <TableCell component="th" scope="row" sx={{maxWidth: `${cellWidth}px`}}>
+                            <Tooltip title={capitalize(workingExperience[item].jobTitle)}>
+                                <div style={{ textOverflow: 'ellipsis', textWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden'}}>
+                                    {capitalize(workingExperience[item].jobTitle)}
+                                </div>
+                            </Tooltip>
+                        </TableCell>
+                        <TableCell component="th" scope="row" sx={{maxWidth: `${cellWidth}px`}}>
+                            <Tooltip title={capitalize(workingExperience[item].organizationName)}>
+                                <div style={{ textOverflow: 'ellipsis', textWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden'}}>
+                                    {capitalize(workingExperience[item].organizationName)}
+                                </div>
+                            </Tooltip>
+                        </TableCell>
+                        <TableCell component="th" scope="row" sx={{maxWidth: `${cellWidth}px`}}>
+                            <Tooltip title={capitalize(workingExperience[item].startDate)}>
+                                <div style={{ textOverflow: 'ellipsis', textWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden'}}>
+                                    {capitalize(workingExperience[item].startDate)}
+                                </div>
+                            </Tooltip>
+                        </TableCell>
                         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                         {/* @ts-ignore */}
-                        <TableCell component="th" scope="row">{workingExperience[item].stillWorking === true ? STRINGS_ENG.still_working : workingExperience[item].endDate}</TableCell>
+                        <TableCell component="th" scope="row" sx={{maxWidth: `${cellWidth}px`}}>
+                            <Tooltip title={capitalize(workingExperience[item].stillWorking === true ? STRINGS_ENG.still_working : workingExperience[item].endDate)}>
+                                <div style={{ textOverflow: 'ellipsis', textWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden'}}>
+                                    {capitalize(workingExperience[item].stillWorking === true ? STRINGS_ENG.still_working : workingExperience[item].endDate)}
+                                </div>
+                            </Tooltip>
+                        </TableCell>
                         <TableCell align="center">
                             <IconButton aria-label="comment" type='button' onClick={() => editExperience(item)}>
                                 <EditIcon width={20} height={20} />
