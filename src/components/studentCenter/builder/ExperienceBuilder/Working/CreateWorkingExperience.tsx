@@ -84,7 +84,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal style={{ background: 'white', padding: '25px' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
+        <Modal style={{ background: 'white', padding: '25px', maxHeight: '90vh', overflow: 'hidden' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
             <Heading slot="title">{STRINGS_ENG.adding.addNewWorkingExperience.toUpperCase()}</Heading>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -168,11 +168,11 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Description'}</InputLabel>
                     <TextField
                     multiline
-                    inputProps={{ style: { resize: "both" } }}
+                    inputProps={{ style: { resize: "block" } }}
                     variant='filled'
                     error={inputErrors.taskDescription}
-                    sx={{ flex: '1', minWidth: '100px' }}
-                    label={'taskDescription'}
+                    sx={{ flex: '1', minWidth: '100px', textOverflow: 'ellipsis', overflow: 'auto', maxHeight: '300px' }}
+                    label={'Task Description'}
                     type="text"
                     value={selectedWorkingExperience.taskDescription}
                     onChange={(e) => handleInputChange('taskDescription', e.target.value)}

@@ -95,7 +95,7 @@ const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, editing
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal style={{ background: 'white', padding: '25px' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
+        <Modal style={{ background: 'white', padding: '25px', maxHeight: '90vh', overflow: 'hidden' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
             <Heading slot="title">{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</Heading>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -179,10 +179,10 @@ const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, editing
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Description'}</InputLabel>
                     <TextField
                     multiline
-                    inputProps={{ style: { resize: "both" } }}
+                    inputProps={{ style: { resize: "block" } }}
                     variant='filled'
                     error={inputErrors.description}
-                    sx={{ flex: '1', minWidth: '100px' }}
+                    sx={{ flex: '1', minWidth: '100px', textOverflow: 'ellipsis', overflow: 'auto', maxHeight: '300px' }}
                     label={'Description'}
                     type="text"
                     value={selectedVolunteeringExperience.description}

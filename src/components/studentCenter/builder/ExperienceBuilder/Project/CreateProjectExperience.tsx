@@ -69,13 +69,13 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, p
     }
 
     return (
-        <Modal style={{ background: 'white', padding: '25px' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
+        <Modal style={{ background: 'white', padding: '25px', maxHeight: '90vh', overflow: 'hidden' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
             <Heading slot="title">{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</Heading>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Title */}
                 <InputWrapper>
-                    <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Job Title'}</InputLabel>
+                    <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Project Title'}</InputLabel>
                     <TextField
                     variant='filled'
                     error={inputErrors.title}
@@ -89,12 +89,12 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, p
 
                 {/* Description */}
                 <InputWrapper>
-                    <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Organization Name'}</InputLabel>
+                    <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Project Description'}</InputLabel>
                     <TextField
                     variant='filled'
                     sx={{ flex: '1', minWidth: '100px' }}
                     error={inputErrors.description}
-                    label={'Organization Name'}
+                    label={'Description'}
                     type="text"
                     value={selectedProjectExperience.description}
                     onChange={(e) => handleInputChange('description', e.target.value)}
