@@ -1,6 +1,6 @@
 import RateReview from '@mui/icons-material/RateReview';
 import Verified from '@mui/icons-material/Verified';
-import { Alert, Snackbar, SpeedDial } from "@mui/material";
+import { Alert, Button, Snackbar, SpeedDial } from "@mui/material";
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { ResumeDefinition } from "@types";
@@ -27,6 +27,14 @@ const Container = styled.div`
     color: black;
 `;
 
+const ButtonContainer = styled.div`
+    display: flex;
+    padding: 30px 0;
+    background: #cfcfcf;
+    border-radius: 6px;
+    justify-content: space-around;
+`;
+
 const ReviewCenter = () => {
     const { resumeID } = useParams();
     const dbRef = ref(getDatabase());
@@ -38,6 +46,10 @@ const ReviewCenter = () => {
 
     const handleSubmitComments = () => {
         setIsConfirmRevisionOpen(true);
+    }
+
+    const handleCreateNewComment = () => {
+        // TODO
     }
 
     const handleApproveResume = () => {
@@ -86,8 +98,7 @@ const ReviewCenter = () => {
     }, [userResume]);
     
     const actions = [
-        { icon: <RateReview />, name: 'Request Revisions', onClick: handleSubmitComments},
-        { icon: <Verified />, name: 'Approve', onClick: handleApproveResume},
+        { icon: <RateReview />, name: 'Add new comment', onClick: handleCreateNewComment},
       ];
 
     /**
@@ -105,7 +116,13 @@ const ReviewCenter = () => {
 
     return (
         <Container>
-            <ResumeContent content={userResume?.content}/>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '75%', padding: '0 30px 0 20px'}}>
+                <ResumeContent content={userResume?.content}/>
+                <ButtonContainer>
+                    <Button size='large' sx={{display: 'flex', gap: '5px', alignItems: 'center'}} color='info' variant="contained" onClick={handleSubmitComments}><RateReview/>Request Revision</Button>
+                    <Button size='large' sx={{display: 'flex', gap: '5px', alignItems: 'center'}} color='success' variant="contained" onClick={handleApproveResume}><Verified/>Approve Resume</Button>
+                </ButtonContainer>
+            </div>
             <CommentField commentInput={commentInput} setCommentInput={setCommentInput}/>
             <ConfirmApproveModal 
                 setSubmissionStatus={setSubmissionStatus} 
@@ -132,11 +149,11 @@ const ReviewCenter = () => {
                     variant="filled"
                     sx={{ width: '100%' }}
                 >{getDeletionStatusString(submissionStatus.status, submissionStatus.reason)}</Alert>
-             </Snackbar>
+             </Snackbar>            
 
             <SpeedDial
-                ariaLabel="SpeedDial basic example"
-                sx={{ position: 'fixed', bottom: 20, right: 40 }}
+                ariaLabel="Create comment speeddial"
+                sx={{ position: 'fixed', bottom: 40, right: 50 }}
                 icon={<SpeedDialIcon />}
             >
                 {actions.map((action) => (

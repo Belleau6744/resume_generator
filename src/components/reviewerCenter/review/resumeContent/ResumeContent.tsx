@@ -10,7 +10,7 @@ type ResumeContentProps = {
 
 const ResumeContent = ({ content }: ResumeContentProps) => {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', width: '75%', padding: '0 30px 0 20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             {/* General Info */}
             <ReviewGeneralSection generalInfo={content?.generalInfo}/>
 
