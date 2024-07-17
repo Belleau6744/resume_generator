@@ -92,9 +92,9 @@ const TabVolunteeringExperience = (props: TabPanelProps) => {
                             </div>
                             </Tooltip>
                         </TableCell>
-                        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                        {/* @ts-ignore */}
                         <TableCell component="th" scope="row" sx={{maxWidth: `${cellWidth}px`}}>
+                            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                            {/* @ts-ignore */}
                             <Tooltip title={capitalize(volunteeringExperience[item].stillWorking === true ? STRINGS_ENG.still_working : volunteeringExperience[item].endDate)}>
                                 <div style={{ textOverflow: 'ellipsis', textWrap: 'nowrap', whiteSpace: 'nowrap', overflow: 'hidden'}}>
                                 {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
