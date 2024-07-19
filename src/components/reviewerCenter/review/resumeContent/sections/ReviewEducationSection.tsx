@@ -15,9 +15,9 @@ const ReviewEducationSection = ({ education }: ReviewEducationSectionProps) => {
     return (
         <div style={{ marginBottom: '20px' }}>
             <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} marginBottom={'20px'} fontWeight={800}>Education</Typography>
-            {education && Object.keys(education).map(item => {
+            {education && Object.keys(education).map((item, index) => {
                 return (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}} key={index}>
                         <Typography variant="h5">&#x2022;&nbsp;{education[item].degree}</Typography>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px' }}>
                             {

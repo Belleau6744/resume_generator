@@ -229,6 +229,16 @@ export type IconProps = {
 /** RESUMES DB DEFINITION */
 
 export type  ResumeStatusType = 'reviewed' | 'new' | 'submitted' | 'approved';
+
+export type CommentType = {
+    date: string;
+    content: string
+}
+
+export type CommentsType = {
+    [id: string]: CommentType;
+}
+
 /**
  * A resume is defined by 
  */
@@ -236,7 +246,7 @@ export type ResumeDefinition = {
     status: ResumeStatusType;
     creationDate: string;
     content: ResumeContentType;
-    comment?: string;
+    comments?: CommentsType;
     submissionDate?: string;
     lastReviewDate?: string;
 }

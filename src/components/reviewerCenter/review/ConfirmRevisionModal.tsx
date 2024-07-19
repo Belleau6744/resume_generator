@@ -1,5 +1,5 @@
 import { Alert, Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { ResumeDefinition } from "@types";
+import { CommentsType, ResumeDefinition } from "@types";
 import { saveResume } from "firebase/db_actions";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 type ConfirmRevisionModalProps = {
     isConfirmRevisionOpen: boolean;
     setIsConfirmRevisionOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    commentInput: string;
+    commentInput: CommentsType;
     setUserResume: (value: React.SetStateAction<ResumeDefinition>) => void;
     setSubmissionStatus: React.Dispatch<React.SetStateAction<{
         open: boolean;
@@ -23,7 +23,7 @@ const ConfirmRevisionModal = ({ isConfirmRevisionOpen, setUserResume, commentInp
     const handleCloseRevision = (status: 'continue' | 'cancel') => {
         if (status === 'continue') {
             setUserResume(prev => {
-                const newResume: ResumeDefinition = {...prev, comment: commentInput, status: 'reviewed'};
+                const newResume: ResumeDefinition = {...prev, comments: commentInput, status: 'reviewed'};
                 saveResume(newResume, resumeID).then(() => {
                     setSubmissionStatus({open: true, status: 'success', reason: 'revise'});
                 });

@@ -16,6 +16,9 @@ const ConfirmEditingModal = ({ open, onClose, resumeID, setIsConfirmEditingOpen 
                     <Alert severity='warning'>
                         By editing your resume, it will reset its status. It will remove it from the submitted list and mark it back as unapproved
                     </Alert>
+                    <Alert  sx={{ marginTop: '20px' }} severity="info">
+                        You resume's comments are accessible through the preview page.
+                    </Alert>
                     <div style={{ display: 'flex', paddingTop: '12px', width: '100%', justifyContent: 'flex-end', gap: '12px' }}>
                         <Button variant='outlined' color='error' onClick={() => {
                             setIsConfirmEditingOpen(false);

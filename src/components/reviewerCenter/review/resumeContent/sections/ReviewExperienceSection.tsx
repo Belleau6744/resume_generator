@@ -19,9 +19,9 @@ const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) =
             {/* Working Experience */}
             <div style={{ paddingLeft: '12px' }}>
                 <Typography borderBottom={'1px solid black'} variant="h5">{"Working Experience"}</Typography>
-                {experience?.workingExperience && Object.keys(experience.workingExperience).map(item => {
+                {experience?.workingExperience && Object.keys(experience.workingExperience).map((item, index) => {
                     return (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px' }} key={index}>
                             <Typography variant="h5">&#x2022;&nbsp;{experience.workingExperience[item].organizationName ?? 'Unknown Organization'}</Typography>
                             
                             {experience.workingExperience[item].jobTitle &&
@@ -52,9 +52,9 @@ const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) =
 
             {/* Project Experience */}
             <Typography borderBottom={'1px solid black'} marginTop={'12px'} variant="h5">{"Project Experience"}</Typography>
-            {experience?.projectExperience && Object.keys(experience.projectExperience).map(item => {
+            {experience?.projectExperience && Object.keys(experience.projectExperience).map((item, index) => {
                 return (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px', marginBottom: '12px' }} key={index}>
                         <div style={{ display: 'flex', alignItems: 'baseline', width: '100%'}}>
                             <InputLabel sx={{ width: '130px' }}>Title</InputLabel>
                             <StyledTextField multiline sx={{ flex: '1'}} variant="outlined" InputProps={{readOnly: true}} value={experience.projectExperience[item].title}/>
@@ -69,9 +69,9 @@ const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) =
 
             {/* Volunteering Experience */}
             <Typography borderBottom={'1px solid black'} marginTop={'12px'} variant="h5">{"Volunteering Experience"}</Typography>
-            {experience?.volunteerExperience && Object.keys(experience.volunteerExperience).map(item => {
+            {experience?.volunteerExperience && Object.keys(experience.volunteerExperience).map((item, index) => {
                 return (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'baseline', paddingLeft: '12px', paddingTop: '12px', marginBottom: '12px' }} key={index}>
                         <Typography variant="h5">&#x2022;&nbsp;{experience.volunteerExperience[item].organizationName ?? 'Unknown Organization'}</Typography>
 
 
