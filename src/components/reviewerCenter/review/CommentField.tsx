@@ -1,7 +1,9 @@
-import { Card, CardContent, CardHeader, Divider, TextField, Typography } from "@mui/material";
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { Button, Card, CardContent, CardHeader, Divider, TextField, Typography } from "@mui/material";
 import { CommentsType } from "@types";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
+import ConfirmRemoveCommentModal from './ConfirmRemoveCommentModal';
 
 const Container = styled.div`
     flex: 1;
@@ -15,6 +17,7 @@ type CommentFieldProps = {
 
 
 const CommentField = ({ setCommentInput, commentInput, originalCommentInput }: CommentFieldProps) => {
+    const [ deleteCommentModal, setDeleteCommentModal ] = useState<{ open: boolean, commentID?: string}>({ open: false });
 
     const separateIdAndDate = (IdDate: string): string[] => {
         return IdDate.split("_");
@@ -32,8 +35,11 @@ const CommentField = ({ setCommentInput, commentInput, originalCommentInput }: C
         return previousComments;
     }, [commentInput, originalCommentInput]);
 
+    const handleDeleteComment = (id: string) => {
+        setDeleteCommentModal({ open: true, commentID: id});
+    }
+
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log(event.target.id);
         const IdDate = separateIdAndDate(event.target.id);
         console.log(IdDate);
         setCommentInput(prev => ({
@@ -48,6 +54,11 @@ const CommentField = ({ setCommentInput, commentInput, originalCommentInput }: C
     return (
         <Container>
             <Typography padding={'5px 10px'} variant="h4">Comments</Typography>
+            <ConfirmRemoveCommentModal 
+                deleteCommentModal={deleteCommentModal}
+                setDeleteCommentModal={setDeleteCommentModal}
+                setCommentInput={setCommentInput}
+            />
             {commentInput && Object.entries(commentInput).map((value) => {
                 const id = value[0];
                 const date = value[1].date;
@@ -67,7 +78,7 @@ const CommentField = ({ setCommentInput, commentInput, originalCommentInput }: C
                         }}
                         key={id}
                     >
-                        <CardHeader color="black" title={date} />
+                        <CardHeader color="black" title={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>{date}<Button size='small' onClick={() => handleDeleteComment(id)}><ClearOutlinedIcon color="action" /></Button></div>} />
                         <Divider />
                         <CardContent>
                             <TextField 
