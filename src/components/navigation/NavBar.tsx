@@ -6,11 +6,11 @@ import styled from "styled-components";
 import HomeIcon from "../../assets/Icons/HomeIcon";
 import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
-import { capitalizeEveryWord } from "../../utils/stringUtils";
 
 const NavBar = () => {
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
-    const userRole = useSelector(Features.UserFeature.selector.getUserRole);
+    const firstName = useSelector(Features.UserFeature.selector.getUserFirstName);
+    const lastName = useSelector(Features.UserFeature.selector.getUserLastName);
     const nav = useNavigate();
 
     const handleLogout = () => {
@@ -27,7 +27,7 @@ const NavBar = () => {
             <IconButton onClick={() => nav("/")}>
                 <HomeIcon />
             </IconButton>
-            <div style={{ color: 'white' }}>{userRole && capitalizeEveryWord(userRole)}&nbsp;Account</div>
+            <div style={{ color: 'white' }}>{firstName?.toLocaleUpperCase()}&nbsp;{lastName?.toLocaleUpperCase()}</div>
             <div>
                 <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
             </div>

@@ -2,7 +2,7 @@ import { FormControl, FormControlLabel, FormLabel, InputAdornment, TextField } f
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { UserRole } from "@types";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -19,24 +19,39 @@ import { Features } from "../../redux/features";
 import { capitalizeEveryWord } from "../../utils/stringUtils";
 import { validateEmail, validateKey, validatePassword } from "../../utils/validation";
 
-type ErrorsType = 'emailError' | 'passwordError' | 'keyError';
+type ErrorsType = 'emailError' | 'passwordError' | 'keyError' | "firstNameError" | "lastNameError";
 
 const Signup = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
 
-    const [ email, setEmail ] = useState<string>('');
-    const [ password, setPassword ] = useState<string>('');
-    const [ userRole, setUserRole ] = useState<UserRole>('student');
-    const [ errors, setErrors ] = useState<Record<ErrorsType, string>>({emailError: '', passwordError: '', keyError: ''});
-    const [ accessKey, setAccessKey ] = useState<string>('');
+    const [ user, setUser ] = useState<{
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        userRole: UserRole,
+        errors: Record<ErrorsType, string>,
+        accessKey: string,
+    }>({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        userRole: "student",
+        errors: { emailError: "", passwordError: "", keyError: "", firstNameError: "", lastNameError: ""},
+        accessKey: ""
+    });
     const [ keysList, setKeysList ] = useState<[]>([]);
 
     /**
      * Update the user role selected
      */
     const handleChangeUserRole = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUserRole((event.target as HTMLInputElement).value as UserRole);
+        setUser(prev => ({
+            ...prev,
+            userRole: ((event.target as HTMLInputElement).value as UserRole)
+        }));
     };
 
     /**
@@ -58,15 +73,18 @@ const Signup = () => {
      * @param type Type of the input being updated: Email | Password | AccessKey
      */
     const handleInputChange = (
-        setter: React.Dispatch<React.SetStateAction<string | UserRole>>, 
+        fieldId: string, 
         inputValue: string | UserRole, 
         type: ErrorsType
     ) => {
-        setErrors(prev => ({
+        setUser(prev => ({
             ...prev,
-            [type]: ''
-        }));
-        setter(inputValue);
+            [fieldId]: inputValue,
+            errors: {
+                ...prev.errors,
+                [type]: ''
+            }
+        }))
     };
 
 
@@ -78,28 +96,39 @@ const Signup = () => {
         e.preventDefault();
         e.stopPropagation();
 
-        const currentErrors = {
-            emailError: '',
-            passwordError: '',
-            keyError: '',
+        const currentErrors: Record<ErrorsType, string> = {
+            emailError: "",
+            passwordError: "",
+            keyError: "",
+            firstNameError: "",
+            lastNameError: ""
         }
 
         /**
          * Validate inputs and update the associated errors
          */
-        currentErrors.emailError = validateEmail(email) ? '' : STRINGS_ENG.invalid_email; 
-        currentErrors.passwordError = validatePassword(password) ? '' : STRINGS_ENG.invalid_password;
-        currentErrors.keyError = (userRole === 'student' || 
-            (userRole === 'reviewer' && keysList && validateKey(accessKey, keysList))) ? '' : STRINGS_ENG.invalid_key;
-        setErrors(currentErrors);
+        currentErrors.emailError = validateEmail(user.email) ? '' : STRINGS_ENG.invalid_email; 
+        currentErrors.passwordError = validatePassword(user.password) ? '' : STRINGS_ENG.invalid_password;
+        currentErrors.firstNameError = user.firstName === "" ? STRINGS_ENG.firstName_required : "";
+        currentErrors.lastNameError = user.lastName === "" ? STRINGS_ENG.lastName_required : "";
+        currentErrors.keyError = (
+            user.userRole === 'student' || 
+            (
+                user.userRole === 'reviewer' && 
+                keysList && 
+                validateKey(user.accessKey, keysList)
+            )
+        ) ? 
+        '' : STRINGS_ENG.invalid_key;
+        setUser(prev => ({...prev, errors: currentErrors}));
 
         /**
          * Proceed if all inputs are free of error
          */
         if (Object.values(currentErrors).every(item => item === '')) {
-            await createUserWithEmailAndPassword(auth, email, password)
+            await createUserWithEmailAndPassword(auth, user.email, user.password)
                 .then((credentials) => {
-                    if (userRole === 'student') {
+                    if (user.userRole === 'student') {
                         initStudentDBSpace(credentials.user.uid).then(() => {
                             toast.success(capitalizeEveryWord(STRINGS_ENG.student_account_created), {
                                 position: "bottom-right",
@@ -112,12 +141,14 @@ const Signup = () => {
                                 theme: "light",
                                 transition: Bounce,
                             })
-                            dispatch(Features.UserFeature.action.setUserRole(userRole))
+                            dispatch(Features.UserFeature.action.setUserRole(user.userRole));
                             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
-                            dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
-                            // updateProfile(credentials.user, {
-                            //     displayName: 'student'
-                            // })
+                            dispatch(Features.UserFeature.action.setUserID(credentials.user.uid));
+                            updateProfile(credentials.user, {
+                                displayName: `${user.firstName}$$$${user.lastName}`
+                            })
+                            dispatch(Features.UserFeature.action.setUserFirstName(user.firstName));
+                            dispatch(Features.UserFeature.action.setUserLastName(user.lastName));
                         }).finally(() => {
                             nav("/");
                         });
@@ -134,12 +165,14 @@ const Signup = () => {
                                 theme: "light",
                                 transition: Bounce,
                             })
-                            dispatch(Features.UserFeature.action.setUserRole(userRole))
+                            dispatch(Features.UserFeature.action.setUserRole(user.userRole));
                             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
-                            dispatch(Features.UserFeature.action.setUserID(credentials.user.uid))
-                            // updateProfile(credentials.user, {
-                            //     displayName: 'reviewer'
-                            // })
+                            dispatch(Features.UserFeature.action.setUserID(credentials.user.uid));
+                            updateProfile(credentials.user, {
+                                displayName: `${user.firstName}$$$${user.lastName}`
+                            });
+                            dispatch(Features.UserFeature.action.setUserFirstName(user.firstName));
+                            dispatch(Features.UserFeature.action.setUserLastName(user.lastName));
                         }).finally(() => {
                             nav("/");
                         });
@@ -162,12 +195,12 @@ const Signup = () => {
                         <TextField
                             label='Email'
                             type="email"
-                            error={errors.emailError !== ''}
-                            helperText={errors.emailError}
-                            value={email}
-                            onChange={(e) => handleInputChange(setEmail, e.target.value, 'emailError')}
-                            // placeholder="Email Address"
+                            error={user.errors.emailError !== ''}
+                            helperText={user.errors.emailError}
+                            value={user.email}
+                            onChange={(e) => handleInputChange("email", e.target.value, 'emailError')}
                             InputProps={{
+                                placeholder: "Email Address",
                                 startAdornment: (
                                     <InputAdornment position="start">
                                     <UserIcon />
@@ -178,12 +211,12 @@ const Signup = () => {
                         <TextField
                             type="password"
                             label='Password'
-                            error={errors.passwordError !== ''}
-                            helperText={errors.passwordError}
-                            value={password}
-                            onChange={(e) => handleInputChange(setPassword, e.target.value, 'passwordError')}
-                            // placeholder="Password"
+                            error={user.errors.passwordError !== ''}
+                            helperText={user.errors.passwordError}
+                            value={user.password}
+                            onChange={(e) => handleInputChange("password", e.target.value, 'passwordError')}
                             InputProps={{
+                                placeholder: "Password",
                                 startAdornment: (
                                     <InputAdornment position="start">
                                     <LockIcon />
@@ -191,11 +224,44 @@ const Signup = () => {
                                 ),
                                 }}
                             />
+                        <TextField
+                            label='First Name'
+                            type="text"
+                            error={user.errors.firstNameError !== ''}
+                            helperText={user.errors.firstNameError}
+                            value={user.firstName}
+                            onChange={(e) => handleInputChange("firstName", e.target.value, 'firstNameError')}
+                            InputProps={{
+                                placeholder: "First Name",
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <UserIcon />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        <TextField
+                            label='Last Name'
+                            type="text"
+                            error={user.errors.lastNameError !== ''}
+                            helperText={user.errors.lastNameError}
+                            value={user.lastName}
+                            onChange={(e) => handleInputChange("lastName", e.target.value, 'lastNameError')}
+                            InputProps={{
+                                placeholder: "Last Name",
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                    <UserIcon />
+                                    </InputAdornment>
+                                ),
+                                }}
+                        />
+                        
                         
                         <FormControl sx={{ display: 'flex'}}>  
                             <FormLabel sx={{ color: 'black', fontWeight: '700' }} focused={false} id="user-role-select-label">{'User Role'}</FormLabel>
                             <RadioGroup
-                                value={userRole}
+                                value={user.userRole}
                                 onChange={handleChangeUserRole}
                                 aria-labelledby="user-role-select"
                                 defaultValue={'student'}
@@ -206,14 +272,14 @@ const Signup = () => {
                                 <FormControlLabel value={'reviewer'} control={<Radio />} label={capitalizeEveryWord(STRINGS_ENG.reviewer_role)} />
                             </RadioGroup>
                         </FormControl>
-                        {userRole === 'reviewer' && (
+                        {user.userRole === 'reviewer' && (
                             <TextField
                                 type='text'
                                 label={STRINGS_ENG.enter_access_key}
-                                error={errors.keyError !== ''}
-                                helperText={errors.keyError}
-                                value={accessKey}
-                                onChange={(e) => handleInputChange(setAccessKey, e.target.value, 'keyError')}
+                                error={user.errors.keyError !== ''}
+                                helperText={user.errors.keyError}
+                                value={user.accessKey}
+                                onChange={(e) => handleInputChange("accessKey", e.target.value, 'keyError')}
                             />
                         )}
                     </InputsWrapper>

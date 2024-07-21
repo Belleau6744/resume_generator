@@ -1,7 +1,10 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { MouseEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { Features } from 'redux/features';
 import styled from 'styled-components';
+import { getFirstLastNameFromDisplayName } from 'utils/stringUtils';
 import LockIcon from '../../assets/Icons/LockIcon';
 import UserIcon from '../../assets/Icons/UserIcon';
 import { STRINGS_ENG } from '../../assets/stringConstants';
@@ -9,6 +12,7 @@ import { auth } from '../../firebase/firebase';
 
 const Login = () => {
     const nav = useNavigate();
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +20,10 @@ const Login = () => {
     const onLogin = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        .then((auth) => {
+            const { firstName, lastName } = getFirstLastNameFromDisplayName(auth.user.displayName);
+            dispatch(Features.UserFeature.action.setUserFirstName(firstName));
+            dispatch(Features.UserFeature.action.setUserLastName(lastName));
             nav("/");
         })
         .catch((error) => {

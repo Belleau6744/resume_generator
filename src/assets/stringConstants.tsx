@@ -14,6 +14,8 @@ const invalid_key = 'invalid key';
 const enter_access_key = 'Please enter the access key you received';
 const password_must = `Password must: `;
 const create_first_resume = `Create your first resume`;
+const firstName_required = "Please enter your first name";
+const lastName_required = "Please enter your last name";
 const resumes = 'resumes';
 const new_resume = 'new resume';
 const still_working = 'still working';
@@ -96,5 +98,7 @@ export const STRINGS_ENG =  {
     resume_deletion_status,
     resume_to_review_title,
     resume_approval_status,
-    resume_ask_revision_status
+    resume_ask_revision_status,
+    firstName_required,
+    lastName_required
 }
