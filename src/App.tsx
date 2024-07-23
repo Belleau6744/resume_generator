@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getFirstLastNameFromDisplayName } from 'utils/stringUtils';
 import './App.css';
 import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
@@ -25,6 +26,9 @@ const App = () => {
       if (user) {
         dispatch(Features.UserFeature.action.setUserAuthStatus(true));
         dispatch(Features.UserFeature.action.setUserID(user.uid));
+        const { firstName, lastName } = getFirstLastNameFromDisplayName(user.displayName);
+        dispatch(Features.UserFeature.action.setUserFirstName(firstName));
+        dispatch(Features.UserFeature.action.setUserLastName(lastName));
       } else {
         dispatch(Features.UserFeature.action.setUserAuthStatus(false));
       }
