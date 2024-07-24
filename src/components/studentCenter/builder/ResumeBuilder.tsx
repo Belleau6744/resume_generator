@@ -132,7 +132,7 @@ const EditContent = styled.div`
     max-width: 100%;
     flex: 1;
     overflow: hidden;
-    background: #D2D2D2;
+    background: #FAFAFA;
     margin: 0 10px 10px 25px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -161,17 +161,14 @@ const ItemSelect = styled.div<{ $selected: boolean }>`
 const SectionSelector = styled.div`
     display: flex;
     flex-direction: column;
-    background: #D2D2D2;
+    background: #FAFAFA;
     padding: 16px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     gap: 8px;
 `;
 
 const Container = styled.div`
-    background: white;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 24px;
-    margin: 24px;
     min-width: 700px;   
     display: flex;
     justify-content: space-between;

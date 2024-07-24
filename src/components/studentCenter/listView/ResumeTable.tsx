@@ -1,18 +1,18 @@
-import { Alert, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
-import { ResumeDefinition, ResumeGroup } from "@types"
-import DeleteIcon from "assets/Icons/DeleteIcon"
-import EditIcon from "assets/Icons/EditIcon"
-import OpenIcon from "assets/Icons/OpenIcon"
-import SendIcon from "assets/Icons/SendIcon"
-import { STRINGS_ENG } from "assets/stringConstants"
-import { child, get, getDatabase, ref } from "firebase/database"
-import { saveResume } from "firebase/db_actions"
-import { useCallback, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { capitalizeEveryWord } from "utils/stringUtils"
-import ConfirmDeletionModal from "./ConfirmDeletionModal"
-import ConfirmEditingModal from "./ConfirmEditingModal"
-import ConfirmSubmissionModal from "./ConfirmSubmissionModal"
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/Edit';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import SendIcon from '@mui/icons-material/Send';
+import { Alert, Button, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { ResumeDefinition, ResumeGroup } from "@types";
+import { STRINGS_ENG } from "assets/stringConstants";
+import { child, get, getDatabase, ref } from "firebase/database";
+import { saveResume } from "firebase/db_actions";
+import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { capitalizeEveryWord } from "utils/stringUtils";
+import ConfirmDeletionModal from "./ConfirmDeletionModal";
+import ConfirmEditingModal from "./ConfirmEditingModal";
+import ConfirmSubmissionModal from "./ConfirmSubmissionModal";
 
 type ResumeTableProps = {
     userResumes?: ResumeGroup;
@@ -183,15 +183,15 @@ const ResumeTable = ({ userResumes }: ResumeTableProps) => {
 
              {/** Content Table */}
              <Table aria-label="simple table">
-                <TableHead sx={{ background: '#BEBEBE' }}>
+                <TableHead sx={{ background: '#2C3E50' }}>
                     <TableRow>
                         {/* <TableCell align="center" sx={{ fontWeight: '800' }}>ID</TableCell> */}
-                        <TableCell align="left" sx={{ fontWeight: '800' }}>Creation Date</TableCell>
-                        <TableCell align="left" sx={{ fontWeight: '800' }}>Status</TableCell>
-                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0' }}>Edit</TableCell>
-                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0' }}>Submit</TableCell>
-                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0' }}>Preview</TableCell>
-                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0' }}>Delete</TableCell>
+                        <TableCell align="left" sx={{ fontWeight: '800', color: 'white' }}>Creation Date</TableCell>
+                        <TableCell align="left" sx={{ fontWeight: '800', color: 'white' }}>Status</TableCell>
+                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0', color: 'white' }}/>
+                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0', color: 'white' }}/>
+                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0', color: 'white' }}/>
+                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0', color: 'white' }}/>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -199,30 +199,30 @@ const ResumeTable = ({ userResumes }: ResumeTableProps) => {
                         return (
                             <TableRow
                                 key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 }, background: index%2 === 0 ? 'none' : 'rgba(193, 193, 193, 0.22)' }}
                             >
                                 {/* <TableCell align="center">{value.id}</TableCell> */}
                                 <TableCell align="left" sx={{ width: '100px' }}>{resumeContent[1].creationDate}</TableCell>
                                 <TableCell align="left" sx={{ fontWeight: '800', width: '100px' }}>{capitalizeEveryWord(resumeContent[1].status)}</TableCell>
                                 <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-                                    <IconButton onClick={() => handleEditResume(resumeContent[0])}>
-                                        <EditIcon width={20} height={20}/>    
-                                    </IconButton>
+                                    <Button color="warning" variant="outlined" startIcon={<EditIcon />} onClick={() => handleEditResume(resumeContent[0])}>
+                                        Edit
+                                    </Button>
                                 </TableCell>
                                 <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-                                    <IconButton onClick={() => handleSubmitResume(resumeContent[0])}>
-                                        <SendIcon width={20} height={20}/>
-                                    </IconButton>
+                                    <Button color="emeraldGreen" sx={{ color: 'white' }} variant="contained" onClick={() => handleSubmitResume(resumeContent[0])} startIcon={<SendIcon />}>
+                                        Submit
+                                    </Button>
                                 </TableCell>
                                 <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-                                    <IconButton onClick={() => handlePreviewResume(resumeContent[0])}>
-                                        <OpenIcon width={20} height={20}/>
-                                    </IconButton>
+                                    <Button color="primary" variant="contained" onClick={() => handlePreviewResume(resumeContent[0])} startIcon={<OpenInNewIcon />}>
+                                        Preview
+                                    </Button>
                                 </TableCell>
                                 <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-                                    <IconButton onClick={() => handleDeleteResume(resumeContent[0])}>
-                                        <DeleteIcon width={20} height={20}/>
-                                    </IconButton>
+                                    <Button color="carmineRed" variant="contained" onClick={() => handleDeleteResume(resumeContent[0])} startIcon={<DeleteOutlineIcon />}>
+                                        Delete
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         )

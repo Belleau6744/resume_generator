@@ -20,14 +20,14 @@ const ConfirmEditingModal = ({ open, onClose, resumeID, setIsConfirmEditingOpen 
                         You resume's comments are accessible through the preview page.
                     </Alert>
                     <div style={{ display: 'flex', paddingTop: '12px', width: '100%', justifyContent: 'flex-end', gap: '12px' }}>
-                        <Button variant='outlined' color='error' onClick={() => {
+                        <Button variant='outlined' color="error" onClick={() => {
                             setIsConfirmEditingOpen(false);
                             onClose(resumeID, 'cancel')
                             }}>
                                 Cancel
                         </Button>
 
-                        <Button variant='contained' color='info' onClick={() => {
+                        <Button variant='contained' color='primary' onClick={() => {
                             setIsConfirmEditingOpen(false);
                             onClose(resumeID, 'continue');
                             }}>

@@ -1,12 +1,11 @@
 :root {
-  font-family: Montserrat, Arial, Inter, system-ui, Avenir, Helvetica, sans-serif;
+  font-family: Roboto, Montserrat, Arial, Inter, system-ui, Avenir, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 500;
 
   color-scheme: light;
   color: white;
-  background-color: #1a1a1a !important;
-  color: black;
+  background-color: #ECF0F1 !important;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
