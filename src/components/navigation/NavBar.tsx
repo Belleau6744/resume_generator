@@ -42,7 +42,7 @@ const NavBar = () => {
             </IconButton>
             <div style={{ color: '#34495E' }}>{firstName?.toLocaleUpperCase()}&nbsp;{lastName?.toLocaleUpperCase()}</div>
             <div style={{ display: 'flex', gap: '20px' }}>
-                <Button onClick={handleClickHelpModal} sx={{ display: 'flex', alignItems: 'center', gap: '5px' }} variant="outlined" size="medium" color="charcoal"><HelpIcon fontSize='small'/>Help</Button>
+                <Button onClick={handleClickHelpModal} sx={{ display: 'flex', alignItems: 'center', gap: '5px' }} variant="outlined" size="medium" color="charcoal"><HelpIcon fontSize='small'/>FAQ</Button>
                 <Button variant='contained' color="midnightBlue" onClick={handleLogout}>Logout</Button>
             </div>
         </Container>

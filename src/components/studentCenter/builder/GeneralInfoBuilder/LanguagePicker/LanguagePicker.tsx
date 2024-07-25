@@ -43,11 +43,11 @@ const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) =>
         <Container>
             <PickerModal currentLanguages={languages} setCurrentResume={setCurrentResume} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>
             <Table aria-label="simple table">
-                <TableHead sx={{ background: '#BEBEBE' }}>
+                <TableHead sx={{ background: '#2C3E50' }}>
                     <TableRow>
-                        <TableCell sx={{ fontWeight: '800' }}>Language</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">Proficiency</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="right">
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }}>Language</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white'}} align="right">Proficiency</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="right">
                             <Button type="button" size='small' variant='contained' color='primary' onClick={handleAddNewLanguage}>
                                 + Add
                             </Button>

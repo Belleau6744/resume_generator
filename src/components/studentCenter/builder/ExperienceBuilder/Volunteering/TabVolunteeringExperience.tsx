@@ -54,14 +54,14 @@ const TabVolunteeringExperience = (props: TabPanelProps) => {
         <Table>
             {/* Volunteering Experience Modal */}
             {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} volunteeringExperience={volunteeringExperience} setIsModalOpened={setIsModalOpened} />}
-            <TableHead sx={{ background: '#BEBEBE' }}>
+            <TableHead sx={{ background: '#2C3E50' }}>
                 <TableRow>
-                    <TableCell sx={{ fontWeight: '800' }} align="left">Job Title</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }} align="left">Organization</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }} align="left">Start Date</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }} align="left">End Date</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }} align="center">Edit</TableCell>
-                    <TableCell sx={{ fontWeight: '500' }} align="center">
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">Job Title</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">Organization</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">Start Date</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">End Date</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Edit</TableCell>
+                    <TableCell sx={{ fontWeight: '500', color: 'white' }} align="center">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
                             {STRINGS_ENG.adding.plus_volunteeringExperience}
                         </Button>

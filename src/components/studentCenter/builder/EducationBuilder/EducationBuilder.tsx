@@ -66,15 +66,15 @@ const EducationBuilder = () => {
             </div>
             {isModalOpen && <EducationPickerModal educationID={editingID} content={content} setCurrentResume={setCurrentResume} isModalOpened={isModalOpen} setIsModalOpened={setIsModalOpen}/>}
             <Table aria-label="simple table">
-                <TableHead sx={{ background: '#BEBEBE' }}>
+                <TableHead sx={{ background: '#2C3E50' }}>
                     <TableRow>
-                        <TableCell sx={{ fontWeight: '800' }}>Degree</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="center">Field of Study</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="center">School Name</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="center">School Address</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="center">Start Date</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="center">End Date</TableCell>
-                        <TableCell sx={{ fontWeight: '800' }} align="center">Edit</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Degree</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Field of Study</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">School Name</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">School Address</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Start Date</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">End Date</TableCell>
+                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Edit</TableCell>
                         <TableCell sx={{ fontWeight: '800' }} align="right">
                             <Button type="button" size='small' variant='contained' color='primary' onClick={handleAddNewEducation}>
                                 + Add

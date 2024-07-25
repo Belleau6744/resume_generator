@@ -71,9 +71,9 @@ const CustomTabPanel = (props: TabPanelProps) => {
             </Button>
         </div>
         <Table>
-            <TableHead sx={{ background: '#BEBEBE' }}>
+            <TableHead sx={{ background: '#2C3E50' }}>
                 <TableRow>
-                    <TableCell sx={{ fontWeight: '800' }}>Skill</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }}>Skill</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="right">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={() => setIsSkillModalOpened(true)}>
                             + Add Skill

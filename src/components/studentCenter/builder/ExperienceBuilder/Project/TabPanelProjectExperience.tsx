@@ -67,11 +67,11 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
         <Table>
             {/* Project Experience Modal */}
             {isModalOpened && <CreateProjectExperience editingID={editingID} isModalOpened={isModalOpened} projectExperience={projectExperience} setIsModalOpened={setIsModalOpened} />}
-            <TableHead sx={{ background: '#BEBEBE' }}>
+            <TableHead sx={{ background: '#2C3E50' }}>
                 <TableRow>
-                    <TableCell sx={{ fontWeight: '800' }} align="left">Title</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }} align="left">Description</TableCell>
-                    <TableCell sx={{ fontWeight: '800' }} align="center">Edit</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">Title</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">Description</TableCell>
+                    <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Edit</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="center">
                         <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
                             {capitalize(STRINGS_ENG.adding.plus_projectExperience)}
