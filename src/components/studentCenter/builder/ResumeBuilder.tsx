@@ -1,4 +1,8 @@
-import { Button } from "@mui/material";
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import SchoolIcon from '@mui/icons-material/School';
+import WorkIcon from '@mui/icons-material/Work';
+import { Button, Typography } from "@mui/material";
 import { ResumeDefinition } from "@types";
 import HelpIcon from "assets/Icons/HelpIcon";
 import dayjs from "dayjs";
@@ -110,10 +114,11 @@ const ResumeBuilder = () => {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <Container data-test-id={'resume-builder'}>
                     <SectionSelector>
-                        <ItemSelect $selected={sectionEdit == 'generalInfo'} onClick={handleSelect('generalInfo')}>General Info</ItemSelect>
-                        <ItemSelect $selected={sectionEdit == 'education'} onClick={handleSelect('education')}>Education</ItemSelect>
-                        <ItemSelect $selected={sectionEdit == 'skills'} onClick={handleSelect('skills')}>Skills</ItemSelect>
-                        <ItemSelect $selected={sectionEdit == 'experience'} onClick={handleSelect('experience')}>Experience</ItemSelect>
+                        <Typography color={"#34495E"} variant="overline">Sections</Typography>
+                        <ItemSelect $selected={sectionEdit == 'generalInfo'} onClick={handleSelect('generalInfo')}><ManageAccountsIcon/>General</ItemSelect>
+                        <ItemSelect $selected={sectionEdit == 'education'} onClick={handleSelect('education')}><SchoolIcon/>Education</ItemSelect>
+                        <ItemSelect $selected={sectionEdit == 'skills'} onClick={handleSelect('skills')}><LightbulbIcon/>Skills</ItemSelect>
+                        <ItemSelect $selected={sectionEdit == 'experience'} onClick={handleSelect('experience')}><WorkIcon/>Experience</ItemSelect>
                         <Button onClick={handleSelect('help')} sx={{ display: 'flex', alignItems: 'center', gap: '4px' }} variant="outlined" size="small" color="info"><HelpIcon width={15}  fill={'rgba(5, 138, 209, 0.79)'} height={15}/>Help</Button>
                     </SectionSelector>
                     <EditContent>
@@ -139,7 +144,11 @@ const EditContent = styled.div`
 `;
 
 const ItemSelect = styled.div<{ $selected: boolean }>`
-    padding: 0 20px;
+    padding: 6px 60px 6px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
     font-size: 1.2em;
     font-weight: 800;
     border-radius: 5px;
