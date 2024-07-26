@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import { Button, capitalize, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from "@mui/material";
 import { WorkingExperience } from "@types";
 import { useEffect, useRef, useState } from "react";
@@ -76,7 +77,7 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
                     <TableCell sx={{ fontWeight: '800', color: 'white' }} align="left">End Date</TableCell>
                     <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Edit</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="center">
-                        <Button type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
+                        <Button startIcon={<AddIcon/>} type="button" size='small' variant='contained' color='primary' onClick={addNewExperience}>
                             {STRINGS_ENG.adding.plus_workingExperience}
                         </Button>
                     </TableCell>

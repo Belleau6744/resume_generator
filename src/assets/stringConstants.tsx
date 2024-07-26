@@ -21,11 +21,11 @@ const new_resume = 'new resume';
 const still_working = 'still working';
 const resume_to_review_title = 'resumes to review';
 const adding = {
-    plus_workingExperience: '+ add working experience',
+    plus_workingExperience: 'add working experience',
     addNewWorkingExperience: 'add working experience',
-    plus_projectExperience: '+ add project experience',
+    plus_projectExperience: 'add project experience',
     addNewProjectExperience: 'add project experience',
-    plus_volunteeringExperience: '+ add volunteering experience',
+    plus_volunteeringExperience: 'add volunteering experience',
     addNewVolunteeringExperience: 'add new volunteering experience'
 }
 const education_input_examples = {

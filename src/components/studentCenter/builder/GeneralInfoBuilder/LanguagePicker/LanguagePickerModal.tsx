@@ -1,3 +1,4 @@
+import { Button, Dialog, DialogTitle } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,7 +8,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { LanguageKeys, LanguageLevelKeys, LanguageType, ResumeDefinition } from "@types";
 import { useEffect, useMemo, useState } from 'react';
-import { Heading, Modal, } from 'react-aria-components';
 import styled from 'styled-components';
 import ErrorIcon from '../../../../../assets/Icons/ErrorIcon';
 import { LangLevel, LangList } from '../../../../../utils/Languages';
@@ -88,54 +88,54 @@ const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume
       }, [currentLanguages]);
     
     return (
-        <Modal isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Container $error={error !== ''}>
-                <Heading slot="title">Select a Language</Heading>
-                    <div style={{ display: 'flex', flexDirection: 'column'}}>
-                    <FormControl variant="standard" >  
-                        <InputLabel id="language-select">Language</InputLabel>
-                            <Select
+        <Dialog fullWidth open={isModalOpened}>
+            
+            <DialogTitle color={"#34495E"} sx={{ borderBottom: "1px solid #ced2d3", fontWeight: '800', marginBottom: '20px' }}>Select a language</DialogTitle>
+            <div style={{ padding: '0 40px 10px 40px', display: 'flex', flexDirection: 'column' }}>
+                <FormControl variant='outlined'>  
+                    <InputLabel id="language-select">Language</InputLabel>
+                        <Select
                             labelId="language-select"
                             id="language-select"
+                            variant='outlined'
                             defaultValue=''
                             required
-                            sx={{ marginBottom: '8px' }}
+                            sx={{ marginBottom: '8px', color: "#34495E" }}
                             value={availableLanguages.includes(selectedLanguage) ? selectedLanguage : ''}
                             placeholder='select a language'
-                            label="Age"
+                            label="Language"
                             onChange={handleChangeLanguage}
-                            >
-                                {availableLanguages.map((item, index) => {
-                                    if (Object.keys(currentLanguages).includes(item)) {
-                                        return <div key={index}></div>
-                                    } else {
-                                        return (
-                                            <MenuItem key={index} value={item}>{LangList[item]}</MenuItem>
-                                        )
-                                    }
-                                })}
-                            </Select>
-                        </FormControl>  
-                        <FormControl>  
-                            <RadioGroup
-                                value={selectedLevel}
-                                onChange={handleChangeLevel}
-                                aria-labelledby="language-level-select"
-                                aria-required
-                                defaultValue={''}
-                                name="language-level-select"
-                            >
-                                {Object.keys(LangLevel).map((item, index) => {
-                                    return (
-                                        <FormControlLabel key={index} value={item} control={<Radio />} label={LangLevel[item]} />
-                                    )
-                                })}
-                            </RadioGroup>
-                    </FormControl>  
-                    </div>              
+                        >
+                        {availableLanguages.map((item, index) => {
+                            if (Object.keys(currentLanguages).includes(item)) {
+                                return <div key={index}></div>
+                            } else {
+                                return (
+                                    <MenuItem key={index} sx={{ color: "#34495E" }} value={item}>{LangList[item]}</MenuItem>
+                                )
+                            }
+                        })}
+                        </Select>
+                </FormControl>  
+                <FormControl>  
+                    <RadioGroup
+                        value={selectedLevel}
+                        onChange={handleChangeLevel}
+                        aria-labelledby="language-level-select"
+                        aria-required
+                        defaultValue={''}
+                        name="language-level-select"
+                    >
+                    {Object.keys(LangLevel).map((item, index) => {
+                        return (
+                            <FormControlLabel sx={{ color:'#34495E'}} key={index} value={item} control={<Radio />} label={LangLevel[item]} />
+                        )
+                    })}
+                    </RadioGroup>
+                </FormControl>            
                 <ButtonWrapper>
-                    <StyledCancelButton type='button' onClick={() => setIsModalOpened(false)} >Cancel</StyledCancelButton>
-                    <StyledAddButton type='button' onClick={handleSaveNewLanguage}>Add</StyledAddButton>
+                    <Button type='button' variant='outlined' size="large" color="charcoal" onClick={() => setIsModalOpened(false)}>Cancel</Button>
+                    <Button type='button' variant="contained" size="large" color="primary" onClick={handleSaveNewLanguage}>Add language</Button>
                 </ButtonWrapper>  
                 {error ? (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems:'center', height: '30px', width:'270px', paddingTop: '5px', gap: '8px'}}>
@@ -144,54 +144,16 @@ const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume
                     </div>
                 ): (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems:'baseling', height: '30px', width: '270px', paddingTop: '5px'}}></div>
-                )}              
-            </Container>
-        </Modal>
+                )}     
+            </div>         
+        </Dialog>
     )
 }
 
-const StyledCancelButton = styled.button`
-    background: #FFFFFF;
-    color: black;
-    font-size: 0.8rem;
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 80px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 0;
-`;
-
-const StyledAddButton = styled.button`
-    background: #2185d0;
-    color: #FFFFFF;
-    font-size: 0.8rem;
-    width: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    font-weight: 600;
-    padding: 8px 0;
-`;
-
 const ButtonWrapper = styled.div`
     display: flex;
-    padding-top: 10px;
+    padding-top: 20px;
     justify-content: space-between;
-`;
-
-const Container = styled.div<{ $error: boolean }>`
-    background: white;
-    outline: ${props => props.$error && '2px solid red'}; 
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    min-width: fit-content;
-    width: 100%;
-    height: fit-content;
-    padding: 35px;
-    padding-bottom: 0;
 `;
 
 export default LanguagePickerModal;

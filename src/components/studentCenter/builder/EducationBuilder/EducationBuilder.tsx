@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useMemo, useState } from "react";
@@ -76,8 +77,8 @@ const EducationBuilder = () => {
                         <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">End Date</TableCell>
                         <TableCell sx={{ fontWeight: '800', color: 'white' }} align="center">Edit</TableCell>
                         <TableCell sx={{ fontWeight: '800' }} align="right">
-                            <Button type="button" size='small' variant='contained' color='primary' onClick={handleAddNewEducation}>
-                                + Add
+                            <Button startIcon={<AddIcon/>} type="button" size='medium' variant='contained' color='primary' onClick={handleAddNewEducation}>
+                                Add
                             </Button>
                         </TableCell>
                         <TableCell sx={{ fontWeight: '800' }} align="center"></TableCell>

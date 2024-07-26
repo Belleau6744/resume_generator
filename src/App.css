@@ -4,7 +4,7 @@
   font-weight: 500;
 
   color-scheme: light;
-  color: white;
+  color: #34495E;
   background-color: #ECF0F1 !important;
 
   font-synthesis: none;
@@ -15,7 +15,7 @@
 
 a {
   font-weight: 500;
-  color: white;
+  color: #34495E;
   text-decoration: inherit;
 }
 a:hover {

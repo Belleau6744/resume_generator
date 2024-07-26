@@ -49,7 +49,7 @@ const createColor = (mainColor: string) => augmentColor({ color: { main: mainCol
 export const theme = createTheme({
   palette: {
     midnightBlue: createColor('#2C3E50'),
-    coolGray: createColor('#2C3E50'),
+    coolGray: createColor('#ECF0F1'),
     charcoal: createColor('#34495E'),
     emeraldGreen: createColor('#228B22'),
     burntOrange: createColor('#FF8C00'),

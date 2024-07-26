@@ -1,11 +1,10 @@
-import { InputLabel, TextField } from "@mui/material";
+import { Button, Dialog, DialogTitle, InputLabel, TextField } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Education_DayJs, EducationInputErrors, EducationList, ResumeDefinition } from "@types";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { Heading, Modal } from "react-aria-components";
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import { STRINGS_ENG } from "../../../../assets/stringConstants";
@@ -66,9 +65,8 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Container $error={!Object.values(error).every(err => err === false)}>
-                <Heading style={{ fontWeight: '800' }} slot="title">Degree information</Heading>
+        <Dialog fullWidth open={isModalOpened}>
+            <DialogTitle color="#34495E" sx={{ borderBottom: "1px solid #ced2d3", fontWeight: 800 }}>Degree information</DialogTitle>
                 <FormContainer >
                     {Object.entries(selectedEducation).map((item => {
                         return (
@@ -80,7 +78,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                             {item[0] === 'start date' || item[0] === 'end date' ? (
                                 <DatePicker value={item[1]} onChange={prev => handleInputChange(item[0], prev)} label={'"month" and "year"'} views={['month', 'year']} slotProps={{
                                     textField: {
-                                        variant: 'filled',
+                                        variant: 'outlined',
                                         helperText: error[item[0]] ? STRINGS_ENG.education_input_errors[item[0]] : '',
                                         error: error[item[0]],
                                         sx:{ flex: '1', minWidth: '100px' }
@@ -88,7 +86,7 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                                 }} />
                             ): (
                                 <TextField
-                                    variant='filled'
+                                    variant='outlined'
                                     helperText={error[item[0]] ? STRINGS_ENG.education_input_errors[item[0]] : ''}
                                     error={error[item[0]]}
                                     placeholder={STRINGS_ENG.education_input_examples[item[0]]}
@@ -101,65 +99,21 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
                         </InputWrapper>
                         )
                     }))}
+                    <ButtonWrapper>
+                        <Button color="charcoal" variant="outlined" size="medium" type='button' onClick={() => setIsModalOpened(false)} >Cancel</Button>
+                        <Button color="primary" variant="contained" size="medium" type='button' onClick={handleSaveNewEducation}>Add</Button>
+                    </ButtonWrapper>  
                 </FormContainer>
-                <ButtonWrapper>
-                    <StyledCancelButton type='button' onClick={() => setIsModalOpened(false)} >Cancel</StyledCancelButton>
-                    <StyledAddButton type='button' onClick={handleSaveNewEducation}>Add</StyledAddButton>
-                </ButtonWrapper>  
-                {/* {error ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems:'center', height: '30px', width:'270px', paddingTop: '5px', gap: '8px'}}>
-                        <div><ErrorIcon/></div>
-                        <div style={{ color: 'black', fontWeight: '600'}}>{error}</div>
-                    </div>
-                ): (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems:'baseling', height: '30px', width: '270px', paddingTop: '5px'}}></div>
-                )}               */}
-            </Container>
-        </Modal>
+                
+        </Dialog>
         </LocalizationProvider>
     )
 };
 
-const StyledCancelButton = styled.button`
-    background: #FFFFFF;
-    color: black;
-    font-size: 0.8rem;
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 80px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 0;
-`;
-
-const StyledAddButton = styled.button`
-    background: #2185d0;
-    color: #FFFFFF;
-    font-size: 0.8rem;
-    width: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    font-weight: 600;
-    padding: 8px 0;
-`;
-
 const ButtonWrapper = styled.div`
     display: flex;
-    padding: 30px 50px 0 50px;
+    width: 100%;
     justify-content: space-between;
-`;
-
-const Container = styled.div<{ $error: boolean }>`
-    background: white;
-    outline: ${props => props.$error && '2px solid red'}; 
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    width: 80vw;
-    height: fit-content;
-    padding: 40px;
 `;
 
 const InputWrapper = styled.div`
@@ -178,7 +132,7 @@ const FormContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-    width: 100%;
+    padding: 40px;
 
 `;
 

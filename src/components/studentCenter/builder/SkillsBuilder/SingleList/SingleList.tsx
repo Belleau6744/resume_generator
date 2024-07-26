@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { ResumeDefinition, SkillsFlat } from "@types";
 import { useState } from "react";
@@ -36,8 +37,8 @@ const SingleListSkills = ({ content, setCurrentResume }: SingleListSkillsProps) 
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800', color: 'white' }}>Skill</TableCell>
                     <TableCell sx={{ fontWeight: '800' }} align="right">
-                        <Button type="button" size='small' variant='contained' color='primary' onClick={() => setIsSkillModalOpened(true)}>
-                            + Add
+                        <Button startIcon={<AddIcon/>} type="button" size='small' variant='contained' color='primary' onClick={() => setIsSkillModalOpened(true)}>
+                            Add
                         </Button>
                     </TableCell>
                 </TableRow>

@@ -70,7 +70,7 @@ const GeneralInfoBuilder = () => {
                                     <InputWrapper key={index}>
                                         <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{capitalizeEveryWord(inputName)}</InputLabel>
                                         <TextField
-                                        variant='filled'
+                                        variant='outlined'
                                         sx={{ flex: '1', minWidth: '100px' }}
                                         // label={capitalizeEveryWord(inputName)}
                                         type="text"

@@ -1,3 +1,5 @@
+import AddIcon from '@mui/icons-material/Add';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { ResumeDefinition, SkillsFlat, SkillsHierarchical } from "@types";
 import { useState } from "react";
@@ -66,8 +68,8 @@ const CustomTabPanel = (props: TabPanelProps) => {
         {value === index && (
         <>
         <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
-            <Button sx={{ margin: '10px' }} type="button" size='small' variant='contained' color='error' onClick={handleDeleteSection}>
-                x Delete Section
+            <Button startIcon={<ClearIcon/>} sx={{ margin: '10px' }} type="button" size='small' variant='contained' color='error' onClick={handleDeleteSection}>
+                Delete Section
             </Button>
         </div>
         <Table>
@@ -75,8 +77,8 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 <TableRow>
                     <TableCell sx={{ fontWeight: '800', color: 'white' }}>Skill</TableCell>
                     <TableCell sx={{ fontWeight: '500' }} align="right">
-                        <Button type="button" size='small' variant='contained' color='primary' onClick={() => setIsSkillModalOpened(true)}>
-                            + Add Skill
+                        <Button startIcon={<AddIcon/>} type="button" size='small' variant='contained' color='primary' onClick={() => setIsSkillModalOpened(true)}>
+                            Add Skill
                         </Button>
                     </TableCell>
                 </TableRow>

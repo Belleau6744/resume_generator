@@ -147,6 +147,7 @@ const ItemSelect = styled.div<{ $selected: boolean }>`
     padding: 6px 60px 6px 20px;
     display: flex;
     align-items: center;
+    color:#34495E;
     justify-content: flex-start;
     gap: 12px;
     font-size: 1.2em;

@@ -1,6 +1,5 @@
-import { Button, InputLabel, TextField } from '@mui/material';
+import { Button, Dialog, DialogTitle, InputLabel, TextField } from '@mui/material';
 import { ResumeDefinition } from "@types";
-import { Dialog, Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import '../../../../../assets/ModalStyling.css';
 
@@ -53,26 +52,27 @@ const CreateSection = ({ isModalOpened, setIsModalOpened, setCurrentResume, setT
     }
 
     return (
-        <Modal isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Dialog style={{ padding: '25px', background: 'white', display: 'flex', flexDirection: 'column' }}>
-                <Heading slot="title">Create a new section</Heading>
-                <InputWrapper>
-                    <InputLabel sx={{ width: '50px', whiteSpace: 'unset', fontWeight: '700' }}>{'Title'}</InputLabel>
-                    <TextField
-                    variant='filled'
-                    sx={{ flex: '1', minWidth: '100px' }}
-                    label={'Section'}
-                    type="text"
-                    value={newSection}
-                    onChange={(e) => setNewSection(e.target.value)}
-                    />
-                </InputWrapper>
-                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
-                    <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
-                    <Button variant='contained' color='info' onClick={handleAddNewSection}>Create Section</Button>
-                </div>
-            </Dialog>
-        </Modal>
+        <Dialog open={isModalOpened}>
+            <DialogTitle color={"#34495E"} sx={{ borderBottom: "1px solid #ced2d3", fontWeight: '800', marginBottom: '20px' }}>Create a new section</DialogTitle>
+            <div style={{ padding: "10px 60px 30px 60px" }}>
+            <InputWrapper>
+                <InputLabel sx={{ width: '50px', whiteSpace: 'unset', fontWeight: '700' }}>{'Title'}</InputLabel>
+                <TextField
+                variant='outlined'
+                sx={{ flex: '1', minWidth: '200px' }}
+                label={'Section'}
+                type="text"
+                value={newSection}
+                onChange={(e) => setNewSection(e.target.value)}
+                />
+            </InputWrapper>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: "30px", width: '100%' }}>
+                <Button variant='outlined' color="charcoal" onClick={() => setIsModalOpened(false)}>Cancel</Button>
+                <Button variant='contained' color='primary' onClick={handleAddNewSection}>Create Section</Button>
+            </div>
+            </div>
+        </Dialog>
+        
     )
 }
 

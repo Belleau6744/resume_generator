@@ -7,7 +7,7 @@ const Container = styled.div``;
 const HelpCenter = () => {
     return (
         <Container>
-            <Typography variant="h4" fontWeight={800}>Resume Writing Tips</Typography>
+            <Typography variant="h4" color={"#34495E"} fontWeight={800}>Resume Writing Tips</Typography>
             <List>
                 <ListItemButton target="_blank" href="https://www.jobbank.gc.ca/findajob/resources/write-good-resume">
                     <ListItemText
@@ -44,6 +44,7 @@ const HelpCenter = () => {
                         }
                     />
                 </ListItemButton>
+                <Divider variant="fullWidth" component="div"/>
                 <ListItemButton target="_blank" href="https://hbr.org/2014/12/how-to-write-a-resume-that-stands-out">
                     <ListItemText
                         primary="How to Write a Résumé That Stands Out"
@@ -62,7 +63,7 @@ const HelpCenter = () => {
                     />
                 </ListItemButton>
             </List>
-            <Typography variant="h4" fontWeight={800}>Interview Preparation Tips</Typography>
+            <Typography variant="h4" color={"#34495E"} fontWeight={800}>Interview Preparation Tips</Typography>
             <List>
                 <ListItemButton target="_blank" href="https://ca.indeed.com/career-advice/interviewing/how-to-prepare-for-a-job-interview">
                     <ListItemText
@@ -81,6 +82,7 @@ const HelpCenter = () => {
                         }
                     />
                 </ListItemButton>
+                <Divider variant="fullWidth" component="div"/>
                 <ListItemButton target="_blank" href="https://career.uconn.edu/resources/interviewing-guide/">
                     <ListItemText
                         primary="Interview Preparation Guide and Worksheets"

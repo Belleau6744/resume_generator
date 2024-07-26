@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import { Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { LanguageKeys, LanguageType, ResumeDefinition } from "@types";
 import { useState } from "react";
@@ -45,11 +46,11 @@ const LanguagePicker = ({ languages, setCurrentResume }: LanguagePickerProps) =>
             <Table aria-label="simple table">
                 <TableHead sx={{ background: '#2C3E50' }}>
                     <TableRow>
-                        <TableCell sx={{ fontWeight: '800', color: 'white' }}>Language</TableCell>
-                        <TableCell sx={{ fontWeight: '800', color: 'white'}} align="right">Proficiency</TableCell>
-                        <TableCell sx={{ fontWeight: '800', color: 'white' }} align="right">
-                            <Button type="button" size='small' variant='contained' color='primary' onClick={handleAddNewLanguage}>
-                                + Add
+                        <TableCell sx={{ fontWeight: '800', fontSize: "1rem", color: 'white' }}>Language</TableCell>
+                        <TableCell sx={{ fontWeight: '800', fontSize: "1rem", color: 'white'}} align="right">Proficiency</TableCell>
+                        <TableCell sx={{ fontWeight: '800', fontSize: "1rem", color: 'white' }} align="right">
+                            <Button startIcon={<AddIcon/>} type="button" size='medium' variant='contained' color='primary' onClick={handleAddNewLanguage}>
+                                Add
                             </Button>
                         </TableCell>
                     </TableRow>
