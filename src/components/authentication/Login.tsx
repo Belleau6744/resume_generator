@@ -106,7 +106,7 @@ const LoginContainer = styled.div`
     top: 50%;
     display: flex;
     background: white;
-    border-radius: 12px;
+    border-radius: 10px;
     justify-content: flex-start;
     align-items: flex-start;
     padding: 50px;
