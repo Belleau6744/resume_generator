@@ -1,5 +1,5 @@
 const save = 'save';
-const no_account_q = 'no account yet?';
+const no_account_q = 'No account yet?';
 const already_have_account_q = 'already have an account?';
 const student_account_created = 'student account created';
 const reviewer_account_created = 'reviewer account created';
