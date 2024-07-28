@@ -10,7 +10,7 @@ import LockIcon from '../../assets/Icons/LockIcon';
 import UserIcon from '../../assets/Icons/UserIcon';
 import { STRINGS_ENG } from '../../assets/stringConstants';
 import { auth } from '../../firebase/firebase';
-import "./style.css";
+import "../style.css";
 
 const Login = () => {
     const nav = useNavigate();
@@ -91,12 +91,12 @@ const Login = () => {
                 </InputsWrapper>
                 <Button sx={{ marginTop: "30px", marginBottom: "10px" }} size="large" fullWidth variant="contained" color="midnightBlue" onClick={onLogin}>Login</Button>
                 
-                <p className='text-sm text-white text-center'>
+                <div className='text-sm text-white text-center'>
                     {STRINGS_ENG.no_account_q}&nbsp;
                     <Link style={{color: 'blue'}} to="/signup">
                         <Typography variant="body1">Sign up</Typography>
                     </Link>
-                </p>
+                </div>
             </LoginContainer>
         </div>
     )

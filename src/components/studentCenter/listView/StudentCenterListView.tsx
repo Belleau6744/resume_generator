@@ -2,6 +2,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Button, capitalize } from "@mui/material";
 import { ResumeGroup } from "@types";
+import BackgroundComponent from 'components/Background';
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { STRINGS_ENG } from "../../../assets/stringConstants";
 import { capitalizeEveryWord } from "../../../utils/stringUtils";
+import "../../style.css";
 import ResumeTable from "./ResumeTable";
 
 type ListViewProps = {
@@ -33,14 +35,16 @@ const ContentContainer = styled.div`
 
 const Container = styled.div`
     background: white;
+    z-index: 10;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 24px;
-    margin: 24px;
+    border-radius: 12px;
+    padding: 40px;
+    margin: 40px;
+    padding-top: 40px;
     min-width: 700px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: 24px;
     color: black;
 `;
 
@@ -87,26 +91,32 @@ const StudentCenterListView = (props: ListViewProps) => {
     }, [nav, userID]);
 
     return (
-        <Container data-test-id={'student-center-list-view'}>
-            <HeaderSection>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 15px' }}>
-                    <PageHeader>{capitalize(STRINGS_ENG.resumes)}</PageHeader>  
-                    {userResumes ? (<Button variant="outlined" color="info" onClick={handleNewResume} startIcon={<AddIcon/>}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</Button>) : (<></>)}
-                </div>
-            </HeaderSection>
-            <ContentContainer>
-                {userResumes ? 
-                <ResumeTable userResumes={userResumes} />
-                : (
-                    <div style={{ color: 'white', fontSize: '2rem', fontWeight: '800', flexWrap:'nowrap', background: 'gray', width: '500px', height: '400px', display: 'flex', justifyContent:'center', alignItems: 'center', flexDirection: 'column', gap: '12px'}}>
-                        {capitalize(STRINGS_ENG.create_first_resume)}
-                        <Button color="info" onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</Button>
+        <BackgroundComponent>
+            <div style={{ height: '100vh' }}>
+            <Container data-test-id={'student-center-list-view'}>        
+                <HeaderSection>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
                     </div>
-                )}
-            </ContentContainer>
-        </Container>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 15px' }}>
+                        <PageHeader>{capitalize(STRINGS_ENG.resumes)}</PageHeader>  
+                        {userResumes ? (<Button variant="outlined" color="info" onClick={handleNewResume} startIcon={<AddIcon/>}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</Button>) : (<></>)}
+                    </div>
+                </HeaderSection>
+                <ContentContainer>
+                    {userResumes ? 
+                    <ResumeTable userResumes={userResumes} />
+                    : (
+                        <div style={{ color: 'white', fontSize: '2rem', fontWeight: '800', flexWrap:'nowrap', background: 'gray', width: '500px', height: '400px', display: 'flex', justifyContent:'center', alignItems: 'center', flexDirection: 'column', gap: '12px'}}>
+                            {capitalize(STRINGS_ENG.create_first_resume)}
+                            <Button color="info" onClick={handleNewResume}>{capitalizeEveryWord(STRINGS_ENG.new_resume)}</Button>
+                        </div>
+                    )}
+                </ContentContainer>
+            </Container>
+            </div>
+        </BackgroundComponent>
+        
+        
     )
 };
 

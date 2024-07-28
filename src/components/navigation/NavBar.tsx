@@ -1,6 +1,7 @@
 import HelpIcon from '@mui/icons-material/Help';
 import HomeIcon from '@mui/icons-material/Home';
 import { Button, IconButton } from "@mui/material";
+import { COLOR_PALETTE } from 'assets/Colors/colors';
 import { signOut } from "firebase/auth";
 import { useState } from 'react';
 import { useSelector } from "react-redux";
@@ -52,13 +53,13 @@ const NavBar = () => {
 
 const Container = styled.div`
     display: flex;
-    position: static;
-    padding-left: 30px;
+    position: relative;
+    width: 100%;
+    background-color: ${COLOR_PALETTE.coolGray};
     align-items: center;
-    padding-right: 40px;
-    padding-top: 18px;
-    left: 0;
-    top: 0;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    z-index: 10;
     color: black;
     justify-content: space-between;
 `;

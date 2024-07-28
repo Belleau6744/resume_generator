@@ -16,10 +16,10 @@ import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
 import { capitalizeEveryWord } from "../../utils/stringUtils";
 import { checkAllFields, validateEmail, validateKey, validatePassword } from "../../utils/validation";
+import "../style.css";
 import ConfirmPasswordValidationTooltip from "./ConfirmPasswordValidationTooltip";
 import PasswordValidationTooltip from "./PasswordValidationTooltip";
 import { SignupContext } from "./SignUpContext";
-import "./style.css";
 
 type ErrorsType = 'emailError' | 'passwordError' | 'keyError' | "firstNameError" | "lastNameError" | "_2nPasswordError";
 

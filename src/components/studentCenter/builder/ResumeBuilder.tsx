@@ -5,6 +5,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import { Button, Typography } from "@mui/material";
 import { ResumeDefinition } from "@types";
 import HelpIcon from "assets/Icons/HelpIcon";
+import BackgroundComponent from 'components/Background';
 import dayjs from "dayjs";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { _ } from 'lodash';
@@ -16,6 +17,7 @@ import { saveResume } from "../../../firebase/db_actions";
 import { Features } from "../../../redux/features";
 import { getDateString } from "../../../utils/dateUtils";
 import { getEmptyResumeInit } from "../../../utils/init";
+import "../../style.css";
 import CommentField from "./CommentField";
 import EducationBuilder from "./EducationBuilder/EducationBuilder";
 import ExperienceBuilder from "./ExperienceBuilder/ExperienceBuilder";
@@ -111,7 +113,7 @@ const ResumeBuilder = () => {
             setSectionEdit,
             handleSelect
           }}>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <BackgroundComponent>
                 <Container data-test-id={'resume-builder'}>
                     <SectionSelector>
                         <Typography color={"#34495E"} variant="overline">Sections</Typography>
@@ -126,7 +128,7 @@ const ResumeBuilder = () => {
                     </EditContent>
                     <CommentField />
                 </Container>
-            </div>
+            </BackgroundComponent>
         </ResumeContext.Provider>
     )
 };
@@ -134,6 +136,7 @@ const ResumeBuilder = () => {
 
 const EditContent = styled.div`
     padding: 24px;
+    z-index: 10;
     max-width: 100%;
     flex: 1;
     overflow: hidden;
@@ -175,15 +178,18 @@ const SectionSelector = styled.div`
     padding: 16px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     gap: 8px;
+    z-index: 10;
 `;
 
 const Container = styled.div`
     padding: 24px;
-    min-width: 700px;   
+    min-width: 700px;
+    min-height: 100vh;
     display: flex;
     justify-content: space-between;
     padding-top: 24px;
     color: black;
+    z-index: 10;
 `;
 
 

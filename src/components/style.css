@@ -28,10 +28,12 @@ body{
     background: #005982;  
     background: -webkit-linear-gradient(to left, #0096c7, #005982);
     width: 100%;
-    height:100vh;
-    
-   
+    position: relative;
+    top: 0;   
+    height: 100%;
+    overflow: hidden;
 }
+  
 
 .circles{
     position: absolute;
