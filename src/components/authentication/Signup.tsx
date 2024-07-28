@@ -1,35 +1,40 @@
-import { FormControl, FormControlLabel, FormLabel, InputAdornment, TextField } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, TextField, Tooltip, tooltipClasses, TooltipProps, Typography } from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { UserRole } from "@types";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Bounce, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
-import LockIcon from "../../assets/Icons/LockIcon";
-import UserIcon from "../../assets/Icons/UserIcon";
 import { STRINGS_ENG } from "../../assets/stringConstants";
 import { initReviewerDBSpace, initStudentDBSpace } from "../../firebase/db_actions";
 import { auth } from "../../firebase/firebase";
 import { Features } from "../../redux/features";
 import { capitalizeEveryWord } from "../../utils/stringUtils";
-import { validateEmail, validateKey, validatePassword } from "../../utils/validation";
+import { checkAllFields, validateEmail, validateKey, validatePassword } from "../../utils/validation";
+import ConfirmPasswordValidationTooltip from "./ConfirmPasswordValidationTooltip";
+import PasswordValidationTooltip from "./PasswordValidationTooltip";
+import { SignupContext } from "./SignUpContext";
+import "./style.css";
 
-type ErrorsType = 'emailError' | 'passwordError' | 'keyError' | "firstNameError" | "lastNameError";
+type ErrorsType = 'emailError' | 'passwordError' | 'keyError' | "firstNameError" | "lastNameError" | "_2nPasswordError";
 
 const Signup = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
+    const [isPasswordFocused, setIsPasswordFocused] = useState<boolean>(false);
+    const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState<boolean>(false);
 
     const [ user, setUser ] = useState<{
         firstName: string,
         lastName: string,
         email: string,
         password: string,
+        _2nPassword: string,
         userRole: UserRole,
         errors: Record<ErrorsType, string>,
         accessKey: string,
@@ -38,11 +43,26 @@ const Signup = () => {
         lastName: "",
         email: "",
         password: "",
+        _2nPassword: "",
         userRole: "student",
-        errors: { emailError: "", passwordError: "", keyError: "", firstNameError: "", lastNameError: ""},
+        errors: { emailError: "", passwordError: "", keyError: "", firstNameError: "", lastNameError: "", _2nPasswordError: ""},
         accessKey: ""
     });
     const [ keysList, setKeysList ] = useState<[]>([]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const HtmlTooltip = useCallback(styled(({ className, ...props }: TooltipProps) => (
+        <Tooltip {...props} classes={{ popper: className }} />
+      ))(() => ({
+        [`& .${tooltipClasses.tooltip}`]: {
+          backgroundColor: '#d8d8d8',
+          color: 'rgba(0, 0, 0, 0.87)',
+          maxWidth: 300,
+          padding: '20px',
+          boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px'
+        },
+      })), []);
+  
 
     /**
      * Update the user role selected
@@ -87,7 +107,6 @@ const Signup = () => {
         }))
     };
 
-
     /**
      * 
      * @param e Submit Event
@@ -101,14 +120,15 @@ const Signup = () => {
             passwordError: "",
             keyError: "",
             firstNameError: "",
-            lastNameError: ""
+            lastNameError: "",
+            _2nPasswordError: ""
         }
 
         /**
          * Validate inputs and update the associated errors
          */
         currentErrors.emailError = validateEmail(user.email) ? '' : STRINGS_ENG.invalid_email; 
-        currentErrors.passwordError = validatePassword(user.password) ? '' : STRINGS_ENG.invalid_password;
+        currentErrors.passwordError = checkAllFields(validatePassword(user.password)) ? '' : STRINGS_ENG.invalid_password;
         currentErrors.firstNameError = user.firstName === "" ? STRINGS_ENG.firstName_required : "";
         currentErrors.lastNameError = user.lastName === "" ? STRINGS_ENG.lastName_required : "";
         currentErrors.keyError = (
@@ -187,11 +207,52 @@ const Signup = () => {
     }
 
     return (
-        <Container>
+        <SignupContext.Provider value={{
+            passwordInput: user.password,
+            confirmPasswordInput: user._2nPassword
+        }}>
+        <div>
+               <div className="area" >
+                <ul className="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div >  
             <SignupContainer>
-                <h2>{capitalizeEveryWord(STRINGS_ENG.create_account)}</h2>
+            <Typography paddingBottom={"30px"} variant="h3" fontWeight="800" fontFamily={"Montserrat, sans-serif"}>{capitalizeEveryWord(STRINGS_ENG.create_account)}</Typography>                
                 <form onSubmit={onSubmit}>
-                    <InputsWrapper>    
+                    <InputsWrapper>   
+                        <div style={{ display: 'flex', gap: '15px', width: '100%', justifyContent: "space-between" }}>
+                            <TextField
+                                label='First Name'
+                                type="text"
+                                fullWidth
+                                variant="outlined"
+                                placeholder="First name"
+                                error={user.errors.firstNameError !== ''}
+                                helperText={user.errors.firstNameError}
+                                value={user.firstName}
+                                onChange={(e) => handleInputChange("firstName", e.target.value, 'firstNameError')}
+                            />
+                            <TextField
+                                label='Last Name'
+                                type="text"
+                                fullWidth
+                                error={user.errors.lastNameError !== ''}
+                                placeholder="Last name"
+                                helperText={user.errors.lastNameError}
+                                value={user.lastName}
+                                onChange={(e) => handleInputChange("lastName", e.target.value, 'lastNameError')}
+                            />
+                        </div> 
                         <TextField
                             label='Email'
                             type="email"
@@ -199,65 +260,31 @@ const Signup = () => {
                             helperText={user.errors.emailError}
                             value={user.email}
                             onChange={(e) => handleInputChange("email", e.target.value, 'emailError')}
-                            InputProps={{
-                                placeholder: "Email Address",
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    <UserIcon />
-                                    </InputAdornment>
-                                ),
-                                }}
                             />
+                        <HtmlTooltip arrow open={isPasswordFocused} autoFocus placement="right" title={<div><PasswordValidationTooltip /></div>}>
+                            <TextField
+                                onFocus={() => setIsPasswordFocused(true)}
+                                onBlur={() => setIsPasswordFocused(false)}
+                                type="password"
+                                label='Password'
+                                error={user.errors.passwordError !== ''}
+                                helperText={user.errors.passwordError}
+                                value={user.password}
+                                onChange={(e) => handleInputChange("password", e.target.value, 'passwordError')}
+                            />
+                        </HtmlTooltip>
+                        <HtmlTooltip arrow open={isConfirmPasswordFocused} autoFocus placement="right" title={<div><ConfirmPasswordValidationTooltip /></div>}>
                         <TextField
+                            onFocus={() => setIsConfirmPasswordFocused(true)}
+                            onBlur={() => setIsConfirmPasswordFocused(false)}
                             type="password"
-                            label='Password'
-                            error={user.errors.passwordError !== ''}
-                            helperText={user.errors.passwordError}
-                            value={user.password}
-                            onChange={(e) => handleInputChange("password", e.target.value, 'passwordError')}
-                            InputProps={{
-                                placeholder: "Password",
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    <LockIcon />
-                                    </InputAdornment>
-                                ),
-                                }}
+                            label='Re-Enter Password'
+                            error={user.errors._2nPasswordError !== ''}
+                            helperText={user.errors._2nPasswordError}
+                            value={user._2nPassword}
+                            onChange={(e) => handleInputChange("_2nPassword", e.target.value, '_2nPasswordError')}
                             />
-                        <TextField
-                            label='First Name'
-                            type="text"
-                            error={user.errors.firstNameError !== ''}
-                            helperText={user.errors.firstNameError}
-                            value={user.firstName}
-                            onChange={(e) => handleInputChange("firstName", e.target.value, 'firstNameError')}
-                            InputProps={{
-                                placeholder: "First Name",
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    <UserIcon />
-                                    </InputAdornment>
-                                ),
-                                }}
-                        />
-                        <TextField
-                            label='Last Name'
-                            type="text"
-                            error={user.errors.lastNameError !== ''}
-                            helperText={user.errors.lastNameError}
-                            value={user.lastName}
-                            onChange={(e) => handleInputChange("lastName", e.target.value, 'lastNameError')}
-                            InputProps={{
-                                placeholder: "Last Name",
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                    <UserIcon />
-                                    </InputAdornment>
-                                ),
-                                }}
-                        />
-                        
-                        
+                        </HtmlTooltip>
                         <FormControl sx={{ display: 'flex'}}>  
                             <FormLabel sx={{ color: 'black', fontWeight: '700' }} focused={false} id="user-role-select-label">{'User Role'}</FormLabel>
                             <RadioGroup
@@ -293,7 +320,8 @@ const Signup = () => {
                     <Link to="/login"><p style={{color: 'blue', fontWeight: 'bold'}}>{capitalizeEveryWord(STRINGS_ENG.log_in)}</p></Link>
                 </ExistingAccountWrapper>
             </SignupContainer>
-        </Container>
+        </div>
+        </SignupContext.Provider>
     )
 };
 
@@ -329,18 +357,6 @@ const SignupButton = styled.button`
     }
 `;
 
-const Container = styled.div`
-    background: white;
-    padding: 24px;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 24px;
-    align-self: center;
-`;
-
 const ButtonWrapper = styled.div`
     padding-top: 36px;
 `;
@@ -352,9 +368,15 @@ const InputsWrapper = styled.div`
 `;
 
 const SignupContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
     display: flex;
-    padding: 24px;
-    width: 400px;
+    border-radius: 10px;
+    padding: 50px;
+    width: 500px;
     height: fit-content;
     flex-direction: column;
     box-shadow: rgba(0,0,0, 0.35) 0px 5px 15px;

@@ -5,20 +5,33 @@ export const validateEmail = (email: string): boolean => {
     return emailRegex.test(email);
   };
 
-export const validatePassword = (password: string): boolean => {
+export type PasswordValidationType = {
+  length: boolean,
+  upperCase: boolean,
+  lowerCase: boolean,
+  number: boolean,
+  specialChar: boolean
+}
+
+export const checkAllFields = (validation: PasswordValidationType): boolean => {
+  return Object.values(validation).every(item => item);
+}
+
+export const validatePassword = (password: string): PasswordValidationType => {
     const minLength = 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-  
-    return (
-      password.length >= minLength &&
-      hasUpperCase &&
-      hasLowerCase &&
-      hasNumber &&
-      hasSpecialChar
-    );
+
+    const validation = {
+      length: password.length >= minLength,
+      upperCase: hasUpperCase,
+      lowerCase: hasLowerCase,
+      number: hasNumber,
+      specialChar: hasSpecialChar
+    }
+    return validation;
   };
 
 export const validateKey = (enteredKey: string, keyList: string[]): boolean => {
