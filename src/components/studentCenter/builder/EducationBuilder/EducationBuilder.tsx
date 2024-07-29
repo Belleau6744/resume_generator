@@ -23,7 +23,8 @@ const EducationBuilder = () => {
         handleSaveResume,
         currentResume,
         setCurrentResume,
-        handleCommentSectionToggle
+        handleCommentSectionToggle,
+        resetResume
       } = useResumeContext();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [editingID, setEditinID] = useState<string | undefined>(undefined);
@@ -117,7 +118,10 @@ const EducationBuilder = () => {
             {content && Object.keys(content).length === 0 && <InputLabel style={{ color: 'gray', flex: '1', whiteSpace: 'unset', paddingTop: '10px', paddingLeft: '10px' }}>Click "Add" to begin.</InputLabel>}
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
+                <div style={{ display: 'flex', gap: "20px" }}>
+                    <Button disabled={!isDirty} size='large' color="charcoal" type="button" variant='outlined' onClick={resetResume}>Reset</Button>
+                    <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
+                </div>
             </BottomWrapper>
         </Container>
     )

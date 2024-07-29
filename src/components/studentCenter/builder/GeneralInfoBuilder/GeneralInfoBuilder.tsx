@@ -28,6 +28,7 @@ const GeneralInfoBuilder = () => {
         currentResume,
         setCurrentResume,
         handleCommentSectionToggle,
+        resetResume
       } = useResumeContext();
 
     const content = useMemo(() => {
@@ -90,7 +91,10 @@ const GeneralInfoBuilder = () => {
                 </form>
                 <BottomWrapper>
                     <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                    <Button type="button" size='large' color='success' onClick={handleSaveResume} variant='contained'>Save</Button>
+                    <div style={{ display: 'flex', gap: '20px' }}>
+                        <Button disabled={!isDirty} size='large' color="charcoal" type="button" variant='outlined' onClick={resetResume}>Reset</Button>
+                        <Button type="button" size='large' color='success' onClick={handleSaveResume} variant='contained'>Save</Button>
+                    </div>
                 </BottomWrapper>
             </ContentWrapper>
         </Container>

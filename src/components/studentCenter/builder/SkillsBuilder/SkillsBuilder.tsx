@@ -28,7 +28,8 @@ const SkillsBuilder = () => {
         handleSaveResume,
         currentResume,
         setCurrentResume,
-        handleCommentSectionToggle
+        handleCommentSectionToggle,
+        resetResume
     } = useResumeContext();
 
     const content = useMemo(() => {
@@ -135,7 +136,11 @@ const SkillsBuilder = () => {
             </div>
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <Button disabled={!isDirty} size='large' color="charcoal" type="button" variant='outlined' onClick={resetResume}>Reset</Button>
+                    <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
+                </div>
+                
             </BottomWrapper>
         </Container>
     );

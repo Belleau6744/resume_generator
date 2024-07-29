@@ -24,7 +24,8 @@ const ExperienceBuilder = () => {
         isDirty,
         handleSaveResume,
         currentResume,
-        handleCommentSectionToggle
+        handleCommentSectionToggle,
+        resetResume
     } = useResumeContext();
     const [tabValue, setTabValue] = useState<number>(0);
 
@@ -57,7 +58,10 @@ const ExperienceBuilder = () => {
             <TabVolunteeringExperience index={2} value={tabValue} volunteeringExperience={content?.volunteerExperience} />
             <BottomWrapper>
                 <Alert sx={{ margin: 'unset', visibility: (isDirty ? 'visible' : 'hidden') }} variant='outlined' severity='warning'>You have unsaved changes</Alert>
-                <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
+                <div style={{ display: 'flex', gap:'20px' }}>
+                    <Button disabled={!isDirty} size='large' color="charcoal" type="button" variant='outlined' onClick={resetResume}>Reset</Button>
+                    <Button type="button" size='large' color='success' variant='contained' onClick={handleSaveResume}>Save</Button>
+                </div>
             </BottomWrapper>
         </Container>
     )

@@ -96,6 +96,13 @@ const ResumeBuilder = () => {
     }
 
     /**
+     * Reset - Returns to the original resume state
+     */
+    const resetResume = () => {
+        setCurrentResume(originalResume);
+    }
+
+    /**
      * Changes the section being currently edited
      */
     const handleSelect = useCallback((item: SectionEditingType) => () => setSectionEdit(item), [])
@@ -111,7 +118,8 @@ const ResumeBuilder = () => {
             handleSaveResume,
             sectionEdit,
             setSectionEdit,
-            handleSelect
+            handleSelect,
+            resetResume
           }}>
             <BackgroundComponent>
                 <Container data-test-id={'resume-builder'}>

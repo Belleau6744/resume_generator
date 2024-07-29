@@ -11,6 +11,7 @@ type ResumeContextType = {
   handleSaveResume: () => void;
   sectionEdit: string;
   setSectionEdit: React.Dispatch<React.SetStateAction<string>>;
+  resetResume: () => void;
   handleSelect: (item: string) => () => void;
 };
 
