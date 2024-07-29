@@ -1,4 +1,5 @@
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
+import BackgroundComponent from 'components/Background';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { MouseEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -38,21 +39,8 @@ const Login = () => {
     
 
     return (
-        <div>
-            <div className="area" >
-                <ul className="circles">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div >  
+        <BackgroundComponent>
+            <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <LoginContainer>
                 <Typography paddingBottom={"30px"} variant="h3" fontWeight="800" fontFamily={"Montserrat, sans-serif"}>Login</Typography>                
                 <InputsWrapper>
@@ -98,12 +86,11 @@ const Login = () => {
                     </Link>
                 </div>
             </LoginContainer>
-        </div>
+            </div>
+        </BackgroundComponent>
     )
 };
 const LoginContainer = styled.div`
-    position: absolute;
-    top: 50%;
     display: flex;
     background: white;
     border-radius: 10px;
@@ -111,9 +98,8 @@ const LoginContainer = styled.div`
     align-items: flex-start;
     padding: 50px;
     padding-bottom: 40px;
+    z-index: 20;
     width: 400px;
-    transform: translate(-50%, -50%);
-    left: 50%;
     height: 400px;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

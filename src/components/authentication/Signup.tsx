@@ -1,7 +1,8 @@
-import { FormControl, FormControlLabel, FormLabel, TextField, Tooltip, tooltipClasses, TooltipProps, Typography } from "@mui/material";
+import { Button, FormControl, FormControlLabel, FormLabel, TextField, Tooltip, tooltipClasses, TooltipProps, Typography } from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { UserRole } from "@types";
+import BackgroundComponent from "components/Background";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { FormEvent, useCallback, useEffect, useState } from "react";
@@ -211,21 +212,8 @@ const Signup = () => {
             passwordInput: user.password,
             confirmPasswordInput: user._2nPassword
         }}>
-        <div>
-               <div className="area" >
-                <ul className="circles">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div >  
+        <BackgroundComponent>
+        <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <SignupContainer>
             <Typography paddingBottom={"30px"} variant="h3" fontWeight="800" fontFamily={"Montserrat, sans-serif"}>{capitalizeEveryWord(STRINGS_ENG.create_account)}</Typography>                
                 <form onSubmit={onSubmit}>
@@ -310,17 +298,15 @@ const Signup = () => {
                             />
                         )}
                     </InputsWrapper>
-                      
-                    <ButtonWrapper>
-                        <SignupButton type="submit">{capitalizeEveryWord(STRINGS_ENG.sign_up)}</SignupButton>
-                    </ButtonWrapper>
+                    <Button sx={{ margin: '20px 0'}} color="charcoal" fullWidth variant="contained" type="submit">{capitalizeEveryWord(STRINGS_ENG.sign_up)}</Button>
                 </form>
                 <ExistingAccountWrapper>
                     <p>{STRINGS_ENG.already_have_account_q}</p>
                     <Link to="/login"><p style={{color: 'blue', fontWeight: 'bold'}}>{capitalizeEveryWord(STRINGS_ENG.log_in)}</p></Link>
                 </ExistingAccountWrapper>
             </SignupContainer>
-        </div>
+            </div>
+        </BackgroundComponent>
         </SignupContext.Provider>
     )
 };
@@ -331,36 +317,6 @@ const ExistingAccountWrapper = styled.div`
     align-items: center;
 `;
 
-const SignupButton = styled.button`
-    border: 0;
-    border-radius: 8px;
-    width: 100%;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font-family: -apple-system, system-ui,"Segoe UI",Roboto, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 2.5;
-    outline: transparent;
-    padding: 0 1rem;
-    text-align: center;
-    background: black;
-    text-decoration: none;
-    transition: box-shadow .2s ease-in-out;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-    &:focus {
-        outline: 1px solid blue;
-    }
-`;
-
-const ButtonWrapper = styled.div`
-    padding-top: 36px;
-`;
-
 const InputsWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -368,10 +324,7 @@ const InputsWrapper = styled.div`
 `;
 
 const SignupContainer = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    z-index: 20;
     background: #ffffff;
     display: flex;
     border-radius: 10px;
