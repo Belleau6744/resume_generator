@@ -13,10 +13,11 @@ interface TabPanelProps {
     skills: SkillsFlat;
     section: string;
     setCurrentResume: React.Dispatch<React.SetStateAction<ResumeDefinition>>;
+    updateTabValue: (tabValue: number) => void;
   }
 
 const CustomTabPanel = (props: TabPanelProps) => {
-    const { value, index, setCurrentResume, skills, section, ...other } = props;
+    const { value, index, setCurrentResume, skills, section, updateTabValue, ...other } = props;
     const [ isSkillModalOpened, setIsSkillModalOpened] = useState<boolean>(false);
 
     const handleDeleteSection = () => {
@@ -34,6 +35,7 @@ const CustomTabPanel = (props: TabPanelProps) => {
                 }
             })
         })
+        updateTabValue(0);
     }
 
     const deleteSelectedSkill = (skillToDelete: string, currIndex: number) => {

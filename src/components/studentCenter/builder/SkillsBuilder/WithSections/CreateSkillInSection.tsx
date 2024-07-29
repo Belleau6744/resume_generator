@@ -1,7 +1,6 @@
-import { Button, InputLabel, TextField } from '@mui/material';
+import { Button, Dialog, DialogTitle, InputLabel, TextField } from '@mui/material';
 import { ResumeDefinition, Skill, SkillsFlat, SkillsHierarchical } from "@types";
 import { useState } from 'react';
-import { Dialog, Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import '../../../../../assets/ModalStyling.css';
 
@@ -50,13 +49,13 @@ const CreateSkillInSection = ({ isModalOpened, setIsModalOpened, setCurrentResum
     }
 
     return (
-        <Modal isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Dialog style={{ padding: '25px', background: 'white', display: 'flex', flexDirection: 'column' }}>
-                <Heading slot="title">Add a new skill</Heading>
+        <Dialog open={isModalOpened} >
+            <DialogTitle color={"#34495E"} sx={{ borderBottom: "1px solid #ced2d3", fontWeight: '800', marginBottom: '20px' }}>Add a new skill</DialogTitle>
+            <div style={{ padding: '0 40px 20px 40px', display: 'flex', flexDirection: 'column' }}>
                 <InputWrapper>
                     <InputLabel sx={{ width: '50px', whiteSpace: 'unset', fontWeight: '700' }}>{'Title'}</InputLabel>
                     <TextField
-                    variant='filled'
+                    variant='outlined'
                     sx={{ flex: '1', minWidth: '100px' }}
                     label={'Skill'}
                     type="text"
@@ -64,12 +63,13 @@ const CreateSkillInSection = ({ isModalOpened, setIsModalOpened, setCurrentResum
                     onChange={(e) => setNewSkill(prev => ({...prev, title: e.target.value}))}
                     />
                 </InputWrapper>
-                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px 0' }}>
                     <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
                     <Button variant='contained' color='info' onClick={handleAddSingleSkill}>Add skill</Button>
                 </div>
-            </Dialog>
-        </Modal>
+            </div>
+        </Dialog>
+        
     )
 }
 

@@ -1,7 +1,7 @@
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup, Snackbar } from "@mui/material";
 import { SkillsFlat, SkillsHierarchical } from "@types";
-import { ChangeEvent, useMemo } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useResumeContext } from "../useResumeContext";
 import SingleListSkills from "./SingleList/SingleList";
@@ -44,11 +44,13 @@ const SkillsBuilder = () => {
 
     const { isModalOpen, requestConfirmation, handleUserResponse } = useConfirmation();
 
+    const [ isExistingSectionOpen, setIsExistingSectionOpen ] = useState<boolean>(false);
+
     const handleToggleChange = async (event: ChangeEvent<HTMLInputElement>) => {
         try {
-            const userConfirmed = await requestConfirmation();
+            const currHasSections = event.target.value === 'true';
+            const userConfirmed = currHasSections ? true : await requestConfirmation();
             if (userConfirmed) {
-                const currHasSections = event.target.value === 'true';
                 if (currHasSections) {
                     setCurrentResume(prev => ({
                         ...prev,
@@ -90,6 +92,20 @@ const SkillsBuilder = () => {
                 </Button>
             </div>
             
+            {/* Existing Section SnackBar */}
+            <Snackbar
+                open={isExistingSectionOpen}
+                autoHideDuration={4000}
+                onClose={() => setIsExistingSectionOpen(false)}>
+                <Alert
+                    onClose={() => setIsExistingSectionOpen(false)}
+                    severity="error"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                This section already exist
+              </Alert>
+                </Snackbar>
             
             {/* Has sections controls */}
             <FormControl>
@@ -108,10 +124,11 @@ const SkillsBuilder = () => {
                 </RadioGroup>
             </FormControl>
 
+            {/** Content */}
             <div>
                 {
                     hasSections === true ? 
-                        (<WithSections setCurrentResume={setCurrentResume} content={content.content as SkillsHierarchical} />) 
+                        (<WithSections setIsExistingSectionOpen={setIsExistingSectionOpen} setCurrentResume={setCurrentResume} content={content.content as SkillsHierarchical} />) 
                         : (<SingleListSkills setCurrentResume={setCurrentResume} content={content.content as SkillsFlat} />)
                 }
                 
