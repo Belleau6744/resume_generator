@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogTitle, InputLabel, TextField } from '@mui/material';
 import { ResumeDefinition, Skill, SkillsFlat } from "@types";
 import { useState } from 'react';
-// import { Dialog, Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import '../../../../../assets/ModalStyling.css';
 

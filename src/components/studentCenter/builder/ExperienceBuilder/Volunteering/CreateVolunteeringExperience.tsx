@@ -1,11 +1,10 @@
-import { Button, Checkbox, InputLabel, TextField } from '@mui/material';
+import { Button, Checkbox, Dialog, DialogTitle, InputLabel, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Volunteering_DaysJs, VolunteeringExperience, VolunteeringInputErrors } from "@types";
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import '../../../../../assets/ModalStyling.css';
@@ -95,10 +94,10 @@ const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, editing
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal style={{ background: 'white', padding: '25px', maxHeight: '90vh', overflow: 'hidden' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Heading slot="title">{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</Heading>
+        <Dialog open={isModalOpened}>
+            <DialogTitle color={"#34495E"} sx={{ borderBottom: "1px solid #ced2d3", fontWeight: '800', marginBottom: '20px' }}>{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</DialogTitle>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ padding: '0 40px 10px 40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Job Title */}
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Job Title'}</InputLabel>
@@ -192,11 +191,11 @@ const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, editing
                 </div>
               
                 
-                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px 0' }}>
                     <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
                     <Button variant='contained' color='info' onClick={addNewProjectExperience}>Add Experience</Button>
                 </div>
-        </Modal>
+        </Dialog>
         </LocalizationProvider>
     )
 }

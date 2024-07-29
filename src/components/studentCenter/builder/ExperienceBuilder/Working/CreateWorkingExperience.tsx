@@ -1,11 +1,10 @@
-import { Button, Checkbox, InputLabel, TextField } from '@mui/material';
+import { Button, Checkbox, Dialog, DialogTitle, InputLabel, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Work_DayJs, WorkExperienceInputErrors, WorkingExperience } from "@types";
 import dayjs from "dayjs";
 import { useState } from 'react';
-import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import '../../../../../assets/ModalStyling.css';
@@ -84,15 +83,15 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Modal style={{ background: 'white', padding: '25px', maxHeight: '90vh', overflow: 'hidden' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Heading slot="title">{STRINGS_ENG.adding.addNewWorkingExperience.toUpperCase()}</Heading>
+        <Dialog open={isModalOpened}>
+            <DialogTitle color={"#34495E"} sx={{ borderBottom: "1px solid #ced2d3", fontWeight: '800', marginBottom: '20px' }}>{STRINGS_ENG.adding.addNewWorkingExperience.toUpperCase()}</DialogTitle>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ padding: '0 40px 10px 40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Job Title */}
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Job Title'}</InputLabel>
                     <TextField
-                    variant='filled'
+                    variant="outlined"
                     error={inputErrors.jobTitle}
                     sx={{ flex: '1', minWidth: '100px' }}
                     label={'Job Title'}
@@ -106,7 +105,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Organization Name'}</InputLabel>
                     <TextField
-                    variant='filled'
+                    variant="outlined"
                     sx={{ flex: '1', minWidth: '100px' }}
                     error={inputErrors.organizationName}
                     label={'Organization Name'}
@@ -126,7 +125,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                         label={'Start Date'}
                         slotProps={{
                             textField: {
-                                variant: 'filled',
+                                variant: 'outlined',
                                 helperText: inputErrors.startDate ? 'Input a start date' : '',
                                 error: inputErrors.startDate,
                                 sx:{ flex: '1', minWidth: '100px' }
@@ -146,7 +145,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                         disabled={selectedWorkingExperience.stillWorking === true}
                         slotProps={{
                             textField: {
-                                variant: selectedWorkingExperience.stillWorking === true ? 'outlined' : 'filled',
+                                variant: 'outlined',
                                 helperText: inputErrors.startDate ? 'Input a start date' : '',
                                 error: inputErrors.endDate,
                                 sx:{ flex: '1', minWidth: '100px' }
@@ -169,7 +168,7 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                     <TextField
                     multiline
                     inputProps={{ style: { resize: "block" } }}
-                    variant='filled'
+                    variant="outlined"
                     error={inputErrors.taskDescription}
                     sx={{ flex: '1', minWidth: '100px', textOverflow: 'ellipsis', overflow: 'auto', maxHeight: '300px' }}
                     label={'Task Description'}
@@ -181,11 +180,11 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                 </div>
               
                 
-                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px 0' }}>
                     <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
                     <Button variant='contained' color='info' onClick={handleAddNewExperience}>Add Experience</Button>
                 </div>
-        </Modal>
+        </Dialog>
         </LocalizationProvider>
     )
 }

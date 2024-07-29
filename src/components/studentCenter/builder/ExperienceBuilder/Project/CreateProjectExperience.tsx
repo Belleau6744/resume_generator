@@ -1,7 +1,6 @@
-import { Button, InputLabel, TextField } from '@mui/material';
+import { Button, Dialog, DialogTitle, InputLabel, TextField } from '@mui/material';
 import { Project, ProjectExperience, ProjectExperienceInputErrors } from "@types";
 import { useState } from 'react';
-import { Heading, Modal } from 'react-aria-components';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import '../../../../../assets/ModalStyling.css';
@@ -69,15 +68,15 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, p
     }
 
     return (
-        <Modal style={{ background: 'white', padding: '25px', maxHeight: '90vh', overflow: 'hidden' }} isDismissable={false} isOpen={isModalOpened} onOpenChange={setIsModalOpened}>
-            <Heading slot="title">{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</Heading>
+        <Dialog open={isModalOpened}>
+            <DialogTitle color={"#34495E"} sx={{ borderBottom: "1px solid #ced2d3", fontWeight: '800', marginBottom: '20px' }}>{STRINGS_ENG.adding.addNewProjectExperience.toUpperCase()}</DialogTitle>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ padding: '0 40px 10px 40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Title */}
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Project Title'}</InputLabel>
                     <TextField
-                    variant='filled'
+                    variant='outlined'
                     error={inputErrors.title}
                     sx={{ flex: '1', minWidth: '100px' }}
                     label={'Title'}
@@ -91,7 +90,7 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, p
                 <InputWrapper>
                     <InputLabel sx={{ width: '100px', whiteSpace: 'unset', fontWeight: '700' }}>{'Project Description'}</InputLabel>
                     <TextField
-                    variant='filled'
+                    variant='outlined'
                     sx={{ flex: '1', minWidth: '100px' }}
                     error={inputErrors.description}
                     label={'Description'}
@@ -103,11 +102,11 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, p
                 </div>
               
                 
-                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-around', padding: '20px 0' }}>
                     <Button variant='outlined' onClick={() => setIsModalOpened(false)}>Cancel</Button>
                     <Button variant='contained' color='info' onClick={addNewProjectExperience}>Add Experience</Button>
                 </div>
-        </Modal>
+        </Dialog>
     )
 }
 
