@@ -1,6 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Alert, Button, IconButton, InputLabel, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "../../../../assets/Icons/DeleteIcon";
@@ -15,6 +15,8 @@ const BottomWrapper = styled.div`
     height: fit-content;
     justify-content: space-between;
 `;
+
+const Container = styled.div``;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const EducationBuilder = () => {
@@ -59,8 +61,8 @@ const EducationBuilder = () => {
 
     return (
         <Container>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <SectionTitle>Education</SectionTitle>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <Typography fontWeight={700} variant='h2' color={"#34495E"}>Education</Typography>
                 <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <RateReviewIcon />
                     View Comments
@@ -126,11 +128,5 @@ const EducationBuilder = () => {
         </Container>
     )
 };
-
-const SectionTitle = styled.h1`
-    color: black;
-`;
-
-const Container = styled.div``;
 
 export default EducationBuilder;

@@ -1,5 +1,5 @@
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup, Snackbar } from "@mui/material";
+import { Alert, Button, FormControl, FormControlLabel, Radio, RadioGroup, Snackbar, Typography } from "@mui/material";
 import { SkillsFlat, SkillsHierarchical } from "@types";
 import { ChangeEvent, useMemo, useState } from "react";
 import styled from "styled-components";
@@ -11,14 +11,12 @@ import LosingSectionsModal from "./WarningModal/LosingSectionsModal";
 import WithSections from "./WithSections/WithSections";
 
 const Container = styled.div``;
-const SectionTitle = styled.h1`
-    color: black;
-`;
 
 const BottomWrapper = styled.div`
     display: flex;
     width: 100%;
     height: fit-content;
+    padding: 20px 0;
     justify-content: space-between;
 `;
 
@@ -86,7 +84,7 @@ const SkillsBuilder = () => {
             {/* Modals Section */}
             <LosingSectionsModal setUserResponse={handleUserResponse} isModalOpened={isModalOpen} setIsModalOpened={() => { } } />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <SectionTitle>Skills</SectionTitle>
+                <Typography fontWeight={700} variant='h2' color={"#34495E"}>Skills</Typography>
                 <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <RateReviewIcon />
                     View Comments
@@ -110,7 +108,7 @@ const SkillsBuilder = () => {
             
             {/* Has sections controls */}
             <FormControl>
-                <div style={{ padding: '0 10px', borderBottom: '1px solid black' }}>{'How would you like to organize your skills'}</div>
+                <Typography padding={'10px 6px 0 6px'} borderBottom={'1px solid #34495E'}>{'How would you like to organize your skills'}</Typography>
                 <RadioGroup
                     value={hasSections}
                     onChange={handleToggleChange}

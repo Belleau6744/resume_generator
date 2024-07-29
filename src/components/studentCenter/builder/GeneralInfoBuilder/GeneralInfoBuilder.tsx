@@ -1,5 +1,5 @@
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { Alert, Button, InputLabel, TextField } from "@mui/material";
+import { Alert, Button, InputLabel, TextField, Typography } from "@mui/material";
 import { GeneralInfoType, LanguageType } from '@types';
 import { useCallback, useMemo, useRef } from "react";
 import styled from "styled-components";
@@ -55,7 +55,7 @@ const GeneralInfoBuilder = () => {
     return (
         <Container>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <SectionTitle>General Information</SectionTitle>
+                <Typography fontWeight={700} variant='h2' color={"#34495E"}>General Information</Typography>
                 <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <RateReviewIcon />
                     View Comments
@@ -102,7 +102,7 @@ const GeneralInfoBuilder = () => {
 };
 
 const ContentWrapper = styled.div`
-    padding: 0 55px 0 55px;
+    padding: 20px 55px 0 55px;
     @media screen and (max-width: 992px) {
         padding: 0 125px 0 25px;
     }
@@ -140,10 +140,6 @@ const ColumnsContainer = styled.div`
     width: 100%;
     justify-content: flex-start;
     gap: 4rem;
-`;
-
-const SectionTitle = styled.h1`
-    color: black;
 `;
 
 const Container = styled.div``;

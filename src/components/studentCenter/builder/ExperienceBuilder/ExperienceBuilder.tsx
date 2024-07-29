@@ -1,5 +1,5 @@
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { Alert, Box, Button, Tab, Tabs } from "@mui/material";
+import { Alert, Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { useResumeContext } from "../useResumeContext";
@@ -8,9 +8,6 @@ import TabVolunteeringExperience from "./Volunteering/TabVolunteeringExperience"
 import TabPanelWorkingExperience from "./Working/TabPanelWorkingExperience";
 
 const Container = styled.div``;
-const SectionTitle = styled.h1`
-    color: black;
-`;
 
 const BottomWrapper = styled.div`
     display: flex;
@@ -39,8 +36,8 @@ const ExperienceBuilder = () => {
     
     return (
         <Container>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                <SectionTitle>Experience</SectionTitle>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <Typography fontWeight={700} variant='h2' color={"#34495E"}>Experience</Typography>
                 <Button onClick={handleCommentSectionToggle} variant="contained" size="medium" color="warning" sx={{ height: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
                     <RateReviewIcon />
                     View Comments
