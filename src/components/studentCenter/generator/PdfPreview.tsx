@@ -2,6 +2,7 @@ import RateReviewIcon from '@mui/icons-material/RateReview';
 import { Box, Button, Card, CardContent, CardHeader, Drawer, List, ListItem, TextField } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import { CommentsType, ResumeContentType, ResumeDefinition } from "@types";
+import BackgroundComponent from 'components/Background';
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -128,7 +129,8 @@ const PdfPreview = () => {
     }, [currentResumeComments]);
 
     return (
-        <PageContainer id='page-container' style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', width: '100%', height: '100%'}}>
+        <BackgroundComponent>
+        <PageContainer id='page-container' style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', width: '100%', height: '100%', minHeight: '100vh'}}>
             {previewingLayout ? (
                 <PdfLayoutsPreview setLayoutID={updateLayoutID} />
             ) : (
@@ -137,7 +139,7 @@ const PdfPreview = () => {
                         <Title>Here is a preview of your resume</Title>
                         <Drawer anchor='right' open={isCommentDrawerOpen}  onClose={toggleDrawer(false)}>
                             {DrawerList}
-                        </Drawer>
+                        </Drawer>     
                         <div style={{ display: 'flex', width: '60%', justifyContent: 'space-around' }}>
                             <Button variant='contained' color='info' onClick={() => setPreviewingLayout(true)} endIcon={<GridIcon fill="white" />}>Change Layout</Button>
                             <Button variant='contained' color="warning" onClick={toggleDrawer(true)} endIcon={<RateReviewIcon fill="white" />}>View Comments</Button>
@@ -148,6 +150,7 @@ const PdfPreview = () => {
                 </>
             )}
         </PageContainer>
+        </BackgroundComponent>
     )
 };
 
