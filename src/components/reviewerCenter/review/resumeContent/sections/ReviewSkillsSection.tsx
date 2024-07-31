@@ -8,7 +8,7 @@ type ReviewSkillsSectionProps = {
 const ReviewSkillsSection = ({ skills }: ReviewSkillsSectionProps) => {
     return (
         <div>
-            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} fontWeight={800} marginBottom={'12px'}>Skills</Typography>
+            <Typography variant="h4" borderBottom={'1px solid black'} color={"#34495E"} paddingLeft={'10px'} fontWeight={800} marginBottom={'12px'}>Skills</Typography>
             {skills && (
                 skills.hasSections === true ? (
                     Object.keys(skills.content).map((item, index) => {

@@ -92,7 +92,7 @@ const StudentCenterListView = (props: ListViewProps) => {
 
     return (
         <BackgroundComponent>
-            <div style={{ height: '100vh' }}>
+            <div style={{ height: '100%', minHeight: '100vh' }}>
             <Container data-test-id={'student-center-list-view'}>        
                 <HeaderSection>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>

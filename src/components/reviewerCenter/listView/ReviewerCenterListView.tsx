@@ -1,7 +1,8 @@
-import { IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { ResumeGroup, UsersType } from "@types";
-import FeedbackIcon from "assets/Icons/FeedbackIcon";
 import { STRINGS_ENG } from "assets/stringConstants";
+import BackgroundComponent from "components/Background";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +13,9 @@ import { getUserID } from "utils/userUtils";
 const Container = styled.div`
     background: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 24px;
-    margin: 24px;
+    padding: 40px;
+    border-radius: 12px;
+    margin: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -61,45 +63,45 @@ const ReviewerCenterListView = () => {
 
 
     return (
-        <Container>
-            <Table aria-label="simple table">
-                <TableHead >
-                    <TableRow sx={{ fontWeight: '800', fontSize: '1.8rem'}}>
-                        <TableCell><div style={{ paddingBottom: '12px' }}>{STRINGS_ENG.resume_to_review_title.toLocaleUpperCase()}</div></TableCell>
-                    </TableRow>
-                    <TableRow sx={{ background: '#BEBEBE' }}>
-                        {/* <TableCell align="center" sx={{ fontWeight: '800' }}>ID</TableCell> */}
-                        <TableCell align="center" sx={{ fontWeight: '800' }}>First Name</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800'}}>Last Name</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800', width: '80px' }}>Status</TableCell>
-                        <TableCell align="center" sx={{ fontWeight: '800', width: '80px' }}>Submission Date</TableCell>
-                        <TableCell align="center" size='small' sx={{ fontWeight: '800', width: '0', margin: '0', padding: '10px', border: '0' }}>Review</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {resumesToReviewList && Object.entries(resumesToReviewList).map((resumeContent, index) => {
-                        return (
-                            <TableRow
-                                key={index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                {/* <TableCell align="center">{value.id}</TableCell> */}
-                                <TableCell align="center" sx={{ width: '100px' }}>{usersList && capitalizeEveryWord(usersList[getUserID(resumeContent[0])].firstName)}</TableCell>
-                                <TableCell align="center" sx={{ width: '100px' }}>{usersList && capitalizeEveryWord(usersList[getUserID(resumeContent[0])].lastName)}</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: '800', width: '80px' }}>{capitalizeEveryWord(resumeContent[1].status)}</TableCell>
-                                <TableCell align="center" sx={{ width: '80px' }}>{resumeContent[1].submissionDate}</TableCell>
-                                <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-                                    <IconButton onClick={() => handleReviewResume(resumeContent[0])}>
-                                        <FeedbackIcon width={20} height={20}/>
-                                    </IconButton>
-                                </TableCell>
+        <BackgroundComponent>
+            <div style={{ height: '100%', minHeight: '96vh' }}>
+                <Container>
+                    <Typography variant="h4" padding={'20px'} fontWeight={800} color={"#34495E"}>{STRINGS_ENG.resume_to_review_title.toLocaleUpperCase()}</Typography>
+                    <Table aria-label="simple table">
+                        <TableHead >
+                            <TableRow sx={{ background: '#2C3E50' }}>
+                                <TableCell align="center" sx={{ fontWeight: '800', color: 'white' }}>First Name</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '800', color: 'white'}}>Last Name</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '800', width: '80px', color: 'white' }}>Status</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '800', width: '80px', color: 'white' }}>Submission Date</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: '800', width: '80px', color: 'white' }}></TableCell>
                             </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
-
-        </Container>
+                        </TableHead>
+                        <TableBody>
+                            {resumesToReviewList && Object.entries(resumesToReviewList).map((resumeContent, index) => {
+                                return (
+                                    <TableRow
+                                        key={index}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        {/* <TableCell align="center">{value.id}</TableCell> */}
+                                        <TableCell align="center" sx={{ width: '100px' }}>{usersList && capitalizeEveryWord(usersList[getUserID(resumeContent[0])].firstName)}</TableCell>
+                                        <TableCell align="center" sx={{ width: '100px' }}>{usersList && capitalizeEveryWord(usersList[getUserID(resumeContent[0])].lastName)}</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: '800', width: '80px' }}>{capitalizeEveryWord(resumeContent[1].status)}</TableCell>
+                                        <TableCell align="center" sx={{ width: '80px' }}>{resumeContent[1].submissionDate}</TableCell>
+                                        <TableCell align="center" size='small' sx={{ margin: '0', padding: '10px', border: '0', borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
+                                            <Button startIcon={<RateReviewIcon />} variant="contained" color="primary" onClick={() => handleReviewResume(resumeContent[0])}>
+                                                Review
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </Container>
+        </div>
+        </BackgroundComponent>
     )
 };
 

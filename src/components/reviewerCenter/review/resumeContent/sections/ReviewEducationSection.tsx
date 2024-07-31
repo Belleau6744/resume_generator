@@ -14,7 +14,7 @@ type ReviewEducationSectionProps = {
 const ReviewEducationSection = ({ education }: ReviewEducationSectionProps) => {
     return (
         <div style={{ marginBottom: '20px' }}>
-            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} marginBottom={'20px'} fontWeight={800}>Education</Typography>
+            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} color={"#34495E"} marginBottom={'20px'} fontWeight={800}>Education</Typography>
             {education && Object.keys(education).map((item, index) => {
                 return (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px'}} key={index}>

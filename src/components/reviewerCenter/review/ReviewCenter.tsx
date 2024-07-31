@@ -5,6 +5,7 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { CommentsType, CommentType, ResumeDefinition } from "@types";
 import { STRINGS_ENG } from 'assets/stringConstants';
+import BackgroundComponent from 'components/Background';
 import dayjs from "dayjs";
 import { child, get, getDatabase, ref } from "firebase/database";
 import { _ } from 'lodash';
@@ -22,8 +23,9 @@ import ResumeContent from "./resumeContent/ResumeContent";
 const Container = styled.div`
     background: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 24px;
-    margin: 24px;
+    padding: 40px;
+    margin: 40px;
+    border-radius: 12px;
     min-width: 700px;
     display: flex;
     justify-content: flex-start;
@@ -133,8 +135,9 @@ const ReviewCenter = () => {
     }, []);
 
     return (
+        <BackgroundComponent>
         <Container>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '75%', padding: '0 30px 0 20px'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '75%', padding: '10px 30px 0 20px'}}>
                 <ResumeContent content={userResume?.content}/>
                 <div style={{ background: '#cfcfcf' }}>
                     <ButtonContainer>
@@ -187,6 +190,7 @@ const ReviewCenter = () => {
                 ))}
             </SpeedDial>
         </Container>
+        </BackgroundComponent>
     )
 }
 export default ReviewCenter;

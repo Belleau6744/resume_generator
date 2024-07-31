@@ -14,7 +14,7 @@ type ReviewExperienceSectionProps = {
 const ReviewExperienceSection = ({ experience }: ReviewExperienceSectionProps) => {
     return (
         <div style={{ marginBottom: '20px' }}>
-            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} marginBottom={'20px'} fontWeight={800}>Experience</Typography>
+            <Typography variant="h4" borderBottom={'1px solid black'} color={"#34495E"} paddingLeft={'10px'} marginBottom={'20px'} fontWeight={800}>Experience</Typography>
             
             {/* Working Experience */}
             <div style={{ paddingLeft: '12px' }}>

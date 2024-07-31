@@ -15,7 +15,7 @@ const ReviewGeneralSection = ({ generalInfo }: ReviewGeneralSectionProps) => {
     
     return (
         <div style={{ marginBottom: '20px' }}>
-            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} fontWeight={800}>General Information</Typography>
+            <Typography variant="h4" borderBottom={'1px solid black'} paddingLeft={'10px'} color={'#34495E'} fontWeight={800}>General Information</Typography>
             {generalInfo && 
                 <div style={{ paddingLeft: '20px', paddingTop: '15px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     
@@ -62,7 +62,7 @@ const ReviewGeneralSection = ({ generalInfo }: ReviewGeneralSectionProps) => {
                     {
                         generalInfo["languages"] && 
                         <>
-                            <Typography variant="h5">Languages</Typography>
+                            <Typography fontWeight={700} color={"#34495E"} variant="h5">Languages</Typography>
                             {Object.keys(generalInfo["languages"]).map((item, index) => {
                                 return (
                                     <div style={{ display: 'flex', alignItems: 'baseline', paddingLeft: '12px'}} key={index}>
