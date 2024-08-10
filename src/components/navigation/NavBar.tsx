@@ -13,6 +13,7 @@ import FAQModal from '../studentCenter/listView/FAQModal';
 
 const NavBar = () => {
     const isSignedIn = useSelector(Features.UserFeature.selector.isUserSignedIn);
+    const userRole = useSelector(Features.UserFeature.selector.getUserRole);
     const firstName = useSelector(Features.UserFeature.selector.getUserFirstName);
     const lastName = useSelector(Features.UserFeature.selector.getUserLastName);
     const [isHelpModalOpened, setIsHelpModalOpened] = useState<boolean>(false);
@@ -37,13 +38,13 @@ const NavBar = () => {
     return (
         isSignedIn ? (
             <Container>
-            <FAQModal handleCloseHelpDialog={handleCloseHelpDialog} isHelpModalOpened={isHelpModalOpened} />
+            {userRole === "student" && (<FAQModal handleCloseHelpDialog={handleCloseHelpDialog} isHelpModalOpened={isHelpModalOpened} />)}
             <IconButton onClick={() => nav("/")}>
                 <HomeIcon fontSize="large" />
             </IconButton>
             <div style={{ color: '#34495E' }}>{firstName?.toLocaleUpperCase()}&nbsp;{lastName?.toLocaleUpperCase()}</div>
             <div style={{ display: 'flex', gap: '20px' }}>
-                <Button onClick={handleClickHelpModal} sx={{ display: 'flex', alignItems: 'center', gap: '5px' }} variant="outlined" size="medium" color="charcoal"><HelpIcon fontSize='small'/>FAQ</Button>
+                {userRole === "student" && (<Button onClick={handleClickHelpModal} sx={{ display: 'flex', alignItems: 'center', gap: '5px' }} variant="outlined" size="medium" color="charcoal"><HelpIcon fontSize='small'/>FAQ</Button>)}
                 <Button variant='contained' color="midnightBlue" onClick={handleLogout}>Logout</Button>
             </div>
         </Container>
