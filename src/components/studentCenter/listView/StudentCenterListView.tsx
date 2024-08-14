@@ -75,11 +75,13 @@ const StudentCenterListView = (props: ListViewProps) => {
         onValue(dbRef, (snapshot) => {
             const filteredGroup: ResumeGroup = {};
             const resumeList = snapshot.val();
-            resumeIDs.forEach(id => {
-                if (resumeList[id]) {
-                    filteredGroup[id] = resumeList[id];
-                }
-            });
+            if (resumeIDs) {
+                resumeIDs.forEach(id => {
+                    if (resumeList[id]) {
+                        filteredGroup[id] = resumeList[id];
+                    }
+                });
+            }
             setUserResumes(filteredGroup);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps

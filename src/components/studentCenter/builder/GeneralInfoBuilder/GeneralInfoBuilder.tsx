@@ -43,9 +43,9 @@ const GeneralInfoBuilder = () => {
         setCurrentResume(prev => ({
             ...prev,
             ['content']: {
-                ...prev.content,
+                ...prev?.content,
                 ['generalInfo']: {
-                    ...prev.content.generalInfo,
+                    ...prev?.content?.generalInfo,
                     [inputName]: value
                 }
             }

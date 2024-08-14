@@ -18,15 +18,15 @@ const SingleListSkills = ({ content, setCurrentResume }: SingleListSkillsProps) 
 
     const deleteSelectedSkill = (skillToDelete: string, index: number) => {
         setCurrentResume(prev => {
-            const currentSkills = prev.content.skills.content as SkillsFlat;
+            const currentSkills = prev?.content?.skills?.content as SkillsFlat;
             return ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     ['skills']: {
-                        ...prev.content.skills,
+                        ...prev?.content?.skills,
                         hasSections: false,
-                        ['content']: currentSkills.filter((item, currIndex) => !(item.title.toUpperCase() === skillToDelete.toUpperCase() && index === currIndex))
+                        ['content']: currentSkills.filter((item, currIndex) => !(item?.title.toUpperCase() === skillToDelete.toUpperCase() && index === currIndex))
                     }
                 }
             })

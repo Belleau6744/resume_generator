@@ -45,11 +45,11 @@ const CreateWorkingExperience = ({ isModalOpened, setIsModalOpened, editingID, w
                 return ({
                     ...prev,
                     'content': {
-                        ...prev.content,
+                        ...prev?.content,
                         'experience': {
-                            ...prev.content.experience,
+                            ...prev?.content?.experience,
                             'workingExperience': {
-                                ...prev.content.experience.workingExperience,
+                                ...prev?.content?.experience?.workingExperience,
                                 [editingID ?? uuidv4()]: dayJsToWorkingExperience(selectedWorkingExperience)
                             }
                         }

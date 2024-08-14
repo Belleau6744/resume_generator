@@ -30,9 +30,9 @@ const TabPanelWorkingExperience = (props: TabPanelProps) => {
             return ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     'experience': {
-                        ...prev.content.experience,
+                        ...prev?.content?.experience,
                         'workingExperience': updatedWorkingExperience
                     }
                 }

@@ -26,13 +26,13 @@ const TabPanelProjectExperience = (props: TabPanelProps) => {
     const deleteSelectedExperience = (experienceIndex: string) => {
         setCurrentResume(prev => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const {[experienceIndex]: _, ...updatedProjectExperience} = prev.content.experience.projectExperience;
+            const {[experienceIndex]: _, ...updatedProjectExperience} = prev?.content?.experience?.projectExperience;
             return ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     'experience': {
-                        ...prev.content.experience,
+                        ...prev?.content?.experience,
                         'projectExperience': updatedProjectExperience
                     }
                 }

@@ -13,7 +13,6 @@ type HomeProps = {
 
 const Home = (props: HomeProps) => {
     const { userID } = props;
-    // TODO Implement user role
     const userRole: UserRole = useSelector(Features.UserFeature.selector.getUserRole);
     const dispatch = useDispatch();
 

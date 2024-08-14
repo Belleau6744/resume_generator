@@ -28,14 +28,14 @@ const CreateSkill = ({ isModalOpened, setIsModalOpened, setCurrentResume }: Crea
 
     const handleAddSingleSkill = () => {
         setCurrentResume(prev => {
-            const currentSkills: SkillsFlat = prev.content.skills.content as SkillsFlat ?? [];
+            const currentSkills: SkillsFlat = prev?.content?.skills?.content as SkillsFlat ?? [];
 
             return ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     ['skills']: {
-                        ...prev.content.skills,
+                        ...prev?.content?.skills,
                         hasSections: false,
                         content: currentSkills.concat(newSkill)
                     }

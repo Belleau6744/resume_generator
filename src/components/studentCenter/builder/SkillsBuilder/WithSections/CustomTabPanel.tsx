@@ -23,11 +23,11 @@ const CustomTabPanel = (props: TabPanelProps) => {
     const handleDeleteSection = () => {
         setCurrentResume(prev => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const {[section]: _, ...updatedContent} = prev.content.skills.content as SkillsHierarchical;
+            const {[section]: _, ...updatedContent} = prev?.content?.skills?.content as SkillsHierarchical;
             return ({
                 ...prev,
                 content: {
-                    ...prev.content,
+                    ...prev?.content,
                     skills: {
                         hasSections: true,
                         content: {...updatedContent}
@@ -40,16 +40,16 @@ const CustomTabPanel = (props: TabPanelProps) => {
 
     const deleteSelectedSkill = (skillToDelete: string, currIndex: number) => {
         setCurrentResume(prev => {
-            const hierarchicalContent = prev.content.skills.content as SkillsHierarchical;
+            const hierarchicalContent = prev?.content?.skills?.content as SkillsHierarchical;
             const newSkills = hierarchicalContent[section].filter((item, index) => !(item.title === skillToDelete && index === currIndex))
             return ({
                 ...prev,
                 content: {
-                    ...prev.content,
+                    ...prev?.content,
                     skills: {
                         hasSections: true,
                         content: {
-                            ...prev.content.skills.content as SkillsHierarchical,
+                            ...prev?.content?.skills?.content as SkillsHierarchical,
                             [section]: newSkills 
                         }
                     }

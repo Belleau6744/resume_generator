@@ -15,7 +15,6 @@ const DirtyFormModal = (props: ModalProps) => {
         blocker.proceed?.();
     };
 
-    // TODO HANDLE DATA SAVE
     const handleReturnToPage = () => {
         blocker.reset?.();
     };

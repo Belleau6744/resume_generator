@@ -30,10 +30,7 @@ const Login = () => {
             nav("/");
         })
         .catch((error) => {
-            // TODO Handle error
             console.warn(error.message);
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
         })
     };
     

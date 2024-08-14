@@ -23,7 +23,7 @@ const NavBar = () => {
         signOut(auth).then(() => {
             nav("/login");
         }).catch(() => {
-            // TODO Catch error
+            console.warn("Error logging you out")
         });
     }
 

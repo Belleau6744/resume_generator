@@ -150,7 +150,7 @@ const Signup = () => {
             await createUserWithEmailAndPassword(auth, user.email, user.password)
                 .then((credentials) => {
                     if (user.userRole === 'student') {
-                        initStudentDBSpace(credentials.user.uid).then(() => {
+                        initStudentDBSpace(credentials.user.uid, user.firstName, user.lastName).then(() => {
                             toast.success(capitalizeEveryWord(STRINGS_ENG.student_account_created), {
                                 position: "bottom-right",
                                 autoClose: 5000,
@@ -174,7 +174,7 @@ const Signup = () => {
                             nav("/");
                         });
                     } else {
-                        initReviewerDBSpace(credentials.user.uid).then(() => {
+                        initReviewerDBSpace(credentials.user.uid, user.firstName, user.lastName).then(() => {
                             toast.success(capitalizeEveryWord(STRINGS_ENG.reviewer_account_created), {
                                 position: "bottom-right",
                                 autoClose: 5000,

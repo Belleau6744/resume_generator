@@ -29,7 +29,7 @@ const CommentField = () => {
 
     return (
         <Container $isCommentSectionOpen={isCommentSectionOpen}>
-            <Typography padding={'5px 10px'} variant="h4">Comments</Typography>
+            <Typography padding={'5px 10px'} variant="h4" color={"white"}>Comments</Typography>
             {commentValue && Object.entries(commentValue).map((value) => {
                 const id = value[0];
                 const date = value[1].date;

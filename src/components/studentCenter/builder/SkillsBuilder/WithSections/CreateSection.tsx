@@ -32,16 +32,16 @@ const CreateSection = ({ setIsExistingSectionOpen, isModalOpened, setIsModalOpen
     const handleAddNewSection = () => {
         let newIndex = 0;
         setCurrentResume(prev => {
-            if (Object.keys(prev.content.skills.content).every(item => item.toLocaleUpperCase() !== newSection.toLocaleUpperCase())) {
-                newIndex = Object.keys(prev.content.skills.content).length;
+            if ((prev?.content?.skills?.content && Object.keys(prev.content.skills.content).every(item => item.toLocaleUpperCase() !== newSection.toLocaleUpperCase())) || prev?.content?.skills?.content === undefined) {
+                newIndex = prev?.content?.skills?.content ? Object.keys(prev?.content?.skills?.content)?.length : 0;
                 return ({
                     ...prev,
                     content: {
-                        ...prev.content,
+                        ...prev?.content,
                         skills: {
                             hasSections: true,
                             content: {
-                                ...(prev.content.skills.content as SkillsHierarchical),
+                                ...(prev?.content?.skills?.content as SkillsHierarchical),
                                 [newSection.toUpperCase()]: []
                             }
                         }

@@ -1,7 +1,8 @@
 import { ResumeDefinition } from "@types";
 import dayjs from "dayjs";
-import { getDatabase, ref, update } from "firebase/database";
+import { get, getDatabase, ref, update } from "firebase/database";
 import { getDateString } from "utils/dateUtils";
+import { getUserID } from "utils/userUtils";
 import { MockDBContent } from "../utils/MockData";
 
 /**
@@ -9,12 +10,14 @@ import { MockDBContent } from "../utils/MockData";
  * @param str 
  * @returns 
  */
-export const initStudentDBSpace = (user_id: string) => {
+export const initStudentDBSpace = (user_id: string, firstName: string, lastName: string) => {
     const db = getDatabase();
     const usersRef = ref(db, 'content/users');
     const updates = {};
     updates[`${user_id}`] = {
-        userRole: 'student'
+        userRole: 'student',
+        firstName: firstName,
+        lastName: lastName
     };
     return update(usersRef, updates);
 };
@@ -24,20 +27,39 @@ export const initStudentDBSpace = (user_id: string) => {
  * @param str 
  * @returns 
  */
-export const initReviewerDBSpace = (user_id: string) => {
+export const initReviewerDBSpace = (user_id: string, firstName: string, lastName: string) => {
     const db = getDatabase();
     const usersRef = ref(db, 'users');
     const updates = {};
     updates[`${user_id}`] = {
-        userRole: 'reviewer'
+        userRole: 'reviewer',
+        firstName: firstName,
+        lastName: lastName
     }
     return update(usersRef, updates);
 };
 
-export const saveResume = (resume: ResumeDefinition, resumeID: string, ) => {
+export const saveResume = async (resume: ResumeDefinition, resumeID: string, ) => {
     const db = getDatabase();
     const updates = {};
+    const userID = getUserID(resumeID);
     updates[`content/resumes/${resumeID}`] = resume;
+    const userResumeIDsRef = ref(db, `content/users/${userID}`);
+
+    try {
+        const snapshot = await get(userResumeIDsRef);
+        let resumeIDs: string[] = snapshot.val();
+        if (!Array.isArray(resumeIDs)) {
+            resumeIDs = [];
+        }
+        if (!resumeIDs.includes(resumeID)) {
+            resumeIDs.push(resumeID);
+            updates[`content/users/${userID}/resumeIDs`] = resumeIDs;
+        } 
+    } catch (e) {
+        console.log("Error adding resume ID");
+    }
+
     return update(ref(db), updates);
 }
 

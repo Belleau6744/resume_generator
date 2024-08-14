@@ -39,7 +39,7 @@ const WithSections = ({ content, setCurrentResume, setIsExistingSectionOpen }: W
                 }
             </Tabs>
         </Box>
-        {Object.keys(content).map((section, index) => {
+        {content && Object.keys(content).map((section, index) => {
             return (
                 <CustomTabPanel updateTabValue={updateTabValue} section={section} key={index} skills={content[section]} setCurrentResume={setCurrentResume} index={index} value={tabValue} />
             )

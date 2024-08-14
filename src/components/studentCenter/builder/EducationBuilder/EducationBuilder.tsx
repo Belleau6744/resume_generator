@@ -48,11 +48,11 @@ const EducationBuilder = () => {
     const deleteSelectedEducation = (educationToRemove: string) => {
         setCurrentResume(prev => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const {[educationToRemove]: _, ...updatedEducation} = prev.content.education;
+            const {[educationToRemove]: _, ...updatedEducation} = prev?.content?.education;
             return ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     ['education']: {...updatedEducation}
                 }
             })

@@ -54,10 +54,10 @@ const SkillsBuilder = () => {
                     setCurrentResume(prev => ({
                         ...prev,
                         ['content']: {
-                            ...prev.content,
+                            ...prev?.content,
                             ['skills']: {
-                                hasSections: true, // TODO
-                                content: content.hasSections === false ? SkillsUtils.transformToHierarchical(content.content) : {}
+                                hasSections: true,
+                                content: content?.hasSections === false ? SkillsUtils.transformToHierarchical(content.content) : {}
                             }
                         }
                     }));
@@ -65,10 +65,10 @@ const SkillsBuilder = () => {
                     setCurrentResume(prev => ({
                         ...prev,
                         ['content']: {
-                            ...prev.content,
+                            ...prev?.content,
                             ['skills']: {
                                 hasSections: false,
-                                content: content.hasSections === true ? SkillsUtils.transformToFlat(content.content) : []
+                                content: content?.hasSections === true ? SkillsUtils.transformToFlat(content.content) : []
                             }
                         }
                     }));

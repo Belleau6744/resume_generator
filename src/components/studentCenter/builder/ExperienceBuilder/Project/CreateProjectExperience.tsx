@@ -40,11 +40,11 @@ const CreateProjectExperience = ({ isModalOpened, setIsModalOpened, editingID, p
                 return ({
                     ...prev,
                     'content': {
-                        ...prev.content,
+                        ...prev?.content,
                         'experience': {
-                            ...prev.content.experience,
+                            ...prev?.content?.experience,
                             'projectExperience': {
-                                ...prev.content.experience.projectExperience,
+                                ...prev?.content?.experience?.projectExperience,
                                 [editingID ?? uuidv4()]: selectedProjectExperience
                             }
                         }

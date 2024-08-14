@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import DeleteIcon from "../../../../../assets/Icons/DeleteIcon";
 import EditIcon from "../../../../../assets/Icons/EditIcon";
 import { STRINGS_ENG } from "../../../../../assets/stringConstants";
+import { useResumeContext } from '../../useResumeContext';
 import CreateProjectExperience from "./CreateVolunteeringExperience";
 
 interface TabPanelProps {
@@ -17,13 +18,27 @@ interface TabPanelProps {
 const TabVolunteeringExperience = (props: TabPanelProps) => {
     const { value, index, volunteeringExperience, ...other } = props;
     const [ isModalOpened, setIsModalOpened] = useState<boolean>(false);
+    const { setCurrentResume } = useResumeContext();
     const [ editingID, setEditinID] = useState<string | undefined>(undefined);
     const [ cellWidth, setCellWidth ] = useState<number>(0);
     const rowRef = useRef<HTMLDivElement>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const deleteSelectedExperience = (experienceIndex: string) => {
-        // TODO IMPLEMENT
+        setCurrentResume(prev => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const {[experienceIndex]: _, ...updatedVolunteeringExperience} = prev?.content?.experience?.volunteerExperience;
+            return ({
+                ...prev,
+                ['content']: {
+                    ...prev?.content,
+                    'experience': {
+                        ...prev?.content?.experience,
+                        'volunteerExperience': updatedVolunteeringExperience
+                    }
+                }
+            })
+        })
     }
 
     const addNewExperience = () => {

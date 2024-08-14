@@ -4,7 +4,7 @@ import { SkillsFlat, SkillsHierarchical } from "@types";
 
 const transformToFlat = (hierarchical: SkillsHierarchical): SkillsFlat => {
     let flat: SkillsFlat = [];
-    Object.keys(hierarchical).forEach(section => {
+    hierarchical && Object.keys(hierarchical).forEach(section => {
         hierarchical[section].forEach(skill => {
             flat = flat.concat(skill);
         })

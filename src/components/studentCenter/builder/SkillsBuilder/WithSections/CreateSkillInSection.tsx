@@ -29,16 +29,16 @@ const CreateSkillInSection = ({ isModalOpened, setIsModalOpened, setCurrentResum
 
     const handleAddSingleSkill = () => {
         setCurrentResume(prev => {
-            const currentSkills: SkillsFlat = prev.content.skills.content[section.toUpperCase()] as SkillsFlat ?? [];
+            const currentSkills: SkillsFlat = prev?.content?.skills?.content?.[section.toUpperCase()] as SkillsFlat ?? [];
 
             return ({
                 ...prev,
                 content: {
-                    ...prev.content,
+                    ...prev?.content,
                     skills: {
                         hasSections: true,
                         content: {
-                            ...prev.content.skills.content as SkillsHierarchical,
+                            ...prev?.content?.skills?.content as SkillsHierarchical,
                             [section.toUpperCase()]: currentSkills.concat(newSkill)
                         }
                     }

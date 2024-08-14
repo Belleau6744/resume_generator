@@ -21,7 +21,6 @@ export type LanguageLevelKeys = keyof typeof LangLevel;
 export type LanguageType = Partial<Record<LanguageKeys, LanguageLevelKeys>>;
 
 /** EDUCATION */
-// TODO Specify Type
 // type DegreeType = 'Associate' | 'Bachelor' | 'Master' | 'Doctorate' | 'College';
 export type Education = {
     'degree': string;

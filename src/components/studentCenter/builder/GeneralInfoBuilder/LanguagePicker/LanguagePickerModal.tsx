@@ -64,11 +64,11 @@ const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume
             setCurrentResume(prev => ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     ['generalInfo']: {
-                        ...prev.content.generalInfo,
+                        ...prev?.content?.generalInfo,
                         ['languages']: {
-                            ...prev.content.generalInfo.languages,
+                            ...prev?.content?.generalInfo?.languages,
                             [selectedLanguage]: selectedLevel
                         }
                     }
@@ -80,10 +80,10 @@ const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume
     }
 
     const availableLanguages = useMemo(() => {
-        if (LangList && currentLanguages) {
+        if (currentLanguages) {
             return Object.keys(LangList).filter((lang) => !Object.keys(currentLanguages).includes(lang));
         } else {
-            return []
+            return Object.keys(LangList) as Array<LanguageKeys>;
         }
       }, [currentLanguages]);
     
@@ -107,7 +107,7 @@ const LanguagePickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResume
                             onChange={handleChangeLanguage}
                         >
                         {availableLanguages.map((item, index) => {
-                            if (Object.keys(currentLanguages).includes(item)) {
+                            if (currentLanguages && Object.keys(currentLanguages).includes(item)) {
                                 return <div key={index}></div>
                             } else {
                                 return (

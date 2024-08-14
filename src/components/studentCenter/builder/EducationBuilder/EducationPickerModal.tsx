@@ -43,9 +43,9 @@ const EducationPickerModal = ({ isModalOpened, setIsModalOpened, setCurrentResum
             setCurrentResume(prev => ({
                 ...prev,
                 ['content']: {
-                    ...prev.content,
+                    ...prev?.content,
                     ['education']: {
-                        ...prev.content.education,
+                        ...prev?.content?.education,
                         [educationID ?? uuidv4()]: dayjsToEducation(selectedEducation)
                     }
                 }

@@ -46,11 +46,11 @@ const CreateVolunteeringExperience = ({ isModalOpened, setIsModalOpened, editing
                 return ({
                     ...prev,
                     'content': {
-                        ...prev.content,
+                        ...prev?.content,
                         'experience': {
-                            ...prev.content.experience,
+                            ...prev?.content?.experience,
                             'volunteerExperience': {
-                                ...prev.content.experience.volunteerExperience,
+                                ...prev?.content?.experience?.volunteerExperience,
                                 [editingID ?? uuidv4()]: dayJsToVolunteeringExperience(selectedVolunteeringExperience)
                             }
                         }
