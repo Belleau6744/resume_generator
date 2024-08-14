@@ -11,7 +11,7 @@ import { MockDBContent } from "../utils/MockData";
  */
 export const initStudentDBSpace = (user_id: string) => {
     const db = getDatabase();
-    const usersRef = ref(db, 'users');
+    const usersRef = ref(db, 'content/users');
     const updates = {};
     updates[`${user_id}`] = {
         userRole: 'student'
